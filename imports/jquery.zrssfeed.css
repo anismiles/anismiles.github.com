@@ -1,0 +1,45 @@
+﻿@charset "UTF-8";
+/*
+ * Example of zRSSFeed Styling
+ *
+ * Version: 1.0.1
+ * (c) Copyright 2010, Zazar Ltd
+ *
+ */
+.rssFeed{
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, sans-serif;
+	font-size: 90%;
+	margin: 1;
+}
+.rssFeed a{
+	color: #444;
+	text-decoration: none;
+}
+.rssFeed a:hover{
+	color: #000;
+	text-decoration: underline;
+}
+.rssHeader { font-size: 1.8em; margin-bottom:10px;}
+.rssRow, .rssRow h4{
+	margin: 0;
+	padding: 0;
+}
+.rssRow p{
+	margin: 0 0 20 0;
+	margin-bottom:0;
+	font-size:1.0em;
+}
+.rssRow { padding: 1.0em; }
+.rssRow h4 { font-size: 1.2em; }
+.rssRow div{
+	color: #666;
+	margin: 0.2em 0 0.4em 0;
+}
+.odd, .even{ border-bottom: 1px solid lightgray; }
+.last {border: none;}
+.rssRow ol li {
+	list-style-type:decimal;
+	list-style-position: outside;
+	position: relative;
+	line-height:normal;
+}
