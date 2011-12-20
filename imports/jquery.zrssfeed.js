@@ -82,7 +82,7 @@
 		if (options.header)
 			html +=	'<div class="rssHeader">' +
 				//'<a href="'+feeds.link+'" title="'+ feeds.description +'">'+ feeds.title +'</a>' +
-				'Read my latest blogs' +
+				'my blogs' +
 				'</div>';
 			
 		// Add body
