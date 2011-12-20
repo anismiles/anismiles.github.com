@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 /*
  * Example of zRSSFeed Styling
  *
@@ -19,7 +19,7 @@
 	color: #000;
 	text-decoration: underline;
 }
-.rssHeader { font-size: 1.8em; margin-bottom:10px;}
+.rssHeader { font-size: 1.8em; margin-bottom:10px; margin-header:10px;}
 .rssRow, .rssRow h4{
 	margin: 0;
 	padding: 0;
