@@ -1,5 +1,5 @@
 
-var app = angular.module('relcyApp', ['ui.router', 'ui.bootstrap']);
+var app = angular.module('relcyApp', ['ui.router', 'ui.bootstrap', 'angucomplete-alt']);
 
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider) {
    

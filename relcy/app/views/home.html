@@ -3,10 +3,21 @@
     <h1 class="title"><img src="images/logo.png" title="Relcy"> Relcy</h1>
       <form class="">
         <div class="form-group relcysrchInput">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Type to Search" ng-model="query" tabindex="1" autofocus>
-            <div class="input-group-addon"><button type="submit" class="btn btn-link fa fa-search" ng-click="search()"></button></div>
+          <div style="width:99%;float:left;" class="input-group">
+            <!-- <input type="text" class="form-control" placeholder="Type to Search" ng-model="query" tabindex="1" autofocus> -->
+            <angucomplete-alt id="members"
+              placeholder="Search members"
+              pause="400"
+              selected-object="testObj"
+              remote-url="http://staging-w.relcy.com/v0/autocomplete?auth_token=87EA5C5DA69F06193E2031D0B5651A651FF176BC&query="
+              remote-url-data-field="autocomplete_items"
+              title-field="title,subTitle"
+              description-field="subTitle2,subTitle3"
+              image-field="icon"
+              input-class="form-control"/>
+            
           </div>
+          <div style="float:left;" class="input-group-addon"><button type="submit" class="btn btn-link fa fa-search" ng-click="search()"></button></div>
         </div>
       </form>
     </div>
