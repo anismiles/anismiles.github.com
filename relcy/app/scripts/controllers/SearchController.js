@@ -15,6 +15,7 @@ angular.module('relcyApp')
 		 $scope.resultByType = $scope.types[index]//.searchResultRelcy.results;
 	}
 	
+	/*Will be invoked everytime search field will be changed on homepage*/
 	$scope.onInputChange = function(q){
 		$scope.query = q;
 	}
