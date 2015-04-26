@@ -7,12 +7,13 @@ app.controller("SearchController", function($scope, $http, $rootScope,  $locatio
 	$scope.query;
 	$scope.getData = function()
 	{
-		SearchService.getSearchDetails().then(function (data){
+
+		SearchService.getSearchDetails($scope.query).then(function (data){
 			
 			$scope.result = data['search_response']
 			$scope.types = $scope.result.verticalResult;
-			 $scope.showResult($scope.types[0].content_type_enum,0);
-			})
+			$scope.showResult($scope.types[0].content_type_enum,0);
+		})
 			
 	}
 	 
@@ -27,10 +28,15 @@ app.controller("SearchController", function($scope, $http, $rootScope,  $locatio
 		$scope.showingResult = false;
 		$scope.query=""
 	}
-	 $scope.search = function()
+
+	$scope.onInputChange = function(q){
+		$scope.query = q;
+	}
+
+	 $scope.search = function(query)
 	 {
-		 console.log($scope.query)
-		SearchService.search($scope.query).then(function(data) 
+		 console.log(query)
+		SearchService.getSearchDetails(query).then(function(data) 
 		{
 			//SearchService.searchResult = 
 			$scope.showingResult = true;
@@ -43,7 +49,11 @@ app.controller("SearchController", function($scope, $http, $rootScope,  $locatio
 			$scope.gridMessage = 'Error while loading data';
 		});
 	 }
-	//$scope.getData()
+		
+	/*Will clear the search field of auto complete with given id*/
+	$scope.clearSearchInput = function(id) {
+		$scope.$broadcast('angucomplete-alt:clearInput', id);
+	}
   
 });
 

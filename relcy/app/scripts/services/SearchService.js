@@ -2,18 +2,19 @@
 // JavaScript Document
 app.service("SearchService",function($timeout,$q,$http){
 	this.searchResult = []
-/*	this.getSearchDetails = function()
+	this.getSearchDetails = function(query)
 	{
-			var deferred = $q.defer();
-		 $http.get('arc-response.json')
-		   .success(function(data) { 
+		var lat = "37.762759";
+		var lng = "-122.408934";
+		var deferred = $q.defer();
+		$http.get('http://staging-w.relcy.com/search?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
+		.success(function(data) { 
 			  deferred.resolve(data);
-		   }).error(function(msg, code) {
+		}).error(function(msg, code) {
 			  deferred.reject(msg);
-			 // $log.error(msg, code);
 		   });
 		 return deferred.promise;
-	}*/
+	}
 	this.search = function(query){
 		var session_id = "b9a30926-e912-11e4-b02c-1681e6b88ec1";
 		var lat = "37.762759"

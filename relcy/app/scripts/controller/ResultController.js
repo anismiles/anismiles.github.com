@@ -8,7 +8,7 @@ app.controller("ResultController", function($scope, $http, $rootScope,  $locatio
 			})
 	}
 	 
-	$scope.getData()
+	$scope.getData();
 		
 });
 
