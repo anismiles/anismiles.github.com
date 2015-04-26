@@ -1,19 +1,19 @@
 <ul class="resultList">
 	<li ng-repeat="result in resultByType.webSearchResult.searchResults">
-<div class="media">
-                <div class="media-left">
-                  <!--<a href="#"><img src="{{result.image_info[0].thumbnail.mediaURL}}" title="" height="150px" width="150px"></a>-->
-                </div>
-                <div class="media-body">
-                  <h4 class="media-heading" id="top-aligned-media">{{result.title}}
-                      <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
-                  </h4>
-                 <p>
-                 	<span><a href="{{result.clickUrl}}" target="_blank">{{result.displayUrl}}</a></span> 
-                 </p>
-                 <p>{{result.summary}}</p>
-                 <p><span>{{result.pingUrlSuffix}}</span></p>
-                </div>
-           </div>
-           </li>
-           </ul>
+    <div class="media">
+      <div class="media-left">
+        <!--<a href="#"><img src="{{result.image_info[0].thumbnail.mediaURL}}" title="" height="150px" width="150px"></a>-->
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading" id="top-aligned-media">{{result.title}}
+            <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
+        </h4>
+       <p>
+       	<span><a href="{{result.clickUrl}}" target="_blank">{{result.displayUrl}}</a></span> 
+       </p>
+       <p>{{result.summary}}</p>
+       <p><span>{{result.pingUrlSuffix}}</span></p>
+      </div>
+    </div>
+  </li>
+</ul>

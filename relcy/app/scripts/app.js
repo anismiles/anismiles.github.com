@@ -1,7 +1,11 @@
 
-var app = angular.module('relcyApp', ['ui.router', 'ui.bootstrap', 'angucomplete-alt']);
+angular.module('relcyApp',
+ ['ui.router',
+  'ui.bootstrap',
+  'angucomplete-alt']);
 
-app.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider) {
+angular.module('relcyApp')
+.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider) {
    
 
     $urlRouterProvider.otherwise('home');
@@ -12,12 +16,5 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationP
           	templateUrl: "views/home.html",
 		  	controller: "SearchController",
         })
-		
-/*		.state("result", {
-          	url: "/result",
-          	templateUrl: "views/result.html",
-		  	controller: "SearchController"
-        })
-			*/	
 	
 });

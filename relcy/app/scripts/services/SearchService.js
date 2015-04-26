@@ -1,6 +1,7 @@
+'use strict';
 
-// JavaScript Document
-app.service("SearchService",function($timeout,$q,$http){
+angular.module('relcyApp')
+.service("SearchService",function($timeout,$q,$http){
 	this.searchResult = []
 	this.getSearchDetails = function(query)
 	{
@@ -27,7 +28,7 @@ app.service("SearchService",function($timeout,$q,$http){
 	this.handleError = function( response ) 
 	{     console.log(response);
 		if(response.status == 404  && response.data == 'Result not available.') {
-             return response;
+	         return response;
 		}
 		console.log(response);
 		// The API response from the server should be returned in a
@@ -45,7 +46,7 @@ app.service("SearchService",function($timeout,$q,$http){
 		
 		// Otherwise, use expected error message.
 		return( $q.reject( response) );
-	
+
 	}
 	// I transform the successful response, unwrapping the application data
 	// from the API response payload.
@@ -54,7 +55,7 @@ app.service("SearchService",function($timeout,$q,$http){
 		var result =  response.data;
 		return( result );		
 	} 
-	})
+})
 
 
 
