@@ -8,16 +8,45 @@ angular.module('relcyApp')
 	/*The query in the search field of home page*/
 	$scope.query;
 	 
-	 $scope.showResult = function(type,index)
-	 {
+	$scope.showResult = function(type,index){
 		 $scope.selected = index;
 		 $scope.selectedTypeIndex = type
 		 $scope.resultByType = $scope.types[index]//.searchResultRelcy.results;
+	}
+
+	//TODO: Can we remove hardcoding of categories?
+	/*Will check if the catagory have results or not*/
+	$scope.hasResults = function(type,index){
+		switch(type){
+			case 'ENTERTAINMENT_VIDEO_MOVIE':
+				return ($scope.types[index] && $scope.types[index].searchResultRelcy.results.length);
+			break;
+			case 'WEB_VIDEOS':
+				return ($scope.types[index] && $scope.types[index].videoSearchResult.videoSearchResults.length);
+			break;
+			case 'WEB':
+				return ($scope.types[index] && $scope.types[index].webSearchResult.searchResults.length);
+			break;
+			case 'APP':
+				return ($scope.types[index] && $scope.types[index].searchResultRelcy.results.length);
+			break;
+			case 'RELATED_SEARCHES':
+				return ($scope.types[index] && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
+			break;
+
+		}
+		 
 	}
 	
 	/*Will be invoked everytime search field will be changed on homepage*/
 	$scope.onInputChange = function(q){
 		$scope.query = q;
+	}
+
+	$scope.searchForSelection = function(selection){
+		if(selection.title){
+			$scope.search(selection.title);
+		}
 	}
 
 	 /*Start searching for the input query*/
@@ -31,8 +60,13 @@ angular.module('relcyApp')
 			//SearchService.searchResult = 
 			$scope.showingResult = true;
 			$scope.result = data['search_response']
+			if(!$scope.result.verticalResult) {
+				$scope.showingResult = false;
+				return;
+			}
 			$scope.types = $scope.result.verticalResult;
-			$scope.showResult($scope.types[0].content_type_enum,0);
+			setDefaultCategory();
+			
 		}, function(error)
 		{
 			$scope.showingResult = false;
@@ -46,6 +80,16 @@ angular.module('relcyApp')
 		/*Hides the search results*/
 		$scope.showingResult = false;
 		$scope.$broadcast('angucomplete-alt:clearInput', id);		
+	}
+
+	/*Will set the default selected category once results come*/
+	function setDefaultCategory(){
+		for(var i=0;i<$scope.types.length;i++){
+			if($scope.hasResults($scope.types[i].content_type_enum,i)){
+				$scope.showResult($scope.types[i].content_type_enum,i);	
+				break;	
+			}
+		}
 	}
   
 });

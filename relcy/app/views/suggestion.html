@@ -25,15 +25,15 @@
           <div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>
           <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>
           <div class="dark-gray">
-            <span>R</span>
-            <span>2008</span>
-            <span>Action, Adventure</span><br>
-            <p class="rating">
+            <span ng-if="result.subTitle">{{::result.subTitle}}</span>
+            <span ng-if="result.subTitle2">{{::result.subTitle2}}</span>
+            <span ng-if="result.subTitle3">{{::result.subTitle3}}</span><br>
+            <p ng-if="false" class="rating">
                 <span class="fa fa-star">
                 </span><span class="fa fa-star">
                 </span><span class="fa fa-star">
                 </span><span class="fa fa-star-half-empty"></span> &nbsp;
-                <span>inDb</span>
+                <span></span>
              </p>
           </div>
           
@@ -44,7 +44,7 @@
     </div>
     
     <div class="angucomplete-row" ng-click="selectResult({title: searchStr, originalObject: { name: searchStr, custom: true }})" ng-mouseenter="hoverRow(results.length)" ng-class="{'angucomplete-selected-row': results.length == currentIndex}">
-      <div class="angucomplete-title">Select custom country '{{ searchStr }}'</div>
+      <!-- <div class="angucomplete-title">Select custom country '{{ searchStr }}'</div> -->
     </div>
     
   </div>

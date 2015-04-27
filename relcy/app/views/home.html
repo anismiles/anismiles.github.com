@@ -9,15 +9,14 @@
               placeholder="Search here..."
               pause="400"
               input-changed = 'onInputChange'
-              selected-object="testObj"
+              selected-object="searchForSelection"
               input-change-handler = "onSearchInputChange"
               remote-url="http://staging-w.relcy.com/v0/autocomplete?auth_token=87EA5C5DA69F06193E2031D0B5651A651FF176BC&query="
               remote-url-data-field="autocomplete_items"
               title-field="title,subTitle"
               description-field="subTitle2,subTitle3"
               image-field="icon"
-              ng-click="search(query)"
-              template-url="views/my-custom-template.html"
+              template-url="views/suggestion.html"
               input-class="form-control"/>
           </div>
           <div class="input-group-addon"><button type="submit" class="btn btn-link btn-circle" ng-click="search(query)">

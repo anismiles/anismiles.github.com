@@ -2,7 +2,7 @@
     <div class="col-lg-3">
         <h1 class="titleSmall"><img src="images/logo.png" title="Relcy" style="height:auto; width:15%;"> Relcy</h1>
         <ul class="nav pull-right">
-            <li ng-repeat="cat in types" ng-click="showResult(cat.content_type_enum,$index)" ng-class="{selected: $index == selected}"><a href="javascript:void(0)">{{cat.content_type_enum}}</a></li>
+            <li ng-repeat="cat in types" ng-click="showResult(cat.content_type_enum,$index)" ng-class="{selected: $index == selected}"><a ng-if="hasResults(cat.content_type_enum,$index)" href="javascript:void(0)">{{cat.content_type_enum}}</a></li>
         </ul>
     </div>
     <div class="col-lg-8 col-xs-offset-1">
@@ -13,12 +13,13 @@
               <angucomplete-alt id="result-auto"
               placeholder="Search here..."
               pause="400"
-              selected-object="testObj"
+              selected-object="searchForSelection"
               remote-url="http://staging-w.relcy.com/v0/autocomplete?auth_token=87EA5C5DA69F06193E2031D0B5651A651FF176BC&query="
               remote-url-data-field="autocomplete_items"
               title-field="title,subTitle"
               description-field="subTitle2,subTitle3"
               image-field="icon"
+              template-url="views/suggestion.html"
               input-class="form-control"/>
             </div>
             <div class="input-group-addon"><button type="submit" class="btn btn-link glyphicon glyphicon-remove" ng-click="clearSearchInput('result-auto')"></button></div>
