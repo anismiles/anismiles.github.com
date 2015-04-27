@@ -38,13 +38,31 @@ angular.module('relcyApp')
 		 
 	}
 	
+	/*Will be called to get an array out of score field*/
+	function getScoreArray(score) {
+	    return new Array(Math.floor(score));  
+	}
+
+	function showHalfRating(score){
+		return (score%1)>0;
+	}
+
+	$scope.addScores = function(results){
+		if(!results) return;
+		angular.forEach(results.autocomplete_items, function(a){
+			a.scoreArray = getScoreArray(a.score);
+			a.showHalfRating = showHalfRating(a.score);
+		});
+		return results;
+	}
+
 	/*Will be invoked everytime search field will be changed on homepage*/
 	$scope.onInputChange = function(q){
 		$scope.query = q;
 	}
 
 	$scope.searchForSelection = function(selection){
-		if(selection.title){
+		if(selection && selection.title){
 			$scope.search(selection.title);
 		}
 	}
