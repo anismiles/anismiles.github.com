@@ -19,19 +19,19 @@ angular.module('relcyApp')
 	$scope.hasResults = function(type,index){
 		switch(type){
 			case 'ENTERTAINMENT_VIDEO_MOVIE':
-				return ($scope.types[index] && $scope.types[index].searchResultRelcy.results.length);
+				return ($scope.types[index] && $scope.types[index].searchResultRelcy && $scope.types[index].searchResultRelcy.results && $scope.types[index].searchResultRelcy.results.length);
 			break;
 			case 'WEB_VIDEOS':
-				return ($scope.types[index] && $scope.types[index].videoSearchResult.videoSearchResults.length);
+				return ($scope.types[index] && $scope.types[index].videoSearchResult && $scope.types[index].videoSearchResult.videoSearchResults && $scope.types[index].videoSearchResult.videoSearchResults.length);
 			break;
 			case 'WEB':
-				return ($scope.types[index] && $scope.types[index].webSearchResult.searchResults.length);
+				return ($scope.types[index] && $scope.types[index].webSearchResult && $scope.types[index].webSearchResult.searchResults && $scope.types[index].webSearchResult.searchResults.length);
 			break;
 			case 'APP':
-				return ($scope.types[index] && $scope.types[index].searchResultRelcy.results.length);
+				return ($scope.types[index] && $scope.types[index].searchResultRelcy && $scope.types[index].searchResultRelcy.results && $scope.types[index].searchResultRelcy.results.length);
 			break;
 			case 'RELATED_SEARCHES':
-				return ($scope.types[index] && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
+				return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
 			break;
 
 		}
