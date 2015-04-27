@@ -14,6 +14,7 @@ ul.resultList {margin-top:5%; padding:0px;}
 ul.resultList li {list-style:none; border:solid 1px #f2f2f2; padding:10px; margin-bottom:0px; width:75%;}
 .resultList p span {display:inline-block; margin-right:10px; color:#8899a6;}
 .text-gray {color:#CCC;}
+.dark-gray {color:#666;}
 .relcysrchInput .form-control {height:auto;}
 .btn-link:hover{text-decoration:none;}
 .relcysrchInput .fa-times-circle {font-size:22px; margin-top:15px;}
@@ -25,15 +26,20 @@ footer a {margin:0px 5px; color:#ccd6dd}
 #result-auto_dropdown{width:100%; margin-top:35px;}
 .angucomplete-row{height:60px;}
 .relcysrchInput .input-group {display:table-cell}
-.relcysrchInput .input-group .angucomplete-holder .form-control {border:none; border-bottom:solid 1px #e2e2e2; box-shadow:none; font-size:32px; background-color:transparent; border-radius:0px;}
+.relcysrchInput .input-group .angucomplete-holder .form-control {border:none; border-bottom:solid 1px #e2e2e2; box-shadow:none; font-size:32px; background-color:transparent; border-radius:0px; font-family:"lato";}
 .relcysrchInput .input-group-addon .btn {padding:5px 12px; }
 .btn-circle {border-radius:50%; background-color:#999; height:26px; width:26px; line-height:22px; text-align:center; margin-top:5px; }
 .btn-circle:hover {background-color:#666;}
 .btn-circle .glyphicon-search {display:inline-block;vertical-align: top; color:#FFF;}
 .btn-circle.btn-link:hover, .btn-circle.btn-link:focus {background-color:#999;}
 .relcysrchInput .input-group-addon {border-radius:0px;}
-.angucomplete-dropdown .angucomplete-row {border-bottom:solid 1px #e2e2e2;}
-.angucomplete-dropdown {box-shadow: 3px 3px 4px #f2f2f2;}
+.angucomplete-dropdown .angucomplete-row {border-bottom:solid 1px #e2e2e2; height:auto;}
+.angucomplete-dropdown {box-shadow: 3px 3px 4px #f2f2f2; margin-top: 58px; width: 50%; padding:0px;}
+.angucomplete-dropdown .angucomplete-searching {padding:5px 10px;}
+.angucomplete-image-holder img { vertical-align:top; margin:0px;}
+.angucomplete-title {vertical-align:middle; font-size:16px; font-weight:600;}
+
+
 /* saf3+, chrome1+ */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
  .btn-circle .glyphicon-search  { left:-6px;  }
