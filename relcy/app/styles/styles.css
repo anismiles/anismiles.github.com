@@ -1,13 +1,14 @@
 @charset "utf-8";
 /* CSS Document */
 
-body {font-family:"lato", Helvetica, Neue Helvetica, Arial, sans-serif }
+body {font-family:"lato", Helvetica, Neue Helvetica, Arial, sans-serif; }
+.wrapper {min-height:605px; height: 100%;}
 .pageMiddle {margin-top:15%;}
-.title {font-size:42px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:latolight}
-.titleSmall {font-size:18px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:latolight}
+.title {font-size:42px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:lato; font-weight:400;}
+.titleSmall {font-size:18px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:lato; font-weight:300;}
 .relcysrchInput {}
-.relcysrchInput input[type="text"] {border:none; box-shadow:none; border-bottom:solid 1px #f2f2f2; font-size:42px; color:#000; font-family:latolight}
-.relcysrchInput .input-group-addon {background-color:transparent; border:none; border-bottom:solid 1px #f2f2f2; padding:0px;}
+.relcysrchInput input[type="text"] {border:none; box-shadow:none; border-bottom:solid 1px #e2e2e2; font-size:42px; color:#000; font-family:latolight}
+.relcysrchInput .input-group-addon {background-color:transparent; border:none; border-bottom:solid 1px #e2e2e2; padding:0px;}
 .pageResult {margin-top:-8%;}
 ul.resultList {margin-top:5%; padding:0px;}
 ul.resultList li {list-style:none; border:solid 1px #f2f2f2; padding:10px; margin-bottom:0px; width:75%;}
@@ -18,16 +19,22 @@ ul.resultList li {list-style:none; border:solid 1px #f2f2f2; padding:10px; margi
 .relcysrchInput .fa-times-circle {font-size:22px; margin-top:15px;}
 .rating span {margin-right:1px!important;}
 .selected {border-left:solid 4px #999; }
-footer {background-color:#8899a6; padding:20px 0px; width:100%; position:fixed; bottom:0px; color:#ccd6dd; font-size:16px;}
+footer {background-color:#8899a6; padding:20px 0px; width:100%; /*position:fixed; bottom:0px; */color:#ccd6dd; font-size:16px;}
 footer a {margin:0px 5px; color:#ccd6dd}
-#members_dropdown{
-	width: 100%;
-	margin-top:35px;
-}
-#result-auto_dropdown{
-	width: 100%;
-	margin-top:35px;
-}
-.angucomplete-row{
-	height: 60px;
+#members_dropdown{width:50%; margin-top:60px;}
+#result-auto_dropdown{width:100%; margin-top:35px;}
+.angucomplete-row{height:60px;}
+.relcysrchInput .input-group {display:table-cell}
+.relcysrchInput .input-group .angucomplete-holder .form-control {border:none; border-bottom:solid 1px #e2e2e2; box-shadow:none; font-size:32px; background-color:transparent; border-radius:0px;}
+.relcysrchInput .input-group-addon .btn {padding:5px 12px; }
+.btn-circle {border-radius:50%; background-color:#999; height:26px; width:26px; line-height:22px; text-align:center; margin-top:5px; }
+.btn-circle:hover {background-color:#666;}
+.btn-circle .glyphicon-search {display:inline-block;vertical-align: top; color:#FFF;}
+.btn-circle.btn-link:hover, .btn-circle.btn-link:focus {background-color:#999;}
+.relcysrchInput .input-group-addon {border-radius:0px;}
+.angucomplete-dropdown .angucomplete-row {border-bottom:solid 1px #e2e2e2;}
+.angucomplete-dropdown {box-shadow: 3px 3px 4px #f2f2f2;}
+/* saf3+, chrome1+ */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+ .btn-circle .glyphicon-search  { left:-6px;  }
 }

@@ -3,7 +3,7 @@
     <h1 class="title"><img src="images/logo.png" title="Relcy"> Relcy</h1>
       <form class="">
         <div class="form-group relcysrchInput">
-          <div style="width:99%;float:left;" class="input-group">
+          <div class="input-group">
             <!-- <input type="text" class="form-control" placeholder="Type to Search" ng-model="query" tabindex="1" autofocus> -->
             <angucomplete-alt id="members"
               placeholder="Search here..."
@@ -16,10 +16,12 @@
               title-field="title,subTitle"
               description-field="subTitle2,subTitle3"
               image-field="icon"
+              ng-click="search(query)"
               input-class="form-control"/>
-            
           </div>
-          <div style="float:left;" class="input-group-addon"><button type="submit" class="btn btn-link glyphicon glyphicon-search" ng-click="search(query)"></button></div>
+          <div class="input-group-addon"><button type="submit" class="btn btn-link btn-circle" ng-click="search(query)">
+          	<i class="glyphicon glyphicon-search"></i></button>
+          </div>
         </div>
       </form>
     </div>
