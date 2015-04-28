@@ -3,6 +3,7 @@ angular.module('relcyApp')
 .controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService,$filter) {
 	$scope.selectedTypeIndex = 0;
 	var searchResults ;
+	$scope.selectedCategory;
 	
 	$scope.selected = 0;
 	$scope.showingResult = false;
@@ -10,7 +11,6 @@ angular.module('relcyApp')
 	$scope.query;
 	 
 	$scope.showResult = function(type,index){
-		 $scope.selected = index;
 		 $scope.selectedTypeIndex = type
 		 $scope.resultByType = $scope.types[index]//.searchResultRelcy.results;
 	}

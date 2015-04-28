@@ -2,7 +2,7 @@
     <div class="col-lg-3">
         <h1 class="titleSmall"><img src="images/logo.png" title="Relcy" style="height:auto; width:15%;"> Relcy</h1>
         <ul class="nav pull-right">
-            <li ng-repeat="cat in searchResults" ng-class="{selected: $index == selected}"><a ng-if="cat.values.length>0" href="javascript:void(0)">{{cat.key}}</a></li>
+            <li ng-repeat="cat in searchResults" ng-click="selectedCategory=cat.key" ng-class="{selected: cat.key == selectedCategory}"><a href="#{{::cat.key}}" >{{cat.key}}</a></li>
         </ul>
     </div>
     <div class="col-lg-8 col-xs-offset-1">

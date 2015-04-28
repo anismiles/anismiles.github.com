@@ -8,7 +8,7 @@ angular.module('relcyApp')
 .config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider) {
    
 
-    $urlRouterProvider.otherwise('home');
+    /*$urlRouterProvider.otherwise('home');*/
     
     $stateProvider
 	 	.state("home", {
