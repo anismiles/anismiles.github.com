@@ -119,6 +119,12 @@ angular.module('relcyApp')
       	// $anchorScroll();
       	anchorSmoothScroll.scrollTo(id);
 	}
+
+	/*Will take you to the next page to view the details*/
+	$scope.showDetails = function (item) {
+		SearchService.selectedItem = item;
+		$location.path('/details');
+	}
   
 });
 
@@ -134,9 +140,19 @@ function transformSearchResults(data){
 					values = data[index].searchResultRelcy.results;
 				}
 			break;
+			case 'ENTERTAINMENT_VIDEO_TVSHOW':
+				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
+					values = data[index].searchResultRelcy.results;
+				}
+			break;
 			case 'WEB_VIDEOS':
 				if(data[index] && data[index].videoSearchResult && data[index].videoSearchResult.videoSearchResults && data[index].videoSearchResult.videoSearchResults.length){
 					values = data[index].videoSearchResult.videoSearchResults;
+				}
+			break;
+			case 'WEB_IMAGES':
+				if(data[index] && data[index].imageSearchResult && data[index].imageSearchResult.imageSearchResults && data[index].imageSearchResult.imageSearchResults.length){
+					values = data[index].imageSearchResult.imageSearchResults;
 				}
 			break;
 			case 'WEB':
