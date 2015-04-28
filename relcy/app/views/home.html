@@ -1,7 +1,7 @@
 <div class="pageMiddle">
   <div  ng-hide="showingResult">
-    <h1 class="title"><img src="images/logo.png" title="Relcy"> Relcy</h1>
-      <form class="">
+    <h1 id="bighead" class="title"><img src="images/logo.png" title="Relcy"> Relcy</h1>
+      <form class="" id="bigform">
         <div class="form-group relcysrchInput">
           <div class="input-group">
             <!-- <input type="text" class="form-control" placeholder="Type to Search" ng-model="query" tabindex="1" autofocus> -->
@@ -18,7 +18,8 @@
               image-field="icon"
               template-url="views/suggestion.html"
               remote-url-response-formatter="addScores"
-              input-class="form-control"/>
+              input-class="form-control tran_top"
+              />
           </div>
           <div class="input-group-addon"><button type="submit" class="btn btn-link btn-circle" ng-click="search(query)">
           	<i class="glyphicon glyphicon-search"></i></button>

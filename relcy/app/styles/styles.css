@@ -10,7 +10,7 @@ body {font-family:"lato", Helvetica, Neue Helvetica, Arial, sans-serif; }
 .relcysrchInput {}
 .relcysrchInput input[type="text"] {border:none; box-shadow:none; border-bottom:solid 1px #e2e2e2; font-size:42px; color:#000; font-family:latolight}
 .relcysrchInput .input-group-addon {background-color:transparent; border:none; border-bottom:solid 1px #e2e2e2; padding:0px;}
-.pageResult {margin-top:-8%;}
+/*.pageResult {margin-top:-8%;}*/
 ul.resultList {margin-top:5%; padding:0px;}
 ul.resultList li {list-style:none; border:solid 1px #f2f2f2; padding:10px; margin-bottom:0px; width:75%;}
 .resultList p span {display:inline-block; margin-right:10px; color:#8899a6;}
@@ -62,7 +62,23 @@ ul.thumbList li { list-style:none; display:inline-block; width:115px; height:150
 
 ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {border-bottom:1px solid #ddd; border-top:none;}
 
+/*mayank*/
 
+.relcysmall{font-size: 24px;
+margin-bottom: 0%;
+display:inline-block;
+vertical-align:top;}
+
+.relcysmall img{  width: 40px;}
+
+.smallform{ width: 70%;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 5px;
+  margin-left: 25px;}
+
+
+/*mayank*/
 @media (min-width: 1200px) {
   .container {
     width: 1270px;
