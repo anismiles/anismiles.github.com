@@ -28,11 +28,7 @@
         </form>
         
         <div class="animate-switch-container" ng-repeat="cat in searchResults">
-              <div class="animate-switch"><div ng-include="'views/'+cat.key+'.html'"></div></div>
-              <!-- <div class="animate-switch" ng-if="cat.content_type_enum == 'APP'"><div ng-include="'views/app.html'"></div></div>
-              <div class="animate-switch" ng-if="cat.content_type_enum == 'WEB'"><div ng-include="'views/web.html'"></div></div>
-               <div class="animate-switch" ng-if="cat.content_type_enum == 'WEB_VIDEOS'"><div ng-include="'views/web-videos.html'"></div></div>
-               <div class="animate-switch" ng-if="cat.content_type_enum == 'RELATED_SEARCHES'"><div ng-include="'views/related-search.html'"></div></div> -->
+              <div class="animate-switch"><div ng-include="'views/categories/'+cat.key+'.html'"></div></div>
               </div>
           </div>
       
