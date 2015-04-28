@@ -1,8 +1,7 @@
 
 angular.module('relcyApp')
-.controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService,$filter) {
+.controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService, $filter, anchorSmoothScroll) {
 	$scope.selectedTypeIndex = 0;
-	var searchResults ;
 	$scope.selectedCategory;
 	
 	$scope.selected = 0;
@@ -84,8 +83,8 @@ angular.module('relcyApp')
 				$scope.showingResult = false;
 				return;
 			}
-			searchResults = transformSearchResults($scope.result.verticalResult);
-			$scope.searchResults = searchResults;
+			$scope.searchResults = transformSearchResults($scope.result.verticalResult);
+			$scope.selectedCategory = $scope.searchResults[0].key;
 			$scope.types = $scope.result.verticalResult;
 			setDefaultCategory();
 			
@@ -113,6 +112,13 @@ angular.module('relcyApp')
 			}
 		}
 	}
+
+	$scope.scrollTo = function(id) {
+		$scope.selectedCategory = id;
+		$location.hash(id);
+      	// $anchorScroll();
+      	anchorSmoothScroll.scrollTo(id);
+	}
   
 });
 
@@ -136,6 +142,11 @@ function transformSearchResults(data){
 			case 'WEB':
 				if(data[index] && data[index].webSearchResult && data[index].webSearchResult.searchResults && data[index].webSearchResult.searchResults.length){
 					values = data[index].webSearchResult.searchResults;
+				}
+			break;
+			case 'WEB_NEWS':
+				if(data[index] && data[index].newsSearchResult && data[index].newsSearchResult.newsSearchResults && data[index].newsSearchResult.newsSearchResults.length){
+					values = data[index].newsSearchResult.newsSearchResults;
 				}
 			break;
 			case 'APP':

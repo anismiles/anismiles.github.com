@@ -1,5 +1,5 @@
 <ul class="resultList">
-  <a name="RELATED_SEARCHES"></a>
+  <!-- <a name="RELATED_SEARCHES"></a> -->
 	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
 <div class="media">
       <div class="media-left">
@@ -16,4 +16,7 @@
       </div>
  </div>
 </li>
+<div class="panelList">
+  <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length" ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
+</div>
 </ul>
