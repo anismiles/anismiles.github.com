@@ -3,9 +3,10 @@ angular.module('relcyApp')
 .controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService, $filter, anchorSmoothScroll) {
 	$scope.selectedTypeIndex = 0;
 	$scope.selectedCategory;
-	
+	$scope.showDetailPage = false;
 	$scope.selected = 0;
 	$scope.showingResult = false;
+	$scope.hideMainSearch = false;
 	/*The query in the search field of home page*/
 	$scope.query;
 	 
@@ -76,7 +77,8 @@ angular.module('relcyApp')
 	 	if(!query) return;
 		console.log(query)
 		SearchService.getSearchDetails(query).then(function(data) 
-		{
+		{	
+			$scope.showDetailPage = false;
 			$scope.showingResult = true;
 			$scope.result = data['search_response']
 			if(!$scope.result.verticalResult) {
@@ -97,6 +99,8 @@ angular.module('relcyApp')
 		
 	/*Will clear the search field of auto complete with given id.*/
 	$scope.clearSearchInput = function(id) {
+		$scope.hideMainSearch = false;
+		$scope.showDetailPage = false;
 		$scope.$broadcast('angucomplete-alt:clearInput', 'members');
 		/*Hides the search results*/
 		$scope.showingResult = false;
@@ -122,8 +126,22 @@ angular.module('relcyApp')
 
 	/*Will take you to the next page to view the details*/
 	$scope.showDetails = function (item) {
-		SearchService.selectedItem = item;
-		$location.path('/details');
+		$scope.showingResult = false;
+		$scope.hideMainSearch = true;
+		if(item.relcy_id && item.relcy_id.entity_id){
+			$scope.showDetailPage = true;
+			SearchService.getEntityDetails(item.relcy_id.entity_id).then(function(data) {
+				SearchService.selectedItem = item;
+				SearchService.itemDetails = data;
+				/*$location.path('/details');*/
+			}, function(error){
+				console.log('Error while fetching details!!!');
+			});
+		}else{
+			console.log('Relcy id not found!');
+			return;
+		}
+		
 	}
   
 });
@@ -167,7 +185,7 @@ function transformSearchResults(data){
 			break;
 			case 'APP':
 				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
-					values = [index].searchResultRelcy.results;
+					values = data[index].searchResultRelcy.results;
 				}
 			break;
 			case 'RELATED_SEARCHES':
