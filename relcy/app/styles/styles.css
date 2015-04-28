@@ -11,8 +11,8 @@ body {font-family:"lato", Helvetica, Neue Helvetica, Arial, sans-serif; }
 .relcysrchInput input[type="text"] {border:none; box-shadow:none; border-bottom:solid 1px #e2e2e2; font-size:42px; color:#000; font-family:latolight}
 .relcysrchInput .input-group-addon {background-color:transparent; border:none; border-bottom:solid 1px #e2e2e2; padding:0px;}
 /*.pageResult {margin-top:-8%;}*/
-ul.resultList {margin-top:5%; padding:0px;}
-ul.resultList li {list-style:none; border:solid 1px #f2f2f2; padding:10px; margin-bottom:0px; width:75%;}
+ul.resultList {margin-bottom:0; padding:0px;}
+ul.resultList li {list-style:none; border-bottom:solid 1px #f2f2f2; padding:10px; margin-bottom:0px; width:100%;}
 .resultList p span {display:inline-block; margin-right:10px; color:#8899a6;}
 .text-gray {color:#CCC;}
 .dark-gray {color:#666;}
@@ -39,7 +39,7 @@ footer a {margin:0px 5px; color:#ccd6dd}
 .angucomplete-dropdown .angucomplete-searching {padding:5px 10px;}
 .angucomplete-image-holder img { vertical-align:top; margin:0px;}
 .media-body .angucomplete-title {vertical-align:middle; font-size:16px; font-weight:600; display:block;}
-.panelList {background-color:#f2f2f2; text-align:center; padding:15px 20px; width:75%;}
+.panelList {background-color:#f2f2f2; text-align:center; padding:15px 20px; width:100%;}
 .panelList a {margin:0px 2px; color:#999; font-size:8px;}
 .media-body .
 
@@ -80,6 +80,21 @@ color:#8899a6;
   margin-left: 25px;}
   
 .imagethumb{height:100px; width:100px; overflow:hidden; background-position:center center; position:relative; display:inline-block;}
+
+ul.webimage li{  display: inline-block;
+  width: 28%;
+  margin: 10px;}
+  
+ .topictitle{  margin-top: 0;
+  margin-bottom: 0;
+  padding: 10px 10px;
+  background: #fafcfd;
+  color: #9299a6;
+  font-size: 16px;}
+  
+ .mainwrap{  width: 75%;
+  border: solid 1px #eff2f4;
+    margin-bottom: 15px;}
 
 
 /*mayank*/
