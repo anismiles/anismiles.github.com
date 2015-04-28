@@ -2,7 +2,7 @@
     <div class="col-lg-3">
         <h1 class="titleSmall"><img src="images/logo.png" title="Relcy" style="height:auto; width:15%;"> Relcy</h1>
         <ul class="nav pull-right">
-            <li ng-repeat="cat in types" ng-click="showResult(cat.content_type_enum,$index)" ng-class="{selected: $index == selected}"><a ng-if="hasResults(cat.content_type_enum,$index)" href="javascript:void(0)">{{cat.content_type_enum}}</a></li>
+            <li ng-repeat="cat in searchResults" ng-class="{selected: $index == selected}"><a ng-if="cat.values.length>0" href="javascript:void(0)">{{cat.key}}</a></li>
         </ul>
     </div>
     <div class="col-lg-8 col-xs-offset-1">
@@ -27,13 +27,13 @@
           </div>
         </form>
         
-        <div class="animate-switch-container" ng-switch on="selectedTypeIndex">
-              <div class="animate-switch" ng-switch-when="ENTERTAINMENT_VIDEO_MOVIE"><div ng-include="'views/movies.html'"></div></div>
-              <div class="animate-switch" ng-switch-when="APP"><div ng-include="'views/app.html'"></div></div>
-              <div class="animate-switch" ng-switch-when="WEB"><div ng-include="'views/web.html'"></div></div>
-               <div class="animate-switch" ng-switch-when="WEB_VIDEOS"><div ng-include="'views/web-videos.html'"></div></div>
-               <div class="animate-switch" ng-switch-when="RELATED_SEARCHES"><div ng-include="'views/related-search.html'"></div></div>
-              <div class="animate-switch" ng-switch-default><div ng-include="'views/related-search.html'"></div></div>
+        <div class="animate-switch-container" ng-repeat="cat in searchResults">
+              <div class="animate-switch"><div ng-include="'views/'+cat.key+'.html'"></div></div>
+              <!-- <div class="animate-switch" ng-if="cat.content_type_enum == 'APP'"><div ng-include="'views/app.html'"></div></div>
+              <div class="animate-switch" ng-if="cat.content_type_enum == 'WEB'"><div ng-include="'views/web.html'"></div></div>
+               <div class="animate-switch" ng-if="cat.content_type_enum == 'WEB_VIDEOS'"><div ng-include="'views/web-videos.html'"></div></div>
+               <div class="animate-switch" ng-if="cat.content_type_enum == 'RELATED_SEARCHES'"><div ng-include="'views/related-search.html'"></div></div> -->
+              </div>
           </div>
       
       <!--<ul class="resultList">

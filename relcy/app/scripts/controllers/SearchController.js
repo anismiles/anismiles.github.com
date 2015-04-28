@@ -2,6 +2,7 @@
 angular.module('relcyApp')
 .controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService,$filter) {
 	$scope.selectedTypeIndex = 0;
+	var searchResults ;
 	
 	$scope.selected = 0;
 	$scope.showingResult = false;
@@ -33,7 +34,9 @@ angular.module('relcyApp')
 			case 'RELATED_SEARCHES':
 				return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
 			break;
-
+			default:
+				return false;
+			break;
 		}
 		 
 	}
@@ -75,13 +78,14 @@ angular.module('relcyApp')
 		console.log(query)
 		SearchService.getSearchDetails(query).then(function(data) 
 		{
-			//SearchService.searchResult = 
 			$scope.showingResult = true;
 			$scope.result = data['search_response']
 			if(!$scope.result.verticalResult) {
 				$scope.showingResult = false;
 				return;
 			}
+			searchResults = transformSearchResults($scope.result.verticalResult);
+			$scope.searchResults = searchResults;
 			$scope.types = $scope.result.verticalResult;
 			setDefaultCategory();
 			
@@ -112,3 +116,42 @@ angular.module('relcyApp')
   
 });
 
+/*Will transform the search results so as to be used on UI*/
+function transformSearchResults(data){
+	var transformedData = [];
+	for(var index=0;index<data.length;index++){
+		var key = data[index].content_type_enum;
+		var values;
+		switch(key){
+			case 'ENTERTAINMENT_VIDEO_MOVIE':
+				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
+					values = data[index].searchResultRelcy.results;
+				}
+			break;
+			case 'WEB_VIDEOS':
+				if(data[index] && data[index].videoSearchResult && data[index].videoSearchResult.videoSearchResults && data[index].videoSearchResult.videoSearchResults.length){
+					values = data[index].videoSearchResult.videoSearchResults;
+				}
+			break;
+			case 'WEB':
+				if(data[index] && data[index].webSearchResult && data[index].webSearchResult.searchResults && data[index].webSearchResult.searchResults.length){
+					values = data[index].webSearchResult.searchResults;
+				}
+			break;
+			case 'APP':
+				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
+					values = [index].searchResultRelcy.results;
+				}
+			break;
+			case 'RELATED_SEARCHES':
+				if(data[index] && data[index].relatedSearchesResult && data[index].relatedSearchesResult.relatedSearchResults && data[index].relatedSearchesResult.relatedSearchResults.length){
+					values = data[index].relatedSearchesResult.relatedSearchResults;
+				}
+			break;
+		}
+		if(values){
+			transformedData.push({key: key, values: values, maxIndex: 2, incrementBy: 2});
+		}
+	}
+	return transformedData;
+}
