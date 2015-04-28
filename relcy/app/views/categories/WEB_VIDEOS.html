@@ -3,7 +3,11 @@
 	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
       <div class="media-left">
-        <a href="{{result.contentUrl}}" target="_blank"><img src="{{result.thumbnailUrl}}" title="" height="150px" width="150px"></a>
+        <a href="{{result.contentUrl}}" target="_blank">
+        <div style=" background:url({{result.thumbnailUrl}});" class="imagethumb">
+        <!--<img src="{{result.thumbnailUrl}}" title="" height="150px" width="150px">-->
+        </div>
+        </a>
       </div>
       <div class="media-body">
         <h4 class="media-heading" id="top-aligned-media">{{result.title}}

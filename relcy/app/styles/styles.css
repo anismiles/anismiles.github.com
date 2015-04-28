@@ -5,8 +5,8 @@ body {font-family:"lato", Helvetica, Neue Helvetica, Arial, sans-serif; }
 .wrapper {min-height:605px; height: 100%;}
 .wrapper .container {margin-bottom:150px;}
 .pageMiddle {margin-top:15%;}
-.title {font-size:42px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:lato; font-weight:400;}
-.titleSmall {font-size:18px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:lato; font-weight:300;}
+.title {font-size:42px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:lato; font-weight:400; margin-left:10px}
+.titleSmall {font-size:24px; color:#8899a6; margin-bottom:5%; text-transform:uppercase; font-family:lato; font-weight:400; margin-left:-15px;}
 .relcysrchInput {}
 .relcysrchInput input[type="text"] {border:none; box-shadow:none; border-bottom:solid 1px #e2e2e2; font-size:42px; color:#000; font-family:latolight}
 .relcysrchInput .input-group-addon {background-color:transparent; border:none; border-bottom:solid 1px #e2e2e2; padding:0px;}
@@ -67,7 +67,9 @@ ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot 
 .relcysmall{font-size: 24px;
 margin-bottom: 0%;
 display:inline-block;
-vertical-align:top;}
+vertical-align:top;
+color:#8899a6;
+}
 
 .relcysmall img{  width: 40px;}
 
@@ -76,6 +78,8 @@ vertical-align:top;}
   vertical-align: top;
   margin-top: 5px;
   margin-left: 25px;}
+  
+.imagethumb{height:100px; width:100px; overflow:hidden; background-position:center center; position:relative; display:inline-block;}
 
 
 /*mayank*/
