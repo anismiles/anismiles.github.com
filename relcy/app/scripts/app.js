@@ -7,7 +7,7 @@ angular.module('relcyApp',
 angular.module('relcyApp')
 .config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider) {
    
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
     
     $stateProvider
