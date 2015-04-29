@@ -7,6 +7,7 @@ angular.module('relcyApp')
 	$scope.selected = 0;
 	$scope.showingResult = false;
 	$scope.hideMainSearch = false;
+	$scope.relatedSearches;
 	/*The query in the search field of home page*/
 	$scope.query;
 	 
@@ -85,7 +86,7 @@ angular.module('relcyApp')
 				$scope.showingResult = false;
 				return;
 			}
-			$scope.searchResults = transformSearchResults($scope.result.verticalResult);
+			$scope.searchResults = transformSearchResults($scope.result.verticalResult, $scope);
 			$scope.selectedCategory = $scope.searchResults[0].key;
 			$scope.types = $scope.result.verticalResult;
 			setDefaultCategory();
@@ -147,55 +148,64 @@ angular.module('relcyApp')
 });
 
 /*Will transform the search results so as to be used on UI*/
-function transformSearchResults(data){
+function transformSearchResults(data, $scope){
 	var transformedData = [];
 	for(var index=0;index<data.length;index++){
 		var key = data[index].content_type_enum;
 		var values;
+		var keyTitle;
 		switch(key){
 			case 'ENTERTAINMENT_VIDEO_MOVIE':
 				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
 					values = data[index].searchResultRelcy.results;
+					keyTitle = 'Movies';
 				}
 			break;
 			case 'ENTERTAINMENT_VIDEO_TVSHOW':
 				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
 					values = data[index].searchResultRelcy.results;
+					keyTitle = 'TV Shows';
 				}
 			break;
 			case 'WEB_VIDEOS':
 				if(data[index] && data[index].videoSearchResult && data[index].videoSearchResult.videoSearchResults && data[index].videoSearchResult.videoSearchResults.length){
 					values = data[index].videoSearchResult.videoSearchResults;
+					keyTitle = 'Videos';
 				}
 			break;
 			case 'WEB_IMAGES':
 				if(data[index] && data[index].imageSearchResult && data[index].imageSearchResult.imageSearchResults && data[index].imageSearchResult.imageSearchResults.length){
 					values = data[index].imageSearchResult.imageSearchResults;
+					keyTitle = 'Images';
 				}
 			break;
 			case 'WEB':
 				if(data[index] && data[index].webSearchResult && data[index].webSearchResult.searchResults && data[index].webSearchResult.searchResults.length){
 					values = data[index].webSearchResult.searchResults;
+					keyTitle = 'WEB';
 				}
 			break;
 			case 'WEB_NEWS':
 				if(data[index] && data[index].newsSearchResult && data[index].newsSearchResult.newsSearchResults && data[index].newsSearchResult.newsSearchResults.length){
 					values = data[index].newsSearchResult.newsSearchResults;
+					keyTitle = 'News';
 				}
 			break;
 			case 'APP':
 				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
 					values = data[index].searchResultRelcy.results;
+					keyTitle = 'APP';
 				}
 			break;
 			case 'RELATED_SEARCHES':
 				if(data[index] && data[index].relatedSearchesResult && data[index].relatedSearchesResult.relatedSearchResults && data[index].relatedSearchesResult.relatedSearchResults.length){
-					values = data[index].relatedSearchesResult.relatedSearchResults;
+					$scope.relatedSearches = data[index].relatedSearchesResult.relatedSearchResults;
 				}
+				values=undefined;
 			break;
 		}
 		if(values){
-			transformedData.push({key: key, values: values, maxIndex: 2, incrementBy: 2});
+			transformedData.push({key: key, values: values,keyTitle: keyTitle,  maxIndex: 2, incrementBy: 2});
 		}
 	}
 	return transformedData;

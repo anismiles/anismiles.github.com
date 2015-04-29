@@ -1,12 +1,12 @@
-<div class="pageMiddle">
-  <div  ng-hide="showingResult||hideMainSearch">
+<div id="pageMiddle" class="pageMiddle">
+  <div >
     <h1 id="bighead" class="title"><img src="images/logo.png" title="Relcy"> Relcy</h1>
       <form class="" id="bigform">
         <div class="form-group relcysrchInput">
           <div class="input-group">
-            <!-- <input type="text" class="form-control" placeholder="Type to Search" ng-model="query" tabindex="1" autofocus> -->
+
             <angucomplete-alt id="members"
-              placeholder="Search here..."
+              placeholder="type to search"
               pause="400"
               input-changed = 'onInputChange'
               selected-object="searchForSelection"

@@ -43,9 +43,9 @@
 </div>
 </section>
 <footer>
-	<div class="container">
+	<div class="container footer">
     	<div class="row">
-        	<div class="col-lg-5"><i class="fa fa-user"></i> &nbsp; Relcy Entity Browser - Emplyees Only</div>
+        	<div class="col-lg-5"><img src="images/Slice 1.png" alt=""/> &nbsp; Relcy Entity Browser - Emplyees Only</div>
             <div class="col-lg-6"><a href="#">Mail</a> &nbsp; <a href="#">Jira</a> &nbsp; <a href="#">Slack</a></div>
         </div>
     </div>
@@ -86,7 +86,8 @@ $(document).ready(function(){
         $("#bighead").removeClass("title");
 		$("#bighead").addClass("relcysmall");
 		$("#bigform").addClass("smallform");
-		$(".pageMiddle").animate({'margin-top':'5%'}, 500);
+		$("#pageMiddle").animate({'margin-top':'5%'}, 200);
+		$("#pageMiddle").css({'width':'90%'});
 	
     }); },1000);
 });
