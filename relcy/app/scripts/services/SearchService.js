@@ -42,27 +42,47 @@ angular.module('relcyApp')
 
 	this.transformDetails = function(response){
 		var transformedData = {};
-
-		if(response.detail_response){
-			var searchResults = response.detail_response.search_result_collection;
+		response = response.detail_response;
+		if(response){
+			var searchResults = response.search_result_collection;
 			if(searchResults){
 				/*Extracting web search results*/
-				if( searchResults.webSearchResult && searchResults.webSearchResult.searchResults && searchResults.webSearchResult.searchResults.length>0){
+				try{
 					transformedData.webResults = searchResults.webSearchResult.searchResults;
-					transformedData.webResults.maxIndex = 3;	
+					transformedData.webResults.maxIndex = 3;
+				}catch(err){
+					console.log('no web results found');
 				}
 				/*Extracting image search results*/
-				if(searchResults.imageSearchResult && searchResults.imageSearchResult.imageSearchResults && searchResults.imageSearchResult.imageSearchResults.length>0){
+				try{
 					transformedData.imageResults =  searchResults.imageSearchResult.imageSearchResults;
 					transformedData.imageResults.maxIndex = 3;
+				}catch(err){
+					console.log('no image results found');
 				}
 				/*Extracting video search results*/
-				if(searchResults.videoSearchResult && searchResults.videoSearchResult.videoSearchResults && searchResults.videoSearchResult.videoSearchResults.length>0){
+				try{
 					transformedData.videoResults =  searchResults.videoSearchResult.videoSearchResults;
 					transformedData.videoResults.maxIndex = 5;
+				}catch(err){
+					console.log('no video results found');
 				}
-
 			}
+			
+			try{
+				transformedData.duration = response.results[0].entity_data.entertainment_data.movie_data.length;	
+			}catch(err){
+				console.log('duration unknown');
+			}
+
+			try{
+				transformedData.releaseYear = response.results[0].entity_data.entertainment_data.common_data.release_year;	
+			}catch(err){
+				console.log('release year unknown');
+			}
+			 
+
+
 		}
 
 		return transformedData;

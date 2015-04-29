@@ -44,6 +44,7 @@ angular.module('relcyApp')
 	
 	/*Will be called to get an array out of score field*/
 	function getScoreArray(score) {
+		if(!score) return [];
 	    return new Array(Math.floor(score));  
 	}
 
@@ -53,11 +54,11 @@ angular.module('relcyApp')
 
 	$scope.addScores = function(results){
 		if(!results) return;
-		angular.forEach(results.autocomplete_items, function(a){
+		angular.forEach(results.auto_complete_response.auto_complete_item, function(a){
 			a.scoreArray = getScoreArray(a.score);
 			a.showHalfRating = showHalfRating(a.score);
 		});
-		return results;
+		return results.auto_complete_response;
 	}
 
 	/*Will be invoked everytime search field will be changed on homepage*/
@@ -125,13 +126,28 @@ angular.module('relcyApp')
       	anchorSmoothScroll.scrollTo(id);
 	}
 
+	$scope.onAutoCompleteSelect = function(item){
+		if(!item) return;
+		if(item.originalObject.lookIds && item.originalObject.lookIds[0]){
+			$scope.showDetails(item);
+		}else{
+			$scope.searchForSelection(item);
+		}
+	}
+
 	/*Will take you to the next page to view the details*/
 	$scope.showDetails = function (item) {
 		$scope.showingResult = false;
 		$scope.hideMainSearch = true;
+		var relcyId;
 		if(item.relcy_id && item.relcy_id.entity_id){
+			relcyId = item.relcy_id.entity_id;
+		} else if(item.originalObject.lookIds && item.originalObject.lookIds[0]){
+			relcyId = item.originalObject.lookIds[0];
+		}
+		if(relcyId){
 			$scope.showDetailPage = true;
-			SearchService.getEntityDetails(item.relcy_id.entity_id).then(function(data) {
+			SearchService.getEntityDetails(relcyId).then(function(data) {
 				SearchService.selectedItem = item;
 				$scope.itemDetails = SearchService.transformDetails(data);
 				

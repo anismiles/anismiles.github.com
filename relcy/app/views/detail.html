@@ -9,8 +9,8 @@
                 <h2>PK</h2>
                 <p>
                 	<span>Unrated</span>
-                    <span>2014</span>
-                    <span>2h 12m</span>
+                    <span>{{::itemDetails.releaseYear}}</span>
+                    <span>{{::itemDetails.duration}}</span>
                 </p>
                 <p>
                 	<span>Comedy, Drama, Mystery</span>
@@ -217,7 +217,7 @@
         
     </div>
   <div class="col-lg-6">
-        <div class="panel panel-default">
+        <div ng-if="itemDetails.imageResults.length>0" class="panel panel-default">
           <div class="panel-heading detail-title ">Images</div>
           <div class="panel-body detailimages">
          
@@ -236,7 +236,7 @@
         </div>
         
         <!-- Videos-->
-        <div class="panel panel-default">
+        <div ng-if="itemDetails.videoResults.length>0" class="panel panel-default">
           <div class="panel-heading detail-title ">Videos</div>
           <div class="panel-body no-padding">
           
@@ -259,7 +259,7 @@
         <!-- Videos-->
         
         
-        <div class="panel panel-default">
+        <div ng-if="itemDetails.webResults.length>0" class="panel panel-default">
           <div class="panel-heading detail-title ">Web</div>
               <div ng-repeat="web in itemDetails.webResults  | limitTo: itemDetails.webResults.maxIndex" class="panel-body resultList">
                 <div class="media">
