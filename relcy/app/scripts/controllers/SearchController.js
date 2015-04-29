@@ -1,16 +1,16 @@
 
 angular.module('relcyApp')
-.controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService,$filter) {
+.controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService, $filter, anchorSmoothScroll) {
 	$scope.selectedTypeIndex = 0;
-	var searchResults ;
-	
+	$scope.selectedCategory;
+	$scope.showDetailPage = false;
 	$scope.selected = 0;
 	$scope.showingResult = false;
+	$scope.hideMainSearch = false;
 	/*The query in the search field of home page*/
 	$scope.query;
 	 
 	$scope.showResult = function(type,index){
-		 $scope.selected = index;
 		 $scope.selectedTypeIndex = type
 		 $scope.resultByType = $scope.types[index]//.searchResultRelcy.results;
 	}
@@ -77,15 +77,16 @@ angular.module('relcyApp')
 	 	if(!query) return;
 		console.log(query)
 		SearchService.getSearchDetails(query).then(function(data) 
-		{
+		{	
+			$scope.showDetailPage = false;
 			$scope.showingResult = true;
 			$scope.result = data['search_response']
 			if(!$scope.result.verticalResult) {
 				$scope.showingResult = false;
 				return;
 			}
-			searchResults = transformSearchResults($scope.result.verticalResult);
-			$scope.searchResults = searchResults;
+			$scope.searchResults = transformSearchResults($scope.result.verticalResult);
+			$scope.selectedCategory = $scope.searchResults[0].key;
 			$scope.types = $scope.result.verticalResult;
 			setDefaultCategory();
 			
@@ -98,6 +99,8 @@ angular.module('relcyApp')
 		
 	/*Will clear the search field of auto complete with given id.*/
 	$scope.clearSearchInput = function(id) {
+		$scope.hideMainSearch = false;
+		$scope.showDetailPage = false;
 		$scope.$broadcast('angucomplete-alt:clearInput', 'members');
 		/*Hides the search results*/
 		$scope.showingResult = false;
@@ -112,6 +115,33 @@ angular.module('relcyApp')
 				break;	
 			}
 		}
+	}
+
+	$scope.scrollTo = function(id) {
+		$scope.selectedCategory = id;
+		$location.hash(id);
+      	// $anchorScroll();
+      	anchorSmoothScroll.scrollTo(id);
+	}
+
+	/*Will take you to the next page to view the details*/
+	$scope.showDetails = function (item) {
+		$scope.showingResult = false;
+		$scope.hideMainSearch = true;
+		if(item.relcy_id && item.relcy_id.entity_id){
+			$scope.showDetailPage = true;
+			SearchService.getEntityDetails(item.relcy_id.entity_id).then(function(data) {
+				SearchService.selectedItem = item;
+				SearchService.itemDetails = data;
+				/*$location.path('/details');*/
+			}, function(error){
+				console.log('Error while fetching details!!!');
+			});
+		}else{
+			console.log('Relcy id not found!');
+			return;
+		}
+		
 	}
   
 });
@@ -128,9 +158,19 @@ function transformSearchResults(data){
 					values = data[index].searchResultRelcy.results;
 				}
 			break;
+			case 'ENTERTAINMENT_VIDEO_TVSHOW':
+				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
+					values = data[index].searchResultRelcy.results;
+				}
+			break;
 			case 'WEB_VIDEOS':
 				if(data[index] && data[index].videoSearchResult && data[index].videoSearchResult.videoSearchResults && data[index].videoSearchResult.videoSearchResults.length){
 					values = data[index].videoSearchResult.videoSearchResults;
+				}
+			break;
+			case 'WEB_IMAGES':
+				if(data[index] && data[index].imageSearchResult && data[index].imageSearchResult.imageSearchResults && data[index].imageSearchResult.imageSearchResults.length){
+					values = data[index].imageSearchResult.imageSearchResults;
 				}
 			break;
 			case 'WEB':
@@ -138,9 +178,14 @@ function transformSearchResults(data){
 					values = data[index].webSearchResult.searchResults;
 				}
 			break;
+			case 'WEB_NEWS':
+				if(data[index] && data[index].newsSearchResult && data[index].newsSearchResult.newsSearchResults && data[index].newsSearchResult.newsSearchResults.length){
+					values = data[index].newsSearchResult.newsSearchResults;
+				}
+			break;
 			case 'APP':
 				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
-					values = [index].searchResultRelcy.results;
+					values = data[index].searchResultRelcy.results;
 				}
 			break;
 			case 'RELATED_SEARCHES':

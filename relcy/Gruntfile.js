@@ -68,7 +68,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -344,7 +344,8 @@ module.exports = function (grunt) {
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*',
-            'styles/fontawesome/{,*/}*.*'
+            'styles/fontawesome/{,*/}*.*',
+            'images/{,*/}*.*'
           ]
         }, {
           expand: true,
@@ -373,7 +374,14 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      images: {
+        expand: true,
+        cwd: '<%= yeoman.app %>/images',
+        dest: '.tmp/images/',
+        src: '{,*/}*.*'
       }
+
     },
 
     // Run some tasks in parallel to speed up the build process
@@ -386,7 +394,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'copy:styles',
-        'imagemin',
+        /*'imagemin',*/
         'svgmin'
       ]
     },

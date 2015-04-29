@@ -16,6 +16,21 @@ angular.module('relcyApp')
 		   });
 		 return deferred.promise;
 	}
+
+	this.getEntityDetails = function(relcyId)
+	{
+		var lat = "37.762759";
+		var lng = "-122.408934";
+		var deferred = $q.defer();
+		$http.get('http://staging-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&&id='+relcyId)
+		.success(function(data) { 
+			  deferred.resolve(data);
+		}).error(function(msg, code) {
+			  deferred.reject(msg);
+		   });
+		 return deferred.promise;
+	};
+
 	this.search = function(query){
 		var session_id = "b9a30926-e912-11e4-b02c-1681e6b88ec1";
 		var lat = "37.762759"

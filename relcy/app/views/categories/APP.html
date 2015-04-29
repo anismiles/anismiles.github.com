@@ -5,14 +5,14 @@
       <div class="media-left">
       </div>
       <div class="media-body">
-        <h4 class="media-heading" id="top-aligned-media">{{result.title}}
+        <h4 class="media-heading" id="top-aligned-media">{{result.app_result[0].result_data.title}}
             <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
         </h4>
        <p>
        	<span><a href="{{result.clickUrl}}" target="_blank">{{result.displayUrl}}</a></span> 
        </p>
-       <p>{{result.summary}}</p>
-       <p><span>{{result.pingUrlSuffix}}</span></p>
+       <p>{{result.app_result[0].result_data.description_text}}</p>
+       <p><span>{{result.app_result[0].result_data.sub_title}}</span></p>
       </div>
       <div ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void();" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray"></span></a></div>
         </div>

@@ -5,16 +5,21 @@ angular.module('relcyApp',
   'angucomplete-alt']);
 
 angular.module('relcyApp')
-.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider) {
    
-
-    $urlRouterProvider.otherwise('home');
+    $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/');
     
     $stateProvider
 	 	.state("home", {
-          	url: "/home",
-          	templateUrl: "views/home.html",
-		  	controller: "SearchController",
-        })
+        	url: "/",
+        	templateUrl: "views/home.html",
+	  	controller: "SearchController",
+      }).state("details", {
+          url: "/details",
+          templateUrl: "views/detail.html",
+      controller: "SearchController",
+      })   
 	
 });
+
