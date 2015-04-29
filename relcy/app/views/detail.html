@@ -222,132 +222,64 @@
           <div class="panel-body detailimages">
          
              <div class="col-lg-12 detailimages-col" >
-               <div class="col-lg-4 detailimages-col4">
-         <a href="#"><img src="images/pk211.jpg" title="" ></a>
-         </div>
-         
-         <div class="col-lg-4 detailimages-col4">
-         <a href="#"><img src="images/PK-styling-anushka-sharma.jpg" title="" ></a>
-         </div>
-         
-         <div class="col-lg-4 detailimages-col4">
-         <a href="#"><img src="images/pk211.jpg" title="" ></a>
-         </div>
-            
+               <div ng-repeat="images in itemDetails.imageResults  | limitTo: itemDetails.imageResults.maxIndex" class="col-lg-4 detailimages-col4">
+               <a href="{{::images.contentUrl}}"><img src="{{::images.thumbnailUrl}}" title="{{::images.title}}" ></a>
+               </div>
+
             </div>
             
           </div>
           
          <div class="panelList">
-  	<!-- ngIf: cat.maxIndex<cat.values.length --><a href="javascript:void(0)"  class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a><!-- end ngIf: cat.maxIndex<cat.values.length -->
+  	<a ng-if="itemDetails.imageResults.maxIndex<itemDetails.imageResults.length" ng-click="itemDetails.imageResults.maxIndex=itemDetails.imageResults.maxIndex+3" href="javascript:void(0)"  class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
   </div>
         </div>
         
-        
-
-        
-        <!-- vedios-->
+        <!-- Videos-->
         <div class="panel panel-default">
-          <div class="panel-heading detail-title ">Vedios</div>
+          <div class="panel-heading detail-title ">Videos</div>
           <div class="panel-body no-padding">
           
-            <div class="col-lg-12 detailvideo">
+            <div ng-repeat="video in itemDetails.videoResults  | limitTo: itemDetails.videoResults.maxIndex" class="col-lg-12 detailvideo">
              <div class="col-lg-4 video">
-              <img src="images/pk211.jpg" alt=""/>
+              <img src="{{::video.thumbnailUrl}}" alt="{{::video.contentUrl}}"/>
                </div>
              <div class="col-lg-8 videodetail">
-             <p>The World of Wall Street Official Trailer #1(2013)</p>
-             <p class="detail-youtube"> YouTube.2m 8s. HD </p>
+             <p>{{::video.title}}</p>
+             <p class="detail-youtube">{{::video.duration}}</p>
              </div>
             </div>
-            
-            <div class="col-lg-12 detailvideo">
-             <div class="col-lg-4 video">
-              <img src="images/pk211.jpg" alt=""/>
-               </div>
-             <div class="col-lg-8 videodetail">
-             <p>The World of Wall Street Official Trailer #1(2013)</p>
-             <p class="detail-youtube"> YouTube.2m 8s. HD </p>
-             </div>
-            </div>
-            
-            <div class="col-lg-12 detailvideo">
-             <div class="col-lg-4 video">
-              <img src="images/pk211.jpg" alt=""/>
-               </div>
-             <div class="col-lg-8 videodetail">
-             <p>The World of Wall Street Official Trailer #1(2013)</p>
-             <p class="detail-youtube"> YouTube.2m 8s. HD </p>
-             </div>
-            </div>
-            
-            <div class="col-lg-12 detailvideo">
-             <div class="col-lg-4 video">
-              <img src="images/pk211.jpg" alt=""/>
-               </div>
-             <div class="col-lg-8 videodetail">
-             <p>The World of Wall Street Official Trailer #1(2013)</p>
-             <p class="detail-youtube"> YouTube.2m 8s. HD </p>
-             </div>
-            </div>
-            
-            <div class="col-lg-12 detailvideo">
-             <div class="col-lg-4 video">
-              <img src="images/pk211.jpg" alt=""/>
-               </div>
-             <div class="col-lg-8 videodetail">
-             <p>The World of Wall Street Official Trailer #1(2013)</p>
-             <p class="detail-youtube"> YouTube.2m 8s. HD </p>
-             </div>
-            </div>
-            
-            
-            
-            
             
           </div>
           <div class="panelList">
-  	<!-- ngIf: cat.maxIndex<cat.values.length --><a href="javascript:void(0)"  class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a><!-- end ngIf: cat.maxIndex<cat.values.length -->
+  	<a ng-if="itemDetails.videoResults.maxIndex<itemDetails.videoResults.length" ng-click="itemDetails.videoResults.maxIndex=itemDetails.videoResults.maxIndex+5" href="javascript:void(0)"  class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
   </div>
         </div>
         
-        
-        <!-- vedios-->
+        <!-- Videos-->
         
         
         <div class="panel panel-default">
           <div class="panel-heading detail-title ">Web</div>
-              <div class="panel-body resultList">
+              <div ng-repeat="web in itemDetails.webResults  | limitTo: itemDetails.webResults.maxIndex" class="panel-body resultList">
                 <div class="media">
                   <div class="media-left">
-                    <a href="#">
+                    <a href="{{::clickUrl}}">
                       <i class="fa fa-apple"></i>
                     </a>
                   </div>
                   <div class="media-body">
-                    <h4 class="media-heading">Media heading</h4>
-                    <a href="#">apple.com</a>
-                    <p>Test</p>
-                  </div>
-                </div>
-              </div>
-                            <div class="panel-body resultList">
-                <div class="media">
-                  <div class="media-left">
-                    <a href="#">
-                      <i class="fa fa-apple"></i>
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h4 class="media-heading">Media heading</h4>
-                    <a href="#">apple.com</a>
-                    <p>Test</p>
+                    <h4 class="media-heading">{{::web.title}}</h4>
+                    <a href="{{::web.clickUrl}}">{{::web.displayUrl}}</a>
+                    <p>{{::web.summary}}</p>
                   </div>
                 </div>
               </div>
 
+          </div>
+
 			<div class="panelList">
-  	<!-- ngIf: cat.maxIndex<cat.values.length --><a href="javascript:void(0)" class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a><!-- end ngIf: cat.maxIndex<cat.values.length -->
+  	<a  ng-if="itemDetails.webResults.maxIndex<itemDetails.webResults.length" ng-click="itemDetails.webResults.maxIndex=itemDetails.webResults.maxIndex+3" href="javascript:void(0)" class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
   </div>
 
         </div>

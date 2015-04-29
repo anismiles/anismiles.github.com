@@ -40,6 +40,34 @@ angular.module('relcyApp')
 		return( request.then( this.handleSuccess, this.handleError ) );
 	};
 
+	this.transformDetails = function(response){
+		var transformedData = {};
+
+		if(response.detail_response){
+			var searchResults = response.detail_response.search_result_collection;
+			if(searchResults){
+				/*Extracting web search results*/
+				if( searchResults.webSearchResult && searchResults.webSearchResult.searchResults && searchResults.webSearchResult.searchResults.length>0){
+					transformedData.webResults = searchResults.webSearchResult.searchResults;
+					transformedData.webResults.maxIndex = 3;	
+				}
+				/*Extracting image search results*/
+				if(searchResults.imageSearchResult && searchResults.imageSearchResult.imageSearchResults && searchResults.imageSearchResult.imageSearchResults.length>0){
+					transformedData.imageResults =  searchResults.imageSearchResult.imageSearchResults;
+					transformedData.imageResults.maxIndex = 3;
+				}
+				/*Extracting video search results*/
+				if(searchResults.videoSearchResult && searchResults.videoSearchResult.videoSearchResults && searchResults.videoSearchResult.videoSearchResults.length>0){
+					transformedData.videoResults =  searchResults.videoSearchResult.videoSearchResults;
+					transformedData.videoResults.maxIndex = 5;
+				}
+
+			}
+		}
+
+		return transformedData;
+	};
+
 	this.handleError = function( response ) 
 	{     console.log(response);
 		if(response.status == 404  && response.data == 'Result not available.') {

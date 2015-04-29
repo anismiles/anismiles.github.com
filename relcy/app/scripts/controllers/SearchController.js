@@ -133,16 +133,15 @@ angular.module('relcyApp')
 			$scope.showDetailPage = true;
 			SearchService.getEntityDetails(item.relcy_id.entity_id).then(function(data) {
 				SearchService.selectedItem = item;
-				SearchService.itemDetails = data;
-				/*$location.path('/details');*/
+				$scope.itemDetails = SearchService.transformDetails(data);
+				
 			}, function(error){
 				console.log('Error while fetching details!!!');
 			});
 		}else{
 			console.log('Relcy id not found!');
 			return;
-		}
-		
+		}	
 	}
   
 });
