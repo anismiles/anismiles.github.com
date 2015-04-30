@@ -1,8 +1,22 @@
-<div ng-if="Lightbox.type=='CAST'" class="modal-body"
-    {{Lightbox.cast}}
-    CASTTTST
+<div ng-if="Lightbox.type=='CAST'" class="modal-body">
+	<div ng-repeat="cast in Lightbox.data">
+		{{cast.title}}
+	</div>
 </div>
-<div ng-if="type=='IMAGES'" class="modal-body"
+
+<div ng-if="Lightbox.type=='VIDEO'" class="modal-body">
+	<div>
+		Video Will show here.
+	</div>
+</div>
+
+<div ng-if="Lightbox.type=='STORY'" class="modal-body">
+	<div  >
+	{{Lightbox.data.value}}
+	</div>
+</div>
+
+<div ng-if="Lightbox.type=='IMAGES'" class="modal-body"
     ng-swipe-left="Lightbox.nextImage()"
     ng-swipe-right="Lightbox.prevImage()">
   <!-- navigation -->

@@ -153,6 +153,7 @@ angular.module('relcyApp')
 				SearchService.selectedItem = item;
 				$scope.itemDetails = SearchService.transformDetails(data);
 				$scope.searchResults = $scope.itemDetails.categories;
+				$scope.selectedCategory = $scope.searchResults[0].key;
 			}, function(error){
 				console.log('Error while fetching details!!!');
 			});
@@ -162,15 +163,32 @@ angular.module('relcyApp')
 		}	
 	}
 
-	 $scope.openCastLightbox = function (cast) {
-	 	cast = 'Ashish, Devendra';
-	 	Lightbox.type='CAST';
-	 	Lightbox.cast = cast;
-
-	    Lightbox.openModal([cast], 0);
+	 $scope.openCastLightbox = function (data,type,index) {
+		//console.log("hello openCastLightbox")
+	 	//cast = 'Ashish, Devendra';
+	 	Lightbox.type = type;
+	 	Lightbox.data = data;
+		if(type == 'IMAGES')
+		{
+			$scope.images = [];
+			for(var i=0;i<data.length; i++)
+			{
+				$scope.images.push(
+				{
+				  'url': data[i].contentUrl,
+				  'caption': data[i].title,
+				  'thumbUrl': data[i].thumbnailUrl // used only for this example
+				})
+			}
+			Lightbox.openModal( $scope.images, index);
+		}
+		else
+		{
+			Lightbox.openModal( [data], 0);
+		}
 	  };
 
-	  $scope.images = [
+	$scope.images = [
     {
       'url': 'images/logo.png',
       'caption': 'Optional caption',

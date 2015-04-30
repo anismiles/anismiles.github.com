@@ -1,9 +1,9 @@
 <div class="row pad_left">
     <div class="col-lg-12 ">
         <div class="topSection">
-        	<div class="coverImage"><a href="#"><img src="images/PK-styling-anushka-sharma.jpg" title=""></a></div>
+        	<div class="coverImage"><a href="#"><img src="{{itemDetails.imageResults[0].thumbnailUrl}}" title=""></a></div>
             <!--<div class="editAction"><i class="fa fa-edit"></i></div>-->
-            <div class="profileImage"><a href="#"><img src="images/pk211.jpg" title=""></a></div>
+            <div class="profileImage"><a href="#"><img src="{{itemDetails.imageResults[0].thumbnailUrl}}" title=""></a></div>
             <div class="details clearfix">
             	<div class="detail_left">
                 <h2>{{::itemDetails.title}}</h2>
@@ -41,20 +41,20 @@
             <div class="detail_right">
             
             <p>
-            <a href="#">
+            <a href="#" ng-click="openCastLightbox(itemDetails.story,'STORY')">
               <img src="images/book.png"  alt=""/> Story
             </a>
             </p>
             
              <p>
-            <a ng-click="openCastLightbox(itemDetails.cast)">
+            <a ng-click="openCastLightbox(itemDetails.cast,'CAST')">
               <img src="images/multi-user.png"  alt=""/> Cast
             </a>
             </p>
             
             
              <p>
-            <a href="#">
+            <a href="#" ng-click="openCastLightbox('','VIDEO')">
               <img src="images/play.png"  alt=""/> Trailer
             </a>
             </p>
@@ -262,7 +262,7 @@
          
              <div class="col-lg-12 detailimages-col" >
                <div ng-repeat="images in itemDetails.imageResults  | limitTo: itemDetails.imageResults.maxIndex" class="col-lg-4 detailimages-col4">
-               <a href="{{::images.contentUrl}}"><img src="{{::images.thumbnailUrl}}" title="{{::images.title}}" ></a>
+               <a href="#" ng-click="openCastLightbox(itemDetails.imageResults,'IMAGES',$index)" ><img src="{{::images.thumbnailUrl}}" title="{{::images.title}}" ></a>
                </div>
 
             </div>
