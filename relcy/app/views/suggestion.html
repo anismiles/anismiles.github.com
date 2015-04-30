@@ -13,6 +13,7 @@
             autocomplete="off"
             ng-change="inputChangeHandler(searchStr)"/>
   <div class="angucomplete-dropdown" ng-show="showDropdown">
+   <h4 class="topictitle">Suggestions</h4>
     <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>
     <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)" ng-bind="textNoResults"></div>
     
