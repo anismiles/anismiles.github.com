@@ -146,11 +146,12 @@ angular.module('relcyApp')
 			relcyId = item.originalObject.lookIds[0];
 		}
 		if(relcyId){
-			$scope.showDetailPage = true;
+			$scope.showDetailPage = false;
 			SearchService.getEntityDetails(relcyId).then(function(data) {
+				$scope.showDetailPage = true;
 				SearchService.selectedItem = item;
 				$scope.itemDetails = SearchService.transformDetails(data);
-				
+				$scope.searchResults = $scope.itemDetails.categories;
 			}, function(error){
 				console.log('Error while fetching details!!!');
 			});
