@@ -440,7 +440,8 @@ ul.webimage li img{
   font-size: 12px;
   color: #8899a9;
   line-height: 15px;
-    font-weight: 300;
+  font-weight: 300;
+  margin-bottom: 0;
 }
 div.imdb span {
 	font-size: 12px !important;
@@ -525,7 +526,7 @@ div.imdb span {
 }
 .videodetail p {
 	color: #000;
-	font-size: 17px;
+	font-size: 13px;
 	font-weight: 600;
 	margin-bottom: 5px;
 }
@@ -591,7 +592,7 @@ div.imdb span {
 /*mayank*/
 @media screen and (min-width: 1367px) and (max-width: 2000px) {
 .leftsidebar {
-	width: 280px;
+	width: 208px;
 	margin-top: 40px;
 }
 }
