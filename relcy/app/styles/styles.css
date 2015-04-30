@@ -502,11 +502,11 @@ div.imdb span {
 	padding: 0px;
 }
 .detailimages-col4 {
-	padding: 0px 5px;
+	padding:5px;
 }
 .detailimages-col img {
   width: 100%;
-  height: 75px;
+
 }
 .detailimages {
 	padding: 10px 5px;
@@ -541,7 +541,7 @@ div.imdb span {
 }
 
 .search-result-container{
-  width: 510px;}
+  width:600px;}
 	
 .result-list{
 	width:330px;}
@@ -557,7 +557,7 @@ div.imdb span {
 	width:245px;}
 	
 .detail-main-right{
-  width: 265px;
+  width: 340px;
   padding-left: 0;}
   
  .showtimetitle{  padding: 7px;}
