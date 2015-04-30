@@ -374,11 +374,12 @@ ul.webimage li img{
   margin-top: 0;
   margin-bottom: 0;
   padding: 0 10px;
-  background: #fafcfd;
+  background: #fafcfd !important;
   color: #9299a6 !important;
   font-size: 12px;
   height: 30px;
   line-height: 30px;
+  border:none !important;
 }
 .mainwrap {
 	width: 100%;
@@ -386,7 +387,7 @@ ul.webimage li img{
 	margin-bottom: 15px;
 }
 .leftsidebar {
-	  width: 180px;
+	  width: 178px;
 	margin-top: 40px;
 }
 .rightbar {
@@ -634,7 +635,7 @@ div.imdb span {
 .panel {
     background-color: #fff;
     border: 1px solid #eff2f4;
-    border-radius: 4px;
+    border-radius: 0px;
     box-shadow: none;
     margin-bottom: 20px;
 }
