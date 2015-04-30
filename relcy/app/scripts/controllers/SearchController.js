@@ -1,6 +1,6 @@
 
 angular.module('relcyApp')
-.controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService, $filter, anchorSmoothScroll) {
+.controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService, $filter, anchorSmoothScroll, Lightbox) {
 	$scope.selectedTypeIndex = 0;
 	$scope.selectedCategory;
 	$scope.showDetailPage = false;
@@ -161,6 +161,30 @@ angular.module('relcyApp')
 			return;
 		}	
 	}
+
+	 $scope.openCastLightbox = function (cast) {
+	 	cast = 'Ashish, Devendra';
+	 	Lightbox.type='CAST';
+	 	Lightbox.cast = cast;
+
+	    Lightbox.openModal([cast], 0);
+	  };
+
+	  $scope.images = [
+    {
+      'url': 'images/logo.png',
+      'caption': 'Optional caption',
+      'thumbUrl': 'images/logo.png' // used only for this example
+    },
+    {
+      'url': '2.gif',
+      'thumbUrl': 'thumb2.jpg'
+    },
+    {
+      'url': '3.png',
+      'thumbUrl': 'thumb3.png'
+    }
+  ];
   
 });
 

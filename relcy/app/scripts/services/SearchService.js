@@ -22,7 +22,7 @@ angular.module('relcyApp')
 		var lat = "37.762759";
 		var lng = "-122.408934";
 		var deferred = $q.defer();
-		$http.get('http://dev-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&&id='+relcyId)
+		$http.get('http://dev-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+relcyId)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {

@@ -2,11 +2,13 @@
 angular.module('relcyApp',
  ['ui.router',
   'ui.bootstrap',
+  'bootstrapLightbox',
   'angucomplete-alt']);
 
 angular.module('relcyApp')
-.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider) {
-   
+.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider, LightboxProvider) {
+    
+     LightboxProvider.templateUrl = 'views/lightbox.html';
     //$locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
     
