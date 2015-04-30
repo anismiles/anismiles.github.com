@@ -4,7 +4,7 @@
       <li ng-repeat="cat in searchResults" ng-click="scrollTo(cat.key)" ng-class="{selected: cat.key == selectedCategory}"><a href="#{{::cat.key}}" >{{cat.keyTitle}}</a></li>
     </ul>
   </div>
-  <div class="col-lg-9">
+  <div class="col-lg-9 search-result-container">
 	<div class="col-lg-9">
     <div ng-if="!showDetailPage" class="animate-switch-container" ng-repeat="cat in searchResults">
       <div class="mainwrap">
