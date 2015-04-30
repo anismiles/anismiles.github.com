@@ -165,7 +165,6 @@ angular.module('relcyApp')
 
 	 $scope.openCastLightbox = function (data,type,index) {
 		//console.log("hello openCastLightbox")
-	 	//cast = 'Ashish, Devendra';
 	 	Lightbox.type = type;
 	 	Lightbox.data = data;
 		if(type == 'IMAGES')
