@@ -189,8 +189,8 @@ footer a {
 }
 .angucomplete-dropdown {
   box-shadow: 3px 3px 4px #f2f2f2;
-  margin-top: 45px;
-  width: 50%;
+  margin-top: 65px;
+  width: 300px;
   padding: 0px;
 }
 .angucomplete-dropdown .angucomplete-searching {
@@ -199,10 +199,17 @@ footer a {
 .angucomplete-image-holder img {
 	vertical-align: top;
 	margin: 0px;
+	width:40px;
+	height:40px;
+}
+
+.angucomplete-image-holder  {
+	width:40px;
+	height:40px;
 }
 .media-body .angucomplete-title {
 	vertical-align: middle;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 600;
 	display: block;
 }
@@ -400,7 +407,8 @@ ul.webimage li img{
 	border-radius: 3px;
 }
 .dark-gray span {
-	display: block;
+	display: inline-block;
+	font-size:11px;
 }
 .dark-gray span:first-child {
 }
@@ -494,11 +502,11 @@ div.imdb span {
 	padding: 0px;
 }
 .detailimages-col4 {
-	padding: 0px 5px;
+	padding:5px;
 }
 .detailimages-col img {
   width: 100%;
-  height: 75px;
+
 }
 .detailimages {
 	padding: 10px 5px;
@@ -533,10 +541,10 @@ div.imdb span {
 }
 
 .search-result-container{
-  width: 510px;}
+  width:600px;}
 	
 .result-list{
-	width:285px;}
+	width:330px;}
 	
 .related-search{}
 
@@ -549,7 +557,7 @@ div.imdb span {
 	width:245px;}
 	
 .detail-main-right{
-  width: 265px;
+  width: 340px;
   padding-left: 0;}
   
  .showtimetitle{  padding: 7px;}
