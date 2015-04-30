@@ -1,9 +1,22 @@
-<div ng-if="Lightbox.type=='CAST'" class="modal-body">
-	 <h4 class="topictitle">Cast}</h4>
+<div ng-if="Lightbox.type=='CAST'" class="modal-body castmodel">
+	 <h4 class="topictitle">Cast</h4>
     <div ng-repeat="cast in Lightbox.data">
 		<div class="castlist">
+        <div class="castimage">
+          <img src="images/placeholder.png" alt=""/> 
+          
+         </div>
+        <div class="castdetail">
+        <p>
         {{cast.title}}
+        </p>
+        
+        <p>
+        {{cast.title}}
+        </p>
         </div>
+        
+      </div>
 	</div>
 </div>
 

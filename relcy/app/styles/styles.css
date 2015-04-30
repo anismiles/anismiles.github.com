@@ -239,6 +239,7 @@ margin-bottom:20px;
 .topSection .coverImage {
 	  height: 150px;
 	overflow: hidden;
+	background-color:#f5f8fa;
 }
 .topSection .coverImage img {
 	height: auto;
@@ -253,6 +254,7 @@ margin-bottom:20px;
   top: 85px;
   left: 25px;
   border: solid 1px #f2f2f2;
+  background-color:#f5f8fa;
 }
 .topSection .profileImage img {
   height: 133px;
@@ -362,7 +364,7 @@ ul.webimage li img{
   margin-top: 0;
   margin-bottom: 0;
   padding: 0px 15px;
-  background: #fafcfd;
+  background: #f5f8fa;
   color: #9299a6;
   font-size: 12px;
   height: 30px;
@@ -388,9 +390,10 @@ ul.webimage li img{
 	margin-top: 40px;
 }
 .rightbar {
-	border: solid 1px #e5eaee;
+	border: solid 1px #eff2f4;
 	padding: 0;
-	width:150px;
+	width:200px;
+	border-bottom:noen;
 }
 .rightbar ul li {
 	  padding: 8px 10px;
@@ -543,10 +546,10 @@ div.imdb span {
 }
 
 .search-result-container{
-  width:600px;}
+  width:700px;}
 	
 .result-list{
-	width:420px;}
+	width:470px;}
 	
 .related-search{}
 
@@ -556,10 +559,10 @@ div.imdb span {
 	font-weight:300;}
 	
 .detail-main-left{
-	width:245px;}
+	width:270px;}
 	
 .detail-main-right{
-  width: 340px;
+  width: 415px;
   padding-left: 0;}
   
  .showtimetitle{  padding: 7px;}
@@ -576,15 +579,18 @@ div.imdb span {
   color: #8899a6;}
   
   
-.showtime-time{   padding: 5px 5px 0px;}
+.showtime-time{   padding: 5px;}
 
-.showtime-time span{
-  font-size: 11px;
-  display: inline-block;
-  padding: 5px 9px;
-  border: solid 1px rgba(204, 214, 221, 0.5);
-  margin: 0px 3px 10px 0;
-    color: #8899a6;}
+.showtime-time span {
+    border: 1px solid rgba(204, 214, 221, 0.5);
+    color: #8899a6;
+    display: inline-block;
+    font-size: 11px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    width: 64px;
+}
 	
 	
 .pad_left{
@@ -592,7 +598,46 @@ div.imdb span {
 	
 .castlist{
 	padding:10px;
-	border-bottom:solid 1px #8899a6;}
+	border-bottom:solid 1px #ccd6dd;}
+	
+.castimage{
+	  display: inline-block;
+  vertical-align: top;
+	}
+	
+	.castimage img{
+		width:55px;
+		height:55px;
+	}
+	
+	.castdetail{ display: inline-block;
+  vertical-align: top;}
+	
+.castlist p{ 
+  padding: 5px 10px;
+  font-weight: 800;
+  margin: -5px 0 0;
+    font-size: 13px;}
+  
+.castlist p:last-child{  color: #8899a6;
+  font-weight: 600;}
+  
+.castmodel{
+
+	padding:0;}
+	
+.modal-content{  border-radius: 0;
+  box-shadow: none;
+  border: none;}
+  
+
+.panel {
+    background-color: #fff;
+    border: 1px solid #eff2f4;
+    border-radius: 4px;
+    box-shadow: none;
+    margin-bottom: 20px;
+}
 
 /*mayank*/
 @media screen and (min-width: 1367px) and (max-width: 2000px) {
