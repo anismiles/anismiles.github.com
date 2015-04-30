@@ -131,7 +131,7 @@ ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot 
   margin-top: 0px;
 margin-left:54px;}
   
-.imagethumb{height:100px; width:100px; overflow:hidden; background-position:center center; position:relative; display:inline-block;}
+.imagethumb{height:100px; width:100px; overflow:hidden; background-position:center center; position:relative; display:inline-block;background-size:cover;}
 
 ul.webimage li{  display: inline-block;
   width: 28%;
