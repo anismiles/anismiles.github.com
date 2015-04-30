@@ -238,6 +238,7 @@ margin-bottom:20px;
 .topSection .coverImage {
 	  height: 150px;
 	overflow: hidden;
+	background-color:#f5f8fa;
 }
 .topSection .coverImage img {
 	height: auto;
@@ -252,6 +253,7 @@ margin-bottom:20px;
   top: 85px;
   left: 25px;
   border: solid 1px #f2f2f2;
+  background-color:#f5f8fa;
 }
 .topSection .profileImage img {
   height: 133px;
@@ -361,7 +363,7 @@ ul.webimage li img{
   margin-top: 0;
   margin-bottom: 0;
   padding: 0px 15px;
-  background: #fafcfd;
+  background: #f5f8fa;
   color: #9299a6;
   font-size: 12px;
   height: 30px;
