@@ -8,6 +8,7 @@ angular.module('relcyApp')
 	$scope.showingResult = false;
 	$scope.hideMainSearch = false;
 	$scope.relatedSearches;
+	$scope.defaultErrorImage = 'https://www.google.com/favicon.ico';
 	/*The query in the search field of home page*/
 	$scope.query;
 	 
