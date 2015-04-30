@@ -5,40 +5,46 @@
     </ul>
   </div>
   <div class="col-lg-9 search-result-container">
-	<div class="col-lg-9">
-    <div ng-if="!showDetailPage" class="animate-switch-container" ng-repeat="cat in searchResults">
-      <div class="mainwrap">
-  <h4 class="topictitle" id="{{cat.key}}">{{cat.key}}</h4>
-        <div class="animate-switch">
-          <div ng-include="'views/categories/'+cat.key+'.html'"></div>
+    <div class="col-lg-9 result-list">
+      <div ng-if="!showDetailPage" class="animate-switch-container" ng-repeat="cat in searchResults">
+        <div class="mainwrap">
+          <h4 class="topictitle" id="{{cat.key}}">{{cat.key}}</h4>
+          <div class="animate-switch">
+            <div ng-include="'views/categories/'+cat.key+'.html'"></div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="col-lg-3 rightbar">
+      <h4 class="topictitle" id="{{cat.key}}">Related Searches</h4>
+      <div class="animate-switch-container" ng-include="'views/categories/RELATED_SEARCHES.html'"> </div>
+    </div>
   </div>
-  
-  <div class="col-lg-3 rightbar">
-  <h4 class="topictitle" id="{{cat.key}}">Related Searches</h4>
-  <div class="animate-switch-container" ng-include="'views/categories/RELATED_SEARCHES.html'"> </div>
-  </div>
- </div> 
 </div>
 
-<!--- detail page-->
-<div class="pageResult" ng-if="showDetailPage">
+<!--- detail page--> 
+<!--<div class="pageResult" ng-if="showDetailPage">
   <div class="col-lg-3 leftsidebar">
     <ul class="nav pull-right">
       <li ng-repeat="cat in searchResults" ng-click="scrollTo(cat.key)" ng-class="{selected: cat.key == selectedCategory}"><a href="#{{::cat.key}}" >{{cat.keyTitle}}</a></li>
     </ul>
   </div>
   <div class="col-lg-8">
-
     <div class="animate-switch-container">
-      <div class="animate-switch-container" ng-include="'views/detail.html'"> </div>
+        <div class="animate-switch-container" ng-include="views/detail.html"> </div>
     </div>
   </div>
-  <!--<div class="col-lg-2 rightbar">
-  <h4 class="topictitle" id="{{cat.key}}">Related Searches</h4>
-  	 <div class="animate-switch-container" ng-include="'views/categories/RELATED_SEARCHES.html'"> </div>
-  </div>-->
-  
+</div>-->
+
+<div class="pageResult" ng-if="showDetailPage">
+  <div class="col-lg-3 leftsidebar">
+    <ul class="nav pull-right">
+      <li ng-repeat="cat in searchResults" ng-click="scrollTo(cat.key)" ng-class="{selected: cat.key == selectedCategory}"><a href="#{{::cat.key}}" >{{cat.keyTitle}}</a></li>
+    </ul>
+  </div>
+  <div class="col-lg-9 search-result-container">
+      <div class="animate-switch-container">
+        <div class="animate-switch-container" ng-include="'views/detail.html'"> </div>
+      </div>
+    </div>
 </div>

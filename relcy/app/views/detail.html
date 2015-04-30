@@ -8,12 +8,12 @@
             	<div class="detail_left">
                 <h2>{{::itemDetails.title}}</h2>
                 <p>
-                	<span>{{::itemDetails.parentalRating}}</span>
-                    <span>{{::itemDetails.releaseYear}}</span>
+                	<span>{{::itemDetails.parentalRating}} R. 2013 . 2h32m</span>
+                    <span>{{::itemDetails.releaseYear}} </span>
                     <span>{{::itemDetails.duration}}</span>
                 </p>
                 <p>
-                	<span>{{::itemDetails.genre}}</span>
+                	<span>{{::itemDetails.genre}} Comedy, Drama, Biography</span>
                 </p>
                 <div class="pull-left imdb">
                 	<img src="images/inbd.png" title="" height="18px" width="18px">
@@ -68,7 +68,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 detail-main-left">
         <div class="panel panel-default">
           <div class="panel-heading detail-title ">Watch</div>
           <div class="panel-body pad_none">
@@ -216,7 +216,7 @@
         
         
     </div>
-  <div id="details_images" class="col-lg-6">
+  <div id="details_images" class="col-lg-6 detail-main-right">
         <div ng-if="itemDetails.imageResults.length>0" class="panel panel-default">
           <div class="panel-heading detail-title ">Images</div>
           <div class="panel-body detailimages">
