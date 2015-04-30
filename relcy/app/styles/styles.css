@@ -508,7 +508,9 @@ div.imdb span {
 	padding: 0px;
 }
 .detailimages-col4 {
-	padding:5px;
+    height: 125px;
+    overflow: hidden;
+    padding: 5px;
 }
 .detailimages-col img {
   width: 100%;

@@ -20,14 +20,16 @@
 	</div>
 </div>
 
-<div ng-if="Lightbox.type=='VIDEO'" class="modal-body">
-	<div>
-		Video Will show here.
+<div ng-if="Lightbox.type=='VIDEO'" class="modal-body castmodel">
+<h4 class="topictitle">Trailer</h4>
+	<div style="padding:20px">
+		Trailer Will show here.
 	</div>
 </div>
 
-<div ng-if="Lightbox.type=='STORY'" class="modal-body">
-	<div  >
+<div ng-if="Lightbox.type=='STORY'" class="modal-body castmodel">
+<h4 class="topictitle">Story</h4>
+	<div style="padding:20px">
 	{{Lightbox.data.value}}
 	</div>
 </div>
