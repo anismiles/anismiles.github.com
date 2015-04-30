@@ -241,7 +241,7 @@ function transformSearchResults(data, $scope){
 			case 'WEB':
 				if(data[index] && data[index].webSearchResult && data[index].webSearchResult.searchResults && data[index].webSearchResult.searchResults.length){
 					values = data[index].webSearchResult.searchResults;
-					keyTitle = 'WEB';
+					keyTitle = 'Web';
 				}
 			break;
 			case 'WEB_NEWS':
@@ -253,7 +253,7 @@ function transformSearchResults(data, $scope){
 			case 'APP':
 				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
 					values = data[index].searchResultRelcy.results;
-					keyTitle = 'APP';
+					keyTitle = 'App';
 				}
 			break;
 			case 'RELATED_SEARCHES':
