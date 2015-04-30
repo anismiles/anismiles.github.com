@@ -1,4 +1,3 @@
-
 <div class="angucomplete-holder" ng-class="{'angucomplete-dropdown-visible': showDropdown}">
   <input ng-model="searchStr"
             ng-disabled="disableInput"
@@ -16,7 +15,6 @@
    <h4 class="topictitle">Suggestions</h4>
     <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>
     <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)" ng-bind="textNoResults"></div>
-    
     <div class="angucomplete-row media" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{'angucomplete-selected-row': $index == currentIndex}">
       <div ng-if="imageField" class="angucomplete-image-holder media-left"> 
       	<img ng-if="result.image && result.image != ''" err-src="images/logo.png" ng-src="{{result.image}}" class="angucomplete-image"/>
@@ -36,15 +34,15 @@
              </p>
           </div>
           
-          <div ng-if="matchClass && result.description && result.description != ''" class="angucomplete-description" ng-bind-html="result.description"></div>
+ <!--         <div ng-if="matchClass && result.description && result.description != ''" class="angucomplete-description" ng-bind-html="result.description"></div>
           <div ng-if="!matchClass && result.description && result.description != ''" class="angucomplete-description">{{result.description}}</div>
           <div ng-if="!matchClass && result.description && result.description != ''" class="angucomplete-description">{{result.originalObject.sub_title3}}</div>
+		  -->
     	</div>
     </div>
-    
-    <div class="angucomplete-row" ng-click="selectResult({title: searchStr, originalObject: { name: searchStr, custom: true }})" ng-mouseenter="hoverRow(results.length)" ng-class="{'angucomplete-selected-row': results.length == currentIndex}">
-      <!-- <div class="angucomplete-title">Select custom country '{{ searchStr }}'</div> -->
-    </div>
+    <!--<div class="angucomplete-row" ng-click="selectResult({title: searchStr, originalObject: { name: searchStr, custom: true }})" ng-mouseenter="hoverRow(results.length)" ng-class="{'angucomplete-selected-row': results.length == currentIndex}">
+       <div class="angucomplete-title">Select custom country '{{ searchStr }}'</div> 
+    </div>-->
     
   </div>
 </div>
