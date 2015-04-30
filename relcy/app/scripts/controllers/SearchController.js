@@ -177,7 +177,8 @@ angular.module('relcyApp')
 				{
 				  'url': data[i].contentUrl,
 				  'caption': data[i].title,
-				  'thumbUrl': data[i].thumbnailUrl // used only for this example
+				  'thumbUrl': data[i].thumbnailUrl,// used only for this example
+				  'dimensions': data[i].dimensions				   
 				})
 			}
 			Lightbox.openModal( $scope.images, index);

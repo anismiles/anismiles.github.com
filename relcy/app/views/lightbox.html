@@ -1,6 +1,9 @@
 <div ng-if="Lightbox.type=='CAST'" class="modal-body">
-	<div ng-repeat="cast in Lightbox.data">
-		{{cast.title}}
+	 <h4 class="topictitle">Cast}</h4>
+    <div ng-repeat="cast in Lightbox.data">
+		<div class="castlist">
+        {{cast.title}}
+        </div>
 	</div>
 </div>
 
@@ -43,7 +46,10 @@
   <div class="lightbox-image-contaer">
     <!-- caption -->
     <div class="lightbox-image-caption">
-      <span>{{Lightbox.imageCaption}}</span>
+      <span>{{Lightbox.imageCaption}}</span><br>
+	  <span>{{Lightbox.dimensions}}</span>
+	  <br>
+	  <span>{{Lightbox.imageUrl}}</span>
     </div>
 
     <!-- image -->

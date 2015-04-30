@@ -258,14 +258,14 @@ margin-bottom:20px;
   width: 100px;
 }
 .topSection .details {
-	padding-left:120px;
+	padding-left:130px;
 	margin: 10px 0;
 	color: #666;
 }
 .topSection .details span {
 	display: inline-block;
 	padding-right: 10px;
-	font-size: 13px;
+	font-size: 11px;
 	font-weight: 300;
 	color: #8899a6;
 }
@@ -444,7 +444,7 @@ ul.webimage li img{
   margin-bottom: 0;
 }
 div.imdb span {
-	font-size: 12px !important;
+	font-size: 11px !important;
 	padding-right: 0 !important;
 }
 .detail_left {
@@ -545,7 +545,7 @@ div.imdb span {
   width:600px;}
 	
 .result-list{
-	width:330px;}
+	width:420px;}
 	
 .related-search{}
 
@@ -588,6 +588,10 @@ div.imdb span {
 	
 .pad_left{
 	padding-left:15px;}
+	
+.castlist{
+	padding:10px;
+	border-bottom:solid 1px #8899a6;}
 
 /*mayank*/
 @media screen and (min-width: 1367px) and (max-width: 2000px) {
