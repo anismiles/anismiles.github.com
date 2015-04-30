@@ -14,7 +14,7 @@
        <p>{{result.summary}}</p>
        <p><span>{{result.pingUrlSuffix}}</span></p>
       </div>
-      <div ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void();" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray"></span></a></div>
+      <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void();" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray"></span></a></div>
         </div>
     </div>
   </li>
