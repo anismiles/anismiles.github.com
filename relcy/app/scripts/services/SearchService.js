@@ -22,7 +22,7 @@ angular.module('relcyApp')
 		var lat = "37.762759";
 		var lng = "-122.408934";
 		var deferred = $q.defer();
-		$http.get('http://dev-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+relcyId)
+		$http.get('http://dev-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id=look:3b41f9b9')//+relcyId)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -47,6 +47,27 @@ angular.module('relcyApp')
 		if(response){
 			var searchResults = response.search_result_collection;
 			if(searchResults){
+				
+				if( response.results[0].content_type_enum == "ENTERTAINMENT_AUDIO")
+				{
+					try{
+						transformedData.audioResult =  response.results[0].content_type_enum;
+						//transformedData.audioResult.maxIndex = 5;
+						transformedData.categories.push({key: 'details_audio', keyTitle : 'Audio'});
+					}catch(err){
+						console.log('no audio results found');
+					}
+				}
+				else{
+					
+					try{
+						transformedData.moviesResult =  response.results[0].content_type_enum;
+						//transformedData.moviesResult.maxIndex = 5;
+						transformedData.categories.push({key: 'details_movies', keyTitle : 'Movies'});
+					}catch(err){
+						console.log('no movie results found');
+					}
+				}
 				/*Extracting web search results*/
 				try{
 					transformedData.webResults = searchResults.webSearchResult.searchResults;
@@ -71,6 +92,10 @@ angular.module('relcyApp')
 				}catch(err){
 					console.log('no video results found');
 				}
+				
+				
+				
+
 			}
 			
 			try{
