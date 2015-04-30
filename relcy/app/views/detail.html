@@ -6,14 +6,14 @@
             <div class="profileImage"><a href="#"><img src="images/pk211.jpg" title=""></a></div>
             <div class="details clearfix">
             	<div class="detail_left">
-                <h2>PK</h2>
+                <h2>{{::itemDetails.title}}</h2>
                 <p>
-                	<span>Unrated</span>
+                	<span>{{::itemDetails.parentalRating}}</span>
                     <span>{{::itemDetails.releaseYear}}</span>
                     <span>{{::itemDetails.duration}}</span>
                 </p>
                 <p>
-                	<span>Comedy, Drama, Mystery</span>
+                	<span>{{::itemDetails.genre}}</span>
                 </p>
                 <div class="pull-left imdb">
                 	<img src="images/inbd.png" title="" height="18px" width="18px">
@@ -216,7 +216,7 @@
         
         
     </div>
-  <div class="col-lg-6">
+  <div id="details_images" class="col-lg-6">
         <div ng-if="itemDetails.imageResults.length>0" class="panel panel-default">
           <div class="panel-heading detail-title ">Images</div>
           <div class="panel-body detailimages">
@@ -236,7 +236,7 @@
         </div>
         
         <!-- Videos-->
-        <div ng-if="itemDetails.videoResults.length>0" class="panel panel-default">
+        <div id="details_videos" ng-if="itemDetails.videoResults.length>0" class="panel panel-default">
           <div class="panel-heading detail-title ">Videos</div>
           <div class="panel-body no-padding">
           
@@ -259,7 +259,7 @@
         <!-- Videos-->
         
         
-        <div ng-if="itemDetails.webResults.length>0" class="panel panel-default">
+        <div id="details_web" ng-if="itemDetails.webResults.length>0" class="panel panel-default">
           <div class="panel-heading detail-title ">Web</div>
               <div ng-repeat="web in itemDetails.webResults  | limitTo: itemDetails.webResults.maxIndex" class="panel-body resultList">
                 <div class="media">
