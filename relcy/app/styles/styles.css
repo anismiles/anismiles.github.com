@@ -387,8 +387,10 @@ ul.webimage li img{
 	margin-bottom: 15px;
 }
 .leftsidebar {
-	  width: 178px;
-	margin-top: 40px;
+  width: 178px;
+  position: fixed;
+  top: 200px;
+  left: 45px;
 }
 .rightbar {
 	border: solid 1px #eff2f4;
@@ -647,12 +649,19 @@ div.imdb span {
   opacity: .9;
 }
 
+
+.pageResult{
+  position: relative;
+  left: 188px;
+  top: 130px;}
+
+
 /*mayank*/
 @media screen and (min-width: 1367px) and (max-width: 2000px) {
-.leftsidebar {
+/*.leftsidebar {
 	width: 208px;
 	margin-top: 40px;
-}
+}*/
 }
 		
 		
