@@ -339,9 +339,3 @@ angular.module('relcyApp')
 	} 
 })
 
-
-
-
-
-
-

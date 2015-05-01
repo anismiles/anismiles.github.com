@@ -109,7 +109,7 @@
             <table class="table table-hover">
             	<tbody>
                 	<tr ng-repeat="w in itemDetails.watches">
-                    	<td class="td-title"><img src="images/inbd.png" title=""><span> {{::w.app_result.result_data.title}}</span></td>
+                    	<td class="td-title"><img ng-src="img-no-min/icons/{{::w.app_result.app.app_id}}.png" title=""><span> {{::w.app_result.result_data.title}}</span></td>
                         <td class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</td>
                         <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
                     </tr>
@@ -132,7 +132,7 @@
                     </tr>
                     
                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
+                    	<td class="td-title"><img src="" title=""> <span> Groupon</span></td>
                         <td class="td-detail td-lineheight">$20 for $ 10</td>
                        
                     </tr>
@@ -152,7 +152,7 @@
             <table class="table table-hover">
             	<tbody>
                 	<tr ng-repeat="r in itemDetails.reviews">
-                    	<td class="td-title"><img src="images/inbd.png" title=""><span> {{::r.app_result.result_data.title}}</span></td>
+                    	<td class="td-title"><img ng-src="img-no-min/icons/{{::r.app_result.app.app_id}}.png" title=""><span> {{::r.app_result.result_data.title}}</span></td>
                         <td class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</td>
                         <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
                     </tr>
@@ -162,10 +162,6 @@
         </div>
         
         <!--REview-->
-        
-        
-        
-        
         
     </div>
   <div id="details_images" class="col-lg-6 detail-main-right">
