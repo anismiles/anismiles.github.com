@@ -74,27 +74,18 @@
         
         <div class="panel panel-default">
           <div class="panel-heading detail-title ">Showtimes</div>
-          <div class="panel-body pad_none">
+          <div ng-repeat="s in itemDetails.showTimes" class="panel-body pad_none">
             <div class="showtimetitle">
    		   <span> <img src="images/inbd.png" alt=""/></span>
-           <span>AMC Mercado 20</span>
+           <span>{{::s.title}}</span>
            <span>1.2 mi Away</span>
              </div>
           
           <div class="showtime-time">
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
+          <div ng-repeat="d in s">
+            <p>{{::d.date | date}}</p>
+            <span ng-repeat="h in d.hours">{{::h.open_time | date:'h:mm a'}}</span>
+          </div>          
           </div>
           
           
@@ -103,80 +94,21 @@
         
         <!--Show Times-->
        
-       
-       
-       
-       
-       
         <div class="panel panel-default">
           <div class="panel-heading detail-title ">Watch</div>
           <div class="panel-body pad_none">
             <table class="table table-hover">
             	<tbody>
-                	<tr >
-                    	<td class="td-title"><img src="images/inbd.png" title=""><span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    <tr>
-                    	<td class="td-title td-lineheight"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight" ><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
+                	<tr ng-repeat="w in itemDetails.watches">
+                    	<td class="td-title"><img ng-src="img-no-min/icons/{{::w.app_result.app.app_id}}.png" title=""><span> {{::w.app_result.result_data.title}}</span></td>
+                        <td class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</td>
                         <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
                     </tr>
                 </tbody>
             </table>
           </div>
         </div>
-        
-        
-        
+       
         <!--ontv-->
         
         <div class="panel panel-default">
@@ -191,7 +123,7 @@
                     </tr>
                     
                     <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
+                    	<td class="td-title"><img src="" title=""> <span> Groupon</span></td>
                         <td class="td-detail td-lineheight">$20 for $ 10</td>
                        
                     </tr>
@@ -210,37 +142,9 @@
           <div class="panel-body pad_none">
             <table class="table table-hover">
             	<tbody>
-                	<tr >
-                    	<td class="td-title"><img src="images/inbd.png" title=""><span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    <tr>
-                    	<td class="td-title td-lineheight"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight" ><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                    <tr>
-                    	<td class="td-title td-lineheight"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight"></td>
-                        <td class="td-lineheight" ><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                    <tr>
-                    	<td class="td-title td-lineheight"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight"></td>
-                        <td class="td-lineheight" ><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    <tr>
-                    	<td class="td-title td-lineheight"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
-                        <td class="td-lineheight" ><i class="fa fa-chevron-right text-gray"></i></td>
-                    </tr>
-                    
-                    <tr>
-                    	<td class="td-title"><img src="images/inbd.png" title=""> <span> Groupon</span></td>
-                        <td class="td-detail td-lineheight">$20 for $ 10</td>
+                	<tr ng-repeat="r in itemDetails.reviews">
+                    	<td class="td-title"><img ng-src="img-no-min/icons/{{::r.app_result.app.app_id}}.png" title=""><span> {{::r.app_result.result_data.title}}</span></td>
+                        <td class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</td>
                         <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
                     </tr>
                 </tbody>
@@ -249,10 +153,6 @@
         </div>
         
         <!--REview-->
-        
-        
-        
-        
         
     </div>
   <div id="details_images" class="col-lg-6 detail-main-right">
