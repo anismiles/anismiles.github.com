@@ -1,6 +1,6 @@
 <ul class="resultList">
   <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> -->
-	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+	<li id="{{::cat.key+$index}}" ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
         <div class="col-lg-4 pull-left">
           <a href="#">
@@ -29,6 +29,6 @@
    </div>
   </li>
   <div class="panelList">
-    <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length" ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
+    <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length" ng-click="incrementAndScroll(cat)"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
   </div>
 </ul>
