@@ -71,14 +71,19 @@ angular.module('relcyApp')
 		if(selection && selection.title){
 			$scope.search(selection.title);
 		}
-	}
+	};
 
+	/*Will be invoked on clicking related search item*/
+	$scope.goForRelatedSearch = function(query){
+		angular.element( document.querySelector( '#members' ) ).children().children()[0].value=query;
+		$scope.search(query);
+	};
 	 /*Start searching for the input query*/
 	$scope.search = function(query)
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
-		
+		$scope.query = query;
 		SearchService.getSearchDetails(query).then(function(data) 
 		{	
 			$scope.showDetailPage = false;
@@ -88,7 +93,7 @@ angular.module('relcyApp')
 				$scope.showingResult = false;
 				return;
 			}
-			$scope.searchResults = transformSearchResults($scope.result.verticalResult, $scope);
+			$scope.searchResults = SearchService.transformSearchResults($scope.result.verticalResult, $scope);
 			$scope.selectedCategory = $scope.searchResults[0].key;
 			$scope.types = $scope.result.verticalResult;
 			setDefaultCategory();
@@ -190,114 +195,4 @@ angular.module('relcyApp')
 
 });
 
-/*Will transform the search results so as to be used on UI*/
-function transformSearchResults(data, $scope){
-	var transformedData = [];
-	for(var index=0;index<data.length;index++){
-		var key = data[index].content_type_enum;
-		var values;
-		var keyTitle;
-		var template;
-		var maxIndex, incrementBy;
-		switch(key){
-			case 'ENTERTAINMENT_VIDEO_MOVIE':
-				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
-					values = data[index].searchResultRelcy.results;
-					keyTitle = 'Movies';
-					template = 'ENTERTAINMENT_VIDEO_MOVIE';
-					maxIndex = 2;
-					incrementBy = 2;
-				}
-			break;
-			case 'ENTERTAINMENT_VIDEO_TVSHOW':
-				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
-					values = data[index].searchResultRelcy.results;
-					keyTitle = 'TV Shows';
-					template = 'ENTERTAINMENT_VIDEO_TVSHOW';
-					maxIndex = 2;
-					incrementBy = 2;
-				}
-			break;
-			case 'WEB_VIDEOS':
-				if(data[index] && data[index].videoSearchResult && data[index].videoSearchResult.videoSearchResults && data[index].videoSearchResult.videoSearchResults.length){
-					values = data[index].videoSearchResult.videoSearchResults;
-					keyTitle = 'Videos';
-					template = 'WEB_VIDEOS';
-					maxIndex = 2;
-					incrementBy = 2;
-				}
-			break;
-			case 'WEB_IMAGES':
-				if(data[index] && data[index].imageSearchResult && data[index].imageSearchResult.imageSearchResults && data[index].imageSearchResult.imageSearchResults.length){
-					values = data[index].imageSearchResult.imageSearchResults;
-					keyTitle = 'Images';
-					template = 'WEB_IMAGES';
-					maxIndex = 2;
-					incrementBy = 2;
-				}
-			break;
-			case 'WEB':
-				if(data[index] && data[index].webSearchResult && data[index].webSearchResult.searchResults && data[index].webSearchResult.searchResults.length){
-					values = data[index].webSearchResult.searchResults;
-					keyTitle = 'Web';
-					template = 'WEB';
-					maxIndex = 10;
-					incrementBy = 10;
-				}
-			break;
-			case 'WEB_NEWS':
-				if(data[index] && data[index].newsSearchResult && data[index].newsSearchResult.newsSearchResults && data[index].newsSearchResult.newsSearchResults.length){
-					values = data[index].newsSearchResult.newsSearchResults;
-					keyTitle = 'News';
-					template = 'WEB_NEWS';
-					maxIndex = 10;
-					incrementBy = 10;
-				}
-			break;
-			case 'APP':
-				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
-					values = data[index].searchResultRelcy.results;
-					keyTitle = 'App';
-					template = 'APP';
-					maxIndex = 2;
-					incrementBy = 2;
-				}
-			break;
-			case 'RELATED_SEARCHES':
-				if(data[index] && data[index].relatedSearchesResult && data[index].relatedSearchesResult.relatedSearchResults && data[index].relatedSearchesResult.relatedSearchResults.length){
-					$scope.relatedSearches = data[index].relatedSearchesResult.relatedSearchResults;
-				}
-				values=undefined;
-			break;
-			default:
-				maxIndex = 2;
-				incrementBy = 2;
-				try{
-					values = data[index].searchResultRelcy.results;
-					keyTitle = key;
-					template = 'ENTERTAINMENT_VIDEO_MOVIE';
-				}catch(err){
-					console.log('not a relcy result');
-					try{
-						values = data[index].videoSearchResult.videoSearchResults;
-						keyTitle = key;
-						template = 'ENTERTAINMENT_VIDEO_MOVIE';
-					}catch(err){
-						console.log('not a video search result');
-						try{
-							values = data[index].imageSearchResult.imageSearchResult;
-							keyTitle = key;
-							template = 'WEB_IMAGES';
-						}catch(err){
-							console.log('not a image search result');
-						}
-					}
-				}
-			break;
-		}
-		if(values){
-			transformedData.push({key: key, values: values,keyTitle: keyTitle,  maxIndex: maxIndex, incrementBy: incrementBy, template: template});
-		}
-	}
-	return transformedData;
-}
+
