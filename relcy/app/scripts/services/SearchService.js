@@ -2,7 +2,9 @@
 
 angular.module('relcyApp')
 .service("SearchService",function($timeout,$q,$http){
-	this.searchResult = []
+	this.searchResult = [];
+	/*Will be used to refer the service itself*/
+	var self = this;
 	this.getSearchDetails = function(query)
 	{
 		var lat = "37.762759";
@@ -45,6 +47,15 @@ angular.module('relcyApp')
 		var transformedData = {};
 		transformedData.categories = [];
 		response = response.detail_response;
+		try{
+			var links = response.results[0].link;
+			if(links && links.length>0){
+				self.insertReviewsAndWatches(transformedData, links);
+			}
+		}catch(err){
+			console.log('Links not available');
+		}
+		
 		if(response){
 			var searchResults = response.search_result_collection;
 			if(searchResults){
@@ -93,9 +104,6 @@ angular.module('relcyApp')
 				}catch(err){
 					console.log('no video results found');
 				}
-				
-				
-				
 
 			}
 			
@@ -266,6 +274,37 @@ angular.module('relcyApp')
 			}
 		}
 		return transformedData;
+	};
+
+	/*Will insert the reviews and watches into the transformedData*/
+	this.insertReviewsAndWatches = function(transformedData, links, response){
+		transformedData.reviews = [];
+		transformedData.watches = [];
+		angular.forEach(links, function(l){
+			try{
+				var action = l.app_result.result_data.action;
+				switch(action){
+					case 'Reviews':
+						transformedData.reviews.push(l);
+					break;
+					case 'Watch':
+						transformedData.watches.push(l);
+					break;
+				}
+			}catch(err){
+				console.log('invalid link');
+			}
+		});
+	};
+	
+	/*Will check if the response contains this type of action or not*/
+	this.hasLinkType = function(type, response){
+		var actions = response.results[0].app_action;
+		for(var i=0;i<actions.length;i++){
+			if(actions[i]==type){
+				return true;
+			}
+		}
 	};
 
 	this.handleError = function( response ) 
