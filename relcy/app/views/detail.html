@@ -74,27 +74,18 @@
         
         <div class="panel panel-default">
           <div class="panel-heading detail-title ">Showtimes</div>
-          <div class="panel-body pad_none">
+          <div ng-repeat="s in itemDetails.showTimes" class="panel-body pad_none">
             <div class="showtimetitle">
    		   <span> <img src="images/inbd.png" alt=""/></span>
-           <span>AMC Mercado 20</span>
+           <span>{{::s.title}}</span>
            <span>1.2 mi Away</span>
              </div>
           
           <div class="showtime-time">
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
-          <span>5:45 PM</span>
-          
+          <div ng-repeat="d in s">
+            <p>{{::d.date | date}}</p>
+            <span ng-repeat="h in d.hours">{{::h.open_time | date:'h:mm a'}}</span>
+          </div>          
           </div>
           
           

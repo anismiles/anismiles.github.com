@@ -50,7 +50,7 @@ angular.module('relcyApp')
 		try{
 			var links = response.results[0].link;
 			if(links && links.length>0){
-				self.insertReviewsAndWatches(transformedData, links);
+				self.insertReviewsAndWatchesAndShowtimes(transformedData, links, response);
 			}
 		}catch(err){
 			console.log('Links not available');
@@ -277,7 +277,7 @@ angular.module('relcyApp')
 	};
 
 	/*Will insert the reviews and watches into the transformedData*/
-	this.insertReviewsAndWatches = function(transformedData, links, response){
+	this.insertReviewsAndWatchesAndShowtimes = function(transformedData, links, response){
 		transformedData.reviews = [];
 		transformedData.watches = [];
 		angular.forEach(links, function(l){
@@ -295,6 +295,44 @@ angular.module('relcyApp')
 				console.log('invalid link');
 			}
 		});
+
+		var showTimes = [];
+		try{
+			showTimes = response.results[0].entity_data.entertainment_data.movie_data.tv_showtime.showtimes;
+		}catch(err){
+			console.log('No tv shows');
+			try{
+				showTimes = response.results[0].entity_data.entertainment_data.movie_data.theatre_showtime.showtimes;
+			}catch(err){
+				console.log('No movie shows');
+			}
+			
+		}
+		transformedData.showTimes = [];
+
+		angular.forEach(showTimes, function(s) {
+
+			var groupedShows = [];
+			for(var i=0;i<s.shows.days.length;i++){
+				var d = new Date(s.shows.days[i].date-0);
+				var key = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+				var hasKey = false;
+				var showDay;
+				for(var j=0;j<groupedShows.length;j++){
+					if(groupedShows[j].strDate == key){
+						hasKey = true;
+						showDay = groupedShows[j];
+					}
+				}
+				if(hasKey){
+					showDay.hours=showDay.hours.concat(s.shows.days[i].hours);
+				}else{
+					groupedShows.push({title:s.playing_entity.title, strDate : key, hours: s.shows.days[i].hours, date: s.shows.days[i].date});
+				}
+			} 			
+			transformedData.showTimes.push(groupedShows);
+		})
+	
 	};
 	
 	/*Will check if the response contains this type of action or not*/

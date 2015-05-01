@@ -29,6 +29,7 @@ module.exports = function(config) {
       'bower_components/angucomplete-alt/angucomplete-alt.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
+      'bower_components/underscore/underscore.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
