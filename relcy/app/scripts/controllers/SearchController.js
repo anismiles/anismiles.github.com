@@ -191,8 +191,6 @@ angular.module('relcyApp')
 		//console.log("hello openCastLightbox")
 	 	Lightbox.type = type;
 	 	Lightbox.data = data;
-	 	var videos;
-	 	//Lightbox.videoUrl = data.videoResults[0].contentUrl;
 		if(type == 'IMAGES')
 		{
 			$scope.images = [];
@@ -207,22 +205,9 @@ angular.module('relcyApp')
 				})
 			}
 			Lightbox.openModal( $scope.images, index);
-		}else if(type == 'VIDEO')
+		}else
 		{
-			videos = [];
-				videos.push(
-				{
-					'url': 'http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1',
-				  /*'url': data.videoResults[0].contentUrl,*/
-				  'caption': data.videoResults[0].title,
-				  'thumbUrl': data.videoResults[0].thumbnailUrl	   
-				})
-			
-			Lightbox.openModal( videos, 0);
-		}
-		else
-		{
-			Lightbox.openModal( data, 0);
+			Lightbox.openModal( [data], 0);
 		}
 	  };
 
