@@ -243,30 +243,17 @@ angular.module('relcyApp')
 				}
 				values=undefined;
 			break;
-			default:
-				maxIndex = 2;
-				incrementBy = 2;
-				try{
+			case 'ENTERTAINMENT_AUDIO':
+				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
 					values = data[index].searchResultRelcy.results;
-					keyTitle = key;
-					template = 'ENTERTAINMENT_VIDEO_MOVIE';
-				}catch(err){
-					console.log('not a relcy result');
-					try{
-						values = data[index].videoSearchResult.videoSearchResults;
-						keyTitle = key;
-						template = 'ENTERTAINMENT_VIDEO_MOVIE';
-					}catch(err){
-						console.log('not a video search result');
-						try{
-							values = data[index].imageSearchResult.imageSearchResult;
-							keyTitle = key;
-							template = 'WEB_IMAGES';
-						}catch(err){
-							console.log('not a image search result');
-						}
-					}
+					keyTitle = 'Songs';
+					template = 'ENTERTAINMENT_AUDIO';
+					maxIndex = 2;
+					incrementBy = 2;
 				}
+			break;			
+			default:
+				continue;
 			break;
 			}
 			if(values){
