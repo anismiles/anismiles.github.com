@@ -1,18 +1,18 @@
 <div ng-if="Lightbox.type=='CAST'" class="modal-body castmodel">
 	 <h4 class="topictitle">Cast</h4>
-    <div ng-repeat="cast in Lightbox.data">
+    <div ng-if="cast.title" ng-repeat="cast in Lightbox.data">
 		<div class="castlist">
         <div class="castimage">
-          <img src="images/placeholder.png" alt=""/> 
+          <img err-src="images/placeholder.png" ng-src="{{::cast.image_info.mediaURL}}" alt=""/> 
           
          </div>
         <div class="castdetail">
         <p>
-        {{cast.title}}
+        {{::cast.title}}
         </p>
         
         <p>
-        {{cast.title}}
+        {{::cast.title}}
         </p>
         </div>
         
