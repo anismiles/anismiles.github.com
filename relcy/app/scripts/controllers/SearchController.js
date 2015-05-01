@@ -78,7 +78,7 @@ angular.module('relcyApp')
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
-		console.log(query)
+		
 		SearchService.getSearchDetails(query).then(function(data) 
 		{	
 			$scope.showDetailPage = false;
@@ -188,22 +188,6 @@ angular.module('relcyApp')
 		}
 	  };
 
-	$scope.images = [
-    {
-      'url': 'images/logo.png',
-      'caption': 'Optional caption',
-      'thumbUrl': 'images/logo.png' // used only for this example
-    },
-    {
-      'url': '2.gif',
-      'thumbUrl': 'thumb2.jpg'
-    },
-    {
-      'url': '3.png',
-      'thumbUrl': 'thumb3.png'
-    }
-  ];
-  
 });
 
 /*Will transform the search results so as to be used on UI*/
@@ -214,12 +198,15 @@ function transformSearchResults(data, $scope){
 		var values;
 		var keyTitle;
 		var template;
+		var maxIndex, incrementBy;
 		switch(key){
 			case 'ENTERTAINMENT_VIDEO_MOVIE':
 				if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
 					values = data[index].searchResultRelcy.results;
 					keyTitle = 'Movies';
 					template = 'ENTERTAINMENT_VIDEO_MOVIE';
+					maxIndex = 2;
+					incrementBy = 2;
 				}
 			break;
 			case 'ENTERTAINMENT_VIDEO_TVSHOW':
@@ -227,6 +214,8 @@ function transformSearchResults(data, $scope){
 					values = data[index].searchResultRelcy.results;
 					keyTitle = 'TV Shows';
 					template = 'ENTERTAINMENT_VIDEO_TVSHOW';
+					maxIndex = 2;
+					incrementBy = 2;
 				}
 			break;
 			case 'WEB_VIDEOS':
@@ -234,6 +223,8 @@ function transformSearchResults(data, $scope){
 					values = data[index].videoSearchResult.videoSearchResults;
 					keyTitle = 'Videos';
 					template = 'WEB_VIDEOS';
+					maxIndex = 2;
+					incrementBy = 2;
 				}
 			break;
 			case 'WEB_IMAGES':
@@ -241,6 +232,8 @@ function transformSearchResults(data, $scope){
 					values = data[index].imageSearchResult.imageSearchResults;
 					keyTitle = 'Images';
 					template = 'WEB_IMAGES';
+					maxIndex = 2;
+					incrementBy = 2;
 				}
 			break;
 			case 'WEB':
@@ -248,6 +241,8 @@ function transformSearchResults(data, $scope){
 					values = data[index].webSearchResult.searchResults;
 					keyTitle = 'Web';
 					template = 'WEB';
+					maxIndex = 10;
+					incrementBy = 10;
 				}
 			break;
 			case 'WEB_NEWS':
@@ -255,6 +250,8 @@ function transformSearchResults(data, $scope){
 					values = data[index].newsSearchResult.newsSearchResults;
 					keyTitle = 'News';
 					template = 'WEB_NEWS';
+					maxIndex = 10;
+					incrementBy = 10;
 				}
 			break;
 			case 'APP':
@@ -262,6 +259,8 @@ function transformSearchResults(data, $scope){
 					values = data[index].searchResultRelcy.results;
 					keyTitle = 'App';
 					template = 'APP';
+					maxIndex = 2;
+					incrementBy = 2;
 				}
 			break;
 			case 'RELATED_SEARCHES':
@@ -271,6 +270,8 @@ function transformSearchResults(data, $scope){
 				values=undefined;
 			break;
 			default:
+				maxIndex = 2;
+				incrementBy = 2;
 				try{
 					values = data[index].searchResultRelcy.results;
 					keyTitle = key;
@@ -295,7 +296,7 @@ function transformSearchResults(data, $scope){
 			break;
 		}
 		if(values){
-			transformedData.push({key: key, values: values,keyTitle: keyTitle,  maxIndex: 2, incrementBy: 2, template: template});
+			transformedData.push({key: key, values: values,keyTitle: keyTitle,  maxIndex: maxIndex, incrementBy: incrementBy, template: template});
 		}
 	}
 	return transformedData;
