@@ -71,14 +71,19 @@ angular.module('relcyApp')
 		if(selection && selection.title){
 			$scope.search(selection.title);
 		}
-	}
+	};
 
+	/*Will be invoked on clicking related search item*/
+	$scope.goForRelatedSearch = function(query){
+		angular.element( document.querySelector( '#members' ) ).children().children()[0].value=query;
+		$scope.search(query);
+	};
 	 /*Start searching for the input query*/
 	$scope.search = function(query)
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
-		
+		$scope.query = query;
 		SearchService.getSearchDetails(query).then(function(data) 
 		{	
 			$scope.showDetailPage = false;
