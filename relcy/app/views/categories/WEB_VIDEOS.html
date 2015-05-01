@@ -2,13 +2,13 @@
 <!-- <a name="RELATED_SEARCHES"></a> -->
 	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
-      <div class="media-left">
+      <div class="col-lg-4 pull-left">
         <a href="{{result.contentUrl}}" target="_blank">
-        <div style=" background-image:url({{result.thumbnailUrl}});" class="imagethumb">
-        <img src="images/play-3-24.png"  alt=""/> </div>
+        <div style=" background-image:url({{result.thumbnailUrl}});" class="vdothumb">
+        <img src="images/play-3-24.png"  alt="" class="play-icon-thumb-vdo"/> </div>
         </a>
       </div>
-      <div class="media-body">
+      <div class="pull-right" ng-class="result.thumbnailUrl.length>0?'col-lg-8':'col-lg-12'">
         <h4 class="media-heading" id="top-aligned-media">{{result.title}}
             <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
         </h4>
