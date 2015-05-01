@@ -126,6 +126,12 @@ angular.module('relcyApp')
 	}
 
 	$scope.scrollTo = function(id) {
+		if(id=='container'){
+			$scope.showTopAnchor = false;
+		}else{
+			$scope.showTopAnchor = true;
+		}
+		
 		$scope.selectedCategory = id;
 		$location.hash(id);
       	// $anchorScroll();
