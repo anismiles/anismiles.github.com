@@ -16,13 +16,13 @@
     <link rel="stylesheet" href="bower_components/lato/css/lato.css" />
     <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css" />
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css" />
     <!-- build:css(.tmp) styles/main.css -->
     <!-- <link rel="stylesheet" href="styles/fontawesome/font-awesome.min.css" /> -->
-    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css" />
+    
     <link rel="stylesheet" href="styles/styles.css" />
 
     <!-- endbuild -->
@@ -65,7 +65,6 @@
     <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
-    <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -91,12 +90,12 @@ $(document).ready(function(){
 		console.log("213456");
         $("#bighead").removeClass("title");
 		$("#bighead").addClass("relcysmall");
-		//$("#bigform").addClass("smallform");
+		$("#bigform").addClass("smallform");
 		$("#pageMiddle").animate({'margin-top':'5%'}, 200);
-		///$("#pageMiddle").css({'width':'90%','position':'fixed','left':'90px','z-index':'999999','background':'#fff','padding-top':'5%'});
+		$("#pageMiddle").css({'width':'90%'});
 	
     }); },1000);
 });
-</script> 
+</script>
 </body>
 </html>
