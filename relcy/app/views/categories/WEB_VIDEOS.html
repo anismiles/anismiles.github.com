@@ -2,6 +2,7 @@
 <!-- <a name="RELATED_SEARCHES"></a> -->
 	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
+    <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left pull-right " style="vertical-align:middle"><a href="javascript:void();" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray "></span></a></div>
       <div class="col-lg-4 pull-left">
         <a href="{{result.contentUrl}}" target="_blank">
         <div style=" background-image:url({{result.thumbnailUrl}});" class="vdothumb">
@@ -15,7 +16,7 @@
        <p><a href="{{result.contentUrl}}" target="_blank">{{result.contentUrl}}</a></p>
        <p><span>{{result.duration}}</span></p>
       </div>
-      <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void();" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray"></span></a></div>
+      
         </div>
   </div>
  </li>
