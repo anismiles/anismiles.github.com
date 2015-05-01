@@ -704,10 +704,17 @@ div.imdb span {
 	padding: 0;
 }
 .modal-content {
-	border-radius: 0;
-	box-shadow: none;
-	border: none;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  max-height: 500px;
+  overflow-y: auto;
+
 }
+
+.modal-dialog{
+	max-width:500px;}
+
 .panel {
 	background-color: #fff;
 	border: 1px solid #eff2f4;
