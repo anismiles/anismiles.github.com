@@ -190,7 +190,9 @@ angular.module('relcyApp')
 	 $scope.openCastLightbox = function (data,type,index) {
 		//console.log("hello openCastLightbox")
 	 	Lightbox.type = type;
+	 	//data = 'http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1';
 	 	Lightbox.data = data;
+
 		if(type == 'IMAGES')
 		{
 			$scope.images = [];
