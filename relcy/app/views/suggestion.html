@@ -2,6 +2,8 @@
   <input ng-model="searchStr"
             ng-disabled="disableInput"
             type="text"
+            pause="300"
+            minlength="1"
             placeholder="{{placeholder}}"
             ng-focus="onFocusHandler()"
             class="{{inputClass}}"
