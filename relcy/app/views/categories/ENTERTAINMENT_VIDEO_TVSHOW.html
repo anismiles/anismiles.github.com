@@ -2,14 +2,14 @@
   <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> -->
 	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
-        <div class="media-left">
+        <div class="col-lg-4 pull-left">
           <a href="#">
-          <div style=" background-image:url({{result.image_info[0].thumbnail.mediaURL}});" class="imagethumb">
+          <div style=" background-image:url({{result.image_info[0].thumbnail.mediaURL}});" class="vdothumb">
           <!--<img src="{{result.image_info[0].thumbnail.mediaURL}}" title="" height="150px" width="150px">-->
           </div>
           </a>
         </div>
-        <div class="media-body">
+        <div class="pull-right" ng-class="result.image_info[0].thumbnail.mediaURL.length>0?'col-lg-8':'col-lg-12'">
           <h4 class="media-heading" id="top-aligned-media">{{result.entity_data.common_data.name}}
               
           </h4>
@@ -25,7 +25,9 @@
             <span>{{result.image_info[0].source}}</span>
          </p>
         </div>
-        <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void(0);" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray"></span></a></div>
+
+        <!--<div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void(0);" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray"></span></a></div>-->
+
         </div>
   </li>
   <div class="panelList">
