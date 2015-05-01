@@ -3,6 +3,7 @@
 
 body {
 	font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
+	overflow-x:hidden;
 }
 
 ::-webkit-input-placeholder {
@@ -27,12 +28,10 @@ body {
 .wrapper .container {
 	margin-bottom: 150px;
 }
-.container {
-	width: 100%;
-}
+
 .pageMiddle {
 	margin: 15% auto 0;
-	width: 80%;
+	//width: 80%;
 }
 .title {
 	font-size: 32px;
@@ -327,11 +326,11 @@ ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot 
 	height: 22px
 }
 .smallform {
-	width: 80%;
+	//width: 80%;
 	display: inline-block;
 	vertical-align: top;
-	margin-top: 0px;
-	margin-left:82px;
+	//margin-top: 0px;
+	//margin-left:82px;
 }
 .imagethumb {
   height: 75px;
@@ -386,18 +385,18 @@ ul.webimage li img{
 	border: solid 1px #eff2f4;
 	margin-bottom: 15px;
 }
-.leftsidebar {
+/*.leftsidebar {
   width: 178px;
   position: fixed;
   top: 200px;
   left: 45px;
 }
-.rightbar {
+*//*.rightbar {
 	border: solid 1px #eff2f4;
 	padding: 0;
 	width:200px;
 	border-bottom:noen;
-}
+}*/
 .rightbar ul li {
 	  padding: 8px 10px;
 }
@@ -550,9 +549,9 @@ div.imdb span {
 	padding: 0;
 }
 
-.search-result-container{
+/*.search-result-container{
   width:700px;}
-	
+*/	
 .result-list{
 	width:470px;}
 	
@@ -650,11 +649,11 @@ div.imdb span {
 }
 
 
-.pageResult{
+/*.pageResult{
   position: relative;
   left: 188px;
   top: 130px;}
-
+*/
 
 /*mayank*/
 @media screen and (min-width: 1367px) and (max-width: 2000px) {
@@ -662,6 +661,12 @@ div.imdb span {
 	width: 208px;
 	margin-top: 40px;
 }*/
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 960px;
+  }
 }
 		
 		
