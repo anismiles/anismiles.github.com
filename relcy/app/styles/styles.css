@@ -729,6 +729,9 @@ div.imdb span {
   border-left: solid 4px transparent;
 }
 
+{  float: right;
+  margin-top: -60px;}
+
 
 /*.pageResult{
   position: relative;

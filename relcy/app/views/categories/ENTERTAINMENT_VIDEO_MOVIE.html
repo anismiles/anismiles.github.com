@@ -2,6 +2,7 @@
   <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> -->
 	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
+    <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left pull-right" style="vertical-align:middle"><a href="javascript:void(0)" class="anchorjs-link"><span class="fa fa-chevron-right text-gray"></span></a></div>
         <div class="col-lg-4 pull-left">
           <a href="#">
           <div style=" background-image:url({{result.image_info[0].thumbnail.mediaURL}});" class="vdothumb">
@@ -25,7 +26,7 @@
             <span>{{result.image_info[0].source}}</span>
          </p>
         </div>
-       <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void(0)" class="anchorjs-link"><span class="fa fa-chevron-right text-gray"></span></a></div>
+       
    </div>
   </li>
   <div class="panelList">
