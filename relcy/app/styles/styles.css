@@ -729,8 +729,10 @@ div.imdb span {
   border-left: solid 4px transparent;
 }
 
-{  float: right;
-  margin-top: -60px;}
+.rightbar ul li:hover{
+  cursor: pointer;
+  background-color: rgba(238, 238, 238, 0.33);
+	}
 
 
 /*.pageResult{
