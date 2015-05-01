@@ -71,8 +71,7 @@ body {
 	margin-bottom: 150px;
 }
 .pageMiddle {
-/*	margin: 15% auto 0;
-	width: 80%;*/
+  margin-top: 15%;
 }
 .title {
 	font-size: 32px;
@@ -181,7 +180,7 @@ ul.resultList li {
 	margin-right: 1px!important;
 }
 .selected {
-	border-left: solid 4px #999;
+	border-left: solid 4px #999 !important;
 }
 footer {
 	background-color: #8899a6;
@@ -377,14 +376,16 @@ ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot 
 /*mayank*/
 
 .relcysmall {
-	font-size: 20px;
-	margin-bottom: 0%;
-	display: inline-block;
-	vertical-align: top;
-	color: #8899a6;
-	text-transform: uppercase;
-	font-weight: 300;
-	margin-left: -30px;
+  font-size: 20px;
+  margin-bottom: 0%;
+  display: inline-block;
+  vertical-align: top;
+  color: #8899a6;
+  text-transform: uppercase;
+  font-weight: 300;
+  position: relative;
+  left: -144px;
+  top: 40px;
 }
 .relcysmall img {
 	width: 22px;
@@ -455,9 +456,10 @@ ul.webimage li img {
 	margin-bottom: 15px;
 }
 .leftsidebar {
-	float: left;
-	margin: 115px 0 0 -170px;
-	position: fixed;
+ 
+  margin: 0px 0 0 -100px;
+  position: fixed;
+  width: 100px;
 }
 /*.leftsidebar {
   width: 178px;
@@ -716,6 +718,15 @@ div.imdb span {
 .modal-backdrop.in {
 	filter: alpha(opacity=50);
 	opacity: .9;
+}
+
+.pageResult {
+	padding-top:125px;}
+	
+.nav > li {
+  position: relative;
+  display: block;
+  border-left: solid 4px transparent;
 }
 
 
