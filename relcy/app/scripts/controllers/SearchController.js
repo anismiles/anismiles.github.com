@@ -141,6 +141,25 @@ angular.module('relcyApp')
 		}
 	}
 
+	/*Will increase the resuls and will take u to the last one.*/
+	$scope.incrementAndScroll = function(cat){
+		var allItems = cat.values;
+		cat.maxIndex=cat.maxIndex+cat.incrementBy;
+		var item;
+		var id;
+		if(allItems[cat.maxIndex]){
+			item = allItems[cat.maxIndex];
+			id = cat.maxIndex;
+		}else{
+			id = cat.length-1;
+			item = allItems[id];
+		}
+		id = cat.key+id;
+		$timeout(function(){
+			$scope.scrollTo(id);
+		},1100);
+	};
+
 	/*Will take you to the next page to view the details*/
 	$scope.showDetails = function (item) {
 		$scope.showingResult = false;
@@ -171,7 +190,9 @@ angular.module('relcyApp')
 	 $scope.openCastLightbox = function (data,type,index) {
 		//console.log("hello openCastLightbox")
 	 	Lightbox.type = type;
+	 	//data = 'http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1';
 	 	Lightbox.data = data;
+
 		if(type == 'IMAGES')
 		{
 			$scope.images = [];
@@ -186,8 +207,7 @@ angular.module('relcyApp')
 				})
 			}
 			Lightbox.openModal( $scope.images, index);
-		}
-		else
+		}else
 		{
 			Lightbox.openModal( [data], 0);
 		}
