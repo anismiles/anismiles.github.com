@@ -199,6 +199,10 @@ angular.module('relcyApp')
 	 	//data = 'http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1';
 	 	Lightbox.data = data;
 
+	 	if(type == 'VIDEO'){
+	 		Lightbox.data = {value: 'https://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1'};
+	 	}
+
 		if(type == 'IMAGES')
 		{
 			$scope.images = [];
@@ -215,7 +219,7 @@ angular.module('relcyApp')
 			Lightbox.openModal( $scope.images, index);
 		}else
 		{
-			Lightbox.openModal( [data], 0);
+			Lightbox.openModal( [Lightbox.data], 0);
 		}
 	  };
 

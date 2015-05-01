@@ -1,9 +1,9 @@
 <div class="resultList"> 
   <!-- <a name="RELATED_SEARCHES"></a> -->
   <div class="media">
-    <div ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+    <div ng-click="openCastLightbox(cat.values,'IMAGES',$index)" ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     	<div class="col-lg-4 pd10 pull-left">
-            <a href="{{result.contentUrl}}" target="_blank">
+            <a href="javascript:void();" target="_blank">
             <div style=" background-image:url({{result.thumbnailUrl}});" class="imagethumb"></div>
             </a>
        </div> 
