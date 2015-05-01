@@ -333,7 +333,7 @@ margin-bottom:20px;
 .topSection .details span {
 	display: inline-block;
 	padding-right: 10px;
-	font-size: 11px;
+	font-size: 13px;
 	font-weight: 300;
 	color: #8899a6;
 }
@@ -343,18 +343,16 @@ margin-bottom:20px;
 	color: #292F33;
 }
 .topSection .details p {
-	color: #8899a6;
-	margin-bottom: 0px;
-	font-weight: 300;
+    color: #8899a6;
+    font-weight: 300;
+    margin: 5px 0;
 }
 .topSection .details .pull-left {
 	margin-right: 6px;
 }
 .topSection .details .pull-left img {
-	margin: 4px 5px 5px 0px;
-	float: left;
-	width: 12px;
-	height: 12px;
+    float: left;
+    margin: 2px 5px 5px 0;
 }
 .panel, .panel-heading, .panel-body {
 	border-radius: 0px
@@ -670,6 +668,7 @@ div.imdb span {
 	padding: 5px;
 	text-align: center;
 	width: 64px;
+	background:#fafcfd ;
 }
 .pad_left {
 	padding-left: 15px;
