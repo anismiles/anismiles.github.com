@@ -786,7 +786,7 @@ div.imdb span {
   cursor: pointer;
   background-color: rgba(238, 238, 238, 0.33);
 	}
-
+.related-search h4.media-heading a{ display:none;}
 .totop {
     position: absolute;
     right: 124px;
