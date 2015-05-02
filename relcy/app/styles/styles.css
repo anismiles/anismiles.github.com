@@ -245,6 +245,15 @@ footer a {
 	margin-left: -5px;
 	font-size: 10px;
 }
+@-moz-document url-prefix() { 
+.btn-circle .glyphicon-search {
+	display: inline-block;
+	vertical-align: super;
+	color: #FFF;
+	margin-left: -0;
+	font-size: 10px;
+}
+}
 .btn-circle.btn-link:hover, .btn-circle.btn-link:focus {
 	background-color: #999;
 }
@@ -502,12 +511,18 @@ ul.webimage li img {
   top: 200px;
   left: 45px;
 }
-*//*.rightbar {
+
+.rightbar {
 	border: solid 1px #eff2f4;
 	padding: 0;
 	width:200px;
 	border-bottom:noen;
 }*/
+.rightbar  {
+    left: 55%;
+    position: fixed !important;
+    width: 18%;
+}
 .rightbar ul li {
 	padding: 8px 10px;
 }
@@ -780,7 +795,20 @@ div.imdb span {
   cursor: pointer;
   background-color: rgba(238, 238, 238, 0.33);
 	}
-
+.related-search h4.media-heading a{ display:none;}
+.totop {
+    position: absolute;
+    right: 124px;
+    top: 82px;
+	opacity:0.7;
+	cursor:pointer;
+}
+.totop:hover {
+    position: absolute;
+    right: 124px;
+    top: 82px;
+	opacity:1;
+}
 div.lightbox-image-contaer img{width:100%;height:auto}
 /*.pageResult{
   position: relative;
@@ -790,10 +818,11 @@ div.lightbox-image-contaer img{width:100%;height:auto}
 
 /*mayank*/
 @media screen and (min-width: 1367px) and (max-width: 2000px) {
-/*.leftsidebar {
-	width: 208px;
-	margin-top: 40px;
-}*/
+.rightbar {
+    left: 53.5%;
+    position: fixed !important;
+    width: 14%;
+}
 }
  @media (min-width: 1200px) {
 .container {
