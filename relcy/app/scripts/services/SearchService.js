@@ -243,6 +243,7 @@ angular.module('relcyApp')
 					template = 'APP';
 					maxIndex = 2;
 					incrementBy = 2;
+					$scope.addScoresToAppResluts(values);
 				}
 			break;
 			case 'RELATED_SEARCHES':

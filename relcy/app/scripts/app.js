@@ -6,7 +6,7 @@ angular.module('relcyApp',
   'angucomplete-alt']);
 
 angular.module('relcyApp')
-.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider, LightboxProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider, $sceProvider, LightboxProvider) {
     
      LightboxProvider.templateUrl = 'views/lightbox.html';
     //$locationProvider.html5Mode(true);
@@ -17,11 +17,10 @@ angular.module('relcyApp')
         	url: "/",
         	templateUrl: "views/home.html",
 	  	controller: "SearchController",
-      }).state("details", {
-          url: "/details",
-          templateUrl: "views/detail.html",
-      controller: "SearchController",
-      })   
+      });
+
+      $sceProvider.enabled(false);
+ 
 	
 });
 

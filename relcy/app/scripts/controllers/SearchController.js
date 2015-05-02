@@ -62,6 +62,15 @@ angular.module('relcyApp')
 		return results.auto_complete_response;
 	}
 
+	$scope.addScoresToAppResluts = function(results){
+		if(!results) return;
+		angular.forEach(results, function(a){
+			a.scoreArray = getScoreArray(a.app_result[0].score);
+			a.showHalfRating = showHalfRating(a.app_result[0].score);
+		});
+		return results;
+	}
+
 	/*Will be invoked everytime search field will be changed on homepage*/
 	$scope.onInputChange = function(q){
 		$scope.query = q;
@@ -125,6 +134,7 @@ angular.module('relcyApp')
 		}
 	}
 
+	/*Will scroll to this id*/
 	$scope.scrollTo = function(id) {
 		$scope.selectedCategory = id;
 		if(id=='container'){
@@ -134,9 +144,16 @@ angular.module('relcyApp')
 				$scope.selectedCategory = $scope.searchResults[0].key;	
 			}
 		}else{
-			$scope.showTopAnchor = true;
+			try{
+				if($scope.searchResults[0].key==id){
+					$scope.showTopAnchor = false;
+				}else{
+					$scope.showTopAnchor = true;					
+				}
+			}catch(err){
+				console.log('nothing there in first category!');
+			}
 		}
-		
 		
 		$location.hash(id);
       	// $anchorScroll();
@@ -208,7 +225,18 @@ angular.module('relcyApp')
 	 	Lightbox.data = data;
 
 	 	if(type == 'VIDEO'){
-	 		Lightbox.data = {value: 'https://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1'};
+	 		for(var i=0;i<data.length;i++){
+	 			try{
+		 			if(data[i].contentUrl.indexOf("youtube") > -1){
+		 				Lightbox.data = {value: data[i].contentUrl.replace("watch?v=", "v/")};
+		 			}
+		 		}catch(err){
+		 			console.log('something went wrong!');
+		 		}
+	 		}
+	 		if(!Lightbox.data.value){
+	 			Lightbox.data = {value: data[0].contentUrl};
+	 		}
 	 	}
 
 		if(type == 'IMAGES')
@@ -241,6 +269,9 @@ angular.module('relcyApp')
             alert(error);
         });
 
+	   $scope.getVideoUrl = function(){
+	   		return "http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1";
+	   }
 });
 
 
