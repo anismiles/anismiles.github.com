@@ -25,6 +25,12 @@
 
 
 <div ng-if="Lightbox.type=='VIDEO'" class="modal-body castmodel">
+  <!-- navigation -->
+  <div class="lightbox-nav">
+    <!-- close button -->
+    <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+    </div>
+  </div>
 	<div style="padding:0">
     <iframe width="500" height="300" ng-src="{{Lightbox.data.value}}" frameborder="0" allowfullscreen controls></iframe>
 </div>
