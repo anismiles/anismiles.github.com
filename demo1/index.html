@@ -4,17 +4,28 @@
 <![endif]--> <style>cursor: url(img-no-min/cursor.png) x y, auto;</style>  <body id="container"> <section class="wrapper"> <div class="container"> <div class="row"> <div class="col-lg-12"> <ui-view></ui-view> </div> </div> </div> </section> <footer> <div class="container footer"> <div class="row"> <div class="col-lg-5"><img src="images/Slice 1.cee0e048.png" alt=""> &nbsp; Relcy Entity Browser - Employees Only</div> <div class="col-lg-6"><a href="#">Mail</a> &nbsp; <a href="#">Jira</a> &nbsp; <a href="#">Slack</a></div> </div> </div> </footer> <script src="scripts/vendor.e60fa52a.js"></script> <script src="scripts/scripts.a6f536fa.js"></script> <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> <script>//this is here to make plunkr work with AngularJS routing
 /*angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));*/
 
-
-$(document).ready(function(){
-	setTimeout ( function (){
-	$( "#members input" ).focus();
+function init(){
+    $(document).ready(function(){
+    setTimeout ( function (){
+    $( "#members input" ).focus();
     $(".tran_top").keypress(function(e){
-		console.log("213456");
+        console.log("213456");
         $("#bighead").removeClass("title");
-		$("#bighead").addClass("relcysmall");
-		//$("#bigform").addClass("smallform");
-		$("#pageMiddle").animate({'margin-top':'0%'}, 200);
-		$("#pageMiddle").css({'width':'940px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
-	
-    }); },1000);
-});</script>  
+        $("#bighead").addClass("relcysmall");
+        //$("#bigform").addClass("smallform");
+        $("#pageMiddle").animate({'margin-top':'0%'}, 200);
+        $("#pageMiddle").css({'width':'940px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
+        
+        }); },1000);
+    });
+}
+
+if($){
+    setTimeout(function(){
+        init();
+    }, 700);
+}   else{
+    setTimeout(function(){
+        init();
+    }, 1500);
+}</script>  
