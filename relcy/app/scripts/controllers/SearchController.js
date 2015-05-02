@@ -73,6 +73,17 @@ angular.module('relcyApp')
 		return results;
 	}
 
+	/*Will add rating array to app resutls*/
+	$scope.addScoresToVideoMovies = function(results){
+		if(!results) return;
+		angular.forEach(results, function(a){
+			var score  = a.score/20;
+			a.scoreArray = getScoreArray(score);
+			a.showHalfRating = showHalfRating(score);
+		});
+		return results;
+	}
+
 	/*Will be invoked everytime search field will be changed on homepage*/
 	$scope.onInputChange = function(q){
 		$scope.query = q;
@@ -116,6 +127,9 @@ angular.module('relcyApp')
 		});
 	}
 		
+	$scope.reload = function(){
+		window.location.reload();
+	}
 	/*Will clear the search field of auto complete with given id.*/
 	$scope.clearSearchInput = function(id) {
 		$scope.hideMainSearch = false;
@@ -173,9 +187,9 @@ angular.module('relcyApp')
 
 	/*Will increase the resuls and will take u to the last one.*/
 	$scope.incrementAndScroll = function(cat){
-		var allItems = cat.values;
+		// var allItems = cat.values;
 		cat.maxIndex=cat.maxIndex+cat.incrementBy;
-		var item;
+		/*var item;
 		var id;
 		if(allItems[cat.maxIndex]){
 			item = allItems[cat.maxIndex];
@@ -184,10 +198,10 @@ angular.module('relcyApp')
 			id = cat.length-1;
 			item = allItems[id];
 		}
-		id = cat.key+id;
+		id = cat.key;
 		$timeout(function(){
 			$scope.scrollTo(id);
-		},1100);
+		},1100);*/
 	};
 
 	/*Will take you to the next page to view the details*/

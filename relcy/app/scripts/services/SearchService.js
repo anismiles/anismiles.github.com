@@ -189,6 +189,7 @@ angular.module('relcyApp')
 					template = 'ENTERTAINMENT_VIDEO_MOVIE';
 					maxIndex = 2;
 					incrementBy = 2;
+					$scope.addScoresToVideoMovies(values);
 				}
 			break;
 			case 'ENTERTAINMENT_VIDEO_TVSHOW':
@@ -214,8 +215,8 @@ angular.module('relcyApp')
 					values = data[index].imageSearchResult.imageSearchResults;
 					keyTitle = 'Images';
 					template = 'WEB_IMAGES';
-					maxIndex = 2;
-					incrementBy = 2;
+					maxIndex = 3;
+					incrementBy = 3;
 				}
 			break;
 			case 'WEB':
