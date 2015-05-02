@@ -126,13 +126,18 @@ angular.module('relcyApp')
 	}
 
 	$scope.scrollTo = function(id) {
+		$scope.selectedCategory = id;
 		if(id=='container'){
 			$scope.showTopAnchor = false;
+			/*Set first element in categories as selected*/
+			if($scope.searchResults.length>0){
+				$scope.selectedCategory = $scope.searchResults[0].key;	
+			}
 		}else{
 			$scope.showTopAnchor = true;
 		}
 		
-		$scope.selectedCategory = id;
+		
 		$location.hash(id);
       	// $anchorScroll();
       	anchorSmoothScroll.scrollTo(id);
@@ -183,7 +188,7 @@ angular.module('relcyApp')
 				SearchService.selectedItem = item;
 				$scope.itemDetails = SearchService.transformDetails(data);
 				$scope.searchResults = $scope.itemDetails.categories;
-				if($scope.searchResults.legth>0){
+				if($scope.searchResults.length>0){
 					$scope.selectedCategory = $scope.searchResults[0].key;	
 				}
 				

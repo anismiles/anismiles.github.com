@@ -9,6 +9,7 @@ angular.module('relcyApp')
         var startY = currentYPosition();
         var stopY = elmYPosition(eID);
         var distance = stopY > startY ? stopY - startY : startY - stopY;
+
         if (distance < 100) {
             scrollTo(0, stopY); return;
         }
@@ -17,6 +18,7 @@ angular.module('relcyApp')
         speed = 15;
         var step = Math.round(distance / 25);
         var leapY = stopY > startY ? startY + step : startY - step;
+        stopY = stopY-100;
         var timer = 0;
         if (stopY > startY) {
             for ( var i=startY; i<stopY; i+=step ) {
