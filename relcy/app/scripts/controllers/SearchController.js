@@ -53,6 +53,7 @@ angular.module('relcyApp')
 		return (score%1)>0;
 	}
 
+	/*Will add ratings to auto search results*/
 	$scope.addScores = function(results){
 		if(!results) return;
 		angular.forEach(results.auto_complete_response.auto_complete_item, function(a){
@@ -62,6 +63,7 @@ angular.module('relcyApp')
 		return results.auto_complete_response;
 	}
 
+	/*Will add rating array to app resutls*/
 	$scope.addScoresToAppResluts = function(results){
 		if(!results) return;
 		angular.forEach(results, function(a){
