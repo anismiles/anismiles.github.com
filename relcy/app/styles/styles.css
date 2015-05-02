@@ -572,6 +572,11 @@ ul.webimage li img {
 	font-size: 12px;
 	color: #2B7BB9;
 }
+ul.resultList div.media div.media-body h4 a,
+ul.resultList h4.media-heading a
+{ color:inherit}
+p.timestamp span{ color:#337ab7}
+
 .resultList p, .genre span{
 	font-size: 12px;
 	color: #8899a9;
