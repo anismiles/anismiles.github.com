@@ -64,7 +64,6 @@ cursor: url(img-no-min/cursor.png) x y, auto;
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -83,20 +82,31 @@ cursor: url(img-no-min/cursor.png) x y, auto;
 //this is here to make plunkr work with AngularJS routing
 /*angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));*/
 
-
-$(document).ready(function(){
-	setTimeout ( function (){
-	$( "#members input" ).focus();
+function init(){
+    $(document).ready(function(){
+    setTimeout ( function (){
+    $( "#members input" ).focus();
     $(".tran_top").keypress(function(e){
-		console.log("213456");
+        console.log("213456");
         $("#bighead").removeClass("title");
-		$("#bighead").addClass("relcysmall");
-		//$("#bigform").addClass("smallform");
-		$("#pageMiddle").animate({'margin-top':'0%'}, 200);
-		$("#pageMiddle").css({'width':'940px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
-	
-    }); },1000);
-});
+        $("#bighead").addClass("relcysmall");
+        //$("#bigform").addClass("smallform");
+        $("#pageMiddle").animate({'margin-top':'0%'}, 200);
+        $("#pageMiddle").css({'width':'940px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
+        
+        }); },1000);
+    });
+}
+
+if($){
+    setTimeout(function(){
+        init();
+    }, 700);
+}   else{
+    setTimeout(function(){
+        init();
+    }, 1500);
+}
 </script>
 
 </body>
