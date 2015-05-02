@@ -1,6 +1,6 @@
 
 angular.module('relcyApp')
-.controller("SearchController", function($scope, $http, $rootScope,  $location, SearchService, $filter, anchorSmoothScroll, Lightbox) {
+.controller("SearchController", function($scope, $http, $rootScope,  $location, $window, SearchService, $filter, anchorSmoothScroll, Lightbox) {
 	$scope.selectedTypeIndex = 0;
 	$scope.selectedCategory;
 	$scope.showDetailPage = false;
@@ -225,6 +225,16 @@ angular.module('relcyApp')
 			Lightbox.openModal( [Lightbox.data], 0);
 		}
 	  };
+
+
+	   $window.navigator.geolocation.getCurrentPosition(function(position) {
+            $scope.$apply(function() {
+                SearchService.position = position;
+                console.log(position);
+            });
+        }, function(error) {
+            alert(error);
+        });
 
 });
 

@@ -3,14 +3,24 @@
 angular.module('relcyApp')
 .service("SearchService",function($timeout,$q,$http){
 	this.searchResult = [];
+	this.position;
+	/*The default location if the user doesnot allow his/her location access*/
+	this.defaultLoc = {lat: "37.762759", lng: "-122.408934"};
 	/*Will be used to refer the service itself*/
 	var self = this;
+	this.getGeoLocation = function(){
+		try{
+			return {lat: self.position.coords.latitude, lng: self.position.coords.longitude};
+		}catch(err){
+			/*Retuning default location in case user does not allow for his/her location*/
+			return self.defaultLoc;
+		}
+	};
 	this.getSearchDetails = function(query)
 	{
-		var lat = "37.762759";
-		var lng = "-122.408934";
+		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
-		$http.get('http://dev-w.relcy.com/search?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
+		$http.get('http://dev-w.relcy.com/search?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -21,11 +31,10 @@ angular.module('relcyApp')
 
 	this.getEntityDetails = function(relcyId)
 	{
-		var lat = "37.762759";
-		var lng = "-122.408934";
+		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
 		//$http.get('http://staging-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id=look:3b41f9b9')//+relcyId)
-		$http.get('http://dev-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+'look:3b41f9b9')
+		$http.get('http://dev-w.relcy.com/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+'look:3b41f9b9')
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -36,10 +45,9 @@ angular.module('relcyApp')
 
 	this.search = function(query){
 		var session_id = "b9a30926-e912-11e4-b02c-1681e6b88ec1";
-		var lat = "37.762759"
-		var lng = "-122.408934"
+		var currLoc = self.getGeoLocation();
 		var query= query
-		var request = $http({method: "get", url:"/test/arc-response-2015_Apr_24_12-21-31.json?sessionId="+session_id+"&lat="+lat+"&lng="+lng+"&query="+query })
+		var request = $http({method: "get", url:"/test/arc-response-2015_Apr_24_12-21-31.json?sessionId="+session_id+"&lat="+currLoc.lat+"&lng="+currLoc.lng+"&query="+query })
 		return( request.then( this.handleSuccess, this.handleError ) );
 	};
 
