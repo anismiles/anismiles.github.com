@@ -142,7 +142,7 @@
         <div class="panel-heading detail-title ">Web</div>
         <div ng-repeat="web in itemDetails.webResults  | limitTo: itemDetails.webResults.maxIndex" class="panel-body resultList">
           <div class="media">
-            <div class="media-left"> <a href="{{::clickUrl}}"> <i class="fa fa-apple"></i> </a> </div>
+            <!-- <div class="media-left"> <a href="{{::clickUrl}}"> <i class="fa fa-apple"></i> </a> </div> -->
             <div class="media-body">
               <h4 class="media-heading">{{::web.title}}</h4>
               <a href="{{::web.clickUrl}}">{{::web.displayUrl}}</a>
