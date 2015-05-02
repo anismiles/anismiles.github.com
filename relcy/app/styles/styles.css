@@ -50,7 +50,7 @@ body {
 	padding: 25px
 }
 .mr0 {
-	padding: 0px
+	margin: 0px
 }
 .mr5 {
 	margin: 5px
@@ -157,6 +157,7 @@ ul.resultList li {
 	content: " ";
 	color: #8899a6;
 }
+.angucomplete-selected-row 
 .text-gray {
 	color: #CCC;
 }
@@ -164,7 +165,7 @@ ul.resultList li {
 	font-size: 10px;
 }
 .dark-gray {
-	color: #666;
+	color: #8899a6;
 }
 .relcysrchInput .form-control {
 	height: auto;
@@ -177,7 +178,8 @@ ul.resultList li {
 	margin-top: 15px;
 }
 .rating span {
-	margin-right: 1px!important;
+    color: #2b7bb9;
+    margin-right: 1px !important;
 }
 .selected {
 	border-left: solid 4px #999 !important;
@@ -254,10 +256,44 @@ footer a {
 	height: auto;
 }
 .angucomplete-dropdown {
-	/*box-shadow: 3px 3px 4px #f2f2f2;*/
-	margin-top: 65px;
-	width: 480px;
+	margin-top: 62px;
+	width: 516px;
 	padding: 0px;
+	background-color: #ffffff;
+	border: 1px solid #e5eaee;
+    border-radius: 1px;
+    max-height: 70%;
+    overflow: auto;
+    position: fixed;
+
+}
+.angucomplete-selected-row {
+    background-color: #f5f8fa;
+    color: #000;
+}
+.angucomplete-dropdown-result-list{
+	margin: 1px 0 0 -1px;
+	width: 516px;
+	padding: 0px;
+	background-color: #ffffff;
+    border-radius: 1px;
+	border: 1px solid #e5eaee;
+	border-top:0;
+    max-height: 70%;
+    overflow: auto;
+    position: fixed;
+}
+.angucomplete-image-default {
+    background-position: center center;
+    background-size: contain;
+    height: 60px;
+    width: 60px;
+}
+.angucomplete-image-holder {
+    float: none;
+    margin-left: 0;
+    margin-right: 10px;
+    padding-top: 0;
 }
 .angucomplete-dropdown .angucomplete-searching {
 	padding: 5px 10px;
@@ -265,13 +301,14 @@ footer a {
 .angucomplete-image-holder img {
 	vertical-align: top;
 	margin: 0px;
-	width: 40px;
-	height: 40px;
+	width: 60px;
+	height: 60px;
 	border: none !important;
 }
 .angucomplete-image-holder {
-	width: 40px;
-	height: 40px;
+    height: 60px;
+    overflow: hidden;
+    width: 60px;
 }
 .media-body .angucomplete-title {
 	vertical-align: middle;
@@ -484,11 +521,15 @@ ul.webimage li img {
 .angucomplete-image {
 	height: 80px;
 	width: 80px;
-	border-radius: 3px;
+	border-radius: 1px;
 }
-.dark-gray span {
+.angucomplete-row {
+    margin-bottom: 0px;
+    padding: 5px;
+}
+.angucomplete-row .dark-gray span {
 	display: inline-block;
-	font-size: 11px;
+	font-size: 12px;
 }
 .dark-gray span:first-child {
 }
