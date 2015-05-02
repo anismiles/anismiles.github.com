@@ -94,7 +94,7 @@ angular.module('relcyApp')
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
-		$scope.query = query;
+		
 		SearchService.getSearchDetails(query).then(function(data) 
 		{	
 			$scope.showDetailPage = false;
