@@ -183,7 +183,10 @@ angular.module('relcyApp')
 				SearchService.selectedItem = item;
 				$scope.itemDetails = SearchService.transformDetails(data);
 				$scope.searchResults = $scope.itemDetails.categories;
-				$scope.selectedCategory = $scope.searchResults[0].key;
+				if($scope.searchResults.legth>0){
+					$scope.selectedCategory = $scope.searchResults[0].key;	
+				}
+				
 			}, function(error){
 				console.log('Error while fetching details!!!');
 			});
