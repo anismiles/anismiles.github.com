@@ -20,7 +20,7 @@ angular.module('relcyApp')
 	{
 		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
-		$http.get('http://dev-w.relcy.com/search?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
+		$http.get('http://staging-w.relcy.com/search?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -34,7 +34,7 @@ angular.module('relcyApp')
 		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
 		//$http.get('http://staging-w.relcy.com/detail?lat='+lat+'&lng='+lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id=look:3b41f9b9')//+relcyId)
-		$http.get('http://dev-w.relcy.com/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+'look:3b41f9b9')
+		$http.get('http://staging-w.relcy.com/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+relcyId)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -91,7 +91,7 @@ angular.module('relcyApp')
 				/*Extracting web search results*/
 				try{
 					transformedData.webResults = searchResults.webSearchResult.searchResults;
-					transformedData.webResults.maxIndex = 3;
+					transformedData.webResults.maxIndex = 10;
 					transformedData.categories.push({key: 'details_web', keyTitle : 'Web'});
 				}catch(err){
 					console.log('no web results found');

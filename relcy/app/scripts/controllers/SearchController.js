@@ -230,7 +230,10 @@ angular.module('relcyApp')
 	 		for(var i=0;i<data.length;i++){
 	 			try{
 		 			if(data[i].contentUrl.indexOf("youtube") > -1){
-		 				Lightbox.data = {value: data[i].contentUrl.replace("watch?v=", "v/")};
+		 				var url = data[i].contentUrl.replace("watch?v=", "embed/");
+		 				url=url+'?autoplay=1'
+		 				Lightbox.data = {value: url};
+		 				break;
 		 			}
 		 		}catch(err){
 		 			console.log('something went wrong!');
