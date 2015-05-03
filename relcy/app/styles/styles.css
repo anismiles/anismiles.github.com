@@ -395,7 +395,7 @@ margin-bottom:20px;
 }
 .topSection .details span {
 	display: inline-block;
-	padding-right: 10px;
+	padding-right: 0;
 	font-size: 13px;
 	font-weight: 300;
 	color: #8899a6;

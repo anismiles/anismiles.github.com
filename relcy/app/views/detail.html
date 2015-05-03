@@ -9,8 +9,11 @@
   <div class="details clearfix">
     <div class="detail_left">
       <h2>{{::itemDetails.title}}</h2>
-      <p> <span>{{::itemDetails.parentalRating}}</span> <span>{{::itemDetails.releaseYear}} </span> <span>{{::itemDetails.duration}}</span> </p>
-      <p> <span>{{::itemDetails.genre}}</span> </p>
+      <p class="genre" style="margin:5px 0 0">
+	  <span ng-if="itemDetails.parentalRating">{{::itemDetails.parentalRating}}</span>
+	  <span ng-if="itemDetails.releaseYear">{{::itemDetails.releaseYear}} </span>
+	  <span ng-if="itemDetails.duration">{{::itemDetails.duration}}</span> </p>
+      <p class="genre"  ng-if="itemDetails.genre"  style="margin:0 0 5px"> <span>{{::itemDetails.genre}}</span> </p>
       <div class="pull-left"> <img src="img-no-min/icons/IMDb.png" title="" height="18px" width="18px">
         <div class="pull-left"> <span>IMDB:</span> <span> <span>/10</span></span> </div>
        </div>
