@@ -1,6 +1,6 @@
 
 angular.module('relcyApp')
-.controller("SearchController", function($scope, $http, $rootScope,  $location, $window, SearchService, $filter, anchorSmoothScroll, Lightbox) {
+.controller("SearchController", function($scope, $http, $rootScope,  $location, $window, $timeout, SearchService, $filter, anchorSmoothScroll, Lightbox) {
 	$scope.selectedTypeIndex = 0;
 	$scope.selectedCategory;
 	$scope.showDetailPage = false;
@@ -9,9 +9,10 @@ angular.module('relcyApp')
 	$scope.hideMainSearch = false;
 	$scope.relatedSearches;
 	$scope.defaultErrorImage = 'https://www.google.com/favicon.ico';
+	$scope.showTopAnchor = false;
 	/*The query in the search field of home page*/
 	$scope.query;
-	 
+
 	$scope.showResult = function(type,index){
 		 $scope.selectedTypeIndex = type
 		 $scope.resultByType = $scope.types[index]//.searchResultRelcy.results;
@@ -97,7 +98,11 @@ angular.module('relcyApp')
 
 	/*Will be invoked on clicking related search item*/
 	$scope.goForRelatedSearch = function(query){
-		angular.element( document.querySelector( '#members' ) ).children().children()[0].value=query;
+		$scope.$broadcast('angucomplete-alt:clearInput', 'members');
+		$timeout(function() {
+			angular.element( document.querySelector( '#members' ) ).children().children()[0].value=query;
+		}, 250);
+
 		$scope.search(query);
 	};
 	 /*Start searching for the input query*/
@@ -288,8 +293,9 @@ angular.module('relcyApp')
             alert(error);
         });
 
-	   $scope.getVideoUrl = function(){
-	   		return "http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1";
+	   $rootScope.hideSearchDropdown = function(id){
+	   		var focusInputElem = document.getElement('#members div');
+		    focusInputElem.classList.remove('angucomplete-dropdown-visible');
 	   }
 });
 
