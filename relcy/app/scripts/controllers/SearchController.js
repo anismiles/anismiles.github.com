@@ -284,7 +284,7 @@ angular.module('relcyApp')
 		}
 	  };
 
-
+	   /*Asking and fetching the current location*/
 	   $window.navigator.geolocation.getCurrentPosition(function(position) {
             $scope.$apply(function() {
                 SearchService.position = position;
@@ -293,9 +293,9 @@ angular.module('relcyApp')
         }, function(error) {
         });
 
+	   /*Will hide the auto complete on focus out*/
 	   $rootScope.hideSearchDropdown = function(id){
-	   		var focusInputElem = document.getElement('#members div');
-		    focusInputElem.classList.remove('angucomplete-dropdown-visible');
+	   		angular.element( document.querySelector( '#members' ) ).children()[0].classList.remove('angucomplete-dropdown-visible');   
 	   }
 });
 

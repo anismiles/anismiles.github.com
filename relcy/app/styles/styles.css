@@ -326,16 +326,15 @@ footer a {
 	display: block;
 }
 .panelList {
-	background-color: #fafcfd;
-	text-align: center;
-	width: 100%;
-	height: 30px;
-	line-height: 30px;
+    background-color: #fafcfd;
+    text-align: center;
+    width: 100%;
 }
 .panelList a {
-	color: #ccd6dd;
-	display: inline-block;
-	font-size: 7px;
+    color: #ccd6dd;
+    display: inline-block;
+    font-size: 7px;
+    line-height: 25px;
 }
 .panelList a i {
 }
@@ -905,22 +904,97 @@ div.lightbox-image-container img{width:100% !important;height:auto}
 */
 
 /*mayank*/
-@media screen and (min-width: 1367px) and (max-width: 2000px) {
+
+@media screen and (min-width: 1280px){
+.container {
+	width: 960px;
+}
 .rightbar {
-    left: 53.5%;
+    left: 56%;
+    position: fixed !important;
+    width: 18%;
+}
+}
+@media screen and (min-width: 1360px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 55.5%;
+    position: fixed !important;
+    width: 17.5%;
+}
+}
+@media screen and (min-width: 1366px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 55.5%;
+    position: fixed !important;
+    width: 17.4%;
+}
+}
+@media screen and (min-width: 1440px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 55.4%;
+    position: fixed !important;
+    width: 16%;
+}
+}
+@media screen and (min-width: 1600px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 55%;
+    position: fixed !important;
+    width: 14.4%;
+}
+}
+@media screen and (min-width: 1680px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 54.5%;
     position: fixed !important;
     width: 14%;
 }
 }
- @media (min-width: 1200px) {
+@media screen and (min-width: 1920px){
 .container {
 	width: 960px;
 }
+.rightbar {
+    left: 54%;
+    position: fixed !important;
+    width: 12%;
 }
-		
-		
-		
-
+}
+@media screen and (min-width: 2560px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 53%;
+    position: fixed !important;
+    width: 9%;
+}
+}
+@media screen and (min-width: 5120px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 51.5%;
+    position: fixed !important;
+    width: 5%;
+}
+}
 /* saf3+, chrome1+ */
 /*@media screen and (-webkit-min-device-pixel-ratio:0) {
  .btn-circle .glyphicon-search  { left:0px;  }
