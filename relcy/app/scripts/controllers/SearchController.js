@@ -110,7 +110,8 @@ angular.module('relcyApp')
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
-		
+		$scope.searchResults=undefined;
+		$scope.relatedSearches = undefined;
 		SearchService.getSearchDetails(query).then(function(data) 
 		{	
 			$scope.showDetailPage = false;
