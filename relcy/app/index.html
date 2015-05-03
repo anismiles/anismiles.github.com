@@ -108,6 +108,18 @@ if($){
         init();
     }, 1500);
 }
+
+$(window).scroll(function() {
+
+    if ($(this).scrollTop()>0)
+     {
+        $('.totop').fadeIn();
+     }
+    else
+     {
+      $('.totop').fadeOut();
+     }
+ });
 </script>
 
 </body>

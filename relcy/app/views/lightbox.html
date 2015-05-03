@@ -1,4 +1,4 @@
-<div ng-if="Lightbox.type=='CAST'" class="modal-body castmodel">
+<div ng-if="Lightbox.type=='CAST'" class="modal-body castmodel" style="background:#fff;">
 	 <h4 class="topictitle">Cast</h4>
     <div ng-if="cast.title" ng-repeat="cast in Lightbox.data">
 		<div class="castlist">
@@ -36,7 +36,7 @@
   </div>
 	
 
-<div ng-if="Lightbox.type=='STORY'" class="modal-body castmodel">
+<div ng-if="Lightbox.type=='STORY'" class="modal-body castmodel" style="background:#fff;">
 <h4 class="topictitle">Story</h4>
 	<div style="padding:20px">
 	{{Lightbox.data.value}}
