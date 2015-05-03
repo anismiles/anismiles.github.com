@@ -290,7 +290,6 @@ angular.module('relcyApp')
                 console.log(position);
             });
         }, function(error) {
-            alert(error);
         });
 
 	   $rootScope.hideSearchDropdown = function(id){
