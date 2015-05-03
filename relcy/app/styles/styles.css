@@ -831,11 +831,9 @@ div.imdb span {
     top: 82px;
 	opacity:0.7;
 	cursor:pointer;
+	display:none;
 }
 .totop:hover {
-    position: absolute;
-    right: 124px;
-    top: 82px;
 	opacity:1;
 }
 div.lightbox-image-container img{width:100% !important;height:auto}
