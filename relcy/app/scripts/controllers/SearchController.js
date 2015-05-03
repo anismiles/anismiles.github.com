@@ -252,7 +252,7 @@ angular.module('relcyApp')
 		 			if(data[i].contentUrl.indexOf("youtube") > -1){
 		 				var url = data[i].contentUrl.replace("watch?v=", "embed/");
 		 				url=url+'?autoplay=1'
-		 				Lightbox.data = {value: url};
+		 				Lightbox.data = {value: url, title: ''};
 		 				break;
 		 			}
 		 		}catch(err){
