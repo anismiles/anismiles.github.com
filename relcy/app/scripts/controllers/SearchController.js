@@ -110,6 +110,7 @@ angular.module('relcyApp')
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
+	 	$rootScope.hideLoader = false;
 		$scope.searchResults=undefined;
 		$scope.relatedSearches = undefined;
 		SearchService.getSearchDetails(query).then(function(data) 
@@ -125,11 +126,13 @@ angular.module('relcyApp')
 			$scope.selectedCategory = $scope.searchResults[0].key;
 			$scope.types = $scope.result.verticalResult;
 			setDefaultCategory();
+			$rootScope.hideLoader = true;
 			
 		}, function(error)
 		{
 			$scope.showingResult = false;
 			$scope.gridMessage = 'Error while loading data';
+			$rootScope.hideLoader = true;
 		});
 	}
 		
@@ -221,6 +224,7 @@ angular.module('relcyApp')
 			relcyId = item.originalObject.lookIds[0];
 		}
 		if(relcyId){
+			$rootScope.hideLoader = false;
 			$scope.showDetailPage = false;
 			SearchService.getEntityDetails(relcyId).then(function(data) {
 				$scope.showDetailPage = true;
@@ -230,9 +234,10 @@ angular.module('relcyApp')
 				if($scope.searchResults.length>0){
 					$scope.selectedCategory = $scope.searchResults[0].key;	
 				}
-				
+				$rootScope.hideLoader = true;
 			}, function(error){
 				console.log('Error while fetching details!!!');
+				$rootScope.hideLoader = true;
 			});
 		}else{
 			console.log('Relcy id not found!');
@@ -297,6 +302,8 @@ angular.module('relcyApp')
 	   $rootScope.hideSearchDropdown = function(id){
 	   		angular.element( document.querySelector( '#members' ) ).children()[0].classList.remove('angucomplete-dropdown-visible');   
 	   }
+
+	   $rootScope.hideLoader = true;
 });
 
 
