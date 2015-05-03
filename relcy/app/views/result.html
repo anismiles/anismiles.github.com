@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3 rightbar">
+    <div class="col-lg-3 rightbar" ng-if="relatedSearches.length>0">
     <div class="panel">
       <h4 class="topictitle" id="{{cat.key}}">Related Searches</h4>
       <div class="animate-switch-container" ng-include="'views/categories/RELATED_SEARCHES.html'"> </div>
