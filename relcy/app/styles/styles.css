@@ -12,6 +12,18 @@ body {
     background: url(../img-no-min/ajax-loader.gif) rgba(255, 255, 255, 0.6) no-repeat center center;
     z-index: 100;
 }
+.lightboxloader {
+    background: url(../img-no-min/ajax-loader.gif) rgba(255, 255, 255, 0.6) no-repeat center center;
+}
+.modal-backdrop {
+    background: #000000  no-repeat center center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1040;
+}
 ::-webkit-input-placeholder {
  color: #CCD6DD;
 }
@@ -989,6 +1001,16 @@ div.lightbox-image-container img{width:100% !important;height:auto}
     left: 53%;
     position: fixed !important;
     width: 9%;
+}
+}
+@media screen and (min-width: 2880px){
+.container {
+	width: 960px;
+}
+.rightbar {
+    left: 52.7%;
+    position: fixed !important;
+    width: 8%;
 }
 }
 @media screen and (min-width: 5120px){
