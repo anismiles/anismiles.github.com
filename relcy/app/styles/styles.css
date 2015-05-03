@@ -348,7 +348,7 @@ position:relative;
 margin-bottom:20px;
 }
 .topSection .coverImage {
-	height: 150px;
+	height: 300px;
 	overflow: hidden;
 	background-color: #f5f8fa;
 }
@@ -361,10 +361,10 @@ margin-bottom:20px;
     border: 1px solid #f2f2f2;
     float: left;
     height: 176px;
-    left: 25px;
+    left: 23px;
     overflow: hidden;
     position: absolute;
-    top: 85px;
+    top: 238px;
     width: 130px;
 }
 /*.topSection .profileImage img {
@@ -384,9 +384,11 @@ margin-bottom:20px;
 	color: #8899a6;
 }
 .topSection .details h2 {
-	margin: 0px 0px;
-	font-size: 22px;
-	color: #292F33;
+    color: #000;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 25px;
+    margin: 0;
 }
 .topSection .details p {
     color: #8899a6;
@@ -603,7 +605,7 @@ div.imdb span {
 .detail_left {
     display: inline-block;
     float: left;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 25px;
     vertical-align: top;
     width: 76%;
 }
