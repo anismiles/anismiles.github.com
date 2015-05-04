@@ -211,9 +211,10 @@ ul.resultList li {
 	font-size: 22px;
 	margin-top: 15px;
 }
-.rating span {
+span.rating  {
     color: #2b7bb9;
     margin-right: 1px !important;
+	display: inline;
 }
 .selected {
 	border-left: 4px solid #ccd6dd !important
@@ -599,9 +600,7 @@ ul.webimage li img {
 }
 .dark-gray span:first-child {
 }
-.rating span {
-	display: inline;
-}
+
 .nav > li > a {
     color: #8899a6;
     display: block;

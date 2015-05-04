@@ -40,7 +40,7 @@
       
       <!--Show Times-->
       
-      <div class="panel panel-default">
+      <div class="panel panel-default" ng-if="itemDetails.showTimes.length>0">
         <h4 class="topictitle" id="top-aligned-media">Showtimes</h4>
         <div ng-repeat="s in itemDetails.showTimes" class="panel-body pad_none">
           <div class="showtimetitle"> <span> <img src="images/inbd.png" alt=""/></span> <span>{{::s.title}}</span> <span>1.2 mi Away</span> </div>
@@ -54,7 +54,7 @@
       
       <!--Show Times-->
       
-      <div class="panel panel-default">
+      <div class="panel panel-default" ng-if="itemDetails.watches.length>0">
        <h4 class="topictitle" id="top-aligned-media">Watch</h4>
         <div class="panel-body pad_none">
           <table class="table table-hover">
@@ -93,7 +93,7 @@
       
       <!--REview-->
       
-      <div class="panel panel-default">
+      <div class="panel panel-default" ng-if="itemDetails.reviews.length>0">
        <h4 class="topictitle" id="top-aligned-media">Reviews &amp; Info</h4>
         <div class="panel-body pad_none">
           <table class="table table-hover">
