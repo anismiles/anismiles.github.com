@@ -99,7 +99,7 @@ angular.module('relcyApp')
 				/*Extracting image search results*/
 				try{
 					transformedData.imageResults =  searchResults.imageSearchResult.imageSearchResults;
-					transformedData.imageResults.maxIndex = 3;
+					transformedData.imageResults.maxIndex = 4;
 					transformedData.categories.push({key: 'details_images', keyTitle : 'Images'});
 				}catch(err){
 					console.log('no image results found');
@@ -215,8 +215,8 @@ angular.module('relcyApp')
 					values = data[index].imageSearchResult.imageSearchResults;
 					keyTitle = 'Images';
 					template = 'WEB_IMAGES';
-					maxIndex = 3;
-					incrementBy = 3;
+					maxIndex = 4;
+					incrementBy = 4;
 				}
 			break;
 			case 'WEB':

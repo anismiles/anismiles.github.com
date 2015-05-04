@@ -1,9 +1,7 @@
 <ul class="resultList">
   <!-- <a name="WEB"></a> -->
-	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
-    <div class="media">
-      <div class="media-left">
-      </div>
+	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex" class="col-lg-12">
+    <div class="media  col-lg-12">
       <div class="media-body">
         <h4 class="media-heading" id="top-aligned-media">
 		<a href="{{result.clickUrl}}" target="_blank">{{result.title}}</a>
