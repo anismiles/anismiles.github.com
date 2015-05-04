@@ -2,14 +2,14 @@
   <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> -->
 	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
-        <div class="col-lg-4 pull-left">
+        <div class="col-lg-3 pull-left">
           <a href="#">
-          <div style=" background-image:url({{result.image_info[0].thumbnail.mediaURL}});" class="vdothumb">
+          <div style=" background-image:url({{result.image_info[0].thumbnail.mediaURL}}); height:119px" class="vdothumb">
           <!--<img src="{{result.image_info[0].thumbnail.mediaURL}}" title="" height="150px" width="150px">-->
           </div>
           </a>
         </div>
-        <div class="pull-right col-lg-8">
+        <div class="pull-right col-lg-9">
           <h4 class="media-heading" id="top-aligned-media">{{result.entity_data.common_data.name}}
               
           </h4>

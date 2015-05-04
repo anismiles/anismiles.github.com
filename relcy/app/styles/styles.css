@@ -486,10 +486,10 @@ ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot 
 	width: 100%;
 }
 .play-icon-thumb-vdo {
-	left: 42%;
-	position: absolute;
-	top: 35%;
-	vertical-align: middle;
+    left: 46%;
+    position: absolute;
+    top: 41%;
+    vertical-align: middle;
 }
 .appthumb {
     background-color: #efefef;
