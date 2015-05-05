@@ -611,7 +611,7 @@ ul.webimage li img {
     position: relative;
 }
 .selected a {
-	font-weight: 600;
+	font-weight: 600 !important;
 }
 .media-heading {
     font-size: 17px;
