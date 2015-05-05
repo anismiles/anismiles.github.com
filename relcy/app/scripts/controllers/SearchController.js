@@ -159,6 +159,13 @@ angular.module('relcyApp')
 		}
 	}
 
+	/*Will open this link in a new tab*/
+	$scope.gotoLink = function(link){
+		//Do nothing if link is not there
+		if(!link) return;
+		$window.open(link, '_blank');
+	}
+
 	/*Will scroll to this id*/
 	$scope.scrollTo = function(id) {
 		$scope.selectedCategory = id;
