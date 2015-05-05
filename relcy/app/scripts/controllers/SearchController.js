@@ -1,6 +1,7 @@
 
 angular.module('relcyApp')
 .controller("SearchController", function($scope, $http, $rootScope,  $location, $window, $timeout, SearchService, $filter, anchorSmoothScroll, Lightbox) {
+	var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
 	$scope.selectedTypeIndex = 0;
 	$scope.selectedCategory;
 	$scope.showDetailPage = false;
@@ -245,6 +246,17 @@ angular.module('relcyApp')
 			}, function(error){
 				console.log('Error while fetching details!!!');
 				$rootScope.hideLoader = true;
+			});
+			//Not fetching banner if not query present in input field.
+			if(!$scope.query) return;
+			SearchService.getBannerUrl($scope.query).then(function(url){
+				if(url)
+					$scope.bannerUrl = url;
+				else
+					$scope.bannerUrl = DEFAULT_BANNER;
+
+			},function(err){
+				console.log('Error while fetching banner image url');
 			});
 		}else{
 			console.log('Relcy id not found!');

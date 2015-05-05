@@ -43,13 +43,18 @@ angular.module('relcyApp')
 		 return deferred.promise;
 	};
 
-	this.search = function(query){
-		var session_id = "b9a30926-e912-11e4-b02c-1681e6b88ec1";
-		var currLoc = self.getGeoLocation();
-		var query= query
-		var request = $http({method: "get", url:"/test/arc-response-2015_Apr_24_12-21-31.json?sessionId="+session_id+"&lat="+currLoc.lat+"&lng="+currLoc.lng+"&query="+query })
-		return( request.then( this.handleSuccess, this.handleError ) );
+	this.getBannerUrl = function(query){
+		var deferred = $q.defer();
+		
+		$http.get('http://staging-w.relcy.com/imagefetcher?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
+		.success(function(data) { 
+			  deferred.resolve(data);
+		}).error(function(msg, code) {
+			  deferred.reject(msg);
+		   });
+		 return deferred.promise;
 	};
+
 
 	this.transformDetails = function(response){
 		var transformedData = {};
