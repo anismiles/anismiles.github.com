@@ -1,0 +1,173 @@
+<div class="row">
+
+<div class="col-lg-12">
+<div class="topSection">
+  <div class="coverImage"><a href="#"><img err-src="img-no-min/Lighthouse.png" ng-src="{{::bannerUrl}}" title=""></a></div>
+  <!-- <div class="coverImage"><a href="#"><img err-src="img-no-min/Lighthouse.jpg" ng-src="{{::itemDetails.imageResults[0].contentUrl}}" title=""></a></div> -->
+  <!--<div class="editAction"><i class="fa fa-edit"></i></div>-->
+  <div class="profileImage"><a href="#"><img err-src="img-no-min/Lighthouse.png" ng-src="{{::itemDetails.imageResults[0].thumbnailUrl}}" title=""></a></div>
+  <div class="details clearfix">
+    <div class="detail_left">
+      <h2>{{::itemDetails.title}}</h2>
+      <p class="genre" style="margin:5px 0 0">
+	  <span ng-if="itemDetails.parentalRating">{{::itemDetails.parentalRating}}</span>
+	  <span ng-if="itemDetails.releaseYear">{{::itemDetails.releaseYear}} </span>
+	  <span ng-if="itemDetails.duration">{{::itemDetails.duration}}</span> </p>
+      <p class="genre"  ng-if="itemDetails.genre"  style="margin:0 0 5px"> <span>{{::itemDetails.genre}}</span> </p>
+      <div class="pull-left"> <img src="img-no-min/icons/IMDb.png" title="" height="18px" width="18px">
+        <div class="pull-left"> <span>IMDB:</span> <span> <span>/10</span></span> </div>
+       </div>
+            <div class="pull-left"> <img src="img-no-min/icons/Rotten Tomatoes.png" title="" height="18px" width="18px">
+              <div class="pull-left"> <span>Rotten Tomatoes:</span> <span> </span> </div>
+            </div>
+            <div class="pull-left"> <img src="img-no-min/icons/Flixster.png" title="" height="18px" width="18px">
+              <div class="pull-left"> <span>Flixster:</span> <span> </span> </div>
+            </div>
+          </div>
+          <!-- deatail left end-->
+          
+          <div class="detail_right">
+            <p> <a href="#" ng-click="openCastLightbox(itemDetails.story,'STORY')"> <img src="images/book.png"  alt=""/> Story </a> </p>
+            <p> <a href="#" ng-click="openCastLightbox(itemDetails.cast,'CAST')"> <img src="images/multi-user.png"  alt=""/> Cast </a> </p>
+            <p> <a href="#" ng-click="openCastLightbox(itemDetails.videoResults,'VIDEO')"> <img src="images/play.png"  alt=""/> Trailer </a> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4"> 
+      
+      <!--Show Times-->
+      
+      <div class="panel panel-default" ng-if="itemDetails.showTimes.length>0">
+        <h4 class="topictitle" id="top-aligned-media">Showtimes</h4>
+        <div ng-repeat="s in itemDetails.showTimes" class="panel-body pad_none">
+          <div class="showtimetitle"> <span> <img src="images/inbd.png" alt=""/></span> <span>{{::s.title}}</span> <span>1.2 mi Away</span> </div>
+          <div class="showtime-time">
+            <div ng-repeat="d in s">
+              <p>{{::d.date | date}}</p>
+              <span ng-repeat="h in d.hours">{{::h.open_time | date:'h:mm a'}}</span> </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--Show Times-->
+      
+      <div class="panel panel-default" ng-if="itemDetails.watches.length>0">
+       <h4 class="topictitle" id="top-aligned-media">Watch</h4>
+        <div class="panel-body pad_none">
+          <table class="table table-hover">
+            <tbody>
+              <tr ng-click="gotoLink(w.link_id)" ng-repeat="w in itemDetails.watches">
+                <td class="td-title"><img err-src="img-no-min/placeholder.png"  ng-src="img-no-min/icons/{{::w.app_result.app.app_id}}.png" title=""><span> {{::w.app_result.result_data.title}}</span></td>
+                <td class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</td>
+                <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!--ontv-->
+      
+<!--       <div class="panel panel-default">
+        <div class="panel-heading detail-title ">On TV</div>
+        <div class="panel-body pad_none">
+          <table class="table table-hover">
+            <tbody>
+              <tr >
+                <td class="td-title"><img src="images/inbd.png" title=""><span> Groupon</span></td>
+                <td class="td-detail td-lineheight">$20 for $ 10</td>
+              </tr>
+              <tr>
+                <td class="td-title"><img src="" title=""> <span> Groupon</span></td>
+                <td class="td-detail td-lineheight">$20 for $ 10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> -->
+      
+      <!--on tv--> 
+      
+      <!--REview-->
+      
+      <div class="panel panel-default" ng-if="itemDetails.reviews.length>0">
+       <h4 class="topictitle" id="top-aligned-media">Reviews &amp; Info</h4>
+        <div class="panel-body pad_none">
+          <table class="table table-hover">
+            <tbody>
+              <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviews">
+                <td class="td-title"><img err-src="img-no-min/placeholder.png"  ng-src="img-no-min/icons/{{::r.app_result.app.app_id}}.png" title=""><span> {{::r.app_result.result_data.title}}</span></td>
+                <td class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</td>
+                <td class="td-lineheight"><i class="fa fa-chevron-right text-gray"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!--REview--> 
+      
+    </div>
+    <div id="details_images" class="col-lg-8">
+      <div ng-if="itemDetails.imageResults.length>0" class="panel panel-default">
+        <h4 class="topictitle" id="top-aligned-media">Images</h4>
+        <div class="panel-body detailimages">
+          <div class="col-lg-12 detailimages-col" >
+            <div ng-repeat="images in itemDetails.imageResults  | limitTo: itemDetails.imageResults.maxIndex" class="col-lg-3 detailimages-col4"><a href="#" ng-click="openCastLightbox(itemDetails.imageResults,'IMAGES',$index)" >
+              <div style="background-image:url({{images.thumbnailUrl}});height: 136px;" > </div>
+              </a> </div>
+          </div>
+        </div>
+        <div class="panelList"> <a ng-if="itemDetails.imageResults.maxIndex<itemDetails.imageResults.length" ng-click="itemDetails.imageResults.maxIndex=itemDetails.imageResults.maxIndex+4" href="javascript:void(0)"  class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a> </div>
+      </div>
+      
+      <!-- Videos-->
+      <div id="details_videos" ng-if="itemDetails.videoResults.length>0" class="panel panel-default">
+        <h4 class="topictitle" id="top-aligned-media">Videos</h4>
+        <div class="panel-body no-padding">
+          <div ng-repeat="video in itemDetails.videoResults  | limitTo: itemDetails.videoResults.maxIndex" class="col-lg-12 detailvideo">
+		  <div class="col-lg-4 pull-left">
+			<a href="{{::video.contentUrl}}" target="_blank">
+				<div style=" background-image:url({{video.thumbnailUrl}});" class="vdothumb">
+				<img src="images/play-3-24.png"  alt=""  class="play-icon-thumb-vdo"/> </div>
+			</a>
+			</div>
+           <!--  <div class="col-lg-4 video"> <img src="{{::video.thumbnailUrl}}" alt="{{::video.contentUrl}}"/> </div> -->
+		   <div class="pull-right col-lg-8 videodetail">
+		   <h4 class="media-heading">{{::video.title}}</h4>
+			 <!--  <p>{{::video.contentUrl}}</p> -->
+              <p class="genre"><span>{{::video.duration}}</span></p>
+			 </div>
+          </div>
+        </div>
+        <div class="panelList"> <a ng-if="itemDetails.videoResults.maxIndex<itemDetails.videoResults.length" ng-click="itemDetails.videoResults.maxIndex=itemDetails.videoResults.maxIndex+5" href="javascript:void(0)"  class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a> </div>
+      </div>
+      
+      <!-- Videos-->
+      
+      <div id="details_web" ng-if="itemDetails.webResults.length>0" class="panel panel-default">
+        <h4 class="topictitle" id="top-aligned-media">Web</h4>
+        <div ng-repeat="web in itemDetails.webResults  | limitTo: itemDetails.webResults.maxIndex" class="panel-body resultList">
+          <div class="media">
+            <!-- <div class="media-left"> <a href="{{::clickUrl}}"> <i class="fa fa-apple"></i> </a> </div> -->
+            <div class="media-body">
+              <h4 class="media-heading">{{::web.title}}</h4>
+              <a href="{{::web.clickUrl}}">{{::web.displayUrl}}</a>
+              <p>{{::web.summary}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="panelList"> <a  ng-if="itemDetails.webResults.maxIndex<itemDetails.webResults.length" ng-click="itemDetails.webResults.maxIndex=itemDetails.webResults.maxIndex+10" href="javascript:void(0)" class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a> </div>
+      </div>
+    </div>
+  </div>
+  <!-- <video width="320" height="240" controls autoplay>
+      <source ng-src="https://www.youtube.com/watch?v=-5YPmYIJi4w" type="video/mp4">
+      
+    Your browser does not support the video tag.
+    </video> -->
+   <div class="clearfix"></div>
+</div>

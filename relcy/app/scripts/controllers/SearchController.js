@@ -11,6 +11,7 @@ angular.module('relcyApp')
 	$scope.relatedSearches;
 	$scope.defaultErrorImage = 'https://www.google.com/favicon.ico';
 	$scope.showTopAnchor = false;
+	$scope.itemType;
 	/*The query in the search field of home page*/
 	$scope.query;
 
@@ -225,6 +226,11 @@ angular.module('relcyApp')
 	$scope.showDetails = function (item) {
 		$scope.showingResult = false;
 		$scope.hideMainSearch = true;
+		if(item.content_type_enum){
+			$scope.itemType = item.content_type_enum;
+		}else if(item.originalObject.content_type_enum){
+			$scope.itemType = item.originalObject.content_type_enum;
+		}
 		var relcyId;
 		if(item.relcy_id && item.relcy_id.entity_id){
 			relcyId = item.relcy_id.entity_id;
