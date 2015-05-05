@@ -16,7 +16,7 @@ angular.module('relcyApp')
             var minutes = parseInt(time.substring(0,minIndex), 0);
             var hr = Math.floor(minutes/60);
             var hrMins = '';
-            if(hrMins>0)
+            if(hr>0)
             hrMins += (hr)+' hr ';
             hrMins = hrMins+(minutes%60)+' min';
             return hrMins; 
