@@ -17,14 +17,19 @@
          <div class="genre">
          	<span ng-if="result.entity_data.local_data.location_info.address.display_address">{{result.entity_data.local_data.location_info.address.display_address}}</span> 
             <span ng-if="result.entity_data.local_data.location_info.display_distance">{{result.entity_data.local_data.location_info.display_distance}}</span>   
-            <span ng-if="result.entity_data.local_data.category">{{result.entity_data.local_data.category[0]}}</span>
          </div>
-         <p><span ng-repeat="performer in result.entity_data.entertainment_data.common_data.performer">{{performer.title}}</span> 
-         <span ng-repeat="genre in result.entertainment_data.common_data.genre">{{result.entity_data.entertainment_data.common_data.genre[0]}}</span> </p>
-         <p>
-         	<span ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
-            <span ng-if="result.showHalfRating"  class="fa fa-star-half-empty rating"></span>
-            <span ng-if="result.image_info[0].source"> - {{result.image_info[0].source}}</span>
+		<div class="genre">
+            <span ng-if="result.entity_data.local_data.category">{{result.entity_data.local_data.category[0]}}</span>
+			<span ng-if="result.entity_data.local_data.price_range.display_price_range">{{result.entity_data.local_data.price_range.display_price_range}}</span>
+         </div>
+		 <div class="genre">
+			<span ng-if="result.entity_data.local_data.business_hours.display_hours" style="color:#8cbe29">{{result.entity_data.local_data.business_hours.display_hours}}</span>
+         </div>
+		 <p>
+			<span ng-if="!result.showStrRating" ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
+            <span ng-if="result.showHalfRating && !result.showStrRating"  class="fa fa-star-half-empty rating"></span>
+            <span ng-if="result.showStrRating">{{::result.rating}}</span>
+			<span ng-if="result.ratingSource"> - {{::result.ratingSource}}</span>
          </p>
         </div>
        

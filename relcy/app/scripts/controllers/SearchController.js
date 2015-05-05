@@ -75,6 +75,31 @@ angular.module('relcyApp')
 		});
 		return results;
 	}
+	
+	/*Will add rating array to local business resutls*/
+	$scope.addScoresToPlaceResluts = function(results){
+		if(!results) return;
+		angular.forEach(results, function(a){
+			try{
+				var rating = a.entity_data.common_data.display_rating[0];
+				var score;
+				var style = rating.rating_style;
+				if(style=='STAR'){
+					score = rating.rating;
+					a.scoreArray = getScoreArray(score);
+					a.showHalfRating = showHalfRating(score);
+				}else{
+					a.rating = rating.rating+'/'+rating.max_rating;
+					a.showStrRating = true;
+				}	
+				a.ratingSource = rating.source;
+			}catch(err){
+				console.log('rating not avlbl for this one');
+			}
+			
+		});
+		return results;
+	}
 
 	/*Will add rating array to app resutls*/
 	$scope.addScoresToVideoMovies = function(results){
@@ -100,12 +125,14 @@ angular.module('relcyApp')
 
 	/*Will be invoked on clicking related search item*/
 	$scope.goForRelatedSearch = function(query){
+		
 		$scope.$broadcast('angucomplete-alt:clearInput', 'members');
 		$timeout(function() {
 			angular.element( document.querySelector( '#members' ) ).children().children()[0].value=query;
 		}, 250);
 
 		$scope.search(query);
+		$scope.query = query;
 	};
 	 /*Start searching for the input query*/
 	$scope.search = function(query)

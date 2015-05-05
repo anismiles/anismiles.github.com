@@ -274,6 +274,7 @@ angular.module('relcyApp')
 				template = 'LOCAL_BUSINESS';
 				maxIndex = 2;
 				incrementBy = 2;
+				$scope.addScoresToPlaceResluts(values);
 			}
 			break;
 			default:
