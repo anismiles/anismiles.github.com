@@ -17,7 +17,7 @@
          <div class="genre">
          	<span ng-if="result.entity_data.entertainment_data.common_data.parental_rating">{{result.entity_data.entertainment_data.common_data.parental_rating}}</span> 
             <span ng-if="result.entity_data.entertainment_data.common_data.release_year">{{result.entity_data.entertainment_data.common_data.release_year}}</span>   
-            <span ng-if="result.entity_data.entertainment_data.movie_data.length">{{result.entity_data.entertainment_data.movie_data.length}}</span>
+            <span ng-if="result.entity_data.entertainment_data.movie_data.length">{{result.entity_data.entertainment_data.movie_data.length | hourmins}}</span>
          </div>
          <p><span ng-repeat="performer in result.entity_data.entertainment_data.common_data.performer">{{performer.title}}</span> 
          <span ng-repeat="genre in result.entertainment_data.common_data.genre">{{result.entity_data.entertainment_data.common_data.genre[0]}}</span> </p>
