@@ -73,7 +73,9 @@
 
   <div class="lightbox-image-container">
     <!-- image -->
-    <img lightbox-src="{{Lightbox.imageUrl}}" alt="" class="lightbox-gallery-img">
+	<div style="background-image:url({{Lightbox.imageUrl}}); height:500px; width:auto; background-size:cover; background-position:center center;">
+    <!-- <img lightbox-src="{{Lightbox.imageUrl}}" alt="" class="lightbox-gallery-img"> -->
+	</div>
      <div ng-if="Lightbox.imageCaption" class="lightbox-img-caption text-left">{{Lightbox.imageCaption}}</div>
     <!-- caption -->
    <!--  <div class="lightbox-image-caption">
