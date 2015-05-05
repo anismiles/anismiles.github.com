@@ -261,7 +261,16 @@ angular.module('relcyApp')
 					maxIndex = 2;
 					incrementBy = 2;
 				}
-			break;			
+			break;
+			case 'LOCAL_BUSINESS':
+			if(data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length){
+				values = data[index].searchResultRelcy.results;
+				keyTitle = 'Places';
+				template = 'LOCAL_BUSINESS';
+				maxIndex = 2;
+				incrementBy = 2;
+			}
+			break;
 			default:
 				continue;
 			break;
