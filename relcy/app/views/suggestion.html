@@ -33,9 +33,9 @@
 				<span ng-if="result.originalObject.sub_title2">{{::result.originalObject.sub_title2}}</span>
 				<span ng-if="result.originalObject.sub_title">{{::result.originalObject.sub_title}}</span>
 			</div>
-            <p class="rating mr0">
-                <span ng-repeat="sa in result.originalObject.scoreArray track by $index" class="fa fa-star"></span>
-                <span ng-if="result.originalObject.showHalfRating" class="fa fa-star-half-empty"></span> &nbsp;
+            <p class="score">
+                <span ng-repeat="sa in result.originalObject.scoreArray track by $index" class="fa fa-star rating"></span>
+                <span ng-if="result.originalObject.showHalfRating" class="fa fa-star-half-empty rating"></span> &nbsp;
                 <span></span>
              </p>
           </div>
