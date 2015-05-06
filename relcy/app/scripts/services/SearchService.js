@@ -35,7 +35,19 @@ angular.module('relcyApp')
 		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
 		//$http.get('http://staging-w.relcy.com/detail?lat='+'37.762759'+'&lng='+'-122.408934'+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id=look:c1144706')//+relcyId)
-		$http.get(self.BASE_URL + '/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+relcyId)
+	/*	var data = {}
+		data.entity_id = 
+		data.cipher_id = 
+		data.content_type_enum = 
+		data.query = query*/
+		var dataObj = relcyId
+
+		//$http.post(self.BASE_URL + '/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1',relcyId)
+		$http({
+			method: "POST",
+			url: '/relcy/detail?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1',
+			data: dataObj
+		})
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -45,8 +57,7 @@ angular.module('relcyApp')
 	};
 
 	this.getBannerUrl = function(query){
-		var deferred = $q.defer();
-		
+		var deferred = $q.defer();		
 		$http.get(self.BASE_URL + '/imagefetcher?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
 		.success(function(data) { 
 			  deferred.resolve(data);

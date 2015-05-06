@@ -264,8 +264,9 @@ angular.module('relcyApp')
 			$scope.itemType = item.originalObject.content_type_enum;
 		}
 		var relcyId;
+
 		if(item.relcy_id && item.relcy_id.entity_id){
-			relcyId = item.relcy_id.entity_id;
+			relcyId = item.relcy_id
 		} else if(item.originalObject.lookIds && item.originalObject.lookIds[0]){
 			relcyId = item.originalObject.lookIds[0];
 		}
