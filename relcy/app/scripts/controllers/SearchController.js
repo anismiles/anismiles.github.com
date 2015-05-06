@@ -268,7 +268,12 @@ angular.module('relcyApp')
 		if(item.relcy_id && item.relcy_id.entity_id){
 			relcyId = item.relcy_id
 		} else if(item.originalObject.lookIds && item.originalObject.lookIds[0]){
-			relcyId = item.originalObject.lookIds[0];
+			relcyId = {
+					"entity_id": item.originalObject.lookIds[0],
+					"cipher_id": item.originalObject.entity_id,
+					//"content_type_enum": "ENTERTAINMENT_VIDEO_MOVIE",
+					//"query": "fast"
+				}
 		}
 		if(relcyId){
 			$rootScope.hideLoader = false;
