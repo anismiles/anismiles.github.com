@@ -927,13 +927,7 @@ div.imdb span {
 	color: #fff;
 	opacity: 1;
 }
-/*.pageResult{
-  position: relative;
-  left: 188px;
-  top: 130px;}
-*/
-
-/*mayank*/
+.cursor{cursor:pointer}
 
 @media screen and (min-width: 1280px) {
 .container {
