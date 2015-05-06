@@ -927,7 +927,7 @@ div.imdb span {
 	color: #fff;
 	opacity: 1;
 }
-.cursor{cursor:pointer}
+.pointer{cursor:pointer}
 
 @media screen and (min-width: 1280px) {
 .container {
