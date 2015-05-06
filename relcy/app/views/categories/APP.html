@@ -15,7 +15,7 @@
               
           </h4>
          <p><span>{{::result.app_result[0].result_data.sub_title}}</span></p>
-         <p>
+         <p class="score">
           <span ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
                 <span ng-if="result.showHalfRating" class="fa fa-star-half-empty rating"></span>  
             <span> - {{result.image_info[0].source}}</span>

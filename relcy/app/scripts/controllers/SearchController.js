@@ -101,7 +101,7 @@ angular.module('relcyApp')
 		return results;
 	}
 
-	/*Will add rating array to app resutls*/
+	/*Will add rating array to movies resutls*/
 	$scope.addScoresToVideoMovies = function(results){
 		if(!results) return;
 		angular.forEach(results, function(a){

@@ -25,7 +25,7 @@
 		 <div class="genre">
 			<span ng-if="result.entity_data.local_data.business_hours.display_hours" style="color:#8cbe29">{{result.entity_data.local_data.business_hours.display_hours}}</span>
          </div>
-		 <p>
+		 <p class="score">
 			<span ng-if="!result.showStrRating" ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
             <span ng-if="result.showHalfRating && !result.showStrRating"  class="fa fa-star-half-empty rating"></span>
             <span ng-if="result.showStrRating">{{::result.rating}}</span>
