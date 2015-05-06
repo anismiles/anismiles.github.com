@@ -4,6 +4,7 @@ angular.module('relcyApp')
 .service("SearchService",function($timeout,$q,$http){
 	this.searchResult = [];
 	this.position;
+	this.BASE_URL = 'http://staging-w.relcy.com';
 	/*The default location if the user doesnot allow his/her location access*/
 	this.defaultLoc = {lat: "37.762759", lng: "-122.408934"};
 	/*Will be used to refer the service itself*/
@@ -20,7 +21,7 @@ angular.module('relcyApp')
 	{
 		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
-		$http.get('http://staging-w.relcy.com/search?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
+		$http.get(self.BASE_URL + '/search?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -34,7 +35,7 @@ angular.module('relcyApp')
 		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
 		//$http.get('http://staging-w.relcy.com/detail?lat='+'37.762759'+'&lng='+'-122.408934'+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id=look:c1144706')//+relcyId)
-		$http.get('http://staging-w.relcy.com/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+relcyId)
+		$http.get(self.BASE_URL + '/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id='+relcyId)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {
@@ -46,7 +47,7 @@ angular.module('relcyApp')
 	this.getBannerUrl = function(query){
 		var deferred = $q.defer();
 		
-		$http.get('http://staging-w.relcy.com/imagefetcher?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
+		$http.get(self.BASE_URL + '/imagefetcher?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+query)
 		.success(function(data) { 
 			  deferred.resolve(data);
 		}).error(function(msg, code) {

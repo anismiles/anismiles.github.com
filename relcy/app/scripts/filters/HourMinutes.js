@@ -20,6 +20,14 @@ angular.module('relcyApp')
             hrMins += (hr)+' hr ';
             hrMins = hrMins+(minutes%60)+' min';
             return hrMins; 
+        }else{
+            var length = parseInt(time, 0);
+            var hr = Math.floor(length/60);
+            var hrMins = '';
+            if(hr>0)
+            hrMins += (hr)+' hr ';
+            hrMins = hrMins+(length%60)+' min';
+            return hrMins;
         }
         
     }

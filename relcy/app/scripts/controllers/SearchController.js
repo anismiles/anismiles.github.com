@@ -188,6 +188,11 @@ angular.module('relcyApp')
 		}
 	}
 
+	/*Will return the base url to be used in the service calls*/
+	$scope.getBaseUrl = function(){
+		return SearchService.BASE_URL;
+	};
+
 	/*Will open this link in a new tab*/
 	$scope.gotoLink = function(link){
 		//Do nothing if link is not there
