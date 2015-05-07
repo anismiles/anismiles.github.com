@@ -596,7 +596,10 @@ ul.webimage li img {
 	font-size: 16px;
 	line-height: 16px;
 }
-ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a {
+ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a,
+.detailvideo .videodetail h4.media-heading a,
+.resultList h4.media-heading a
+{
 	color: inherit
 }
 p.timestamp span {

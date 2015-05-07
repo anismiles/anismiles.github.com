@@ -137,7 +137,7 @@
 			</div>
            <!--  <div class="col-lg-4 video"> <img src="{{::video.thumbnailUrl}}" alt="{{::video.contentUrl}}"/> </div> -->
 		   <div class="pull-right col-lg-8 videodetail">
-		   <h4 class="media-heading">{{::video.title}}</h4>
+			<h4 class="media-heading"><a href="{{::video.contentUrl}}" target="_blank">{{::video.title}}</a></h4>
 			 <!--  <p>{{::video.contentUrl}}</p> -->
               <p class="genre"><span>{{::video.duration}}</span></p>
 			 </div>
@@ -154,8 +154,8 @@
           <div class="media">
             <!-- <div class="media-left"> <a href="{{::clickUrl}}"> <i class="fa fa-apple"></i> </a> </div> -->
             <div class="media-body">
-              <h4 class="media-heading">{{::web.title}}</h4>
-              <a href="{{::web.clickUrl}}">{{::web.displayUrl}}</a>
+              <h4 class="media-heading"><a href="{{::web.clickUrl}}"  target="_blank">{{::web.title}}</a></h4>
+              <a href="{{::web.clickUrl}}"  target="_blank">{{::web.displayUrl}}</a>
               <p>{{::web.summary}}</p>
             </div>
           </div>

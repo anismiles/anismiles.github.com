@@ -4,7 +4,7 @@ angular.module('relcyApp')
 .service("SearchService",function($timeout,$q,$http){
 	this.searchResult = [];
 	this.position;
-	this.BASE_URL = 'http://staging-w.relcy.com';
+	this.BASE_URL = 'https://staging-w.relcy.com';
 	/*The default location if the user doesnot allow his/her location access*/
 	this.defaultLoc = {lat: "37.762759", lng: "-122.408934"};
 	/*Will be used to refer the service itself*/
@@ -34,18 +34,10 @@ angular.module('relcyApp')
 	{
 		var currLoc = self.getGeoLocation();
 		var deferred = $q.defer();
-		//$http.get('http://staging-w.relcy.com/detail?lat='+'37.762759'+'&lng='+'-122.408934'+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&id=look:c1144706')//+relcyId)
-	/*	var data = {}
-		data.entity_id = 
-		data.cipher_id = 
-		data.content_type_enum = 
-		data.query = query*/
 		var dataObj = relcyId
-
-		//$http.post(self.BASE_URL + '/detail?lat='+currLoc.lat+'&lng='+currLoc.lng+'&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1',relcyId)
 		$http({
 			method: "POST",
-			url: 'http://staging-w.relcy.com/detail?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1',
+			url: self.BASE_URL + '/detail?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1',
 			data: dataObj
 		})
 		.success(function(data) { 
