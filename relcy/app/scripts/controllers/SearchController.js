@@ -12,6 +12,7 @@ angular.module('relcyApp')
 	$scope.defaultErrorImage = '../../favicon.ico';
 	$scope.showTopAnchor = false;
 	$scope.itemType;
+    $scope.itemDetails
 	/*The query in the search field of home page*/
 	$scope.query;
 
@@ -39,6 +40,9 @@ angular.module('relcyApp')
 			case 'RELATED_SEARCHES':
 				return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
 			break;
+			case 'LOCAL_BUSINESS':
+				return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
+				break;
 			default:
 				return false;
 			break;
@@ -207,7 +211,7 @@ angular.module('relcyApp')
 			$scope.showTopAnchor = false;
 			/*Set first element in categories as selected*/
 			if($scope.searchResults.length>0){
-				$scope.selectedCategory = $scope.searchResults[0].key;	
+				$scope.selectedCategory = $scope.searchResults[0].key;
 			}
 		}else{
 			try{
@@ -258,6 +262,7 @@ angular.module('relcyApp')
 	$scope.showDetails = function (item) {
 		$scope.showingResult = false;
 		$scope.hideMainSearch = true;
+
 		if(item.content_type_enum){
 			$scope.itemType = item.content_type_enum;
 		}else if(item.originalObject.content_type_enum){
@@ -283,25 +288,28 @@ angular.module('relcyApp')
 				SearchService.selectedItem = item;
 				$scope.itemDetails = SearchService.transformDetails(data);
 				$scope.searchResults = $scope.itemDetails.categories;
+
+                var tQuery =  SearchService.transformQuery($scope.itemDetails,$scope.itemType)
+                // get the banner image
+                SearchService.getBannerUrl(tQuery).then(function(url){
+                    if(url)
+                        $scope.bannerUrl = url;
+                    else
+                        $scope.bannerUrl = DEFAULT_BANNER;
+
+                },function(err){
+                    console.log('Error while fetching banner image url');
+                });
+
 				if($scope.searchResults.length>0){
-					$scope.selectedCategory = $scope.searchResults[0].key;	
+					$scope.selectedCategory = $scope.searchResults[0].key;
 				}
 				$rootScope.hideLoader = true;
 			}, function(error){
 				console.log('Error while fetching details!!!');
 				$rootScope.hideLoader = true;
 			});
-			//Not fetching banner if not query present in input field.
-			if(!$scope.query) return;
-			SearchService.getBannerUrl($scope.query).then(function(url){
-				if(url)
-					$scope.bannerUrl = url;
-				else
-					$scope.bannerUrl = DEFAULT_BANNER;
 
-			},function(err){
-				console.log('Error while fetching banner image url');
-			});
 		}else{
 			console.log('Relcy id not found!');
 			return;

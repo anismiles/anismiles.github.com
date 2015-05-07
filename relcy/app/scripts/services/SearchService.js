@@ -362,7 +362,24 @@ angular.module('relcyApp')
 			}
 		}
 	};
-
+		// feching hero image
+	this.transformQuery = function(item,cat)
+	{
+		switch(cat){
+			case 'ENTERTAINMENT_VIDEO_MOVIE':
+				return item.title+"+"+ item.releaseYear;
+				break;
+			case 'WEB_VIDEOS':
+				return ($scope.types[index] && $scope.types[index].videoSearchResult && $scope.types[index].videoSearchResult.videoSearchResults && $scope.types[index].videoSearchResult.videoSearchResults.length);
+				break;
+			case 'LOCAL_BUSINESS':
+				return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
 	this.handleError = function( response ) 
 	{     console.log(response);
 		if(response.status == 404  && response.data == 'Result not available.') {

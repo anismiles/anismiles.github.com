@@ -5,6 +5,7 @@ body {
 	font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
 	overflow-x: hidden;
 }
+/* input:focus { color: #0088cc  !important;} */
 a:focus {
 	outline: 0 dotted !important;
 }
@@ -488,7 +489,7 @@ ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot 
 	background-position: center center;
 	background-size: cover;
 	color: #fff;
-	height: 135px;
+	height: 127px;
 	overflow: hidden;
 }
 ul.webimage li {

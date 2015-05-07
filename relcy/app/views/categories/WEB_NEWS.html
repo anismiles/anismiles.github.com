@@ -5,6 +5,7 @@
       <div class="col-lg-4 pull-left">
         <a href="{{result.clickUrl}}" target="_blank"  class="thumb-img-n-w">
 			<img ng-if="result.imageContentUrl" src="{{result.imageContentUrl}}" title="">
+            <!--<ui-thumbnail ng-if="result.imageContentUrl" src="result.imageContentUrl" opts="{width: 165, height: 165}"></ui-thumbnail>-->
         </a>
       </div>
       <div class="pull-right" ng-class="result.imageContentUrl.length>0?'col-lg-8':'col-lg-12'">
