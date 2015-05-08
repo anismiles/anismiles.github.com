@@ -59,19 +59,31 @@ angular.module('relcyApp')
 		 return deferred.promise;
 	};
 
-
+/*	this.transformRating = function(data)
+	{
+		var rating = {};
+		rating.imdb = []
+		angular.forEach(data, function(l){
+			try{
+				var action = l.source;
+				switch(action){
+					case 'Reviews':
+						transformedData.reviews.push(l);
+						break;
+					case 'Watch':
+						transformedData.watches.push(l);
+						break;
+				}
+			}catch(err){
+				console.log('invalid link');
+			}
+		});
+	}*/
 	this.transformDetails = function(response){
 		var transformedData = {};
 		transformedData.categories = [];
 		response = response.detail_response;
-		try{
-			var links = response.results[0].link;
-			if(links && links.length>0){
-				self.insertReviewsAndWatchesAndShowtimes(transformedData, links, response);
-			}
-		}catch(err){
-			console.log('Links not available');
-		}
+
 		
 		if(response){
 			var searchResults = response.search_result_collection;
@@ -87,12 +99,145 @@ angular.module('relcyApp')
 						console.log('no audio results found');
 					}
 				}
+				else if(response.results[0].content_type_enum == "LOCAL_BUSINESS"){
+
+					try{
+						transformedData.placesResult =  response.results[0].content_type_enum;
+						transformedData.categories.push({key: 'details_places', keyTitle : 'Places'});
+					}catch(err){
+						console.log('no places results found');
+					}
+
+					// check for other properties in the below code, only for movies
+					try{
+						var links = response.results[0].link;
+						if(links && links.length>0){
+							self.getAppActionForPlaces(transformedData, links, response);
+						}
+					}catch(err){
+						console.log('Links not available');
+					}
+
+					try{
+						transformedData.displayRating =  response.results[0].entity_data.common_data.display_rating;
+					}catch(err){
+						console.log('rating not found/unknown');
+					}
+					try{
+						transformedData.title = response.results[0].entity_data.common_data.name;
+					}catch(err){
+						console.log('title not found/unknown');
+					}
+					try{
+						transformedData.category = response.results[0].entity_data.local_data.category.toString();
+					}catch(err){
+						console.log('category unknown');
+					}
+
+					try{
+						transformedData.address = response.results[0].entity_data.local_data.location_info.address.display_address;
+					}catch(err){
+						console.log('address unknown');
+					}
+					try{
+						transformedData.distance = response.results[0].entity_data.local_data.location_info.display_distance;
+					}catch(err){
+						console.log('address unknown');
+					}
+
+					try{
+						transformedData.hours = response.results[0].entity_data.local_data.business_hours.days;
+					}catch(err){
+						console.log('businessHours unknown');
+					}
+
+					try{
+						transformedData.call = response.results[0].entity_data.common_data.contact_info.phone_with_type;
+					}catch(err){
+						console.log('businessHours unknown');
+					}
+					try{
+						transformedData.openStatus = response.results[0].entity_data.local_data.open_status;
+					}catch(err){
+						console.log('openStatus unknown');
+					}
+
+					try{
+						transformedData.priceRange = response.results[0].entity_data.local_data.price_range.display_price_range;
+					}catch(err){
+						console.log('priceRange unknown');
+					}
+				}
 				else{
 					
 					try{
 						transformedData.moviesResult =  response.results[0].content_type_enum;
-						//transformedData.moviesResult.maxIndex = 5;
+						transformedData.displayRating =  response.results[0].entity_data.common_data.display_rating;
 						transformedData.categories.push({key: 'details_movies', keyTitle : 'Movies'});
+
+
+						// check for other properties in the below code, only for movies
+						try{
+							var links = response.results[0].link;
+							if(links && links.length>0){
+								self.insertReviewsAndWatchesAndShowtimes(transformedData, links, response);
+							}
+						}catch(err){
+							console.log('Links not available');
+						}
+
+						try{
+							transformedData.duration = response.results[0].entity_data.entertainment_data.movie_data.length;
+						}catch(err){
+							console.log('duration unknown');
+						}
+
+						try{
+							transformedData.releaseYear = response.results[0].entity_data.entertainment_data.common_data.release_year;
+						}catch(err){
+							console.log('release year unknown');
+						}
+
+						try{
+							transformedData.title = response.results[0].entity_data.common_data.name;
+						}catch(err){
+							console.log('title not found/unknown');
+						}
+
+						try{
+							transformedData.story = response.results[0].entity_data.common_data.summary;
+						}catch(err){
+							console.log('title not found/unknown');
+						}
+
+						try{
+							transformedData.parentalRating = response.results[0].entity_data.entertainment_data.common_data.parental_rating;
+						}catch(err){
+							console.log('parentalRating not found/unknown');
+						}
+
+						try{
+							transformedData.cast = response.results[0].entity_data.entertainment_data.common_data.performer;
+						}catch(err){
+							console.log('cast not found/unknown');
+						}
+
+						try{
+							if(transformedData.cast){
+								transformedData.cast.push(response.results[0].entity_data.entertainment_data.common_data.director);
+							}else{
+								transformedData.cast = [response.results[0].entity_data.entertainment_data.common_data.director];
+							}
+						}catch(err){
+							console.log('director not found/unknown');
+						}
+
+						try{
+							transformedData.genre = response.results[0].entity_data.entertainment_data.common_data.genre.join();
+							transformedData.genre = transformedData.genre.replace(/&amp;/g, '&');
+						}catch(err){
+							console.log('cast not found/unknown');
+						}
 					}catch(err){
 						console.log('no movie results found');
 					}
@@ -121,61 +266,18 @@ angular.module('relcyApp')
 				}catch(err){
 					console.log('no video results found');
 				}
+				/*Extracting places search results*/
+				try{
+					transformedData.placesResults =  searchResults.placesSearchResult.placesSearchResult;
+					transformedData.placesResults.maxIndex = 6;
+					transformedData.categories.push({key: 'details_places', keyTitle : 'Places'});
+				}catch(err){
+					console.log('no places results found');
+				}
 
 			}
 			
-			try{
-				transformedData.duration = response.results[0].entity_data.entertainment_data.movie_data.length;	
-			}catch(err){
-				console.log('duration unknown');
-			}
 
-			try{
-				transformedData.releaseYear = response.results[0].entity_data.entertainment_data.common_data.release_year;	
-			}catch(err){
-				console.log('release year unknown');
-			}
-
-			try{
-				transformedData.title = response.results[0].entity_data.common_data.name;	
-			}catch(err){
-				console.log('title not found/unknown');
-			} 
-
-			try{
-				transformedData.story = response.results[0].entity_data.common_data.summary;	
-			}catch(err){
-				console.log('title not found/unknown');
-			}
-
-			try{
-				transformedData.parentalRating = response.results[0].entity_data.entertainment_data.common_data.parental_rating;	
-			}catch(err){
-				console.log('parentalRating not found/unknown');
-			}
-
-			try{
-				transformedData.cast = response.results[0].entity_data.entertainment_data.common_data.performer;	
-			}catch(err){
-				console.log('cast not found/unknown');
-			}
-
-			try{
-				if(transformedData.cast){
-					transformedData.cast.push(response.results[0].entity_data.entertainment_data.common_data.director);
-				}else{
-					transformedData.cast = [response.results[0].entity_data.entertainment_data.common_data.director];
-				}
-			}catch(err){
-				console.log('director not found/unknown');
-			}
-
-			try{
-				transformedData.genre = response.results[0].entity_data.entertainment_data.common_data.genre.join();
-				transformedData.genre = transformedData.genre.replace(/&amp;/g, '&');
-			}catch(err){
-				console.log('cast not found/unknown');
-			}
 		}
 
 		return transformedData;
@@ -294,6 +396,52 @@ angular.module('relcyApp')
 		return transformedData;
 	};
 
+		/*Will insert the reviews and watches into the transformedData*/
+		this.getAppActionForPlaces = function(transformedData, links, response){
+			transformedData.reviews = [];
+			transformedData.delivery = [];
+			transformedData.social = [];
+			transformedData.call = [];
+			transformedData.map = [];
+
+			transformedData.getThere = [];
+			transformedData.menu = [];
+
+			angular.forEach(links, function(l){
+				try{
+					var action = l.app_result.result_data.action;
+					switch(action){
+						case 'Reviews':
+							transformedData.reviews.push(l);
+							break;
+						case 'Delivery':
+							transformedData.delivery.push(l);
+							break;
+						case 'Social':
+							transformedData.social.push(l);
+							break;
+						case 'Call':
+							transformedData.call.push(l);
+							break;
+						case 'Map':
+							transformedData.map.push(l);
+							break;
+						case 'Get There':
+							transformedData.getThere.push(l);
+							break;
+						case 'MENU':
+							transformedData.menu.push(l);
+							break;
+						case 'menu':
+							transformedData.menu.push(l);
+							break;
+					}
+				}catch(err){
+					console.log('invalid link');
+				}
+			});
+		};
+
 	/*Will insert the reviews and watches into the transformedData*/
 	this.insertReviewsAndWatchesAndShowtimes = function(transformedData, links, response){
 		transformedData.reviews = [];
@@ -373,7 +521,7 @@ angular.module('relcyApp')
 				return ($scope.types[index] && $scope.types[index].videoSearchResult && $scope.types[index].videoSearchResult.videoSearchResults && $scope.types[index].videoSearchResult.videoSearchResults.length);
 				break;
 			case 'LOCAL_BUSINESS':
-				return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
+				return item.category[0];
 				break;
 			default:
 				return false;

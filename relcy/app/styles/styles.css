@@ -105,6 +105,9 @@ a:focus {
 .mr25 {
 	margin: 25px
 }
+.mr-r-30 {
+	margin: 0 30px 0 0 !important;
+	}
 .wrapper .container {
 	margin-bottom: 150px;
 }
@@ -415,12 +418,11 @@ margin-bottom:20px;
 	font-weight: 300;
 	margin: 5px 0;
 }
-.topSection .details .pull-left {
-	margin-right: 6px;
+.topSection .details{
+	margin-right: 30px;
 }
-.topSection .details .pull-left img {
-	float: left;
-	margin: 2px 5px 5px 0;
+.topSection .details img {
+	margin: 2;
 }
 .panel, .panel-heading, .panel-body {
 	border-radius: 0px
