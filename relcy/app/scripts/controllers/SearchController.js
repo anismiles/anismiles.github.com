@@ -2,7 +2,7 @@
 angular.module('relcyApp')
 .controller("SearchController", function($scope, $http, $rootScope,  $location, $window, $timeout, SearchService, $filter, anchorSmoothScroll, Lightbox) {
 	var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
-	var ACCESS_TOKEN = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
+	
 	$scope.selectedTypeIndex = 0;
 	$scope.selectedCategory;
 	$scope.showDetailPage = false;
@@ -293,7 +293,7 @@ angular.module('relcyApp')
                 var tQuery =  SearchService.transformQuery($scope.itemDetails,$scope.itemType)
                 // get the banner image
 				if($scope.itemType=='LOCAL_BUSINESS'){
-					$scope.bannerUrl = getMapUrl($scope.itemDetails.mapinfo, ACCESS_TOKEN, $scope.itemDetails.categoryHero);
+					$scope.bannerUrl = getMapUrl($scope.itemDetails.mapinfo, SearchService.ACCESS_TOKEN, $scope.itemDetails.categoryHero);
 				}else{
 					SearchService.getBannerUrl(tQuery).then(function(url){
 						if(url)

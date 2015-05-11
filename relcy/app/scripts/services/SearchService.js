@@ -5,6 +5,7 @@ angular.module('relcyApp')
 	this.searchResult = [];
 	this.position;
 	this.BASE_URL = 'https://staging-w.relcy.com';
+	this.ACCESS_TOKEN = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
 	/*The default location if the user doesnot allow his/her location access*/
 	this.defaultLoc = {lat: "37.762759", lng: "-122.408934"};
 	/*Will be used to refer the service itself*/
@@ -59,26 +60,7 @@ angular.module('relcyApp')
 		 return deferred.promise;
 	};
 
-/*	this.transformRating = function(data)
-	{
-		var rating = {};
-		rating.imdb = []
-		angular.forEach(data, function(l){
-			try{
-				var action = l.source;
-				switch(action){
-					case 'Reviews':
-						transformedData.reviews.push(l);
-						break;
-					case 'Watch':
-						transformedData.watches.push(l);
-						break;
-				}
-			}catch(err){
-				console.log('invalid link');
-			}
-		});
-	}*/
+
 	this.transformDetails = function(response){
 		var transformedData = {};
 		transformedData.categories = [];
@@ -388,6 +370,28 @@ angular.module('relcyApp')
 				maxIndex = 6;
 				incrementBy = 6;
 				$scope.addScoresToPlaceResluts(values);
+				
+				var mapUrl = 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/';
+				var currItem;
+				if(values.length>1){
+					for(var d=0;d<values.length-1;d++){
+						try{
+							currItem = values[d].entity_data.local_data.location_info;
+							mapUrl+='pin-m+3397DA('+currItem.longitude+','+currItem.latitude+'),'
+						}catch(errr){
+							console.log('Location not present!');
+						}
+					}	
+				}
+				currItem = values[values.length-1].entity_data.local_data.location_info;
+				try{
+					mapUrl+='pin-m+3397DA('+currItem.longitude+','+currItem.latitude+')/'+currItem.longitude+','+currItem.latitude+',13/1000x400.png?access_token='+self.ACCESS_TOKEN;
+				}catch(errr){
+					console.log('Location not present!');
+				}
+				
+				$scope.locationUrl = mapUrl;
+				
 			}
 			break;
 			default:
