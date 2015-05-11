@@ -17,13 +17,13 @@
                     <h2>{{::itemDetails.title}}</h2>
 
                     <p class="genre" style="margin:5px 0 0">
-                        <span>{{::itemDetails.address}}</span>
-                        <span>{{::itemDetails.distance}} </span>
+                        <span ng-if="itemDetails.address">{{::itemDetails.address}}</span>
+                        <span ng-if="itemDetails.distance">{{::itemDetails.distance}} </span>
                     </p>
                     <p class="genre" style="margin:0 0 5px">
-                        <span>{{::itemDetails.category}}</span>
-                        <span>{{::itemDetails.priceRange}}</span>
-                        <span style="color:#8cbe29">{{::itemDetails.openStatus}}</span>
+                        <span ng-if="itemDetails.category">{{::itemDetails.category}}</span>
+                        <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span>
+                        <span ng-if="itemDetails.openStatus" style="color:#8cbe29">{{::itemDetails.openStatus}}</span>
                     </p>
 
                     <p class="pull-left mr-r-30" ng-repeat="r in itemDetails.displayRating">
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <!--Show Times-->
+        <!--Social-->
 
         <div class="panel panel-default" ng-if="itemDetails.social.length>0">
             <h4 class="topictitle" id="top-aligned-media">Social</h4>
