@@ -140,7 +140,7 @@ angular.module('relcyApp')
 					}
 
 					try{
-						transformedData.address = response.results[0].entity_data.local_data.location_info.address.display_address;
+						transformedData.mapinfo = response.results[0].entity_data.local_data.location_info;
 					}catch(err){
 						console.log('address unknown');
 					}

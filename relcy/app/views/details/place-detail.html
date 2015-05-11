@@ -17,7 +17,7 @@
                     <h2>{{::itemDetails.title}}</h2>
 
                     <p class="genre" style="margin:5px 0 0">
-                        <span ng-if="itemDetails.address">{{::itemDetails.address}}</span>
+                        <span ng-if="itemDetails.address">{{::itemDetails.mapinfo.address.display_address}}</span>
                         <span ng-if="itemDetails.distance">{{::itemDetails.distance}} </span>
                     </p>
                     <p class="genre" style="margin:0 0 5px">

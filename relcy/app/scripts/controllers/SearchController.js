@@ -2,6 +2,7 @@
 angular.module('relcyApp')
 .controller("SearchController", function($scope, $http, $rootScope,  $location, $window, $timeout, SearchService, $filter, anchorSmoothScroll, Lightbox) {
 	var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
+	var ACCESS_TOKEN = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
 	$scope.selectedTypeIndex = 0;
 	$scope.selectedCategory;
 	$scope.showDetailPage = false;
@@ -291,15 +292,19 @@ angular.module('relcyApp')
 
                 var tQuery =  SearchService.transformQuery($scope.itemDetails,$scope.itemType)
                 // get the banner image
-                SearchService.getBannerUrl(tQuery).then(function(url){
-                    if(url)
-                        $scope.bannerUrl = url;
-                    else
-                        $scope.bannerUrl = DEFAULT_BANNER;
+				if($scope.itemType=='LOCAL_BUSINESS'){
+					$scope.bannerUrl = getMapUrl($scope.itemDetails.mapinfo, ACCESS_TOKEN, $scope.itemDetails.categoryHero);
+				}else{
+					SearchService.getBannerUrl(tQuery).then(function(url){
+						if(url)
+							$scope.bannerUrl = url;
+						else
+							$scope.bannerUrl = DEFAULT_BANNER;
 
-                },function(err){
-                    console.log('Error while fetching banner image url');
-                });
+					},function(err){
+						console.log('Error while fetching banner image url');
+					});
+				}
 
 				if($scope.searchResults.length>0){
 					$scope.selectedCategory = $scope.searchResults[0].key;
@@ -376,5 +381,15 @@ angular.module('relcyApp')
 
 	   $rootScope.hideLoader = true;
 });
+
+
+function getMapUrl(mapinfo, token, category){
+	if('Bars' == category || 'bars' == category){
+		category = '-bar';
+	}else{
+		category = '';
+	}
+	return 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/' + 'pin-l'+category+'+3397DA('+mapinfo.longitude+','+mapinfo.latitude+',1)/' + mapinfo.longitude + ',' + mapinfo.latitude + ',' + '13' + '/1000x400.png?access_token=' + token;
+}
 
 
