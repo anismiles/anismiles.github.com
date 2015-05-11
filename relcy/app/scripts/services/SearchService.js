@@ -133,6 +133,11 @@ angular.module('relcyApp')
 					}catch(err){
 						console.log('category unknown');
 					}
+					try{
+						transformedData.categoryHero = response.results[0].entity_data.local_data.category[0];
+					}catch(err){
+						console.log('category unknown');
+					}
 
 					try{
 						transformedData.address = response.results[0].entity_data.local_data.location_info.address.display_address;
@@ -518,10 +523,10 @@ angular.module('relcyApp')
 				return item.title+"+"+ item.releaseYear;
 				break;
 			case 'WEB_VIDEOS':
-				return ($scope.types[index] && $scope.types[index].videoSearchResult && $scope.types[index].videoSearchResult.videoSearchResults && $scope.types[index].videoSearchResult.videoSearchResults.length);
+				//return ($scope.types[index] && $scope.types[index].videoSearchResult && $scope.types[index].videoSearchResult.videoSearchResults && $scope.types[index].videoSearchResult.videoSearchResults.length);
 				break;
 			case 'LOCAL_BUSINESS':
-				return item.category[0];
+				return item.categoryHero;
 				break;
 			default:
 				return false;
