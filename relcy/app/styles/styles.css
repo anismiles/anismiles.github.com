@@ -9,6 +9,7 @@ body {
 a:focus {
 	outline: 0 dotted !important;
 }
+#map {top:0; bottom:0; width:380px; height:350px; }
 .nav > li > a:hover {
 	background-color: #f5f8fa;
 	text-decoration: none;

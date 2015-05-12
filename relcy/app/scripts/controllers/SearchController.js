@@ -162,6 +162,21 @@ angular.module('relcyApp')
 			$scope.types = $scope.result.verticalResult;
 			setDefaultCategory();
 			$rootScope.hideLoader = true;
+            if($scope.hasLocalBusiness){
+                L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
+                var marker = L.marker(new L.LatLng(37.9, -77), {
+                    icon: L.icon({
+                        iconUrl: 'https://www.mapbox.com/maki/renders/airport-24@2x.png',
+                        iconSize: [24, 24],
+                    }),
+                    draggable: true
+                });
+
+                marker.addTo(map);
+                map.featureLayer.on('click', function(e) {
+                    map.panTo(e.layer.getLatLng());
+                });
+            }
 			
 		}, function(error)
 		{

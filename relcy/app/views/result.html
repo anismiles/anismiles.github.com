@@ -60,7 +60,20 @@
 
 </div>
 <div class="col-lg-5">
-    <div ng-if="locationUrl"><img src="{{locationUrl}}"/></div><br>
+    <div ng-if="locationUrl">
+        <div id='map'></div>
+        <script>
+        //map
+        L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
+        map = L.mapbox.map('map', 'mapbox.emerald');
+
+        map.featureLayer.on('click', function(e) {
+            map.panTo(e.layer.getLatLng());
+        });
+        </script>
+        <!--<img src="{{locationUrl}}"/>-->
+    </div>
+    <br>
     <div ng-if="relatedSearches.length>0">
         <div class="panel">
             <h4 class="topictitle" id="{{cat.key}}">Related Searches</h4>

@@ -52,6 +52,25 @@
 <div class="row">
     <div class="col-lg-4 action-detail">
 
+        <!--Deals-->
+
+        <div class="panel panel-default" ng-if="itemDetails.deals.length>0">
+            <h4 class="topictitle" id="top-aligned-media">Reserve</h4>
+
+            <div class="panel-body pad_none">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr ng-click="gotoLink(deals.link_id)" ng-repeat="deals in itemDetails.deals" class="pointer">
+                        <td class="td-title"><img err-src="img-no-min/placeholder.png"
+                                                  ng-src="img-no-min/icons/{{::deals.app_result.app.app_id}}.png"
+                                                  title=""><span> {{::deals.app_result.result_data.title}}</span></td>
+                        <td class="td-lineheight" width="30"><span class="fa fa-angle-right text-gray"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!--Reserve-->
 
         <div class="panel panel-default" ng-if="itemDetails.reserve.length>0">

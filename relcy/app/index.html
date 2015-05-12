@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html ng-app="relcyApp">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <title>Relcy</title>
 <link href="favicon.ico" rel="icon" type="image/x-icon" />
 <!--styles-->
@@ -11,6 +11,10 @@
 
     <meta name="description" content="">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- map -->
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
+    <!-- endmap -->
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -46,6 +50,7 @@ cursor: url(img-no-min/cursor.png) x y, auto;
 	<div class="row">
     	<div class="col-lg-12">
         	<ui-view></ui-view>
+
         </div>
     </div>
 </div>
@@ -84,13 +89,15 @@ cursor: url(img-no-min/cursor.png) x y, auto;
         <script src="scripts/directives/ImageFallback.js" type="text/javascript"></script>
     <!-- endbuild -->
 
-    
+
+
 <script>
 
 //this is here to make plunkr work with AngularJS routing
 /*angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));*/
 
 function init(){
+    var map
     $(document).ready(function(){
     setTimeout ( function (){
     $( "#members input" ).focus();
@@ -127,7 +134,9 @@ $(window).scroll(function() {
       $('.totop').fadeOut(100);
      }
  });
+
 </script>
 
 </body>
 </html>
+
