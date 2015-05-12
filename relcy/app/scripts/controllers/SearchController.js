@@ -144,6 +144,7 @@ angular.module('relcyApp')
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
+        $scope.hasLocalBusiness = false;
 	 	$rootScope.hideLoader = false;
 		$scope.searchResults=undefined;
 		$scope.relatedSearches = undefined;
@@ -293,6 +294,11 @@ angular.module('relcyApp')
                 var tQuery =  SearchService.transformQuery($scope.itemDetails,$scope.itemType)
                 // get the banner image
 				if($scope.itemType=='LOCAL_BUSINESS'){
+					try{
+						$scope.itemDetails.distance = item.entity_data.local_data.location_info.display_distance;
+					}catch(err){
+						console.log('distance unknown');
+					}
 					$scope.bannerUrl = getMapUrl($scope.itemDetails.mapinfo, SearchService.ACCESS_TOKEN, $scope.itemDetails.categoryHero);
 				}else{
 					SearchService.getBannerUrl(tQuery).then(function(url){
@@ -380,7 +386,8 @@ angular.module('relcyApp')
 	   }
 
 	   $rootScope.hideLoader = true;
-});
+	   $scope.hasLocalBusiness = false;
+	});
 
 
 function getMapUrl(mapinfo, token, category){
@@ -389,7 +396,7 @@ function getMapUrl(mapinfo, token, category){
 	}else{
 		category = '';
 	}
-	return 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/' + 'pin-l'+category+'+3397DA('+mapinfo.longitude+','+mapinfo.latitude+',1)/' + mapinfo.longitude + ',' + mapinfo.latitude + ',' + '13' + '/1000x400.png?access_token=' + token;
+	return 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/' + 'pin-l'+category+'+3397DA('+mapinfo.longitude+','+mapinfo.latitude+',1)/' + mapinfo.longitude + ',' + mapinfo.latitude + ',' + '13' + '/898x359.png?access_token=' + token;
 }
 
 

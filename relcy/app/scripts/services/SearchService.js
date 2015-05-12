@@ -126,11 +126,6 @@ angular.module('relcyApp')
 					}catch(err){
 						console.log('address unknown');
 					}
-					try{
-						transformedData.distance = response.results[0].entity_data.local_data.location_info.display_distance;
-					}catch(err){
-						console.log('address unknown');
-					}
 
 					try{
 						transformedData.hours = response.results[0].entity_data.local_data.business_hours.days;
@@ -370,6 +365,7 @@ angular.module('relcyApp')
 				maxIndex = 6;
 				incrementBy = 6;
 				$scope.addScoresToPlaceResluts(values);
+				$scope.hasLocalBusiness = true;
 				
 				var mapUrl = 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/';
 				var currItem;
@@ -385,7 +381,7 @@ angular.module('relcyApp')
 				}
 				currItem = values[values.length-1].entity_data.local_data.location_info;
 				try{
-					mapUrl+='pin-m+3397DA('+currItem.longitude+','+currItem.latitude+')/'+currItem.longitude+','+currItem.latitude+',13/1000x400.png?access_token='+self.ACCESS_TOKEN;
+					mapUrl+='pin-m+3397DA('+currItem.longitude+','+currItem.latitude+')/'+currItem.longitude+','+currItem.latitude+',12/380x350.png?access_token='+self.ACCESS_TOKEN;
 				}catch(errr){
 					console.log('Location not present!');
 				}
@@ -410,6 +406,8 @@ angular.module('relcyApp')
 			transformedData.reviews = [];
 			transformedData.delivery = [];
 			transformedData.social = [];
+			transformedData.reserve = [];
+			transformedData.deals = [];
 			transformedData.call = [];
 			transformedData.map = [];
 
@@ -419,27 +417,30 @@ angular.module('relcyApp')
 			angular.forEach(links, function(l){
 				try{
 					var action = l.app_result.result_data.action;
-					switch(action){
-						case 'Reviews':
+					switch(action.toLowerCase()){
+						case 'reviews':
 							transformedData.reviews.push(l);
 							break;
-						case 'Delivery':
+						case 'delivery':
 							transformedData.delivery.push(l);
 							break;
-						case 'Social':
+						case 'social':
 							transformedData.social.push(l);
 							break;
-						case 'Call':
+						case 'reserve':
+							transformedData.reserve.push(l);
+							break;
+						case 'deals':
+							transformedData.deals.push(l);
+							break;
+						case 'call':
 							transformedData.call.push(l);
 							break;
-						case 'Map':
+						case 'map':
 							transformedData.map.push(l);
 							break;
-						case 'Get There':
+						case 'get there':
 							transformedData.getThere.push(l);
-							break;
-						case 'MENU':
-							transformedData.menu.push(l);
 							break;
 						case 'menu':
 							transformedData.menu.push(l);

@@ -161,12 +161,12 @@ ul.resultList li {
 	padding: 15px;
 	width: 100%;
 }
-.resultList span {
+.resultList span{
 	display: inline-block;
 	margin-right: 10px;
 	color: #8899a6;
 }
-.resultList span.fa {
+.resultList span.fa, .action-detail span.fa{
 	margin:0 10px 0 0;
 	color: #cad4db;
 	font-size:20px;
