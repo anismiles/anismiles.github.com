@@ -3,7 +3,8 @@ angular.module('relcyApp',
  ['ui.router',
   'ui.bootstrap',
   'bootstrapLightbox',
-  'angucomplete-alt']);
+  'angucomplete-alt',
+  'leaflet-directive']);
 
 angular.module('relcyApp')
 .config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider, $sceProvider, LightboxProvider) {

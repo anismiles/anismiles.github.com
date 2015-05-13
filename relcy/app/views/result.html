@@ -60,16 +60,12 @@
 
 </div>
 <div class="col-lg-5">
-    <div ng-if="locationUrl">
-        <div id='map'></div>
+    <div>
+        <!-- <div id='map'></div> -->
+        <leaflet id='map' center="center" markers="mapData.markers" height="480px" width="100%"></leaflet>
         <script>
-        //map
-        L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
-        map = L.mapbox.map('map', 'mapbox.emerald');
+       
 
-        map.featureLayer.on('click', function(e) {
-            map.panTo(e.layer.getLatLng());
-        });
         </script>
         <!--<img src="{{locationUrl}}"/>-->
     </div>

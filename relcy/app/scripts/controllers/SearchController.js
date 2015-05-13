@@ -13,7 +13,16 @@ angular.module('relcyApp')
 	$scope.defaultErrorImage = '../../favicon.ico';
 	$scope.showTopAnchor = false;
 	$scope.itemType;
-    $scope.itemDetails
+    $scope.itemDetails;
+
+    angular.extend($scope, {
+        center: {
+            lat: 0,
+            lng: 0,
+            zoom: 8
+        },
+        mapData: {markers: {}}
+    });
 	/*The query in the search field of home page*/
 	$scope.query;
 
@@ -139,11 +148,22 @@ angular.module('relcyApp')
 		$scope.search(query);
 		$scope.query = query;
 	};
+
+	$scope.$on('leafletDirectiveMarker.dblclick', function(event, i){
+              $scope.showDetails({content_type_enum: i.model.point.content_type_enum, relcy_id:{entity_id: i.model.point.entity_id, cipher_id: i.model.point.cipher_id}});
+	});
+
+	/*Will be invoked everytime the marker is clicked*/
+	$rootScope.gotoLocation = function(entity_id, cipher_id){
+		$scope.showDetails({content_type_enum: 'LOCAL_BUSINESS', relcy_id:{entity_id: entity_id, cipher_id: cipher_id}});
+
+	};
 	 /*Start searching for the input query*/
 	$scope.search = function(query)
 	{
 		/*Do nothing when no input in field*/
 	 	if(!query) return;
+	 	$scope.mapData.markers = {};
         $scope.hasLocalBusiness = false;
 	 	$rootScope.hideLoader = false;
 		$scope.searchResults=undefined;
@@ -163,19 +183,18 @@ angular.module('relcyApp')
 			setDefaultCategory();
 			$rootScope.hideLoader = true;
             if($scope.hasLocalBusiness){
-                L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
-                var marker = L.marker(new L.LatLng(37.9, -77), {
-                    icon: L.icon({
-                        iconUrl: 'https://www.mapbox.com/maki/renders/airport-24@2x.png',
-                        iconSize: [24, 24],
-                    }),
-                    draggable: true
+                // L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
+                
+                angular.extend($scope.mapData, {
+                    markers: $scope.searchResults.points
                 });
-
-                marker.addTo(map);
-                map.featureLayer.on('click', function(e) {
-                    map.panTo(e.layer.getLatLng());
-                });
+                try{
+                	$scope.center.lat = $scope.searchResults.points.p0.lat;
+	                $scope.center.lng = $scope.searchResults.points.p0.lng;
+	                $scope.center.zoom =12; 
+                }catch(er){
+                	console.log('Unable to center the map');
+                }
             }
 			
 		}, function(error)
@@ -260,19 +279,6 @@ angular.module('relcyApp')
 	$scope.incrementAndScroll = function(cat){
 		// var allItems = cat.values;
 		cat.maxIndex=cat.maxIndex+cat.incrementBy;
-		/*var item;
-		var id;
-		if(allItems[cat.maxIndex]){
-			item = allItems[cat.maxIndex];
-			id = cat.maxIndex;
-		}else{
-			id = cat.length-1;
-			item = allItems[id];
-		}
-		id = cat.key;
-		$timeout(function(){
-			$scope.scrollTo(id);
-		},1100);*/
 	};
 
 	/*Will take you to the next page to view the details*/
@@ -292,9 +298,7 @@ angular.module('relcyApp')
 		} else if(item.originalObject.lookIds && item.originalObject.lookIds[0]){
 			relcyId = {
 					"entity_id": item.originalObject.lookIds[0],
-					"cipher_id": item.originalObject.entity_id,
-					//"content_type_enum": "ENTERTAINMENT_VIDEO_MOVIE",
-					//"query": "fast"
+					"cipher_id": item.originalObject.entity_id
 				}
 		}
 		if(relcyId){

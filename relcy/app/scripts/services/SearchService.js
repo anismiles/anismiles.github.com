@@ -369,24 +369,24 @@ angular.module('relcyApp')
 				
 				var mapUrl = 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/';
 				var currItem;
+				transformedData.points = {};
 				if(values.length>1){
-					for(var d=0;d<values.length-1;d++){
+					for(var d=0;d<values.length;d++){
 						try{
 							currItem = values[d].entity_data.local_data.location_info;
-							mapUrl+='pin-m+3397DA('+currItem.longitude+','+currItem.latitude+'),'
+							transformedData.points['p'+d] = {
+								lat: currItem.latitude,
+								lng: currItem.longitude,
+								message: "<p>"+currItem.address.display_address+"</p><a ng-click=\"gotoLocation('"+values[d].relcy_id.entity_id+"'"+",'"+values[d].relcy_id.cipher_id+"')\">Go</a>",
+								draggable: false,
+								compileMessage: true,
+								point: values[d].relcy_id};
 						}catch(errr){
 							console.log('Location not present!');
 						}
 					}	
 				}
-				currItem = values[values.length-1].entity_data.local_data.location_info;
-				try{
-					mapUrl+='pin-m+3397DA('+currItem.longitude+','+currItem.latitude+')/'+currItem.longitude+','+currItem.latitude+',12/380x350.png?access_token='+self.ACCESS_TOKEN;
-				}catch(errr){
-					console.log('Location not present!');
-				}
 				
-				$scope.locationUrl = mapUrl;
 				
 			}
 			break;
