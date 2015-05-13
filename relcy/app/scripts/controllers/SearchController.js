@@ -183,18 +183,23 @@ angular.module('relcyApp')
 			setDefaultCategory();
 			$rootScope.hideLoader = true;
             if($scope.hasLocalBusiness){
-            	if($scope.searchResults[0].key!='LOCAL_BUSINESS'){
-            		var lbIndex = 0;
-            		for(var n=1;n<$scope.searchResults.length;n++){
-            			if($scope.searchResults[n].key=='LOCAL_BUSINESS'){
-            				lbIndex = n;
-            				break;
-            			}
-            		}
-            		if(lbIndex>0){
-            			SearchService.moveItem($scope.searchResults, lbIndex, 0);
-            			$scope.selectedCategory = $scope.searchResults[0].key;
-            		}
+            	//Moving place results to first place.
+            	try{
+            		if($scope.searchResults[0].key!='LOCAL_BUSINESS'){
+	            		var lbIndex = 0;
+	            		for(var n=1;n<$scope.searchResults.length;n++){
+	            			if($scope.searchResults[n].key=='LOCAL_BUSINESS'){
+	            				lbIndex = n;
+	            				break;
+	            			}
+	            		}
+	            		if(lbIndex>0){
+	            			SearchService.moveItem($scope.searchResults, lbIndex, 0);
+	            			$scope.selectedCategory = $scope.searchResults[0].key;
+	            		}
+	            	}
+            	}catch(er){
+            		console.log('no results avlbl');
             	}
                 // L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
                 
