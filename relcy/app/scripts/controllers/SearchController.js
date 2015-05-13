@@ -183,6 +183,19 @@ angular.module('relcyApp')
 			setDefaultCategory();
 			$rootScope.hideLoader = true;
             if($scope.hasLocalBusiness){
+            	if($scope.searchResults[0].key!='LOCAL_BUSINESS'){
+            		var lbIndex = 0;
+            		for(var n=1;n<$scope.searchResults.length;n++){
+            			if($scope.searchResults[n].key=='LOCAL_BUSINESS'){
+            				lbIndex = n;
+            				break;
+            			}
+            		}
+            		if(lbIndex>0){
+            			SearchService.moveItem($scope.searchResults, lbIndex, 0);
+            			$scope.selectedCategory = $scope.searchResults[0].key;
+            		}
+            	}
                 // L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
                 
                 angular.extend($scope.mapData, {
@@ -193,7 +206,7 @@ angular.module('relcyApp')
 	                $scope.center.lng = $scope.searchResults.points.p0.lng;
 	                $scope.center.zoom =12; 
                 }catch(er){
-                	console.log('Unable to center the map');
+                	console.log('Unable to center the map');	
                 }
             }
 			

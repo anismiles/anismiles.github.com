@@ -370,7 +370,7 @@ angular.module('relcyApp')
 				var mapUrl = 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/';
 				var currItem;
 				transformedData.points = {};
-				if(values.length>1){
+				if(values.length>0){
 					for(var d=0;d<values.length;d++){
 						try{
 							currItem = values[d].entity_data.local_data.location_info;
@@ -538,6 +538,13 @@ angular.module('relcyApp')
 				break;
 		}
 	}
+
+	this.moveItem = function(arr, fromIndex, toIndex) {
+	    var element = arr[fromIndex];
+	    arr.splice(fromIndex, 1);
+	    arr.splice(toIndex, 0, element);
+	};
+
 	this.handleError = function( response ) 
 	{     console.log(response);
 		if(response.status == 404  && response.data == 'Result not available.') {
