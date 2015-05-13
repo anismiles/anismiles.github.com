@@ -1,13 +1,138 @@
-<div ng-if="Lightbox.type=='CAST'" class="modal-body castmodel" style="background:#fff"> <h4 class="topictitle">Cast</h4> <div ng-if="cast.title" ng-repeat="cast in Lightbox.data"> <div class="castlist"> <div class="castimage"> <img err-src="img-no-min/placeholder.png" ng-src="{{::cast.image_info.mediaURL}}" alt=""> </div> <div class="castdetail"> <p> {{::cast.title}} </p> <p> {{::cast.title}} </p> </div> </div> </div> </div> <div ng-if="Lightbox.type=='HOURS'" class="modal-body castmodel" style="background:#fff"> <h4 class="topictitle">HOURS</h4> <div ng-repeat="hours in Lightbox.data"> <div class="castlist"> <!--            <div class="castimage">
-                <img err-src="img-no-min/placeholder.png" ng-src="{{::hours.image_info.mediaURL}}" alt=""/>
+<div ng-if="Lightbox.type=='CAST'" class="modal-body castmodel" style="background:#fff;">
+    <h4 class="topictitle">Cast</h4>
 
-            </div>--> <div class="castdetail"> <p> {{::hours.day_enum}} </p> <p> <span>{{::hours.hours[0].open_time}} to {{::hours.hours[0].close_time}}</span><br> <span>{{::hours.hours[1].open_time}} to {{::hours.hours[1].close_time}}</span> </p> </div> </div> </div> </div> <div ng-if="Lightbox.type=='CALL'" class="modal-body castmodel" style="background:#fff"> <h4 class="topictitle">CALL</h4> <div ng-repeat="phone in Lightbox.data"> <div class="castlist"> <!--            <div class="castimage">
+    <div ng-if="cast.title" ng-repeat="cast in Lightbox.data">
+        <div class="castlist">
+            <div class="castimage">
+                <img err-src="img-no-min/placeholder.png" ng-src="{{::cast.image_info.mediaURL}}" alt=""/>
+
+            </div>
+            <div class="castdetail">
+                <p>
+                    {{::cast.title}}
+                </p>
+
+                <p>
+                    {{::cast.title}}
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div ng-if="Lightbox.type=='HOURS'" class="modal-body castmodel" style="background:#fff;">
+    <h4 class="topictitle">HOURS</h4>
+
+    <div ng-repeat="hours in Lightbox.data">
+        <div class="castlist">
+            <!--            <div class="castimage">
                             <img err-src="img-no-min/placeholder.png" ng-src="{{::hours.image_info.mediaURL}}" alt=""/>
 
-                        </div>--> <div class="castdetail"> <p> <span>{{phone.type}}: </span>{{::phone.number.value}} </p> </div> </div> </div> </div> <div ng-if="Lightbox.type=='VIDEO'" class="modal-body castmodel"> <!-- navigation --> <div class="lightbox-nav"> <!-- close button --> <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button> </div> <div style="padding:0"> <iframe width="500" height="300" ng-src="{{Lightbox.data.value}}" frameborder="0" allowfullscreen controls></iframe> <div style="padding:10px 20px"> <h3 class="media-heading text-left" style="font-size:13px">{{Lightbox.data.title}}</h3> <div> <a ng-href="{{Lightbox.data.value}}" target="_blank">{{Lightbox.data.value}}</a> </div> <p class="genre"> <span>{{Lightbox.data.duration}}</span></p> </div> </div> </div> <div ng-if="Lightbox.type=='STORY'" class="modal-body castmodel" style="background:#fff"> <h4 class="topictitle">Story</h4> <div style="padding:20px"> {{Lightbox.data.value}} </div> </div> <div ng-if="Lightbox.type=='IMAGES'" class="modal-body" ng-swipe-left="Lightbox.nextImage()" ng-swipe-right="Lightbox.prevImage()"> <!-- navigation --> <div class="lightbox-nav"> <!-- close button --> <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button> <div class="btn-group"> <a class="btn btn-xs btn-default btn-pre" ng-click="Lightbox.prevImage()" style="position:absolute"> ‹ </a> <!--       <a ng-href="{{Lightbox.imageUrl}}" target="_blank"
-          class="btn btn-xs btn-default" title="Open in new tab">
-        Open image in new tab
-      </a> --> <a class="btn btn-xs btn-default btn-next" ng-click="Lightbox.nextImage()" style="position:absolute"> › </a> </div> </div> <div class="lightbox-image-container"> <!-- image --> <div style="background-image:url({{Lightbox.imageUrl}}); height:500px; width:auto; background-size:cover; background-position:center center"> <!-- <img lightbox-src="{{Lightbox.imageUrl}}" alt="" class="lightbox-gallery-img"> --> </div> <div ng-if="Lightbox.imageCaption" class="lightbox-img-caption text-left">{{Lightbox.imageCaption}}</div> <!-- caption --> <!--  <div class="lightbox-image-caption">
-      <span>{{Lightbox.imageCaption}}</span><br>
-	  <span>{{Lightbox.dimensions}}</span>
-	  <br> --> <!-- <span>{{Lightbox.imageUrl}}</span> --> </div> </div> 
+                        </div>-->
+            <div class="castdetail">
+                <p>
+                    {{::hours.day_enum}}
+                </p>
+
+                <p>
+                    <span>{{::hours.hours[0].open_time}} to {{::hours.hours[0].close_time}}</span><br>
+
+                    <span>{{::hours.hours[1].open_time}} to {{::hours.hours[1].close_time}}</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div ng-if="Lightbox.type=='CALL'" class="modal-body castmodel" style="background:#fff;">
+    <h4 class="topictitle">CALL</h4>
+
+    <div ng-repeat="phone in Lightbox.data">
+        <div class="castlist">
+            <!--            <div class="castimage">
+                            <img err-src="img-no-min/placeholder.png" ng-src="{{::hours.image_info.mediaURL}}" alt=""/>
+
+                        </div>-->
+            <div class="castdetail">
+                <p>
+                    <span>{{phone.type}}: </span>{{::phone.number.value}}
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div ng-if="Lightbox.type=='VIDEO'" class="modal-body castmodel">
+    <!-- navigation -->
+    <div class="lightbox-nav">
+        <!-- close button -->
+        <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+    </div>
+    <div style="padding:0">
+        <iframe width="500" height="300" ng-src="{{Lightbox.data.value}}" frameborder="0" allowfullscreen
+                controls></iframe>
+        <div style="padding:10px 20px">
+            <h3 class="media-heading text-left" style="font-size:13px;">{{Lightbox.data.title}}</h3>
+
+            <div>
+                <a ng-href="{{Lightbox.data.value}}" target="_blank">{{Lightbox.data.value}}</a>
+            </div>
+            <p class="genre">
+                <span>{{Lightbox.data.duration}}</span></p>
+        </div>
+    </div>
+</div>
+
+
+<div ng-if="Lightbox.type=='STORY'" class="modal-body castmodel" style="background:#fff;">
+    <h4 class="topictitle">Story</h4>
+
+    <div style="padding:20px">
+        {{Lightbox.data.value}}
+    </div>
+</div>
+
+<div ng-if="Lightbox.type=='IMAGES'" class="modal-body"
+     ng-swipe-left="Lightbox.nextImage()"
+     ng-swipe-right="Lightbox.prevImage()">
+    <!-- navigation -->
+    <div class="lightbox-nav">
+        <!-- close button -->
+        <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+
+        <div class="btn-group">
+            <a class="btn btn-xs btn-default btn-pre" ng-click="Lightbox.prevImage()" style="position:absolute;">
+                ‹
+            </a>
+
+            <!--       <a ng-href="{{Lightbox.imageUrl}}" target="_blank"
+                      class="btn btn-xs btn-default" title="Open in new tab">
+                    Open image in new tab
+                  </a> -->
+
+            <a class="btn btn-xs btn-default btn-next" ng-click="Lightbox.nextImage()" style="position:absolute;">
+                ›
+            </a>
+        </div>
+    </div>
+
+    <div class="lightbox-image-container">
+        <!-- image -->
+        <div style="background-image:url({{Lightbox.imageUrl}}); height:500px; width:auto; background-size:cover; background-position:center center;">
+            <!-- <img lightbox-src="{{Lightbox.imageUrl}}" alt="" class="lightbox-gallery-img"> -->
+        </div>
+        <div ng-if="Lightbox.imageCaption" class="lightbox-img-caption text-left">{{Lightbox.imageCaption}}</div>
+        <!-- caption -->
+        <!--  <div class="lightbox-image-caption">
+           <span>{{Lightbox.imageCaption}}</span><br>
+           <span>{{Lightbox.dimensions}}</span>
+           <br> -->
+        <!-- <span>{{Lightbox.imageUrl}}</span> -->
+    </div>
+
+</div>
+</div>

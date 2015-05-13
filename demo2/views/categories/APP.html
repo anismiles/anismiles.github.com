@@ -1,1 +1,30 @@
-<ul class="resultList"> <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> --> <li ng-repeat="result in cat.values | limitTo: cat.maxIndex"> <div class="media"> <!-- <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left pull-right" style="position: absolute;right: 0; z-index:5"><a href="javascript:void(0)" class="anchorjs-link"><span class="fa fa-chevron-right text-gray"></span></a></div> --> <div class="col-lg-2 pull-left"> <a href="#"> <div style="background-image:url({{result.image_info[0].thumbnail.mediaURL}})" class="appthumb"> </div> </a> </div> <div class="pull-right col-lg-10"> <h4 class="media-heading" id="top-aligned-media">{{::result.app_result[0].app.app_id}} </h4> <p><span>{{::result.app_result[0].result_data.sub_title}}</span></p> <p class="score"> <span ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span> <span ng-if="result.showHalfRating" class="fa fa-star-half-empty rating"></span> <span> - {{result.image_info[0].source}}</span> </p> </div> </div> </li> <div class="panelList"> <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length" ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a> </div> </ul>
+<ul class="resultList">
+  <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> -->
+  <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+    <div class="media">
+    <!-- <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left pull-right" style="position: absolute;right: 0; z-index:5"><a href="javascript:void(0)" class="anchorjs-link"><span class="fa fa-chevron-right text-gray"></span></a></div> -->
+        <div class="col-lg-2 pull-left">
+          <a href="#">
+          <div style=" background-image:url({{result.image_info[0].thumbnail.mediaURL}});" class="appthumb">
+			</div>
+          
+          </a>
+        </div>
+        <div class="pull-right col-lg-10">
+          <h4 class="media-heading" id="top-aligned-media">{{::result.app_result[0].app.app_id}}
+              
+          </h4>
+         <p><span>{{::result.app_result[0].result_data.sub_title}}</span></p>
+         <p class="score">
+          <span ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
+                <span ng-if="result.showHalfRating" class="fa fa-star-half-empty rating"></span>  
+            <span> - {{result.image_info[0].source}}</span>
+         </p>
+        </div>
+       
+   </div>
+  </li>
+  <div class="panelList">
+    <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length" ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
+  </div>
+</ul>
