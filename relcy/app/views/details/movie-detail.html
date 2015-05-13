@@ -24,29 +24,34 @@
 
                     <p class="genre" ng-if="itemDetails.genre" style="margin:0 0 5px">
                         <span>{{::itemDetails.genre}}</span></p>
+
                     <p class="pull-left mr-r-30" ng-repeat="r in itemDetails.displayRating">
-                        <span ng-if="r.rating_style=='PERCENTAGE'"><img src="img-no-min/icons-sm/{{r.source}}.png" title=""> {{::r.source}}: {{::r.rating}}%</span>
-                        <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'"><img src="img-no-min/icons-sm/{{::r.source}}.png" title=""> {{::r.source}}: {{::r.rating}}/10</span>
-                        <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"><img src="img-no-min/icons-sm/{{::r.source}}.png" title=""> {{::r.source}}: {{::r.rating}}/100</span>
+                        <span ng-if="r.rating_style=='PERCENTAGE'"><img src="img-no-min/icons-sm/{{r.source}}.png"
+                                                                        title=""> {{::r.source}}: {{::r.rating}}%</span>
+                        <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'"><img
+                                src="img-no-min/icons-sm/{{::r.source}}.png" title=""> {{::r.source}}: {{::r.rating}}/10</span>
+                        <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"><img
+                                src="img-no-min/icons-sm/{{::r.source}}.png" title=""> {{::r.source}}: {{::r.rating}}/100</span>
                     </p>
-<!--                    <p class="pull-left mr-r-30">
-                        <span><img src="img-no-min/icons-sm/Imdb.png" title=""> IMDB: {{::itemDetails.title}}/10</span>
-                    </p>
-                    <p class="pull-left mr-r-30">
-                        <span><img src="img-no-min/icons-sm/RottenTomatoes.png" title="" > Rotten Tomatoes: </span>
-                    </p>
-                    <p class="pull-left mr-r-30">
-                       <span><img src="img-no-min/icons-sm/Flixster.png" title="" > Flixster: </span>
-                    </p>
-                    <p class="pull-left mr-r-30">
-                        <span><img src="img-no-min/icons-sm/Flixster.png" title="" > MetaCritic: </span>
-                    </p>-->
+                    <!--                    <p class="pull-left mr-r-30">
+                                            <span><img src="img-no-min/icons-sm/Imdb.png" title=""> IMDB: {{::itemDetails.title}}/10</span>
+                                        </p>
+                                        <p class="pull-left mr-r-30">
+                                            <span><img src="img-no-min/icons-sm/RottenTomatoes.png" title="" > Rotten Tomatoes: </span>
+                                        </p>
+                                        <p class="pull-left mr-r-30">
+                                           <span><img src="img-no-min/icons-sm/Flixster.png" title="" > Flixster: </span>
+                                        </p>
+                                        <p class="pull-left mr-r-30">
+                                            <span><img src="img-no-min/icons-sm/Flixster.png" title="" > MetaCritic: </span>
+                                        </p>-->
                 </div>
                 <!-- deatail left end-->
 
                 <div class="detail_right">
-                    <p><a href="#" ng-click="openCastLightbox(itemDetails.story,'STORY')"> <img src="img-no-min/icons-sm/Story.png"
-                                                                                                alt=""/> Story </a></p>
+                    <p><a href="#" ng-click="openCastLightbox(itemDetails.story,'STORY')"> <img
+                            src="img-no-min/icons-sm/Story.png"
+                            alt=""/> Story </a></p>
 
                     <p><a href="#" ng-click="openCastLightbox(itemDetails.cast,'CAST')"> <img
                             src="img-no-min/icons-sm/Cast.png" alt=""/> Cast </a></p>
