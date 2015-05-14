@@ -1,7 +1,26 @@
 angular.module('relcyApp')
-    .controller("SearchController", function ($scope, $http, $rootScope, $location, $window, $timeout, SearchService, $filter, anchorSmoothScroll, Lightbox) {
-        var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
+.controller('EntityController', [
+	'$scope',
+	'$http', 
+	'$rootScope', 
+	'$location', 
+	'$window',
+	'$timeout',
+	'$stateParams',
+	'SearchService',
+	'$filter',
+	'anchorSmoothScroll',
+	'Lightbox',
+	EntityController]);
 
+function EntityController($scope, $http, $rootScope, $location, $window, $timeout,
+ $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox){
+var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
+		console.log('stateParams: '+ $stateParams.entity);
+		console.log('stateParams: '+ $stateParams.cipher);
+		console.log('stateParams: '+ $stateParams.cType);
+		console.log('stateParams: '+ $stateParams.q);
+		
         $scope.selectedTypeIndex = 0;
         $scope.selectedCategory;
         $scope.showDetailPage = false;
@@ -183,67 +202,6 @@ angular.module('relcyApp')
             });
 
         };
-        /*Start searching for the input query*/
-        $scope.search = function (query) {
-            /*Do nothing when no input in field*/
-            if (!query) return;
-            $scope.mapData.markers = {};
-            $scope.hasLocalBusiness = false;
-            $rootScope.hideLoader = false;
-            $scope.searchResults = undefined;
-            $scope.relatedSearches = undefined;
-            SearchService.getSearchDetails(query).then(function (data) {
-                $scope.showDetailPage = false;
-                $scope.showingResult = true;
-                $scope.result = data['search_response']
-                if (!$scope.result.verticalResult) {
-                    $scope.showingResult = false;
-                    return;
-                }
-                $scope.searchResults = SearchService.transformSearchResults($scope.result.verticalResult, $scope);
-                $scope.selectedCategory = $scope.searchResults[0].key;
-                $scope.types = $scope.result.verticalResult;
-                setDefaultCategory();
-                $rootScope.hideLoader = true;
-                if ($scope.hasLocalBusiness) {
-                    //Moving place results to first place.
-                    try {
-                        if ($scope.searchResults[0].key != 'LOCAL_BUSINESS') {
-                            var lbIndex = 0;
-                            for (var n = 1; n < $scope.searchResults.length; n++) {
-                                if ($scope.searchResults[n].key == 'LOCAL_BUSINESS') {
-                                    lbIndex = n;
-                                    break;
-                                }
-                            }
-                            if (lbIndex > 0) {
-                                SearchService.moveItem($scope.searchResults, lbIndex, 0);
-                                $scope.selectedCategory = $scope.searchResults[0].key;
-                            }
-                        }
-                    } catch (er) {
-                        console.log('no results avlbl');
-                    }
-                    // L.mapbox.accessToken = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
-
-                    angular.extend($scope.mapData, {
-                        markers: $scope.searchResults.points
-                    });
-                    try {
-                        $scope.center.lat = $scope.searchResults.points.p0.lat;
-                        $scope.center.lng = $scope.searchResults.points.p0.lng;
-                        $scope.center.zoom = 12;
-                    } catch (er) {
-                        console.log('Unable to center the map');
-                    }
-                }
-
-            }, function (error) {
-                $scope.showingResult = false;
-                $scope.gridMessage = 'Error while loading data';
-                $rootScope.hideLoader = true;
-            });
-        }
 
         $scope.reload = function () {
             window.location.reload();
@@ -342,8 +300,6 @@ angular.module('relcyApp')
                 }
             }
             if (relcyId) {
-                $location.path('/detail?entity='+relcyId.entity_id);
-                return;
                 $rootScope.hideLoader = false;
                 $scope.showDetailPage = false;
                 SearchService.getEntityDetails(relcyId).then(function (data) {
@@ -445,7 +401,18 @@ angular.module('relcyApp')
 
         $rootScope.hideLoader = true;
         $scope.hasLocalBusiness = false;
-    });
+        if($stateParams.q)
+		setTextOnSearchField($stateParams.q);
+		var cipher = $stateParams.cipher.replace(/%40/gi, '@').
+             replace(/%3A/gi, ':').
+             replace(/%24/g, '$').
+             replace(/%2C/gi, ',').
+             replace(/%2F/gi, '/');
+        $scope.showDetails({
+            content_type_enum: $stateParams.cType,
+            relcy_id: {entity_id: $stateParams.entity, cipher_id: cipher}
+        });
+    }
 
 
 function getMapUrl(mapinfo, token, category) {
