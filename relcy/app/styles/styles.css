@@ -1043,7 +1043,6 @@ div.imdb span {
 }*/
 .leaflet-marker-icon{
 	background: url(../img-no-min/map-marker.svg);
-	width: 64px!important;
 	height: 64px!important;
 	border: none;
 	background-repeat: no-repeat;
