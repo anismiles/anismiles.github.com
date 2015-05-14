@@ -33,30 +33,37 @@ angular.module('relcyApp')
         //TODO: Can we remove hardcoding of categories?
         /*Will check if the catagory have results or not*/
         $scope.hasResults = function (type, index) {
-            switch (type) {
-                case 'ENTERTAINMENT_VIDEO_MOVIE':
-                    return ($scope.types[index] && $scope.types[index].searchResultRelcy && $scope.types[index].searchResultRelcy.results && $scope.types[index].searchResultRelcy.results.length);
-                    break;
-                case 'WEB_VIDEOS':
-                    return ($scope.types[index] && $scope.types[index].videoSearchResult && $scope.types[index].videoSearchResult.videoSearchResults && $scope.types[index].videoSearchResult.videoSearchResults.length);
-                    break;
-                case 'WEB':
-                    return ($scope.types[index] && $scope.types[index].webSearchResult && $scope.types[index].webSearchResult.searchResults && $scope.types[index].webSearchResult.searchResults.length);
-                    break;
-                case 'APP':
-                    return ($scope.types[index] && $scope.types[index].searchResultRelcy && $scope.types[index].searchResultRelcy.results && $scope.types[index].searchResultRelcy.results.length);
-                    break;
-                case 'RELATED_SEARCHES':
-                    return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
-                    break;
-                case 'LOCAL_BUSINESS':
-                    return ($scope.types[index] && $scope.types[index].relatedSearchesResult && $scope.types[index].relatedSearchesResult.relatedSearchResults && $scope.types[index].relatedSearchesResult.relatedSearchResults.length);
-                    break;
-                default:
-                    return false;
-                    break;
+             try{
+                switch (type) {
+                    case 'ENTERTAINMENT_VIDEO_MOVIE':
+                    case 'ENTERTAINMENT_VIDEO_TVSHOW':
+                        return $scope.types[index].searchResultRelcy.results.length>0;
+                        break;
+                    case 'WEB_VIDEOS':
+                        return $scope.types[index].videoSearchResult.videoSearchResults.length>0;
+                        break;
+                    case 'WEB':
+                        return $scope.types[index].webSearchResult.searchResults.length>0;
+                        break;
+                    case 'WEB_NEWS':
+                        return $scope.types[index].newsSearchResult.newsSearchResults.length>0;
+                        break;
+                    case 'APP':
+                        return $scope.types[index].searchResultRelcy.results.length>0;
+                        break;
+                    case 'RELATED_SEARCHES':
+                        return $scope.types[index].relatedSearchesResult.relatedSearchResults.length>0;
+                        break;
+                    case 'LOCAL_BUSINESS':
+                        return $scope.types[index].relatedSearchesResult.relatedSearchResults.length>0;
+                        break;
+                    default:
+                        return false;
+                        break;
+                }
+            }catch(err){
+                return false;
             }
-
         }
 
         /*Will be called to get an array out of score field*/
