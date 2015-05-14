@@ -1042,13 +1042,20 @@ div.imdb span {
  .btn-circle .glyphicon-search  { left:0px;  }
 }*/
 .leaflet-marker-icon{
-	background-image: url(../img-no-min/marker.png);
+	background: url(../img-no-min/map-marker.svg);
 	width: 64px!important;
 	height: 64px!important;
+	border: none;
+	background-repeat: no-repeat;
+	background-position: center center;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 600;
+	font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
 }
 .leaflet-marker-icon span{
 	text-align: center;
 	display: block;
-	line-height: 40px;
+	line-height: 50px;
 
 }
