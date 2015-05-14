@@ -371,13 +371,21 @@ angular.module('relcyApp')
                                 for (var d = 0; d < values.length; d++) {
                                     try {
                                         currItem = values[d].entity_data.local_data.location_info;
+                                        var l = values[d].entity_data.common_data.name;
                                         transformedData.points['p' + d] = {
                                             lat: currItem.latitude,
                                             lng: currItem.longitude,
-                                            message: "<p>" + currItem.address.display_address + "</p><a class=\"pointer\" ng-click=\"gotoLocation('" + values[d].relcy_id.entity_id + "'" + ",'" + values[d].relcy_id.cipher_id + "')\">Go</a>",
+                                            message: "<p>" + currItem.address.display_address + "</p><a class=\"pointer\" ng-click=\"gotoLocation('" + values[d].relcy_id.entity_id + "'" + ",'" + values[d].relcy_id.cipher_id + "'" + ",'" + l + "')\">Go</a>",
                                             draggable: false,
                                             compileMessage: true,
-                                            point: values[d].relcy_id
+                                            point: values[d].relcy_id,
+                                            label: l,
+                                            icon:  {
+							                    type: 'div',
+							                    iconSize: [200, 0],
+							                    popupAnchor:  [0, 0],
+							                    html: '<span>'+(d+1)+'</span>'
+							                }
                                         };
                                     } catch (errr) {
                                         console.log('Location not present!');

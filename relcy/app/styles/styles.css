@@ -1041,3 +1041,14 @@ div.imdb span {
 /*@media screen and (-webkit-min-device-pixel-ratio:0) {
  .btn-circle .glyphicon-search  { left:0px;  }
 }*/
+.leaflet-marker-icon{
+	background-image: url(../img-no-min/marker.png);
+	width: 64px!important;
+	height: 64px!important;
+}
+.leaflet-marker-icon span{
+	text-align: center;
+	display: block;
+	line-height: 40px;
+
+}

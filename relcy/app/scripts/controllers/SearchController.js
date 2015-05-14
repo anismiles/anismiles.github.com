@@ -148,7 +148,16 @@ angular.module('relcyApp')
             $scope.query = query;
         };
 
+        function setTextOnSearchField(text){
+        	$scope.query = text;
+        	$scope.$broadcast('angucomplete-alt:clearInput', 'members');
+            $timeout(function () {
+                angular.element(document.querySelector('#members')).children().children()[0].value = text;
+            }, 250);
+        }
+
         $scope.$on('leafletDirectiveMarker.dblclick', function (event, i) {
+        	setTextOnSearchField(i.model.label);
             $scope.showDetails({
                 content_type_enum: i.model.point.content_type_enum,
                 relcy_id: {entity_id: i.model.point.entity_id, cipher_id: i.model.point.cipher_id}
@@ -156,7 +165,8 @@ angular.module('relcyApp')
         });
 
         /*Will be invoked everytime the marker is clicked*/
-        $rootScope.gotoLocation = function (entity_id, cipher_id) {
+        $rootScope.gotoLocation = function (entity_id, cipher_id, label) {
+        	setTextOnSearchField(label);
             $scope.showDetails({
                 content_type_enum: 'LOCAL_BUSINESS',
                 relcy_id: {entity_id: entity_id, cipher_id: cipher_id}
