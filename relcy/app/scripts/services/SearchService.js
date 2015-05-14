@@ -148,11 +148,14 @@ angular.module('relcyApp')
                         }
                     }
                     else {
-
+                        var keyTitle = 'Movies';
                         try {
+                            if(response.results[0].content_type_enum=='ENTERTAINMENT_VIDEO_TVSHOW'){
+                                keyTitle = 'TV Shows'
+                            }
                             transformedData.moviesResult = response.results[0].content_type_enum;
                             transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
-                            transformedData.categories.push({key: 'details_movies', keyTitle: 'Movies'});
+                            transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
 
 
                             // check for other properties in the below code, only for movies
@@ -543,6 +546,9 @@ angular.module('relcyApp')
             switch (cat) {
                 case 'ENTERTAINMENT_VIDEO_MOVIE':
                     return item.title + "+" + item.releaseYear;
+                    break;
+                case 'ENTERTAINMENT_VIDEO_TVSHOW':
+                    return item.title + "+TV";
                     break;
                 case 'WEB_VIDEOS':
                     //return ($scope.types[index] && $scope.types[index].videoSearchResult && $scope.types[index].videoSearchResult.videoSearchResults && $scope.types[index].videoSearchResult.videoSearchResults.length);
