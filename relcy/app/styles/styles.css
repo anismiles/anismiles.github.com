@@ -1049,13 +1049,13 @@ div.imdb span {
 	background-repeat: no-repeat;
 	background-position: center center;
 	color: #fff;
-	font-size: 23px;
-	font-weight: 800;
+	font-size: 18px;
+	font-weight: 600;
 	font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
 }
 .leaflet-marker-icon span{
 	text-align: center;
 	display: block;
-	line-height: 48px;
+	line-height: 50px;
 
 }
