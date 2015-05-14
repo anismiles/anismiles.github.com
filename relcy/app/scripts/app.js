@@ -23,7 +23,6 @@ angular.module('relcyApp')
       });
 
       $sceProvider.enabled(false);
- 
 	
 });
 
