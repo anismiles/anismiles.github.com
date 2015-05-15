@@ -73,11 +73,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             $scope.search(query);
             $scope.query = query;
         };
-
-
-        $scope.reload = function () {
-            window.location.reload();
-        }
         
 
         /*Will set the default selected category once results come*/
@@ -100,32 +95,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             //Do nothing if link is not there
             if (!link) return;
             $window.open(link, '_blank');
-        }
-
-        /*Will scroll to this id*/
-        $scope.scrollTo = function (id) {
-            $scope.selectedCategory = id;
-            if (id == 'container') {
-                $scope.showTopAnchor = false;
-                /*Set first element in categories as selected*/
-                if ($scope.searchResults.length > 0) {
-                    $scope.selectedCategory = $scope.searchResults[0].key;
-                }
-            } else {
-                try {
-                    if ($scope.searchResults[0].key == id) {
-                        $scope.showTopAnchor = false;
-                    } else {
-                        $scope.showTopAnchor = true;
-                    }
-                } catch (err) {
-                    console.log('nothing there in first category!');
-                }
-            }
-
-            $location.hash(id);
-            // $anchorScroll();
-            anchorSmoothScroll.scrollTo(id);
         }
 
         $scope.onAutoCompleteSelect = function (item) {

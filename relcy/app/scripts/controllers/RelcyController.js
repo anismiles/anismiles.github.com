@@ -32,6 +32,10 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
         $scope.$broadcast('angucomplete-alt:clearInput', id);
     }    
 
+    $scope.reload = function () {
+        window.location.reload();
+    }
+
     /*Will be called to get an array out of score field*/
     function getScoreArray(score) {
         if (!score) return [];
@@ -96,6 +100,32 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
             a.showHalfRating = showHalfRating(score);
         });
         return results;
+    };
+
+    /*Will scroll to this id*/
+    $scope.scrollTo = function (id) {
+        $scope.selectedCategory = id;
+        if (id == 'container') {
+            $scope.showTopAnchor = false;
+            /*Set first element in categories as selected*/
+            if ($scope.searchResults.length > 0) {
+                $scope.selectedCategory = $scope.searchResults[0].key;
+            }
+        } else {
+            try {
+                if ($scope.searchResults[0].key == id) {
+                    $scope.showTopAnchor = false;
+                } else {
+                    $scope.showTopAnchor = true;
+                }
+            } catch (err) {
+                console.log('nothing there in first category!');
+            }
+        }
+
+        $location.hash(id);
+        // $anchorScroll();
+        anchorSmoothScroll.scrollTo(id);
     }
 
     function setTextOnSearchField(text){

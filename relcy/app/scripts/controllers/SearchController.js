@@ -1,7 +1,8 @@
 angular.module('relcyApp')
-    .controller("SearchController", function ($scope, $http, $rootScope, $location, $window, $timeout, SearchService, $filter, anchorSmoothScroll, Lightbox) {
-        var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
-
+    .controller("SearchController", function ($scope, $http, $rootScope, $location, $window, $timeout, $stateParams,
+       SearchService, $filter, anchorSmoothScroll, Lightbox) {
+        
+        
         $scope.selectedTypeIndex = 0;
         $scope.selectedCategory;
         $scope.showDetailPage = false;
@@ -75,6 +76,7 @@ angular.module('relcyApp')
         $scope.search = function (query) {
             /*Do nothing when no input in field*/
             if (!query) return;
+            $location.search('q', query)
             $scope.mapData.markers = {};
             $scope.hasLocalBusiness = false;
             $rootScope.hideLoader = false;
@@ -133,10 +135,7 @@ angular.module('relcyApp')
             });
         }
 
-        $scope.reload = function () {
-            window.location.reload();
-        }
-        
+      
         /*Will set the default selected category once results come*/
         function setDefaultCategory() {
             for (var i = 0; i < $scope.types.length; i++) {
@@ -218,6 +217,22 @@ angular.module('relcyApp')
 
         $rootScope.hideLoader = true;
         $scope.hasLocalBusiness = false;
+
+        var q = $stateParams.q;
+        if(q){
+             setTimeout ( function (){
+            $( "#members input" ).focus();
+            
+                $("#bighead").removeClass("title");
+                $("#bighead").addClass("relcysmall");
+                //$("#bigform").addClass("smallform");
+                $("#pageMiddle").animate({'margin-top':'0%'}, 200);
+                $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
+                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+             },300);
+
+            $scope.search(q);
+        }
     });
 
 
