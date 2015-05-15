@@ -1,23 +1,20 @@
 <ul class="resultList">
-  <!-- <a name="WEB"></a> -->
-	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex" class="col-lg-12">
-    <div class="media  col-lg-12">
-      <div class="media-body">
-        <h4 class="media-heading" id="top-aligned-media">
-		<a href="{{result.clickUrl}}" target="_blank">{{result.title}}</a>
-            <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
-        </h4>
-       <p>
-       	<span><a href="{{result.clickUrl}}" target="_blank">{{result.displayUrl}}</a></span> 
-       </p>
-       <p>{{result.summary}}</p>
-       <!--<p><span>{{result.pingUrlSuffix}}</span></p>-->
-      </div>
-      <!--<div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left" style="vertical-align:middle"><a href="javascript:void();" class="anchorjs-link">   <span class="fa fa-chevron-right text-gray"></span></a></div>-->
+    <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+        <div class="media col-lg-12">
+            <h4 class="media-heading" id="top-aligned-media">
+                <a href="{{result.clickUrl}}" target="_blank">{{result.title}}</a>
+                <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
+            </h4>
+            <p>
+                <span><a href="{{result.clickUrl}}" target="_blank">{{result.displayUrl}}</a></span>
+            </p>
+            <p>{{result.summary}}</p>
         </div>
+        <div class="clearfix"></div>
+    </li>
+    <div class="panelList">
+        <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length"
+           ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i
+                class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
     </div>
-  </li>
-  <div class="panelList">
-  	<a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length" ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
-  </div>
 </ul>
