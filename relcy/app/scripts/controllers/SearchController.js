@@ -56,7 +56,7 @@ angular.module('relcyApp')
 
 
         $scope.$on('leafletDirectiveMarker.dblclick', function (event, i) {
-        	setTextOnSearchField(i.model.label);
+        	$scope.setTextOnSearchField(i.model.label);
             $scope.showDetails({
                 content_type_enum: i.model.point.content_type_enum,
                 relcy_id: {entity_id: i.model.point.entity_id, cipher_id: i.model.point.cipher_id}
@@ -65,7 +65,7 @@ angular.module('relcyApp')
 
         /*Will be invoked everytime the marker is clicked*/
         $rootScope.gotoLocation = function (entity_id, cipher_id, label) {
-        	setTextOnSearchField(label);
+        	$scope.setTextOnSearchField(label);
             $scope.showDetails({
                 content_type_enum: 'LOCAL_BUSINESS',
                 relcy_id: {entity_id: entity_id, cipher_id: cipher_id}
@@ -158,31 +158,7 @@ angular.module('relcyApp')
             $window.open(link, '_blank');
         }
 
-        /*Will scroll to this id*/
-        $scope.scrollTo = function (id) {
-            $scope.selectedCategory = id;
-            if (id == 'container') {
-                $scope.showTopAnchor = false;
-                /*Set first element in categories as selected*/
-                if ($scope.searchResults.length > 0) {
-                    $scope.selectedCategory = $scope.searchResults[0].key;
-                }
-            } else {
-                try {
-                    if ($scope.searchResults[0].key == id) {
-                        $scope.showTopAnchor = false;
-                    } else {
-                        $scope.showTopAnchor = true;
-                    }
-                } catch (err) {
-                    console.log('nothing there in first category!');
-                }
-            }
-
-            $location.hash(id);
-            // $anchorScroll();
-            anchorSmoothScroll.scrollTo(id);
-        }
+        
 
         $scope.onAutoCompleteSelect = function (item) {
             if (!item) return;
@@ -226,11 +202,11 @@ angular.module('relcyApp')
                 $("#bighead").removeClass("title");
                 $("#bighead").addClass("relcysmall");
                 //$("#bigform").addClass("smallform");
-                $("#pageMiddle").animate({'margin-top':'0%'}, 200);
-                $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
+                $("#pageMiddle").css({'margin-top':'0%'});
+                //$("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
                 angular.element(document.querySelector('#members')).children().children()[0].value = q;
              },300);
-
+            $scope.query = q;
             $scope.search(q);
         }
     });

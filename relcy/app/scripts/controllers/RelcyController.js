@@ -128,7 +128,7 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
         anchorSmoothScroll.scrollTo(id);
     }
 
-    function setTextOnSearchField(text){
+    $scope.setTextOnSearchField = function(text){
     	$scope.query = text;
     	$scope.$broadcast('angucomplete-alt:clearInput', 'members');
         $timeout(function () {

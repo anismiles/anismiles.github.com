@@ -235,7 +235,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         $rootScope.hideLoader = true;
         $scope.hasLocalBusiness = false;
         if($stateParams.q)
-		setTextOnSearchField($stateParams.q);
+		$scope.setTextOnSearchField($stateParams.q);
 		var cipher = $stateParams.cipher.replace(/%40/gi, '@').
              replace(/%3A/gi, ':').
              replace(/%24/g, '$').
