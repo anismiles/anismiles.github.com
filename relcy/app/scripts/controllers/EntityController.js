@@ -15,7 +15,7 @@ angular.module('relcyApp')
 
 function EntityController($scope, $http, $rootScope, $location, $window, $timeout,
  $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox){
-var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
+
 		console.log('stateParams: '+ $stateParams.entity);
 		console.log('stateParams: '+ $stateParams.cipher);
 		console.log('stateParams: '+ $stateParams.cType);
@@ -49,110 +49,7 @@ var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
             $scope.resultByType = $scope.types[index]//.searchResultRelcy.results;
         }
 
-        //TODO: Can we remove hardcoding of categories?
-        /*Will check if the catagory have results or not*/
-        $scope.hasResults = function (type, index) {
-             try{
-                switch (type) {
-                    case 'ENTERTAINMENT_VIDEO_MOVIE':
-                    case 'ENTERTAINMENT_VIDEO_TVSHOW':
-                        return $scope.types[index].searchResultRelcy.results.length>0;
-                        break;
-                    case 'WEB_VIDEOS':
-                        return $scope.types[index].videoSearchResult.videoSearchResults.length>0;
-                        break;
-                    case 'WEB':
-                        return $scope.types[index].webSearchResult.searchResults.length>0;
-                        break;
-                    case 'WEB_NEWS':
-                        return $scope.types[index].newsSearchResult.newsSearchResults.length>0;
-                        break;
-                    case 'WEB_IMAGES':
-                        return $scope.types[index].imageSearchResult.imageSearchResults.length>0;
-                        break;    
-                    case 'APP':
-                        return $scope.types[index].searchResultRelcy.results.length>0;
-                        break;
-                    case 'RELATED_SEARCHES':
-                        return $scope.types[index].relatedSearchesResult.relatedSearchResults.length>0;
-                        break;
-                    case 'LOCAL_BUSINESS':
-                        return $scope.types[index].relatedSearchesResult.relatedSearchResults.length>0;
-                        break;
-                    default:
-                        return false;
-                        break;
-                }
-            }catch(err){
-                return false;
-            }
-        }
-
-        /*Will be called to get an array out of score field*/
-        function getScoreArray(score) {
-            if (!score) return [];
-            return new Array(Math.floor(score));
-        }
-
-        function showHalfRating(score) {
-            return (score % 1) > 0;
-        }
-
-        /*Will add ratings to auto search results*/
-        $scope.addScores = function (results) {
-            if (!results) return;
-            angular.forEach(results.auto_complete_response.auto_complete_item, function (a) {
-                a.scoreArray = getScoreArray(a.score);
-                a.showHalfRating = showHalfRating(a.score);
-            });
-            return results.auto_complete_response;
-        }
-
-        /*Will add rating array to app resutls*/
-        $scope.addScoresToAppResluts = function (results) {
-            if (!results) return;
-            angular.forEach(results, function (a) {
-                a.scoreArray = getScoreArray(a.app_result[0].score);
-                a.showHalfRating = showHalfRating(a.app_result[0].score);
-            });
-            return results;
-        }
-
-        /*Will add rating array to local business resutls*/
-        $scope.addScoresToPlaceResluts = function (results) {
-            if (!results) return;
-            angular.forEach(results, function (a) {
-                try {
-                    var rating = a.entity_data.common_data.display_rating[0];
-                    var score;
-                    var style = rating.rating_style;
-                    if (style == 'STAR') {
-                        score = rating.rating;
-                        a.scoreArray = getScoreArray(score);
-                        a.showHalfRating = showHalfRating(score);
-                    } else {
-                        a.rating = rating.rating + '/' + rating.max_rating;
-                        a.showStrRating = true;
-                    }
-                    a.ratingSource = rating.source;
-                } catch (err) {
-                    console.log('rating not avlbl for this one');
-                }
-
-            });
-            return results;
-        }
-
-        /*Will add rating array to movies resutls*/
-        $scope.addScoresToVideoMovies = function (results) {
-            if (!results) return;
-            angular.forEach(results, function (a) {
-                var score = a.score / 20;
-                a.scoreArray = getScoreArray(score);
-                a.showHalfRating = showHalfRating(score);
-            });
-            return results;
-        }
+        
 
         /*Will be invoked everytime search field will be changed on homepage*/
         $scope.onInputChange = function (q) {
@@ -177,44 +74,11 @@ var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
             $scope.query = query;
         };
 
-        function setTextOnSearchField(text){
-        	$scope.query = text;
-        	$scope.$broadcast('angucomplete-alt:clearInput', 'members');
-            $timeout(function () {
-                angular.element(document.querySelector('#members')).children().children()[0].value = text;
-            }, 250);
-        }
-
-        $scope.$on('leafletDirectiveMarker.dblclick', function (event, i) {
-        	setTextOnSearchField(i.model.label);
-            $scope.showDetails({
-                content_type_enum: i.model.point.content_type_enum,
-                relcy_id: {entity_id: i.model.point.entity_id, cipher_id: i.model.point.cipher_id}
-            });
-        });
-
-        /*Will be invoked everytime the marker is clicked*/
-        $rootScope.gotoLocation = function (entity_id, cipher_id, label) {
-        	setTextOnSearchField(label);
-            $scope.showDetails({
-                content_type_enum: 'LOCAL_BUSINESS',
-                relcy_id: {entity_id: entity_id, cipher_id: cipher_id}
-            });
-
-        };
 
         $scope.reload = function () {
             window.location.reload();
         }
-        /*Will clear the search field of auto complete with given id.*/
-        $scope.clearSearchInput = function (id) {
-            $scope.hideMainSearch = false;
-            $scope.showDetailPage = false;
-            $scope.$broadcast('angucomplete-alt:clearInput', 'members');
-            /*Hides the search results*/
-            $scope.showingResult = false;
-            $scope.$broadcast('angucomplete-alt:clearInput', id);
-        }
+        
 
         /*Will set the default selected category once results come*/
         function setDefaultCategory() {
