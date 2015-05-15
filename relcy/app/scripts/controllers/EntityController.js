@@ -138,7 +138,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                     SearchService.selectedItem = item;
                     $scope.itemDetails = SearchService.transformDetails(data);
                     $scope.searchResults = $scope.itemDetails.categories;
-
+                    SearchService.searchResults = $scope.searchResults;
                     var tQuery = SearchService.transformQuery($scope.itemDetails, $scope.itemType)
                     // get the banner image
                     if ($scope.itemType == 'LOCAL_BUSINESS') {

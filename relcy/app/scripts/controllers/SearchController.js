@@ -88,6 +88,7 @@ angular.module('relcyApp')
                     return;
                 }
                 $scope.searchResults = SearchService.transformSearchResults($scope.result.verticalResult, $scope);
+                SearchService.searchResults = $scope.searchResults;
                 $rootScope.selectedCategory = $scope.searchResults[0].key;
                 $scope.types = $scope.result.verticalResult;
                 setDefaultCategory();

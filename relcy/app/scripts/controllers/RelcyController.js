@@ -16,7 +16,7 @@ angular.module('relcyApp')
 function RelcyController($scope, $http, $rootScope, $location, $window, $timeout,
  $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox){
 	var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
-	$rootScope.selectedCategory;
+	angular.extend($rootScope, {selectedCategory:'', showTopAnchor: false});
 	angular.extend($scope, {types:[], query: '', selectedTypeIndex:0, showDetailPage: false, showingResult: false})
 	/*Will check if the catagory have results or not*/
     $scope.hasResults = function (type, index) {
@@ -107,17 +107,17 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
     $scope.scrollTo = function (id) {
         $rootScope.selectedCategory = id;
         if (id == 'container') {
-            $scope.showTopAnchor = false;
+            $rootScope.showTopAnchor = false;
             /*Set first element in categories as selected*/
-            if ($scope.searchResults.length > 0) {
-                $rootScope.selectedCategory = $scope.searchResults[0].key;
+            if (SearchService.searchResults.length > 0) {
+                $rootScope.selectedCategory = SearchService.searchResults[0].key;
             }
         } else {
             try {
-                if ($scope.searchResults[0].key == id) {
-                    $scope.showTopAnchor = false;
+                if (SearchService.searchResults[0].key == id) {
+                    $rootScope.showTopAnchor = false;
                 } else {
-                    $scope.showTopAnchor = true;
+                    $rootScope.showTopAnchor = true;
                 }
             } catch (err) {
                 console.log('nothing there in first category!');
