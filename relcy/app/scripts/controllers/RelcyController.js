@@ -16,7 +16,8 @@ angular.module('relcyApp')
 function RelcyController($scope, $http, $rootScope, $location, $window, $timeout,
  $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox){
 	var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
-	angular.extend($scope, {types:[], query: '', showDetailPage: false, showingResult: false})
+	$rootScope.selectedCategory;
+	angular.extend($scope, {types:[], query: '', selectedTypeIndex:0, showDetailPage: false, showingResult: false})
 	/*Will check if the catagory have results or not*/
     $scope.hasResults = function (type, index) {
          return SearchService.hasResults(type, index, $scope.types);
@@ -104,12 +105,12 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
 
     /*Will scroll to this id*/
     $scope.scrollTo = function (id) {
-        $scope.selectedCategory = id;
+        $rootScope.selectedCategory = id;
         if (id == 'container') {
             $scope.showTopAnchor = false;
             /*Set first element in categories as selected*/
             if ($scope.searchResults.length > 0) {
-                $scope.selectedCategory = $scope.searchResults[0].key;
+                $rootScope.selectedCategory = $scope.searchResults[0].key;
             }
         } else {
             try {

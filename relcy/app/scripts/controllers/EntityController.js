@@ -21,8 +21,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 		console.log('stateParams: '+ $stateParams.cType);
 		console.log('stateParams: '+ $stateParams.q);
 		
-        $scope.selectedTypeIndex = 0;
-        $scope.selectedCategory;
         $scope.showDetailPage = false;
         $scope.selected = 0;
         $scope.showingResult = false;
@@ -163,7 +161,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                     }
 
                     if ($scope.searchResults.length > 0) {
-                        $scope.selectedCategory = $scope.searchResults[0].key;
+                        $rootScope.selectedCategory = $scope.searchResults[0].key;
                     }
                     $rootScope.hideLoader = true;
                 }, function (error) {

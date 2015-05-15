@@ -2,9 +2,6 @@ angular.module('relcyApp')
     .controller("SearchController", function ($scope, $http, $rootScope, $location, $window, $timeout, $stateParams,
        SearchService, $filter, anchorSmoothScroll, Lightbox) {
         
-        
-        $scope.selectedTypeIndex = 0;
-        $scope.selectedCategory;
         $scope.showDetailPage = false;
         $scope.selected = 0;
         $scope.showingResult = false;
@@ -91,7 +88,7 @@ angular.module('relcyApp')
                     return;
                 }
                 $scope.searchResults = SearchService.transformSearchResults($scope.result.verticalResult, $scope);
-                $scope.selectedCategory = $scope.searchResults[0].key;
+                $rootScope.selectedCategory = $scope.searchResults[0].key;
                 $scope.types = $scope.result.verticalResult;
                 setDefaultCategory();
                 $rootScope.hideLoader = true;
@@ -108,7 +105,7 @@ angular.module('relcyApp')
                             }
                             if (lbIndex > 0) {
                                 SearchService.moveItem($scope.searchResults, lbIndex, 0);
-                                $scope.selectedCategory = $scope.searchResults[0].key;
+                                $rootScope.selectedCategory = $scope.searchResults[0].key;
                             }
                         }
                     } catch (er) {
