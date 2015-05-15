@@ -123,7 +123,7 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
             }
         }
 
-        $location.hash(id);
+        //$location.hash(id);
         // $anchorScroll();
         anchorSmoothScroll.scrollTo(id);
     }
