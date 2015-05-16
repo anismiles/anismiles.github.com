@@ -568,6 +568,43 @@ angular.module('relcyApp')
             arr.splice(toIndex, 0, element);
         };
 
+        this.hasResults = function (type, index, types) {
+             try{
+                switch (type) {
+                    case 'ENTERTAINMENT_VIDEO_MOVIE':
+                    case 'ENTERTAINMENT_VIDEO_TVSHOW':
+                        return types[index].searchResultRelcy.results.length>0;
+                        break;
+                    case 'WEB_VIDEOS':
+                        return types[index].videoSearchResult.videoSearchResults.length>0;
+                        break;
+                    case 'WEB':
+                        return types[index].webSearchResult.searchResults.length>0;
+                        break;
+                    case 'WEB_NEWS':
+                        return types[index].newsSearchResult.newsSearchResults.length>0;
+                        break;
+                    case 'WEB_IMAGES':
+                        return types[index].imageSearchResult.imageSearchResults.length>0;
+                        break;    
+                    case 'APP':
+                        return types[index].searchResultRelcy.results.length>0;
+                        break;
+                    case 'RELATED_SEARCHES':
+                        return types[index].relatedSearchesResult.relatedSearchResults.length>0;
+                        break;
+                    case 'LOCAL_BUSINESS':
+                        return types[index].relatedSearchesResult.relatedSearchResults.length>0;
+                        break;
+                    default:
+                        return false;
+                        break;
+                }
+            }catch(err){
+                return false;
+            }
+        }
+
         this.handleError = function (response) {
             console.log(response);
             if (response.status == 404 && response.data == 'Result not available.') {
