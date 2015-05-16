@@ -32,13 +32,7 @@ angular.module('relcyApp')
         $scope.onInputChange = function (q) {
             $scope.query = q;
         }
-
-        $scope.searchForSelection = function (selection) {
-            if (selection && selection.title) {
-                $scope.search(selection.title);
-            }
-        };
-
+        
         /*Will be invoked on clicking related search item*/
         $scope.goForRelatedSearch = function (query) {
 
@@ -154,17 +148,6 @@ angular.module('relcyApp')
             //Do nothing if link is not there
             if (!link) return;
             $window.open(link, '_blank');
-        }
-
-        
-
-        $scope.onAutoCompleteSelect = function (item) {
-            if (!item) return;
-            if (item.originalObject.lookIds && item.originalObject.lookIds[0]) {
-                $scope.showDetails(item);
-            } else {
-                $scope.searchForSelection(item);
-            }
         }
 
         /*Will increase the resuls and will take u to the last one.*/
