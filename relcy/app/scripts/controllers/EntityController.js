@@ -21,7 +21,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 		console.log('stateParams: '+ $stateParams.cType);
 		console.log('stateParams: '+ $stateParams.q);
 		
-        $scope.showDetailPage = false;
+        $scope.showDetailPage = true;
         $scope.selected = 0;
         $scope.showingResult = false;
         $scope.hideMainSearch = false;
@@ -93,15 +93,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             //Do nothing if link is not there
             if (!link) return;
             $window.open(link, '_blank');
-        }
-
-        $scope.onAutoCompleteSelect = function (item) {
-            if (!item) return;
-            if (item.originalObject.lookIds && item.originalObject.lookIds[0]) {
-                $scope.showDetails(item);
-            } else {
-                $scope.searchForSelection(item);
-            }
         }
 
         /*Will increase the resuls and will take u to the last one.*/
@@ -239,10 +230,26 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
              replace(/%24/g, '$').
              replace(/%2C/gi, ',').
              replace(/%2F/gi, '/');
-        $scope.showDetails({
-            content_type_enum: $stateParams.cType,
-            relcy_id: {entity_id: $stateParams.entity, cipher_id: cipher}
-        });
+        
+
+        var q = $stateParams.q;
+        if(q){
+             setTimeout ( function (){
+            $( "#members input" ).focus();
+            
+                $("#bighead").removeClass("title");
+                $("#bighead").addClass("relcysmall");
+                //$("#bigform").addClass("smallform");
+                $("#pageMiddle").css({'margin-top':'0%'});
+                //$("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
+                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+             },300);
+            $scope.query = q;
+            $scope.showDetails({
+                content_type_enum: $stateParams.cType,
+                relcy_id: {entity_id: $stateParams.entity, cipher_id: cipher}
+            });
+        }
     }
 
 
