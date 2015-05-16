@@ -1,9 +1,7 @@
 angular.module('relcyApp')
-    .controller("SearchController", function ($scope, $http, $rootScope, $location, $window, $timeout, SearchService, $filter, anchorSmoothScroll, Lightbox) {
-        var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
-
-        $scope.selectedTypeIndex = 0;
-        $scope.selectedCategory;
+    .controller("SearchController", function ($scope, $http, $rootScope, $location, $window, $timeout, $stateParams,
+       SearchService, $filter, anchorSmoothScroll, Lightbox) {
+        
         $scope.showDetailPage = false;
         $scope.selected = 0;
         $scope.showingResult = false;
@@ -30,108 +28,6 @@ angular.module('relcyApp')
             $scope.resultByType = $scope.types[index]//.searchResultRelcy.results;
         }
 
-        //TODO: Can we remove hardcoding of categories?
-        /*Will check if the catagory have results or not*/
-        $scope.hasResults = function (type, index) {
-             try{
-                switch (type) {
-                    case 'ENTERTAINMENT_VIDEO_MOVIE':
-                    case 'ENTERTAINMENT_VIDEO_TVSHOW':
-                        return $scope.types[index].searchResultRelcy.results.length>0;
-                        break;
-                    case 'WEB_VIDEOS':
-                        return $scope.types[index].videoSearchResult.videoSearchResults.length>0;
-                        break;
-                    case 'WEB':
-                        return $scope.types[index].webSearchResult.searchResults.length>0;
-                        break;
-                    case 'WEB_NEWS':
-                        return $scope.types[index].newsSearchResult.newsSearchResults.length>0;
-                        break;
-                    case 'APP':
-                        return $scope.types[index].searchResultRelcy.results.length>0;
-                        break;
-                    case 'RELATED_SEARCHES':
-                        return $scope.types[index].relatedSearchesResult.relatedSearchResults.length>0;
-                        break;
-                    case 'LOCAL_BUSINESS':
-                        return $scope.types[index].relatedSearchesResult.relatedSearchResults.length>0;
-                        break;
-                    default:
-                        return false;
-                        break;
-                }
-            }catch(err){
-                return false;
-            }
-        }
-
-        /*Will be called to get an array out of score field*/
-        function getScoreArray(score) {
-            if (!score) return [];
-            return new Array(Math.floor(score));
-        }
-
-        function showHalfRating(score) {
-            return (score % 1) > 0;
-        }
-
-        /*Will add ratings to auto search results*/
-        $scope.addScores = function (results) {
-            if (!results) return;
-            angular.forEach(results.auto_complete_response.auto_complete_item, function (a) {
-                a.scoreArray = getScoreArray(a.score);
-                a.showHalfRating = showHalfRating(a.score);
-            });
-            return results.auto_complete_response;
-        }
-
-        /*Will add rating array to app resutls*/
-        $scope.addScoresToAppResluts = function (results) {
-            if (!results) return;
-            angular.forEach(results, function (a) {
-                a.scoreArray = getScoreArray(a.app_result[0].score);
-                a.showHalfRating = showHalfRating(a.app_result[0].score);
-            });
-            return results;
-        }
-
-        /*Will add rating array to local business resutls*/
-        $scope.addScoresToPlaceResluts = function (results) {
-            if (!results) return;
-            angular.forEach(results, function (a) {
-                try {
-                    var rating = a.entity_data.common_data.display_rating[0];
-                    var score;
-                    var style = rating.rating_style;
-                    if (style == 'STAR') {
-                        score = rating.rating;
-                        a.scoreArray = getScoreArray(score);
-                        a.showHalfRating = showHalfRating(score);
-                    } else {
-                        a.rating = rating.rating + '/' + rating.max_rating;
-                        a.showStrRating = true;
-                    }
-                    a.ratingSource = rating.source;
-                } catch (err) {
-                    console.log('rating not avlbl for this one');
-                }
-
-            });
-            return results;
-        }
-
-        /*Will add rating array to movies resutls*/
-        $scope.addScoresToVideoMovies = function (results) {
-            if (!results) return;
-            angular.forEach(results, function (a) {
-                var score = a.score / 20;
-                a.scoreArray = getScoreArray(score);
-                a.showHalfRating = showHalfRating(score);
-            });
-            return results;
-        }
-
         /*Will be invoked everytime search field will be changed on homepage*/
         $scope.onInputChange = function (q) {
             $scope.query = q;
@@ -155,16 +51,9 @@ angular.module('relcyApp')
             $scope.query = query;
         };
 
-        function setTextOnSearchField(text){
-        	$scope.query = text;
-        	$scope.$broadcast('angucomplete-alt:clearInput', 'members');
-            $timeout(function () {
-                angular.element(document.querySelector('#members')).children().children()[0].value = text;
-            }, 250);
-        }
 
         $scope.$on('leafletDirectiveMarker.dblclick', function (event, i) {
-        	setTextOnSearchField(i.model.label);
+        	$scope.setTextOnSearchField(i.model.label);
             $scope.showDetails({
                 content_type_enum: i.model.point.content_type_enum,
                 relcy_id: {entity_id: i.model.point.entity_id, cipher_id: i.model.point.cipher_id}
@@ -173,7 +62,7 @@ angular.module('relcyApp')
 
         /*Will be invoked everytime the marker is clicked*/
         $rootScope.gotoLocation = function (entity_id, cipher_id, label) {
-        	setTextOnSearchField(label);
+        	$scope.setTextOnSearchField(label);
             $scope.showDetails({
                 content_type_enum: 'LOCAL_BUSINESS',
                 relcy_id: {entity_id: entity_id, cipher_id: cipher_id}
@@ -184,6 +73,7 @@ angular.module('relcyApp')
         $scope.search = function (query) {
             /*Do nothing when no input in field*/
             if (!query) return;
+            $location.search('q', query)
             $scope.mapData.markers = {};
             $scope.hasLocalBusiness = false;
             $rootScope.hideLoader = false;
@@ -198,7 +88,8 @@ angular.module('relcyApp')
                     return;
                 }
                 $scope.searchResults = SearchService.transformSearchResults($scope.result.verticalResult, $scope);
-                $scope.selectedCategory = $scope.searchResults[0].key;
+                SearchService.searchResults = $scope.searchResults;
+                $rootScope.selectedCategory = $scope.searchResults[0].key;
                 $scope.types = $scope.result.verticalResult;
                 setDefaultCategory();
                 $rootScope.hideLoader = true;
@@ -215,7 +106,7 @@ angular.module('relcyApp')
                             }
                             if (lbIndex > 0) {
                                 SearchService.moveItem($scope.searchResults, lbIndex, 0);
-                                $scope.selectedCategory = $scope.searchResults[0].key;
+                                $rootScope.selectedCategory = $scope.searchResults[0].key;
                             }
                         }
                     } catch (er) {
@@ -242,19 +133,7 @@ angular.module('relcyApp')
             });
         }
 
-        $scope.reload = function () {
-            window.location.reload();
-        }
-        /*Will clear the search field of auto complete with given id.*/
-        $scope.clearSearchInput = function (id) {
-            $scope.hideMainSearch = false;
-            $scope.showDetailPage = false;
-            $scope.$broadcast('angucomplete-alt:clearInput', 'members');
-            /*Hides the search results*/
-            $scope.showingResult = false;
-            $scope.$broadcast('angucomplete-alt:clearInput', id);
-        }
-
+      
         /*Will set the default selected category once results come*/
         function setDefaultCategory() {
             for (var i = 0; i < $scope.types.length; i++) {
@@ -277,31 +156,7 @@ angular.module('relcyApp')
             $window.open(link, '_blank');
         }
 
-        /*Will scroll to this id*/
-        $scope.scrollTo = function (id) {
-            $scope.selectedCategory = id;
-            if (id == 'container') {
-                $scope.showTopAnchor = false;
-                /*Set first element in categories as selected*/
-                if ($scope.searchResults.length > 0) {
-                    $scope.selectedCategory = $scope.searchResults[0].key;
-                }
-            } else {
-                try {
-                    if ($scope.searchResults[0].key == id) {
-                        $scope.showTopAnchor = false;
-                    } else {
-                        $scope.showTopAnchor = true;
-                    }
-                } catch (err) {
-                    console.log('nothing there in first category!');
-                }
-            }
-
-            $location.hash(id);
-            // $anchorScroll();
-            anchorSmoothScroll.scrollTo(id);
-        }
+        
 
         $scope.onAutoCompleteSelect = function (item) {
             if (!item) return;
@@ -318,111 +173,7 @@ angular.module('relcyApp')
             cat.maxIndex = cat.maxIndex + cat.incrementBy;
         };
 
-        /*Will take you to the next page to view the details*/
-        $scope.showDetails = function (item) {
-            $scope.showingResult = false;
-            $scope.hideMainSearch = true;
 
-            if (item.content_type_enum) {
-                $scope.itemType = item.content_type_enum;
-            } else if (item.originalObject.content_type_enum) {
-                $scope.itemType = item.originalObject.content_type_enum;
-            }
-            var relcyId;
-
-            if (item.relcy_id && item.relcy_id.entity_id) {
-                relcyId = item.relcy_id
-            } else if (item.originalObject.lookIds && item.originalObject.lookIds[0]) {
-                relcyId = {
-                    "entity_id": item.originalObject.lookIds[0],
-                    "cipher_id": item.originalObject.entity_id
-                }
-            }
-            if (relcyId) {
-                $rootScope.hideLoader = false;
-                $scope.showDetailPage = false;
-                SearchService.getEntityDetails(relcyId).then(function (data) {
-                    $scope.showDetailPage = true;
-                    SearchService.selectedItem = item;
-                    $scope.itemDetails = SearchService.transformDetails(data);
-                    $scope.searchResults = $scope.itemDetails.categories;
-
-                    var tQuery = SearchService.transformQuery($scope.itemDetails, $scope.itemType)
-                    // get the banner image
-                    if ($scope.itemType == 'LOCAL_BUSINESS') {
-                        try {
-                            $scope.itemDetails.distance = item.entity_data.local_data.location_info.display_distance;
-                        } catch (err) {
-                            console.log('distance unknown');
-                        }
-                        $scope.bannerUrl = getMapUrl($scope.itemDetails.mapinfo, SearchService.ACCESS_TOKEN, $scope.itemDetails.categoryHero);
-                    } else {
-                        SearchService.getBannerUrl(tQuery).then(function (url) {
-                            if (url)
-                                $scope.bannerUrl = url;
-                            else
-                                $scope.bannerUrl = DEFAULT_BANNER;
-
-                        }, function (err) {
-                            console.log('Error while fetching banner image url');
-                        });
-                    }
-
-                    if ($scope.searchResults.length > 0) {
-                        $scope.selectedCategory = $scope.searchResults[0].key;
-                    }
-                    $rootScope.hideLoader = true;
-                }, function (error) {
-                    console.log('Error while fetching details!!!');
-                    $rootScope.hideLoader = true;
-                });
-
-            } else {
-                console.log('Relcy id not found!');
-                return;
-            }
-        }
-
-        $scope.openCastLightbox = function (data, type, index) {
-            //console.log("hello openCastLightbox")
-            Lightbox.type = type;
-            //data = 'http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1';
-            Lightbox.data = data;
-
-            if (type == 'VIDEO') {
-                for (var i = 0; i < data.length; i++) {
-                    try {
-                        if (data[i].contentUrl.indexOf("youtube") > -1) {
-                            var url = data[i].contentUrl.replace("watch?v=", "embed/");
-                            url = url + '?autoplay=1'
-                            Lightbox.data = {value: url, title: data[i].title, duration: data[i].duration};
-                            break;
-                        }
-                    } catch (err) {
-                        console.log('something went wrong!');
-                    }
-                }
-                if (!Lightbox.data.value) {
-                    Lightbox.data = {value: data[0].contentUrl};
-                }
-            }
-
-            if (type == 'IMAGES') {
-                $scope.images = [];
-                for (var i = 0; i < data.length; i++) {
-                    $scope.images.push(
-                        {
-                            'url': data[i].contentUrl,
-                            'caption': data[i].title,
-                            'thumbUrl': data[i].thumbnailUrl,// used only for this example
-                            'dimensions': data[i].dimensions
-                        })
-                }
-                Lightbox.openModal($scope.images, index);
-            } else {
-                Lightbox.openModal([Lightbox.data], 0);
-            }
-        };
 
         /*Asking and fetching the current location*/
         $window.navigator.geolocation.getCurrentPosition(function (position) {
@@ -440,6 +191,22 @@ angular.module('relcyApp')
 
         $rootScope.hideLoader = true;
         $scope.hasLocalBusiness = false;
+
+        var q = $stateParams.q;
+        if(q){
+             setTimeout ( function (){
+            $( "#members input" ).focus();
+            
+                $("#bighead").removeClass("title");
+                $("#bighead").addClass("relcysmall");
+                //$("#bigform").addClass("smallform");
+                $("#pageMiddle").css({'margin-top':'0%'});
+                //$("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
+                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+             },300);
+            $scope.query = q;
+            $scope.search(q);
+        }
     });
 
 

@@ -1,39 +1,47 @@
 <ul class="resultList">
-	<li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
-    <div class="media">
-    <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left pull-right" style="position: absolute;right: 0; z-index:5"><a href="javascript:void(0)" class="anchorjs-link"><span class="fa fa-angle-right text-gray"></span></a></div>
-        <div class="col-lg-3 pull-left">
-          <a href="#">
-          <div style="background-image:url({{result.image_info[0].thumbnail.mediaURL}});height:119px" class="vdothumb">
-          </div>
-          </a>
+    <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+        <div class="media">
+            <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)" class="media-left pull-right"
+                 style="position: absolute;right: 0; z-index:5"><a href="javascript:void(0)" class="anchorjs-link"><span
+                    class="fa fa-angle-right text-gray"></span></a></div>
+            <div class="col-lg-3 pull-left">
+                <a href="#">
+                    <div style="background-image:url({{result.image_info[0].thumbnail.mediaURL}});height:119px"
+                         class="vdothumb">
+                    </div>
+                </a>
+            </div>
+            <div class="pull-right col-lg-9">
+                <h4 class="media-heading" id="top-aligned-media">{{result.entity_data.common_data.name}}
+
+                </h4>
+
+                <div class="genre">
+                    <span ng-if="result.entity_data.local_data.location_info.address.display_address">{{result.entity_data.local_data.location_info.address.display_address}}</span>
+                    <span ng-if="result.entity_data.local_data.location_info.display_distance">{{result.entity_data.local_data.location_info.display_distance}}</span>
+                </div>
+                <div class="genre">
+                    <span ng-if="result.entity_data.local_data.category">{{result.entity_data.local_data.category[0]}}</span>
+                    <span ng-if="result.entity_data.local_data.price_range.display_price_range">{{result.entity_data.local_data.price_range.display_price_range}}</span>
+                </div>
+                <div class="genre">
+                    <span ng-if="result.entity_data.local_data.business_hours.display_hours" style="color:#8cbe29">{{result.entity_data.local_data.business_hours.open_status}}</span>
+                </div>
+                <p class="score">
+                    <span ng-if="!result.showStrRating" ng-repeat="sa in result.scoreArray track by $index"
+                          class="fa fa-star rating"></span>
+                    <span ng-if="result.showHalfRating && !result.showStrRating"
+                          class="fa fa-star-half-empty rating"></span>
+                    <span ng-if="result.showStrRating">{{::result.rating}}</span>
+                    <span ng-if="result.ratingSource"> - {{::result.ratingSource}}</span>
+                </p>
+            </div>
+
         </div>
-        <div class="pull-right col-lg-9">
-          <h4 class="media-heading" id="top-aligned-media">{{result.entity_data.common_data.name}}
-              
-          </h4>
-         <div class="genre">
-         	<span ng-if="result.entity_data.local_data.location_info.address.display_address">{{result.entity_data.local_data.location_info.address.display_address}}</span> 
-            <span ng-if="result.entity_data.local_data.location_info.display_distance">{{result.entity_data.local_data.location_info.display_distance}}</span>   
-         </div>
-		<div class="genre">
-            <span ng-if="result.entity_data.local_data.category">{{result.entity_data.local_data.category[0]}}</span>
-			<span ng-if="result.entity_data.local_data.price_range.display_price_range">{{result.entity_data.local_data.price_range.display_price_range}}</span>
-         </div>
-		 <div class="genre">
-			<span ng-if="result.entity_data.local_data.business_hours.display_hours" style="color:#8cbe29">{{result.entity_data.local_data.business_hours.open_status}}</span>
-         </div>
-		 <p class="score">
-			<span ng-if="!result.showStrRating" ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
-            <span ng-if="result.showHalfRating && !result.showStrRating"  class="fa fa-star-half-empty rating"></span>
-            <span ng-if="result.showStrRating">{{::result.rating}}</span>
-			<span ng-if="result.ratingSource"> - {{::result.ratingSource}}</span>
-         </p>
-        </div>
-       
-   </div>
-  </li>
-  <div class="panelList">
-    <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length" ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
-  </div>
+    </li>
+    <div class="panelList">
+        <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length"
+           ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i
+                class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
+    </div>
 </ul>

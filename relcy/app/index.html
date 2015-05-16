@@ -43,14 +43,13 @@ cursor: url(img-no-min/cursor.png) x y, auto;
 </style>
 </head>
 
-<body id="container">
+<body id="container" ng-controller="RelcyController">
 <div ng-hide="hideLoader" id="pageloader"> </div>
 <section class="wrapper">
 <div class="container">
 	<div class="row">
     	<div class="col-lg-12">
         	<ui-view></ui-view>
-
         </div>
     </div>
 </div>
@@ -84,7 +83,9 @@ cursor: url(img-no-min/cursor.png) x y, auto;
         <script src="scripts/utils/leaflet-src.js" type="text/javascript"></script>
         <script src="scripts/utils/angular-leaflet.js" type="text/javascript"></script>
         <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/RelcyController.js" type="text/javascript"></script>
         <script src="scripts/controllers/SearchController.js" type="text/javascript"></script>
+        <script src="scripts/controllers/EntityController.js" type="text/javascript"></script>
         <script src="scripts/services/SearchService.js" type="text/javascript"></script>
         <script src="scripts/services/SmoothScroll.js" type="text/javascript"></script>
         <script src="scripts/filters/HourMinutes.js" type="text/javascript"></script>
