@@ -53,6 +53,9 @@ angular.module('relcyApp')
             $scope.query = query;
         };
 
+        $scope.$on('search', function(event, q){
+            $scope.search(q);
+        });
 
         $scope.$on('leafletDirectiveMarker.dblclick', function (event, i) {
         	$scope.setTextOnSearchField(i.model.label);
@@ -186,14 +189,16 @@ angular.module('relcyApp')
         var q = $stateParams.q;
         if(q){
              setTimeout ( function (){
-             $( "#members input" ).focus();
+                
+                    $( "#members input" ).focus();
             
-                $("#bighead").removeClass("title");
-                $("#bighead").addClass("relcysmall");
-                //$("#bigform").addClass("smallform");
-                //$("#pageMiddle").css({'margin-top':'0%'});
-                $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%','margin-top':'0%'});
-                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+                    $("#bighead").removeClass("title");
+                    $("#bighead").addClass("relcysmall");
+                    //$("#bigform").addClass("smallform");
+                    //$("#pageMiddle").css({'margin-top':'0%'});
+                    $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%','margin-top':'0%'});
+                   
+                angular.element(document.querySelector('#members')).children().children()[0].value = q; 
              },300);
             $scope.query = q;
             $scope.search(q);

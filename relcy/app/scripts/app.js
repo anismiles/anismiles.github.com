@@ -17,10 +17,15 @@ angular.module('relcyApp')
     
     $stateProvider
 	 	.state("home", {
-        	url: "/?q",
-        	templateUrl: "views/home.html",
-	  	    controller: "SearchController",
-      })
+      	url: "/?q",
+      	templateUrl: "views/home.html",
+  	    controller: "SearchController",
+    })
+    .state("search", {
+        url: "/search?q",
+        templateUrl: "views/result_list.html",
+        controller: "SearchController",
+    })
     .state("detail", {
         url: "/detail?entity&cipher&cType&q",
         templateUrl: "views/details/movie-detail.html",

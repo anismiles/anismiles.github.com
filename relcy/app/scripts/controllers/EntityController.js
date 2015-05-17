@@ -235,14 +235,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         var q = $stateParams.q;
         if(q){
             setTimeout ( function (){
-            $( "#members input" ).focus();
-            
-                $("#bighead").removeClass("title");
-                $("#bighead").addClass("relcysmall");
-                //$("#bigform").addClass("smallform");
-                //$("#pageMiddle").css({'margin-top':'0%'});
-                //$("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
-                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+               $( "#members input" ).focus();
+               angular.element(document.querySelector('#members')).children().children()[0].value = q;
              },300);
             $scope.query = q;
             $scope.showDetails({
