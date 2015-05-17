@@ -24,8 +24,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         $scope.showDetailPage = true;
         $scope.selected = 0;
         $scope.showingResult = false;
-        $scope.hideMainSearch = false;
-        $scope.relatedSearches;
         $scope.defaultErrorImage = '../../favicon.ico';
         $scope.showTopAnchor = false;
         $scope.itemType;
@@ -39,8 +37,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             },
             mapData: {markers: {}}
         });
-        /*The query in the search field of home page*/
-        $scope.query;
 
         $scope.showResult = function (type, index) {
             $scope.selectedTypeIndex = type
@@ -56,22 +52,9 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
         $scope.searchForSelection = function (selection) {
             if (selection && selection.title) {
-                $scope.search(selection.title);
+                $location.path('search').search({q: selection.title});
             }
-        };
-
-        /*Will be invoked on clicking related search item*/
-        $scope.goForRelatedSearch = function (query) {
-
-            $scope.$broadcast('angucomplete-alt:clearInput', 'members');
-            $timeout(function () {
-                angular.element(document.querySelector('#members')).children().children()[0].value = query;
-            }, 250);
-
-            $scope.search(query);
-            $scope.query = query;
-        };
-        
+        };     
 
         /*Will set the default selected category once results come*/
         function setDefaultCategory() {
@@ -104,7 +87,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         /*Will take you to the next page to view the details*/
         $scope.showDetails = function (item) {
             $scope.showingResult = false;
-            $scope.hideMainSearch = true;
 
             if (item.content_type_enum) {
                 $scope.itemType = item.content_type_enum;

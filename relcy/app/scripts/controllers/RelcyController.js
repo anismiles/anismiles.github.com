@@ -25,7 +25,6 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
 
 	/*Will clear the search field of auto complete with given id.*/
     $scope.clearSearchInput = function (id) {
-        $scope.hideMainSearch = false;
         $scope.showDetailPage = false;
         $scope.$broadcast('angucomplete-alt:clearInput', 'members');
         /*Hides the search results*/

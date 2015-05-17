@@ -5,7 +5,6 @@ angular.module('relcyApp')
         $scope.showDetailPage = false;
         $scope.selected = 0;
         $scope.showingResult = false;
-        $scope.hideMainSearch = false;
         $scope.relatedSearches;
         $scope.defaultErrorImage = '../../favicon.ico';
         $scope.showTopAnchor = false;
@@ -40,18 +39,6 @@ angular.module('relcyApp')
                 angular.element(document.querySelector('#members')).children().children()[0].value = q;
             }
         }
-        
-        /*Will be invoked on clicking related search item*/
-        $scope.goForRelatedSearch = function (query) {
-
-            $scope.$broadcast('angucomplete-alt:clearInput', 'members');
-            $timeout(function () {
-                angular.element(document.querySelector('#members')).children().children()[0].value = query;
-            }, 250);
-
-            $scope.search(query);
-            $scope.query = query;
-        };
 
         $scope.$on('search', function(event, q){
             $scope.search(q);
