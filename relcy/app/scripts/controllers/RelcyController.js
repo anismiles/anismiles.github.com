@@ -33,8 +33,8 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
         $scope.$broadcast('angucomplete-alt:clearInput', id);
     }    
 
-    $scope.reload = function () {
-        window.location.reload();
+    $rootScope.reload = function () {    
+       $location.path('/').search({q:''});
     }
 
     /*Will be called to get an array out of score field*/

@@ -31,6 +31,14 @@ angular.module('relcyApp')
         /*Will be invoked everytime search field will be changed on homepage*/
         $scope.onInputChange = function (q) {
             $scope.query = q;
+            if(q && q.length==1){
+                $("#bighead").removeClass("title");
+                $("#bighead").addClass("relcysmall");
+                //$("#bigform").addClass("smallform");
+                //$("#pageMiddle").css({'margin-top':'0%'});
+                $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%','margin-top':'0%'});
+                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+            }
         }
         
         /*Will be invoked on clicking related search item*/
@@ -178,7 +186,7 @@ angular.module('relcyApp')
         var q = $stateParams.q;
         if(q){
              setTimeout ( function (){
-            $( "#members input" ).focus();
+             $( "#members input" ).focus();
             
                 $("#bighead").removeClass("title");
                 $("#bighead").addClass("relcysmall");

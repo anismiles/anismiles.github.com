@@ -19,17 +19,17 @@ angular.module('relcyApp')
 	 	.state("home", {
         	url: "/?q",
         	templateUrl: "views/home.html",
-	  	controller: "SearchController",
+	  	    controller: "SearchController",
       })
     .state("detail", {
         url: "/detail?entity&cipher&cType&q",
         templateUrl: "views/details/movie-detail.html",
-    controller: "EntityController",
+        controller: "EntityController",
     })
     .state("place", {
         url: "/place?entity&cipher&cType&q",
         templateUrl: "views/details/place-detail.html",
-    controller: "EntityController",
+        controller: "EntityController",
     });
 
       $sceProvider.enabled(false);
