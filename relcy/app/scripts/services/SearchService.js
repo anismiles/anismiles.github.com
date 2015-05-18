@@ -378,7 +378,7 @@ angular.module('relcyApp')
                                         transformedData.points['p' + d] = {
                                             lat: currItem.latitude,
                                             lng: currItem.longitude,
-                                            message: "<p>" + currItem.address.display_address + "</p><a class=\"pointer\" ng-click=\"gotoLocation('" + values[d].relcy_id.entity_id + "'" + ",'" + values[d].relcy_id.cipher_id + "'" + ",'" + l + "')\">Go</a>",
+                                            message: "<p>" + currItem.address.display_address + "</p><a class=\"pointer\" ng-click=\"gotoLocation('" + values[d].relcy_id.entity_id + "'" + ",'" + values[d].relcy_id.cipher_id + "'" + ",'" + l + "')\">Go</a>",                                            
                                             draggable: false,
                                             compileMessage: true,
                                             point: values[d].relcy_id,

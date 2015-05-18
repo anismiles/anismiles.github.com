@@ -45,22 +45,14 @@ angular.module('relcyApp')
         });
 
         $scope.$on('leafletDirectiveMarker.dblclick', function (event, i) {
-        	$scope.setTextOnSearchField(i.model.label);
-            $scope.showDetails({
-                content_type_enum: i.model.point.content_type_enum,
-                relcy_id: {entity_id: i.model.point.entity_id, cipher_id: i.model.point.cipher_id}
-            });
+            $location.path('place').search({entity: i.model.point.entity_id, cipher: i.model.point.cipher_id, q: i.model.label, cType: i.model.point.content_type_enum});
         });
 
         /*Will be invoked everytime the marker is clicked*/
         $rootScope.gotoLocation = function (entity_id, cipher_id, label) {
-        	$scope.setTextOnSearchField(label);
-            $scope.showDetails({
-                content_type_enum: 'LOCAL_BUSINESS',
-                relcy_id: {entity_id: entity_id, cipher_id: cipher_id}
-            });
-
+        	$location.path('place').search({entity: entity_id, cipher: cipher_id, q: label, cType: 'LOCAL_BUSINESS'});
         };
+
         /*Start searching for the input query*/
         $scope.search = function (query) {
             /*Do nothing when no input in field*/
