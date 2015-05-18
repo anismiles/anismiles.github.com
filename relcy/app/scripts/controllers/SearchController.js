@@ -44,6 +44,8 @@ angular.module('relcyApp')
         });
 
         $scope.$on('leafletDirectiveMarker.dblclick', function (event, i) {
+            //Will do nothing if my location double clicked.
+            if(i.modelName=='mylocation') return;
             $location.path('place').search({entity: i.model.point.entity_id, cipher: i.model.point.cipher_id, q: i.model.label, cType: i.model.point.content_type_enum});
         });
 
@@ -70,7 +72,7 @@ angular.module('relcyApp')
                     $scope.showingResult = false;
                     return;
                 }
-                $scope.searchResults = SearchService.transformSearchResults($scope.result.verticalResult, $scope);
+                $scope.searchResults = SearchService.transformSearchResults($scope.result.verticalResult, $scope, data.search_request.location);
                 SearchService.searchResults = $scope.searchResults;
                 $rootScope.selectedCategory = $scope.searchResults[0].key;
                 $scope.types = $scope.result.verticalResult;
@@ -107,6 +109,12 @@ angular.module('relcyApp')
                     } catch (er) {
                         console.log('Unable to center the map');
                     }
+                    $timeout(function(){
+                        var mylocationEle = angular.element(document.querySelector('#my-location'));
+                        if(mylocationEle){
+                            mylocationEle.parent().css('background', 'url(../img-no-min/my-location.svg)center center no-repeat');
+                        }
+                    }, 250);
                 }
 
             }, function (error) {
@@ -182,15 +190,3 @@ angular.module('relcyApp')
             $scope.search(q);
         }
     });
-
-
-function getMapUrl(mapinfo, token, category) {
-    if ('Bars' == category || 'bars' == category) {
-        category = '-bar';
-    } else {
-        category = '';
-    }
-    return 'http://api.tiles.mapbox.com/v4/hunterowens2.m0lnepeh/' + 'pin-l' + category + '+3397DA(' + mapinfo.longitude + ',' + mapinfo.latitude + ',1)/' + mapinfo.longitude + ',' + mapinfo.latitude + ',' + '13' + '/898x359.png?access_token=' + token;
-}
-
-

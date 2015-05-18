@@ -271,7 +271,7 @@ angular.module('relcyApp')
         };
 
         /*Will transform the search results so as to be used on UI*/
-        this.transformSearchResults = function (data, $scope) {
+        this.transformSearchResults = function (data, $scope, location) {
             var transformedData = [];
             for (var index = 0; index < data.length; index++) {
                 var key = data[index].content_type_enum;
@@ -424,6 +424,21 @@ angular.module('relcyApp')
                                     } catch (errr) {
                                         console.log('Location not present!');
                                     }
+                                }
+                                if(location && location.latitude){
+                                    transformedData.points['mylocation'] = {
+                                        lat: location.latitude,
+                                        lng: location.longitude,
+                                        message: "<p>My Location</p>",                                            
+                                        draggable: false,
+                                        compileMessage: true,
+                                        icon:  {
+                                            type: 'div',
+                                            iconSize: [200, 0],
+                                            popupAnchor:  [0, 0],
+                                            html: '<span id="my-location">me</span>'
+                                        }
+                                    };
                                 }
                             }
 
