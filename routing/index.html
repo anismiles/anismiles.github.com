@@ -1,0 +1,44 @@
+<!DOCTYPE html> <html ng-app="relcyApp"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"> <title>Relcy</title> <link href="favicon.ico" rel="icon" type="image/x-icon"> <!--styles--> <!-- <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" /> --> <meta name="description" content=""> <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> <!-- map --> <script src="https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js"></script> <link href="https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css" rel="stylesheet"> <!-- endmap --> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.e5c9fb87.css"> <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css"> <link rel="stylesheet" href="styles/main.c4cc2584.css"> <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --> <!-- WARNING: Respond.js doesn't work if you view the page via file:// --> <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]--> <style>cursor: url(img-no-min/cursor.png) x y, auto;</style>  <body id="container" ng-controller="RelcyController"> <div ng-hide="hideLoader" id="pageloader"> </div> <section class="wrapper"> <div class="container"> <div class="row"> <div class="col-lg-12"> <ui-view></ui-view> </div> </div> </div> </section> <footer> <div class="footer"> <div class="row"> <div class="col-lg-6 text-left"><img src="images/Slice 1.cee0e048.png" alt="" height="20px"> &nbsp; Relcy Entity Browser - Employees Only</div> <div class="col-lg-6 text-right"><a href="#">Mail</a> &nbsp; <a href="#">Jira</a> &nbsp; <a href="#">Slack</a></div> </div> </div> </footer> <script src="scripts/vendor.025b8103.js"></script> <script src="scripts/scripts.2dfe5f27.js"></script> <script>//this is here to make plunkr work with AngularJS routing
+/*angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));*/
+
+function init(){
+    var map
+    $(document).ready(function(){
+    setTimeout ( function (){
+    $( "#members input" ).focus();
+    $(".tran_top").keypress(function(e){
+        console.log("213456");
+        $("#bighead").removeClass("title");
+        $("#bighead").addClass("relcysmall");
+        //$("#bigform").addClass("smallform");
+        $("#pageMiddle").animate({'margin-top':'0%'}, 200);
+        $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%'});
+
+        }); },300);
+    });
+}
+
+if($){
+    setTimeout(function(){
+        init();
+    }, 700);
+}   else{
+    setTimeout(function(){
+        init();
+    }, 1500);
+}
+
+$(window).scroll(function() {
+
+    if ($(this).scrollTop()>0)
+     {
+        $('.totop').fadeIn(100);
+     }
+    else
+     {
+      $('.totop').fadeOut(100);
+     }
+ });</script>  
