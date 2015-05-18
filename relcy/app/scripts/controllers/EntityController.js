@@ -148,46 +148,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             }
         }
 
-        $scope.openCastLightbox = function (data, type, index) {
-            //console.log("hello openCastLightbox")
-            Lightbox.type = type;
-            //data = 'http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1';
-            Lightbox.data = data;
-
-            if (type == 'VIDEO') {
-                for (var i = 0; i < data.length; i++) {
-                    try {
-                        if (data[i].contentUrl.indexOf("youtube") > -1) {
-                            var url = data[i].contentUrl.replace("watch?v=", "embed/");
-                            url = url + '?autoplay=1'
-                            Lightbox.data = {value: url, title: data[i].title, duration: data[i].duration};
-                            break;
-                        }
-                    } catch (err) {
-                        console.log('something went wrong!');
-                    }
-                }
-                if (!Lightbox.data.value) {
-                    Lightbox.data = {value: data[0].contentUrl};
-                }
-            }
-
-            if (type == 'IMAGES') {
-                $scope.images = [];
-                for (var i = 0; i < data.length; i++) {
-                    $scope.images.push(
-                        {
-                            'url': data[i].contentUrl,
-                            'caption': data[i].title,
-                            'thumbUrl': data[i].thumbnailUrl,// used only for this example
-                            'dimensions': data[i].dimensions
-                        })
-                }
-                Lightbox.openModal($scope.images, index);
-            } else {
-                Lightbox.openModal([Lightbox.data], 0);
-            }
-        };
 
         /*Asking and fetching the current location*/
         $window.navigator.geolocation.getCurrentPosition(function (position) {
