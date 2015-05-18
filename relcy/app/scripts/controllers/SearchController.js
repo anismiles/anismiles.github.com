@@ -112,7 +112,7 @@ angular.module('relcyApp')
                     $timeout(function(){
                         var mylocationEle = angular.element(document.querySelector('#my-location'));
                         if(mylocationEle){
-                            mylocationEle.parent().css('background', 'url(../img-no-min/my-location.svg)center center no-repeat');
+                            mylocationEle.parent().css('background', 'url(img-no-min/my-location.svg)center center no-repeat');
                         }
                     }, 250);
                 }
