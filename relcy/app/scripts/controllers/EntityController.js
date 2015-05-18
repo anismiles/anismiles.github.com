@@ -109,7 +109,13 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                     $scope.itemDetails = SearchService.transformDetails(data);
                     $scope.searchResults = $scope.itemDetails.categories;
                     SearchService.searchResults = $scope.searchResults;
-                    var tQuery = SearchService.transformQuery($scope.itemDetails, $scope.itemType)
+                    var title='';
+                    try{
+                        title = data.detail_response.results[0].entity_data.common_data.name;
+                    }catch(err){
+                        console.log('title not found');
+                    }
+                    var tQuery = SearchService.transformQuery($scope.itemDetails, $scope.itemType, title)
                     // get the banner image
                     if ($scope.itemType == 'LOCAL_BUSINESS') {
                         try {

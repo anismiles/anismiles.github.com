@@ -69,16 +69,16 @@ angular.module('relcyApp')
                 var searchResults = response.search_result_collection;
                 if (searchResults) {
 
-                    if (response.results[0].content_type_enum == "ENTERTAINMENT_AUDIO") {
+                   /* if (response.results[0].content_type_enum == "ENTERTAINMENT_AUDIO") {
                         try {
-                            transformedData.audioResult = response.results[0].content_type_enum;
+                            // transformedData.audioResult = response.results[0].content_type_enum;
                             //transformedData.audioResult.maxIndex = 5;
-                            transformedData.categories.push({key: 'details_audio', keyTitle: 'Audio'});
+                            // transformedData.categories.push({key: 'details_audio', keyTitle: 'Audio'});
                         } catch (err) {
                             console.log('no audio results found');
                         }
-                    }
-                    else if (response.results[0].content_type_enum == "LOCAL_BUSINESS") {
+                    }*/
+                    if (response.results[0].content_type_enum == "LOCAL_BUSINESS") {
 
                         try {
                             transformedData.placesResult = response.results[0].content_type_enum;
@@ -151,11 +151,16 @@ angular.module('relcyApp')
                         var keyTitle = 'Movies';
                         try {
                             if(response.results[0].content_type_enum=='ENTERTAINMENT_VIDEO_TVSHOW'){
-                                keyTitle = 'TV Shows'
+                                keyTitle = 'TV Shows';
+                            }else if(response.results[0].content_type_enum == "ENTERTAINMENT_AUDIO"){
+                                keyTitle = 'Audio';
                             }
                             transformedData.moviesResult = response.results[0].content_type_enum;
                             transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
-                            transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
+                            // if(response.results[0].content_type_enum != "ENTERTAINMENT_AUDIO"){
+                                transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
+                            // }
+
 
 
                             // check for other properties in the below code, only for movies
@@ -341,6 +346,32 @@ angular.module('relcyApp')
                             $scope.addScoresToAppResluts(values);
                         }
                         break;
+                    case 'PERSON':
+                    case 'PERSON_CELEBRITY':
+                        var foundCelebrity = false;
+                        try {
+                            for(var i=0;i<transformedData.length;i++){
+                                if(transformedData[i].key=='CELEBRITY'){
+                                    foundCelebrity = true;
+                                    transformedData[i].values = transformedData[i].values.concat(data[index].searchResultRelcy.results);
+                                }
+                            }
+                            if(!foundCelebrity){
+                                values = data[index].searchResultRelcy.results; 
+                                maxIndex = 2;
+                                incrementBy = 2;
+                                key = 'CELEBRITY';
+                                keyTitle = 'Celebrity or People';
+                                template = 'CELEBRITY';   
+                            }else{
+                                values = '';
+                            }
+                            
+                        }catch(err){
+                            values = '';
+                            console.log('celebrity results empty');
+                        }
+                        break;    
                     case 'RELATED_SEARCHES':
                         if (data[index] && data[index].relatedSearchesResult && data[index].relatedSearchesResult.relatedSearchResults && data[index].relatedSearchesResult.relatedSearchResults.length) {
                             $scope.relatedSearches = data[index].relatedSearchesResult.relatedSearchResults;
@@ -542,7 +573,7 @@ angular.module('relcyApp')
             }
         };
         // feching hero image
-        this.transformQuery = function (item, cat) {
+        this.transformQuery = function (item, cat, title) {
             switch (cat) {
                 case 'ENTERTAINMENT_VIDEO_MOVIE':
                     return item.title + "+" + item.releaseYear;
@@ -556,8 +587,11 @@ angular.module('relcyApp')
                 case 'LOCAL_BUSINESS':
                     return item.categoryHero;
                     break;
+                case 'ENTERTAINMENT_AUDIO':
+                    return title;
+                    break;    
                 default:
-                    return false;
+                    return title;
                     break;
             }
         }
