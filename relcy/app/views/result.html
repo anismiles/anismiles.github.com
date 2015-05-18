@@ -1,6 +1,6 @@
 <!-- !local business -->
-<div class="pageResult" ng-if="showingResult && !hasLocalBusiness">
-    <div><img src="img-no-min/to-top.png" alt="" class="play-icon-thumb-vdo"/></div>
+<div class="pageResult" ng-if="!hasLocalBusiness">
+    <div ng-show="showTopAnchor"><img src="img-no-min/to-top.png" alt="" class="play-icon-thumb-vdo"/></div>
     <div ng-include="'views/left_nav.html'"></div>
     <div class="col-lg-8 search-result-container">
         <div class="col-lg-12 result-list">
@@ -30,7 +30,7 @@
     <div class="clearfix"></div>
 </div>
 <!-- local business -->
-<div ng-if="showingResult && hasLocalBusiness">
+<div ng-if="hasLocalBusiness">
     <div class="pageResult">
         <div><img src="img-no-min/to-top.png" alt="" class="play-icon-thumb-vdo"/></div>
         <div ng-include="'views/left_nav.html'"></div>

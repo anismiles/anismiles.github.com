@@ -21,11 +21,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 		console.log('stateParams: '+ $stateParams.cType);
 		console.log('stateParams: '+ $stateParams.q);
 		
-        $scope.showDetailPage = true;
         $scope.selected = 0;
-        $scope.showingResult = false;
         $scope.defaultErrorImage = '../../favicon.ico';
-        $scope.showTopAnchor = false;
         $scope.itemType;
         $scope.itemDetails;
 

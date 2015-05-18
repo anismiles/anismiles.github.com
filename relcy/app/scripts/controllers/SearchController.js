@@ -4,10 +4,9 @@ angular.module('relcyApp')
         
         $scope.showDetailPage = false;
         $scope.selected = 0;
-        $scope.showingResult = false;
+        
         $scope.relatedSearches;
         $scope.defaultErrorImage = '../../favicon.ico';
-        $scope.showTopAnchor = false;
         $scope.itemType;
         $scope.itemDetails;
 
@@ -49,7 +48,7 @@ angular.module('relcyApp')
         });
 
         /*Will be invoked everytime the marker is clicked*/
-        $rootScope.gotoLocation = function (entity_id, cipher_id, label) {
+        $scope.gotoLocation = function (entity_id, cipher_id, label) {
         	$location.path('place').search({entity: entity_id, cipher: cipher_id, q: label, cType: 'LOCAL_BUSINESS'});
         };
 

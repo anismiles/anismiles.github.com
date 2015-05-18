@@ -17,7 +17,8 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
  $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox){
 	var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
 	angular.extend($rootScope, {selectedCategory:'', showTopAnchor: false});
-	angular.extend($scope, {types:[], query: '', selectedTypeIndex:0, showDetailPage: false, showingResult: false})
+	angular.extend($scope, {types:[], query: '', selectedTypeIndex:0})
+
 	/*Will check if the catagory have results or not*/
     $scope.hasResults = function (type, index) {
          return SearchService.hasResults(type, index, $scope.types);
