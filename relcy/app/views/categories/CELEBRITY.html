@@ -11,7 +11,6 @@
                 <a href="#">
                     <div style="background-image:url({{result.image_info[0].thumbnail.mediaURL}});height:119px"
                          class="vdothumb">
-                        <!-- <img src="images/play-3-24.png"  alt=""  class="play-icon-thumb-vdo"/>  -->
                     </div>
                 </a>
             </div>
@@ -21,7 +20,7 @@
                 </h4>
 
                 <p class="genre">
-                    <span ng-if="result.entity_data.entertainment_data.common_data.parental_rating">{{result.entity_data.entertainment_data.common_data.parental_rating}}</span>
+                    <span ng-repeat="position in result.entity_data.people_data.work_title"> {{position}}</span>
                     <span ng-if="result.entity_data.entertainment_data.common_data.release_year">{{result.entity_data.entertainment_data.common_data.release_year}}</span>
                     <span ng-if="result.entity_data.entertainment_data.movie_data.length">{{result.entity_data.entertainment_data.movie_data.length | hourmins}}</span>
                 </p>
@@ -34,7 +33,6 @@
                 <p class="score">
                     <span ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
                     <span ng-if="result.showHalfRating" class="fa fa-star-half-empty rating"></span>
-                    <span ng-if="result.image_info[0].source"> - {{result.image_info[0].source}}</span>
                 </p>
             </div>
         </div>

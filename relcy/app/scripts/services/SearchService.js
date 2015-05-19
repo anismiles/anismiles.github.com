@@ -152,11 +152,7 @@ angular.module('relcyApp')
 
                             transformedData.moviesResult = response.results[0].content_type_enum;
                             transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
-                            // if(response.results[0].content_type_enum != "ENTERTAINMENT_AUDIO"){
-                                transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
-                            // }
-
-
+                            transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
 
                             // check for other properties in the below code, only for movies
                             try {
@@ -528,6 +524,9 @@ angular.module('relcyApp')
         this.insertReviewsAndWatchesAndShowtimes = function (transformedData, links, response) {
             transformedData.reviews = [];
             transformedData.watches = [];
+            transformedData.infos = [];
+            transformedData.profiles = [];
+            transformedData.plays = [];
             angular.forEach(links, function (l) {
                 try {
                     var action = l.app_result.result_data.action;
@@ -537,7 +536,16 @@ angular.module('relcyApp')
                             break;
                         case 'Watch':
                             transformedData.watches.push(l);
-                            break;
+                        break;
+                        case 'Profile':
+                            transformedData.profiles.push(l);
+                        break;
+                        case 'Info':
+                            transformedData.infos.push(l);
+                        break;
+                        case 'Play':
+                            transformedData.plays.push(l);
+                        break;
                     }
                 } catch (err) {
                     console.log('invalid link');
