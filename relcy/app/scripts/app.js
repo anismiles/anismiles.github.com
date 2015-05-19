@@ -27,7 +27,7 @@ angular.module('relcyApp')
         controller: "SearchController",
     })
     .state("detail", {
-        url: "/detail?entity&cipher&cType&q",
+        url: "/detail?entity&cipher&cType&q&artist",
         templateUrl: "views/details/movie-detail.html",
         controller: "EntityController",
     })

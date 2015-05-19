@@ -20,6 +20,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 		console.log('stateParams: '+ $stateParams.cipher);
 		console.log('stateParams: '+ $stateParams.cType);
 		console.log('stateParams: '+ $stateParams.q);
+        console.log('stateParams: '+ $stateParams.artist);
 		
         $scope.selected = 0;
         $scope.defaultErrorImage = '../../favicon.ico';
@@ -115,6 +116,9 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                     }catch(err){
                         console.log('title not found');
                     }
+                    if($stateParams.artist){
+                        title = $stateParams.artist;
+                    }
                     var tQuery = SearchService.transformQuery($scope.itemDetails, $scope.itemType, title)
                     // get the banner image
                     if ($scope.itemType == 'LOCAL_BUSINESS') {
@@ -150,16 +154,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                 return;
             }
         }
-
-
-        /*Asking and fetching the current location*/
-        $window.navigator.geolocation.getCurrentPosition(function (position) {
-            $scope.$apply(function () {
-                SearchService.position = position;
-                console.log(position);
-            });
-        }, function (error) {
-        });
 
         /*Will hide the auto complete on focus out*/
         $rootScope.hideSearchDropdown = function (id) {

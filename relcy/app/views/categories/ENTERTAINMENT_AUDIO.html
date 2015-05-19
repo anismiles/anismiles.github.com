@@ -2,7 +2,7 @@
 	<li id="{{::cat.key+$index}}" ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
         <div ng-if="result.relcy_id.entity_id"
-                   ui-sref="detail({q:query, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id })"
+                   ui-sref="detail({q:query, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, artist: result.performer })"
                    class="media-left pull-right" style="position: absolute;right: 0; z-index:5"><a
                       href="javascript:void(0)" class="anchorjs-link"><span
                       class="fa fa-angle-right text-gray"></span></a></div>
@@ -22,7 +22,7 @@
             <span ng-if="result.entity_data.entertainment_data.common_data.release_year">{{result.entity_data.entertainment_data.common_data.release_year}}</span>   
             <span ng-if="result.entity_data.entertainment_data.movie_data.length">{{result.entity_data.entertainment_data.movie_data.length}}</span>
          </div>
-         <p><span ng-repeat="performer in result.entity_data.entertainment_data.common_data.performer">{{performer.title}}</span> 
+         <p><span >{{result.performer}}</span> 
          <span ng-repeat="genre in result.entertainment_data.common_data.genre">{{result.entity_data.entertainment_data.common_data.genre[0]}}</span> </p>
 		 <p class="score">
          	<span ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>

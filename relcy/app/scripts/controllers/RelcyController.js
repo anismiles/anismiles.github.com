@@ -11,10 +11,11 @@ angular.module('relcyApp')
 	'$filter',
 	'anchorSmoothScroll',
 	'Lightbox',
+    'Session',
 	RelcyController]);
 
 function RelcyController($scope, $http, $rootScope, $location, $window, $timeout,
- $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox){
+ $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, Session){
 	var DEFAULT_BANNER = 'img-no-min/Lighthouse.png';
 	angular.extend($rootScope, {selectedCategory:'', showTopAnchor: false});
 	angular.extend($scope, {types:[], query: '', selectedTypeIndex:0})
@@ -23,6 +24,15 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
     $scope.hasResults = function (type, index) {
          return SearchService.hasResults(type, index, $scope.types);
     }
+
+    /*Asking and fetching the current location*/
+    $window.navigator.geolocation.getCurrentPosition(function (position) {
+        $scope.$apply(function () {
+            Session.position = position;
+            console.log(position);
+        });
+     }, function (error) {
+    });
 
 	/*Will clear the search field of auto complete with given id.*/
     $scope.clearSearchInput = function (id) {
@@ -183,6 +193,8 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
                 }
                 Lightbox.openModal($scope.images, index);
             } else {
+                //Opening lightbox only if data is having a value
+                if(!data.value) return;
                 Lightbox.openModal([Lightbox.data], 0);
             }
         };

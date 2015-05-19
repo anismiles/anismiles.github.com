@@ -153,17 +153,6 @@ angular.module('relcyApp')
             cat.maxIndex = cat.maxIndex + cat.incrementBy;
         };
 
-
-
-        /*Asking and fetching the current location*/
-        $window.navigator.geolocation.getCurrentPosition(function (position) {
-            $scope.$apply(function () {
-                SearchService.position = position;
-                console.log(position);
-            });
-        }, function (error) {
-        });
-
         /*Will hide the auto complete on focus out*/
         $rootScope.hideSearchDropdown = function (id) {
             angular.element(document.querySelector('#members')).children()[0].classList.remove('angucomplete-dropdown-visible');
@@ -176,16 +165,16 @@ angular.module('relcyApp')
         if(q){
              setTimeout ( function (){
                 
-                    $( "#members input" ).focus();
-            
-                    $("#bighead").removeClass("title");
-                    $("#bighead").addClass("relcysmall");
-                    //$("#bigform").addClass("smallform");
-                    //$("#pageMiddle").css({'margin-top':'0%'});
-                    $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%','margin-top':'0%'});
+                $( "#members input" ).focus();
+        
+                $("#bighead").removeClass("title");
+                $("#bighead").addClass("relcysmall");
+                //$("#bigform").addClass("smallform");
+                //$("#pageMiddle").css({'margin-top':'0%'});
+                $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%','margin-top':'0%'});
                    
                 angular.element(document.querySelector('#members')).children().children()[0].value = q; 
-             },300);
+             },200);
             $scope.query = q;
             $scope.search(q);
         }

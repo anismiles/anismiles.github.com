@@ -2,7 +2,7 @@
     <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
         <div class="media">
             <div ng-if="result.relcy_id.entity_id"
-                 ui-sref="detail({q:query, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id })"
+                 ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id })"
                  class="media-left pull-right" style="position: absolute;right: 0; z-index:5"><a
                     href="javascript:void(0)" class="anchorjs-link"><span
                     class="fa fa-angle-right text-gray"></span></a></div>

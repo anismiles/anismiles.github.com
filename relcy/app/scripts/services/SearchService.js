@@ -1,21 +1,19 @@
 'use strict';
 
 angular.module('relcyApp')
-    .service("SearchService", function ($timeout, $q, $http) {
+    .service("SearchService", function ($timeout, $q, $http, Session) {
         this.searchResult = [];
-        this.position;
         this.BASE_URL = 'https://staging-w.relcy.com';
         this.ACCESS_TOKEN = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
-        /*The default location if the user doesnot allow his/her location access*/
-        this.defaultLoc = {lat: "37.762759", lng: "-122.408934"};
+        
         /*Will be used to refer the service itself*/
         var self = this;
         this.getGeoLocation = function () {
             try {
-                return {lat: self.position.coords.latitude, lng: self.position.coords.longitude};
+                return {lat: Session.position.coords.latitude, lng: Session.position.coords.longitude};
             } catch (err) {
                 /*Retuning default location in case user does not allow for his/her location*/
-                return self.defaultLoc;
+                return Session.defaultLoc;
             }
         };
         this.getSearchDetails = function (query) {
@@ -69,15 +67,7 @@ angular.module('relcyApp')
                 var searchResults = response.search_result_collection;
                 if (searchResults) {
 
-                   /* if (response.results[0].content_type_enum == "ENTERTAINMENT_AUDIO") {
-                        try {
-                            // transformedData.audioResult = response.results[0].content_type_enum;
-                            //transformedData.audioResult.maxIndex = 5;
-                            // transformedData.categories.push({key: 'details_audio', keyTitle: 'Audio'});
-                        } catch (err) {
-                            console.log('no audio results found');
-                        }
-                    }*/
+                    transformedData.hideRSLinks = false;
                     if (response.results[0].content_type_enum == "LOCAL_BUSINESS") {
 
                         try {
@@ -154,7 +144,12 @@ angular.module('relcyApp')
                                 keyTitle = 'TV Shows';
                             }else if(response.results[0].content_type_enum == "ENTERTAINMENT_AUDIO"){
                                 keyTitle = 'Audio';
+                            }else if(response.results[0].content_type_enum == "PERSON"
+                                || response.results[0].content_type_enum == "PERSON_CELEBRITY"){
+                                transformedData.hideRSLinks = true;
+                                keyTitle = 'Celebrity or People';
                             }
+
                             transformedData.moviesResult = response.results[0].content_type_enum;
                             transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
                             // if(response.results[0].content_type_enum != "ENTERTAINMENT_AUDIO"){
@@ -386,6 +381,7 @@ angular.module('relcyApp')
                             maxIndex = 1;
                             incrementBy = 1;
                             $scope.addScoresToVideoMovies(values);
+                            self.extractPerformers(values);
                         }
                         break;
                     case 'LOCAL_BUSINESS':
@@ -461,6 +457,20 @@ angular.module('relcyApp')
                 }
             }
             return transformedData;
+        };
+
+        this.extractPerformers = function(list){
+            angular.forEach(list, function(listItem){
+                listItem.performer = '';
+                try{
+                    var performerList = listItem.entity_data.entertainment_data.common_data.performer;
+                    angular.forEach(performerList, function(p){
+                        listItem.performer+=(' ' + p.title);
+                    });
+                }catch(err){
+                    console.log('no performers');
+                }
+            });
         };
 
         /*Will insert the reviews and watches into the transformedData*/
