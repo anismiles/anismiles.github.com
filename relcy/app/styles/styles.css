@@ -531,7 +531,7 @@ ul.webimage li img {
 	margin-bottom: 15px;
 }
 .leftsidebar {
-	margin: 0px 0 0 -100px;
+	margin: -5px 0 0 -100px;
 	position: fixed;
 	width: 100px;
 }

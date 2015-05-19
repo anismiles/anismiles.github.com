@@ -357,21 +357,21 @@ angular.module('relcyApp')
                                 }
                             }
                             if(!foundCelebrity){
-                                values = data[index].searchResultRelcy.results; 
+                                values = data[index].searchResultRelcy.results;
                                 maxIndex = 2;
                                 incrementBy = 2;
                                 key = 'CELEBRITY';
                                 keyTitle = 'Celebrity or People';
-                                template = 'CELEBRITY';   
+                                template = 'CELEBRITY';
                             }else{
                                 values = '';
                             }
-                            
+
                         }catch(err){
                             values = '';
                             console.log('celebrity results empty');
                         }
-                        break;    
+                        break;
                     case 'RELATED_SEARCHES':
                         if (data[index] && data[index].relatedSearchesResult && data[index].relatedSearchesResult.relatedSearchResults && data[index].relatedSearchesResult.relatedSearchResults.length) {
                             $scope.relatedSearches = data[index].relatedSearchesResult.relatedSearchResults;
@@ -409,7 +409,7 @@ angular.module('relcyApp')
                                         transformedData.points['p' + d] = {
                                             lat: currItem.latitude,
                                             lng: currItem.longitude,
-                                            message: "<p>" + currItem.address.display_address + "</p><a class=\"pointer\" ng-click=\"gotoLocation('" + values[d].relcy_id.entity_id + "'" + ",'" + values[d].relcy_id.cipher_id + "'" + ",'" + l + "')\">Go</a>",                                            
+                                            message: "<p>" + currItem.address.display_address + "</p><a class=\"pointer\" ng-click=\"gotoLocation('" + values[d].relcy_id.entity_id + "'" + ",'" + values[d].relcy_id.cipher_id + "'" + ",'" + l + "')\">Go</a>",
                                             draggable: false,
                                             compileMessage: true,
                                             point: values[d].relcy_id,
@@ -429,14 +429,14 @@ angular.module('relcyApp')
                                     transformedData.points['mylocation'] = {
                                         lat: location.latitude,
                                         lng: location.longitude,
-                                        message: "<p>My Location</p>",                                            
+                                        message: "<p>My Location</p>",
                                         draggable: false,
                                         compileMessage: true,
                                         icon:  {
                                             type: 'div',
                                             iconSize: [200, 0],
                                             popupAnchor:  [0, 0],
-                                            html: '<span id="my-location">me</span>'
+                                            html: '<span id="my-location"> </span>'
                                         }
                                     };
                                 }
@@ -604,7 +604,7 @@ angular.module('relcyApp')
                     break;
                 case 'ENTERTAINMENT_AUDIO':
                     return title;
-                    break;    
+                    break;
                 default:
                     return title;
                     break;
@@ -635,7 +635,7 @@ angular.module('relcyApp')
                         break;
                     case 'WEB_IMAGES':
                         return types[index].imageSearchResult.imageSearchResults.length>0;
-                        break;    
+                        break;
                     case 'APP':
                         return types[index].searchResultRelcy.results.length>0;
                         break;
