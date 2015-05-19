@@ -13,9 +13,7 @@
                     </div>
                     <!-- <div class="coverImage"><a href="#"><img err-src="img-no-min/Lighthouse.jpg" ng-src="{{::itemDetails.imageResults[0].contentUrl}}" title=""></a></div> -->
                     <!--<div class="editAction"><i class="fa fa-edit"></i></div>-->
-                    <div class="profileImage"><a href="javascript:void();"><img err-src="img-no-min/Lighthouse.png"
-                                                               ng-src="{{::itemDetails.imageResults[0].thumbnailUrl}}"
-                                                               title=""></a>
+                    <div class="profileImage" style="background-image:url({{itemDetails.imageResults[0].thumbnailUrl}});"><!-- <img err-src="img-no-min/Lighthouse.png" ng-src="{{::itemDetails.imageResults[0].thumbnailUrl}}" title="">-->
                     </div>
                     <div class="details clearfix">
                         <div class="detail_left">
@@ -186,7 +184,7 @@
                             <div ng-repeat="images in itemDetails.imageResults  | limitTo: itemDetails.imageResults.maxIndex"
                                  class="col-lg-3 detailimages-col4"><a href="#"
                                                                        ng-click="openCastLightbox(itemDetails.imageResults,'IMAGES',$index)">
-                                <div style="background-image:url({{images.thumbnailUrl}});height: 136px;"></div>
+                                <div style="background-image:url({{images.thumbnailUrl}});height: 136px; background-size:cover"></div>
                             </a></div>
                         </div>
                     </div>
@@ -223,7 +221,7 @@
                             class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a></div>
                 </div>
 
-                <!-- Videos-->
+                <!-- Web-->
 
                 <div id="details_web" ng-if="itemDetails.webResults.length>0" class="panel panel-default">
                     <h4 class="topictitle" id="top-aligned-media">Web</h4>
