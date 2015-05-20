@@ -194,7 +194,7 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
                 Lightbox.openModal($scope.images, index);
             } else {
                 //Opening lightbox only if data is having a value
-                if(!data.value) return;
+                // if(!data.value) return;
                 Lightbox.openModal([Lightbox.data], 0);
             }
         };
