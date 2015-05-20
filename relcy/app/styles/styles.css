@@ -390,7 +390,7 @@ margin-bottom:20px;
 	position: absolute;
 	top: 238px;
 	width: 130px;
-	background-size:cover;
+	background-size:cover; 
 }
 /*.topSection .profileImage img {
 	height: 133px;
