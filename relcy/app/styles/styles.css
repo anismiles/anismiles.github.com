@@ -281,7 +281,7 @@ footer a {
 }
 .angucomplete-dropdown {
 	margin-top: 62px;
-	width: 620px;
+	width: 510px;
 	padding: 0px;
 	background-color: #ffffff;
 	border: 1px solid #e5eaee;
@@ -289,6 +289,7 @@ footer a {
 	max-height: 70%;
 	overflow: auto;
 	position: fixed;
+	box-shadow: 5px 5px 5px #ccc;
 }
 .angucomplete-selected-row {
 	background-color: #f5f8fa;
@@ -296,7 +297,7 @@ footer a {
 }
 .angucomplete-dropdown-result-list {
 	margin: 1px 0 0 -1px;
-	width: 620px;
+	width: 509px;
 	padding: 0px;
 	background-color: #ffffff;
 	border-radius: 1px;
@@ -305,6 +306,7 @@ footer a {
 	max-height: 70%;
 	overflow: auto;
 	position: fixed;
+	box-shadow: 5px 5px 5px #ccc;
 }
 .angucomplete-image-default {
 	background-position: center center;
@@ -360,28 +362,35 @@ footer a {
 	font-size: 8px;
 	line-height: 50px;
 }
-.panelList a i {
-}
 .media-body . /*Search Result Page*/
 .topSection {
-height:480px;
-background-color:#FFF;
-box-shadow:1px 1px 2px #999;
-position:relative;
-margin-bottom:20px;
+	height:480px;
+	background-color:#FFF;
+	box-shadow:1px 1px 2px #999;
+	position:relative;
+	margin-bottom:20px;
 }
 .topSection .coverImage {
 	height: 300px;
 	overflow: hidden;
+	background-image: url("../img-no-min/placeholder-hero.jpg");
+	background-position:center center;
 	background-color: #f5f8fa;
+	background-size:cover; 
+}
+.topSection .coverImage.noSrcImg {
+	
 }
 .topSection .coverImage img {
 	height: auto;
 	width: 100%;
+	background: transparent;
 }
 .topSection .profileImage {
-	background-image: url(../img-no-min/placeholder.png);
+	background-image: url("../img-no-min/placeholder-hero.jpg");
+	background-position:left center;
 	background-color: #f5f8fa;
+	background-size:cover; 
 	border: 1px solid #f2f2f2;
 	float: left;
 	height: 176px;
@@ -390,16 +399,14 @@ margin-bottom:20px;
 	position: absolute;
 	top: 238px;
 	width: 130px;
-	background-size:cover; 
+
+	
 }
-/*.topSection .profileImage img {
-	height: 133px;
-	width: 100px;
-}*/
 .topSection .details {
 	padding-left: 130px;
 	margin: 10px 0;
 	color: #666;
+	height:102px;
 }
 .topSection .details span {
 	color: #8899a6;
@@ -420,9 +427,6 @@ margin-bottom:20px;
 	color: #8899a6;
 	font-weight: 300;
 	margin: 5px 0;
-}
-.topSection .details{
-	margin-right: 30px;
 }
 .topSection .details img {
 	margin: 2;

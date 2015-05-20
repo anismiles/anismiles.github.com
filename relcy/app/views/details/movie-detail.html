@@ -5,15 +5,9 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="topSection">
-            <div class="coverImage">
-                <a href="javascript:void();">
-                    <img ng-src="{{bannerUrl}}" title="">
-                </a>
-            </div>
+                    <div class="coverImage" style="background-image:url('{{bannerUrl}}');"></div>
 
-            <div class="profileImage" style="background-image:url({{itemDetails.imageResults[0].thumbnailUrl}});">
-			<!-- <img err-src="img-no-min/Lighthouse.png" ng-src="{{::itemDetails.imageResults[0].thumbnailUrl}}" title=""> -->
-            </div>
+            <div class="profileImage" style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl}}');"></div>
             <div class="details clearfix">
                 <div class="detail_left">
                     <h2>{{::itemDetails.title}}</h2>
@@ -37,7 +31,7 @@
                 </div>
                 <!-- deatail left end-->
                 <!-- ng-hide="itemDetails.hideRSLinks" -->
-                <div  class="detail_right">
+                <div ng-hide="itemDetails.hideRSLinks"  class="detail_right">
                     <p><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.story,'STORY')"> <img
                             src="img-no-min/icons-sm/Story.png"
                             alt=""/> Story </a></p>
@@ -102,7 +96,7 @@
                     <tbody>
                     <tr ng-click="gotoLink(pr.link_id)" ng-repeat="pr in itemDetails.profiles" class="pointer">
                         <td class="td-title"><img err-src="img-no-min/placeholder.png"
-                                                  ng-src="img-no-min/icons/{{::r.app_result.app.app_id}}.png"
+                                                  ng-src="img-no-min/icons/{{::pr.app_result.app.app_id}}.png"
                                                   title=""><span> {{::pr.app_result.result_data.title}}</span></td>
                         <td class="td-detail td-lineheight">{{::pr.app_result.result_data.sub_title}}</td>
                         <td class="td-lineheight" width="30"><span class="fa fa-angle-right text-gray"></span></td>
