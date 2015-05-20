@@ -6,15 +6,9 @@
 
             <div class="col-lg-12">
                 <div class="topSection">
-                    <div class="coverImage">
-                        <a href="javascript:void();">
-                            <img ng-src="{{bannerUrl}}" title="">
-                        </a>
+                    <div class="coverImage" style="background-image:url('{{bannerUrl}}');">
                     </div>
-                    <!-- <div class="coverImage"><a href="#"><img err-src="img-no-min/Lighthouse.jpg" ng-src="{{::itemDetails.imageResults[0].contentUrl}}" title=""></a></div> -->
-                    <!--<div class="editAction"><i class="fa fa-edit"></i></div>-->
-                    <div class="profileImage" style="background-image:url({{itemDetails.imageResults[0].thumbnailUrl}});"><!-- <img err-src="img-no-min/Lighthouse.png" ng-src="{{::itemDetails.imageResults[0].thumbnailUrl}}" title="">-->
-                    </div>
+                    <div class="profileImage" style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl}}');"></div>
                     <div class="details clearfix">
                         <div class="detail_left">
                             <h2>{{::itemDetails.title}}</h2>
@@ -150,7 +144,7 @@
                     </div>
                 </div>
 
-                <!--Get There-->
+                <!--Get There--> 
 
                 <div class="panel panel-default" ng-if="itemDetails.getThere.length>0">
                     <h4 class="topictitle" id="top-aligned-media">Get There</h4>
