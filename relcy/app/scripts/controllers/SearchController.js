@@ -34,7 +34,7 @@ angular.module('relcyApp')
                 $("#bighead").addClass("relcysmall");
                 //$("#bigform").addClass("smallform");
                 //$("#pageMiddle").css({'margin-top':'0%'});
-                $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%','margin-top':'0%'});
+                $("#pageMiddle").addClass("innerPageMiddle");
                 angular.element(document.querySelector('#members')).children().children()[0].value = q;
             }
         }
@@ -160,7 +160,7 @@ angular.module('relcyApp')
 
         $rootScope.hideLoader = true;
         $scope.hasLocalBusiness = false;
-
+ 
         var q = $stateParams.q;
         if(q){
              setTimeout ( function (){
@@ -171,9 +171,9 @@ angular.module('relcyApp')
                 $("#bighead").addClass("relcysmall");
                 //$("#bigform").addClass("smallform");
                 //$("#pageMiddle").css({'margin-top':'0%'});
-                $("#pageMiddle").css({'width':'950px','position':'fixed','z-index':'9','background':'#fff','padding-top':'0%','margin-top':'0%'});
-                   
+                $("#pageMiddle").addClass("innerPageMiddle");                   
                 angular.element(document.querySelector('#members')).children().children()[0].value = q; 
+				
              },200);
             $scope.query = q;
             $scope.search(q);

@@ -26,6 +26,7 @@ a:focus {
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn.active.focus {
 	outline: 0 dotted;
 }
+
 #pageloader {
 	position: fixed;
 	width: 100%;
@@ -456,7 +457,7 @@ ul.thumbList .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot 
 	color: #8899a6;
 	font-weight: 300;
 	position: relative;
-	left: -170px;
+	left: -18%;
 	top: 44px;
 }
 .relcysmall span {
@@ -942,8 +943,13 @@ div.imdb span {
 	opacity: 1;
 }
 .pointer{cursor:pointer}
+.innerPageMiddle {margin-top: 0%; position: fixed; z-index: 9; background: none; padding-top: 0%;}
+#pageMiddle {width:100%; background-color:#FFF; z-index:2100;}
+.footer .col-lg-6 {padding-right:20px;} 
+.relatedSearch {position: fixed; width: 100%; max-width: 960px;}
+.relatedSearchResult{position: absolute;}
 
-@media screen and (min-width: 1280px) {
+/*@media screen and (min-width: 1280px) {
 .container {
 	width: 960px;
 }
@@ -1042,7 +1048,7 @@ div.imdb span {
 	position: fixed !important;
 	width: 5%;
 }
-}
+}*/
 /* saf3+, chrome1+ */
 /*@media screen and (-webkit-min-device-pixel-ratio:0) {
  .btn-circle .glyphicon-search  { left:0px;  }

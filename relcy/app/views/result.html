@@ -16,8 +16,8 @@
         </div>
     </div>
 
-    <div style="position: fixed; width: 100%; max-width: 960px;">
-        <div style="position: absolute; right: 30px;" class="col-lg-4">
+    <div class="relatedSearch">
+        <div class="relatedSearchResult">
             <div ng-if="relatedSearches.length>0">
                 <div class="panel">
                     <h4 class="topictitle" id="{{cat.key}}">Related Searches</h4>
@@ -49,7 +49,8 @@
         </div>
 
     </div>
-    <div class="col-lg-5">
+    <div class="col-lg-5 col5">
+       <div class="">
         <div>
             <!-- <div id='map'></div> -->
             <leaflet id='map' center="center" markers="mapData.markers" height="480px" width="100%"></leaflet>
@@ -68,6 +69,7 @@
                 <div class="animate-switch-container" ng-include="'views/categories/RELATED_SEARCHES.html'"></div>
             </div>
         </div>
+      </div>  
     </div>
     <div class="clearfix"></div>
 </div>
