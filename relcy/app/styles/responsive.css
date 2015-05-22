@@ -16,6 +16,146 @@
 	.relcysmall {left:-235px;}
 	
 }
+
+@media only screen and (max-width: 4096px) {
+body{font-size:18px;}
+.wrapper .container {width:2800px;}
+.relcysmall {font-size:52px;}
+.relcysmall img {height:90px!important; widows:auto;}
+.relcysmall {left: -363px; top: 90px;}
+.leftsidebar { margin: 198px 0 0 -220px; width:210px;}
+.nav > li > a {font-size:22px; margin-bottom:25px;}
+#bighead img { height: 120px; vertical-align: middle; width: auto;}
+.relcysrchInput .input-group .angucomplete-holder .form-control {font-size:67px;}
+.btn-circle{height:64px; width:64px; line-height:8px;}
+.btn-circle .glyphicon-search {font-size:24px;}
+footer {height:70px; line-height:70px; font-size:22px;}
+.title {font-size:90px;}
+#details_movies, #details_places {margin-top:205px!important; width:1600px;}
+.pageResult	{width:1590px; padding-top:210px;}
+#map {height:600px!important; width:1000px!important;}
+.col5 .panel {width:50%;}
+.place-navlist .leftsidebar{margin:0px 0 0 -220px; width:210px;}
+.col-lg-7 {width:70%;}
+.resultList p {font-size:20px; line-height:26px;}
+.topSection .coverImage {height:700px;}
+.relatedSearchResult {right:-500px;}
+.media-heading {font-size:22px;}
+.related-search h4 {font-size:20px;}
+.topictitle {font-size:22px;}
+.topSection .profileImage {top:653px; left:30px;}
+.topSection .details {padding-left:145px;}
+.topSection .details {min-height:125px;}
+.topSection .details h2 {font-size:26px;}
+.topSection .details span {font-size:18px;}
+.detail_right p a {font-size:18px;}
+.td-title span {font-size:16px;}
+.td-detail {font-size:18px;}
+.resultList span.fa, .action-detail span.fa {font-size:26px;}
+.totop {top:110px; right:480px;}
+.totop img {height:48px; width:48px;}
+
+.angucomplete-dropdown {width:1074px; margin-top:120px;}
+.angucomplete-dropdown-result-list {width:1074px;}
+.angucomplete-searching {font-size:22px;}
+.angucomplete-image-holder img {
+	vertical-align: top;
+	margin: 0px;
+	width: 60px;
+	height: 60px;
+	border: none !important;
+}
+.angucomplete-image-holder {
+	height: 60px;
+	overflow: hidden;
+	width: 60px;
+}
+.angucomplete-title {
+	display: block;
+	font-size: 22px;
+	font-weight: 400;
+	vertical-align: middle;
+}
+.angucomplete-dropdown-result-list .genre span {
+	font-size: 22px;
+	line-height: 30px;
+	margin: 0;
+}
+.angucomplete-dropdown-result-list .rating span {
+	font-size: 18px;
+	margin: 0;
+}
+	
+}
+
+@media only screen and (max-width: 3840px) {
+	body{font-size:18px;}
+.wrapper .container {width:2400px;}
+.relcysmall {font-size:52px;}
+.relcysmall img {height:90px!important; widows:auto;}
+.relcysmall {left: -363px; top: 90px;}
+.leftsidebar { margin: 198px 0 0 -220px; width:210px;}
+.nav > li > a {font-size:22px; margin-bottom:25px;}
+#bighead img { height: 120px; vertical-align: middle; width: auto;}
+.relcysrchInput .input-group .angucomplete-holder .form-control {font-size:67px;}
+.btn-circle{height:64px; width:64px; line-height:8px;}
+.btn-circle .glyphicon-search {font-size:24px;}
+footer {height:70px; line-height:70px; font-size:22px;}
+.title {font-size:90px;}
+#details_movies, #details_places {margin-top:205px!important; width:1600px;}
+.pageResult	{width:1590px; padding-top:210px;}
+#map {height:600px!important; width:1000px!important;}
+.col5 .panel {width:50%;}
+.place-navlist .leftsidebar{margin:0px 0 0 -220px; width:210px;}
+.col-lg-7 {width:70%;}
+.resultList p {font-size:20px; line-height:26px;}
+.topSection .coverImage {height:700px;}
+.relatedSearchResult {right:-500px;}
+.media-heading {font-size:22px;}
+.related-search h4 {font-size:20px;}
+.topictitle {font-size:22px;}
+.topSection .profileImage {top:653px; left:30px;}
+.topSection .details {padding-left:145px;}
+.topSection .details {min-height:125px;}
+.topSection .details h2 {font-size:26px;}
+.topSection .details span {font-size:18px;}
+.detail_right p a {font-size:18px;}
+.td-title span {font-size:16px;}
+.td-detail {font-size:18px;}
+.resultList span.fa, .action-detail span.fa {font-size:26px;}
+
+.angucomplete-dropdown {width:1074px; margin-top:120px;}
+.angucomplete-dropdown-result-list {width:1074px;}
+.angucomplete-searching {font-size:22px;}
+.angucomplete-image-holder img {
+	vertical-align: top;
+	margin: 0px;
+	width: 60px;
+	height: 60px;
+	border: none !important;
+}
+.angucomplete-image-holder {
+	height: 60px;
+	overflow: hidden;
+	width: 60px;
+}
+.angucomplete-title {
+	display: block;
+	font-size: 22px;
+	font-weight: 400;
+	vertical-align: middle;
+}
+.angucomplete-dropdown-result-list .genre span {
+	font-size: 22px;
+	line-height: 30px;
+	margin: 0;
+}
+.angucomplete-dropdown-result-list .rating span {
+	font-size: 18px;
+	margin: 0;
+}
+
+}
 @media only screen and (max-width: 2880px) {
 	.wrapper .container {width:1800px;}
 	.innerPageMiddle {min-width:66%; max-width:66%;}
@@ -42,9 +182,23 @@
 	#map {height:400px!important; width:1000px!important;}
 	.col5 .panel {width:50%;}
 }
+@media only screen and (max-width: 2048px) {
+	.wrapper .container {width:1200px;}
+	.innerPageMiddle {min-width:71%; max-width:71%;}
+	.relcysmall {left: -175px;}
+	.relatedSearch {position: fixed; width: 100%; max-width: 960px;}
+	.relatedSearchResult{right:-80px; width:390px;}
+	.col5 {width:40.667%;}
+	.leftsidebar {margin:104px 0 0 -100px;}
+	.place-navlist .leftsidebar {margin:5px 0 0 -100px}
+	#details_movies, #details_places {margin-top:108px!important; width:1200px;}
+	.pageResult	{width:960px;}
+	#map {height:400px!important; width:612px!important;}
+	.col5 .panel {width:70%;}
+}
 
 
-@media only screen and (max-width: 1920px) {
+@media only screen and (max-width: 1920px) and (min-width: 2047px) {
 	.wrapper .container {width:1280px;}
 	.innerPageMiddle {min-width:66%; max-width:66%;}
 	.relatedSearch {position: fixed; width: 100%; max-width: 960px;}
