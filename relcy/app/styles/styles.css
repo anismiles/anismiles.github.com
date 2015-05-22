@@ -948,6 +948,8 @@ div.imdb span {
 .footer .col-lg-6 {padding-right:20px;} 
 .relatedSearch {position: fixed; width: 100%; max-width: 960px;}
 .relatedSearchResult{position: absolute;}
+.modal-backdrop {z-index:9999!important;}
+.modal {z-index:99999!important;}
 
 /*@media screen and (min-width: 1280px) {
 .container {
