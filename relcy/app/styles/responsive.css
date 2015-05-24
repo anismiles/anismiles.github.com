@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 
-@media only screen and (min-width: 600px) and (max-width: 767px) {
+@media only screen and (max-width: 600px){
 
     .wrapper .container {
         width: 540px
@@ -107,7 +107,7 @@
     }
 
 }
-@media only screen and (min-width: 768px) and (max-width: 799px) {
+@media only screen and (max-width: 768px){
     .wrapper .container {
         width: 720px;
     }
@@ -197,7 +197,7 @@
         width: 49%;
     }
 }
-@media only screen and (min-width: 800px) and (max-width: 899px) {
+@media only screen and (max-width: 800px){
 
     .wrapper .container {
         width: 760px
@@ -341,7 +341,7 @@
     }
 
 }
-@media only screen and (min-width: 900px) and (max-width: 1023px) {
+@media only screen and (max-width: 900px){
     .wrapper .container {
         width: 600px;
     }
