@@ -1,144 +1,143 @@
 <!DOCTYPE html>
 <html ng-app="relcyApp">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<title>Relcy</title>
-<link href="favicon.ico" rel="icon" type="image/x-icon" />
-<!--styles-->
-<!-- <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" /> -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>Relcy</title>
+    <link href="favicon.ico" rel="icon" type="image/x-icon"/>
+    <!--styles-->
+    <!-- <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" /> -->
 
     <meta name="description" content="">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- map -->
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet'/>
     <!-- endmap -->
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/lato/css/lato.css" />
-    <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css" />
-    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" />
+    <link rel="stylesheet" href="bower_components/lato/css/lato.css"/>
+    <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css"/>
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css"/>
     <!-- endbower -->
     <!-- endbuild -->
-    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css"/>
     <!-- build:css(.tmp) styles/main.css -->
     <!-- <link rel="stylesheet" href="styles/fontawesome/font-awesome.min.css" /> -->
-    
-    <link rel="stylesheet" href="styles/styles.css" />
-    <link rel="stylesheet" href="styles/responsive.css" />
+
+    <link rel="stylesheet" href="styles/styles.css"/>
+    <link rel="stylesheet" href="styles/responsive.css"/>
+
 
     <!-- endbuild -->
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
-<style>
-cursor: url(img-no-min/cursor.png) x y, auto;
-</style>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body id="container" ng-controller="RelcyController">
-<div ng-hide="hideLoader" id="pageloader"> </div>
+<div ng-hide="hideLoader" id="pageloader"></div>
 <section class="wrapper">
-<div class="container">
-	<div class="row">
-    	<div class="col-lg-12">
-        	<ui-view></ui-view>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ui-view></ui-view>
+            </div>
         </div>
     </div>
-</div>
 </section>
 <footer>
-	<div class="footer">
-    	<div class="row">
-        	<div class="col-lg-6 text-left"><img src="images/Slice 1.png" alt="" height="20px"/> &nbsp; Relcy Entity Browser - Employees Only</div>
-            <div class="col-lg-6 text-right"><a href="#">Mail</a> &nbsp; <a href="#">Jira</a> &nbsp; <a href="#">Slack</a></div>
+    <div class="footer">
+        <div class="row">
+            <div class="col-lg-6 text-left"><img src="images/Slice 1.png" alt="" height="20px"/> &nbsp; Relcy Entity
+                Browser - Employees Only
+            </div>
+            <div class="col-lg-6 text-right"><a href="#">Mail</a> &nbsp; <a href="#">Jira</a> &nbsp; <a
+                    href="#">Slack</a></div>
         </div>
     </div>
 </footer>
 <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
-    <script src="bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
-    <script src="bower_components/angular-thumbnail/angular-thumbnail.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-scroll/angular-scroll.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+<script src="bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+<script src="bower_components/angular-thumbnail/angular-thumbnail.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/utils/leaflet-src.js" type="text/javascript"></script>
-        <script src="scripts/utils/angular-leaflet.js" type="text/javascript"></script>
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/RelcyController.js" type="text/javascript"></script>
-        <script src="scripts/controllers/SearchController.js" type="text/javascript"></script>
-        <script src="scripts/controllers/EntityController.js" type="text/javascript"></script>
-        <script src="scripts/services/Session.js" type="text/javascript"></script>
-        <script src="scripts/services/SearchService.js" type="text/javascript"></script>
-        <script src="scripts/services/SmoothScroll.js" type="text/javascript"></script>
-        <script src="scripts/filters/HourMinutes.js" type="text/javascript"></script>
-        <script src="scripts/directives/ImageFallback.js" type="text/javascript"></script>
-    <!-- endbuild -->
-
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/utils/leaflet-src.js" type="text/javascript"></script>
+<script src="scripts/utils/angular-leaflet.js" type="text/javascript"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/RelcyController.js" type="text/javascript"></script>
+<script src="scripts/controllers/SearchController.js" type="text/javascript"></script>
+<script src="scripts/controllers/EntityController.js" type="text/javascript"></script>
+<script src="scripts/services/Session.js" type="text/javascript"></script>
+<script src="scripts/services/SearchService.js" type="text/javascript"></script>
+<script src="scripts/services/SmoothScroll.js" type="text/javascript"></script>
+<script src="scripts/filters/HourMinutes.js" type="text/javascript"></script>
+<script src="scripts/directives/ImageFallback.js" type="text/javascript"></script>
+<!-- endbuild -->
 
 
 <script>
 
-//this is here to make plunkr work with AngularJS routing
-/*angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));*/
+    //this is here to make plunkr work with AngularJS routing
+    /*angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));*/
 
-function init(){
-    var map
-    $(document).ready(function(){
-    setTimeout ( function (){
-    $( "#members input" ).focus();
-    $(".tran_top").keypress(function(e){
-        console.log("213456");
-        $("#bighead").removeClass("title");
-        $("#bighead").addClass("relcysmall");
-        //$("#bigform").addClass("smallform");
-        $("#pageMiddle").animate({'margin-top':'0%'}, 200);
-        $("#pageMiddle").addClass("innerPageMiddle");
+    function init() {
+        var map
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#members input").focus();
+                $(".tran_top").keypress(function (e) {
+                    console.log("213456");
+                    $("#bighead").removeClass("title");
+                    $("#bighead").addClass("relcysmall");
+                    //$("#bigform").addClass("smallform");
+                    $("#pageMiddle").animate({'margin-top': '0%'}, 200);
+                    $("#pageMiddle").addClass("innerPageMiddle");
 
-        }); },300);
+                });
+            }, 300);
+        });
+    }
+
+    if ($) {
+        setTimeout(function () {
+            init();
+        }, 700);
+    } else {
+        setTimeout(function () {
+            init();
+        }, 1500);
+    }
+
+    $(window).scroll(function () {
+
+        if ($(this).scrollTop() > 0) {
+            $('.totop').fadeIn(100);
+        }
+        else {
+            $('.totop').fadeOut(100);
+        }
     });
-}
-
-if($){
-    setTimeout(function(){
-        init();
-    }, 700);
-}   else{
-    setTimeout(function(){
-        init();
-    }, 1500);
-}
-
-$(window).scroll(function() {
-
-    if ($(this).scrollTop()>0)
-     {
-        $('.totop').fadeIn(100);
-     }
-    else
-     {
-      $('.totop').fadeOut(100);
-     }
- });
 
 </script>
 

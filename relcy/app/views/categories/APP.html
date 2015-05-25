@@ -3,14 +3,14 @@
   <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
     <div class="media">
     <!-- <div ng-if="result.relcy_id.entity_id" ng-click="showDetails(result)"  class="media-left pull-right" style="position: absolute;right: 0; z-index:5"><a href="javascript:void(0)" class="anchorjs-link"><span class="fa fa-chevron-right text-gray"></span></a></div> -->
-        <div class="col-lg-2 pull-left">
+        <div class="col-sm-2 col-md-2 col-lg-2 pull-left">
           <a href="#">
           <div style=" background-image:url({{result.image_info[0].thumbnail.mediaURL}});" class="appthumb">
 			</div>
           
           </a>
         </div>
-        <div class="pull-right col-lg-10">
+        <div class="col-sm-10 col-md-10 col-lg-10 pull-right">
           <h4 class="media-heading" id="top-aligned-media">{{::result.app_result[0].app.app_id}}
               
           </h4>

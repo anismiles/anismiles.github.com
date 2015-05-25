@@ -1,12 +1,12 @@
 <ul class="resultList">
     <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
         <div class="media">
-            <div class="col-lg-4 pull-left">
+            <div class="col-sm-4 col-md-4 col-lg-4 pull-left">
                 <a href="{{result.clickUrl}}" target="_blank" class="thumb-img-n-w">
                     <img ng-if="result.imageContentUrl" src="{{result.imageContentUrl}}" title="">
                 </a>
             </div>
-            <div class="pull-right" ng-class="result.imageContentUrl.length>0?'col-lg-8':'col-lg-12'">
+            <div class="pull-right" ng-class="result.imageContentUrl.length>0?'col-sm-8 col-md-8 col-lg-8':'col-sm-12 col-md-12 col-lg-12'">
                 <h4 class="media-heading" id="top-aligned-media">
                     <a href="{{result.clickUrl}}" target="_blank">{{result.title}}</a>
                     <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>

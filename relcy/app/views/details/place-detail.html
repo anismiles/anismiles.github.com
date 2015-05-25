@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 action-detail">
+            <div class="col-sm-4 col-md-4  col-lg-4 action-detail">
 
                 <!--Deals-->
 
@@ -169,7 +169,7 @@
                 <!--Images-->
 
             </div>
-            <div id="details_images" class="col-lg-8">
+            <div id="details_images" class="col-sm-8 col-md-8 col-lg-8 pull-right">
                 <div ng-if="itemDetails.imageResults.length>0" class="panel panel-default">
                     <h4 class="topictitle" id="top-aligned-media">Images</h4>
 
@@ -187,22 +187,23 @@
                                               href="javascript:void(0)" class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i
                             class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a></div>
                 </div>
-
+            </div>
                 <!-- Videos-->
-                <div id="details_videos" ng-if="itemDetails.videoResults.length>0" class="panel panel-default">
+            <div id="details_videos" class="col-sm-8 col-md-8 col-lg-8 pull-right">
+                <div ng-if="itemDetails.videoResults.length>0" class="panel panel-default">
                     <h4 class="topictitle" id="top-aligned-media">Videos</h4>
 
                     <div class="panel-body no-padding">
                         <div ng-repeat="video in itemDetails.videoResults  | limitTo: itemDetails.videoResults.maxIndex"
                              class="col-lg-12 detailvideo">
-                            <div class="col-lg-4 pull-left">
+                            <div class="col-sm-4 col-md-4 col-lg-4 pull-left">
                                 <a href="{{::video.contentUrl}}" target="_blank">
                                     <div style=" background-image:url({{video.thumbnailUrl}});" class="vdothumb">
                                         <img src="images/play-3-24.png" alt="" class="play-icon-thumb-vdo"/></div>
                                 </a>
                             </div>
                             <!--  <div class="col-lg-4 video"> <img src="{{::video.thumbnailUrl}}" alt="{{::video.contentUrl}}"/> </div> -->
-                            <div class="pull-right col-lg-8 videodetail">
+                            <div class="pull-right col-sm-8 col-md-8 col-lg-8 videodetail">
                                 <h4 class="media-heading">{{::video.title}}</h4>
                                 <!--  <p>{{::video.contentUrl}}</p> -->
                                 <p class="genre"><span>{{::video.duration}}</span></p>
@@ -214,10 +215,10 @@
                                               href="javascript:void(0)" class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i
                             class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a></div>
                 </div>
-
+            </div>
                 <!-- Web-->
-
-                <div id="details_web" ng-if="itemDetails.webResults.length>0" class="panel panel-default">
+            <div id="details_web" class="col-sm-8 col-md-8 col-lg-8 pull-right">
+                <div ng-if="itemDetails.webResults.length>0" class="panel panel-default">
                     <h4 class="topictitle" id="top-aligned-media">Web</h4>
 
                     <div ng-repeat="web in itemDetails.webResults  | limitTo: itemDetails.webResults.maxIndex"
