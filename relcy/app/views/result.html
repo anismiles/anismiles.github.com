@@ -2,8 +2,8 @@
 <div class="pageResult" ng-if="!hasLocalBusiness">
     <div ng-show="showTopAnchor"><img src="img-no-min/to-top.png" alt="" class="play-icon-thumb-vdo"/></div>
     <div ng-include="'views/left_nav.html'"></div>
-    <div class="col-lg-8 search-result-container">
-        <div class="col-lg-12 result-list">
+    <div class="col-sm-8 col-md-8 col-lg-8 search-result-container">
+        <div class="col-sm-12 col-lmd-12 col-lg-12 result-list">
             <div ng-if="!showDetailPage" class="animate-switch-container" ng-repeat="cat in searchResults">
                 <div class="panel">
                     <h4 class="topictitle" id="{{cat.key}}">{{cat.keyTitle}}</h4>
@@ -34,8 +34,8 @@
     <div class="pageResult">
         <div><img src="img-no-min/to-top.png" alt="" class="play-icon-thumb-vdo"/></div>
         <div ng-include="'views/left_nav.html'"></div>
-        <div class="col-lg-7 search-result-container">
-            <div class="col-lg-12 result-list">
+        <div class="col-sm-7 col-md-7 col-lg-7 search-result-container">
+            <div class="col-sm-12 col-md-12 col-lg-12 result-list">
                 <div ng-if="!showDetailPage" class="animate-switch-container" ng-repeat="cat in searchResults">
                     <div class="panel">
                         <h4 class="topictitle" id="{{cat.key}}">{{cat.keyTitle}}</h4>
@@ -49,7 +49,7 @@
         </div>
 
     </div>
-    <div class="col-lg-5 col5">
+    <div class="col-sm-5 col-md-5 col-lg-5 col5">
        <div class="">
         <div>
             <!-- <div id='map'></div> -->
