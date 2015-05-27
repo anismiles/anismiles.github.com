@@ -289,13 +289,17 @@ footer a {
 
 .btn-circle .glyphicon-search {
     display: inline-block;
-    margin-left: -5px;
+    margin-left: 0;
+    left: -4px;
+    top: -4px;
 }
 
 @-moz-document url-prefix() {
     .btn-circle .glyphicon-search {
         display: inline-block;
-        margin-left: -0;
+        margin-left: 0;
+        left: 0;
+        top: 0;
     }
 }
 
