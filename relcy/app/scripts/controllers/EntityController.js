@@ -106,6 +106,16 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                 $scope.showDetailPage = false;
                 SearchService.getEntityDetails(relcyId).then(function (data) {
                     $scope.showDetailPage = true;
+                    if($stateParams.img){
+                        $scope.thumbnailImgUrl = $stateParams.img.replace(/%40/gi, '@').
+                         replace(/%3A/gi, ':').
+                         replace(/%24/g, '$').
+                         replace(/%2C/gi, ',').
+                         replace(/%2F/gi, '/');    
+                    }else{
+                        $scope.thumbnailImgUrl = undefined;
+                    }
+                    
                     SearchService.selectedItem = item;
                     $scope.itemDetails = SearchService.transformDetails(data);
                     $scope.searchResults = $scope.itemDetails.categories;
