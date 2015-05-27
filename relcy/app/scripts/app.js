@@ -27,12 +27,12 @@ angular.module('relcyApp')
         controller: "SearchController",
     })
     .state("detail", {
-        url: "/detail?entity&cipher&cType&q&artist",
+        url: "/detail?entity&cipher&cType&q&artist&img",
         templateUrl: "views/details/movie-detail.html",
         controller: "EntityController",
     })
     .state("place", {
-        url: "/place?entity&cipher&cType&q",
+        url: "/place?entity&cipher&cType&q&img",
         templateUrl: "views/details/place-detail.html",
         controller: "EntityController",
     });

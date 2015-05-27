@@ -96,21 +96,7 @@
     /*angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));*/
 
     function init() {
-        var map
-        $(document).ready(function () {
-            setTimeout(function () {
-                $("#members input").focus();
-                $(".tran_top").keypress(function (e) {
-                    console.log("213456");
-                    $("#bighead").removeClass("title");
-                    $("#bighead").addClass("relcysmall");
-                    //$("#bigform").addClass("smallform");
-                    $("#pageMiddle").animate({'margin-top': '0%'}, 200);
-                    $("#pageMiddle").addClass("innerPageMiddle");
-
-                });
-            }, 300);
-        });
+        var map;
     }
 
     if ($) {
