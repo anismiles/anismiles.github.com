@@ -16,3 +16,5 @@ routing/.htaccess
 .idea/anismiles.github.com.iml
 .idea/.name
 relcy/app/.idea/workspace.xml
+*.sketch
+.picasa.ini
