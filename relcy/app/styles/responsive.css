@@ -49,6 +49,15 @@
     .lg-sc{
         width: 970px;
     }
+    .relcysmall {
+        left: -14%;
+        margin: 0;
+        position: relative;
+        top: 44px;
+    }
+    .leftsidebar {
+        margin: 11px 0 0 -128px;
+    }
 
 }
 @media only screen and (min-width: 1920px){
