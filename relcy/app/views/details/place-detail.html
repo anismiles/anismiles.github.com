@@ -158,12 +158,14 @@
                     <div class="panel-body">
                         <div class="resultList">
                             <div class="row">
-                                <div ng-click="openCastLightbox(itemDetails.imageResults,'IMAGES',$index)" ng-repeat="images in itemDetails.imageResults | limitTo: itemDetails.imageResults.maxIndex">
-                                    <div class="col-xs-6 col-md-3" style="height: 145px; width: 145px; display: block; position: relative; overflow: hidden; margin-bottom: 15px"> <a class="thumbnail image-thumb" href="#" style="background-image:url({{images.thumbnailUrl}});"></a> </div>
+                                <div ng-repeat="images in itemDetails.imageResults | limitTo: itemDetails.imageResults.maxIndex">
+                                    <div class="col-xs-6 col-md-3 detail-img-box">
+                                        <a class="thumbnail image-thumb" href="#" ng-click="openCastLightbox(itemDetails.imageResults,'IMAGES',$index)" style="background-image:url({{images.thumbnailUrl}});"></a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            <div class="panelList"><a ng-if="itemDetails.imageResults.maxIndex<itemDetails.imageResults.length" ng-click="itemDetails.imageResults.maxIndex=itemDetails.imageResults.maxIndex+3" href="javascript:void(0)" class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a></div>
+                            <div class="panelList mr0"><a ng-if="itemDetails.imageResults.maxIndex<itemDetails.imageResults.length" ng-click="itemDetails.imageResults.maxIndex=itemDetails.imageResults.maxIndex+3" href="javascript:void(0)" class="ng-scope"><i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a></div>
                         </div>
                     </div>
                 </div>
@@ -178,7 +180,7 @@
                         <ul class="resultList">
                             <li ng-repeat="video in itemDetails.videoResults  | limitTo: itemDetails.videoResults.maxIndex" >
                                 <div class="media">
-                                    <div class="media-left" style="position:relative;"> <a href="{{::video.contentUrl}}" target="_blank"> <img class="media-object" style="width: 200px; height: 150px;" src="{{video.thumbnailUrl}}"> <img src="images/play-3-24.png"  alt="" class="play-icon-thumb-vdo"/> </a> </div>
+                                    <div class="media-left" style="position:relative;"> <a href="{{::video.contentUrl}}" target="_blank"> <img class="media-object image-thumb-video" src="{{video.thumbnailUrl}}"> <img src="images/play-3-24.png"  alt="" class="play-icon-thumb-vdo"/> </a> </div>
                                     <div class="media-body">
                                         <h4 class="media-heading" id="top-aligned-media"> <a href="{{::video.contentUrl}}" target="_blank">{{::video.title}}</a> </h4>
                                         <p class="genre"><span>{{::video.duration}}</span></p>

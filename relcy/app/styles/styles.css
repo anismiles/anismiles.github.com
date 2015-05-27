@@ -63,7 +63,11 @@ a:focus {
     top: 0;
     z-index: 1040;
 }
-.topSection div.details div.detail_left p span img{vertical-align: bottom;}
+
+.topSection div.details div.detail_left p span img {
+    vertical-align: bottom;
+}
+
 .wrapper {
     min-height: 605px;
     height: 100%;
@@ -102,7 +106,7 @@ a:focus {
 }
 
 .mr0 {
-    margin: 0px
+    margin: 0px !important;
 }
 
 .mr5 {
@@ -124,6 +128,7 @@ a:focus {
 .mr25 {
     margin: 25px
 }
+
 .mr-r-20 {
     margin: 0 20px 0 0 !important;
 }
@@ -179,11 +184,13 @@ ul.resultList li {
     padding-bottom: 15px;
     width: 100%;
 }
+
 ul.resultList li:last-child {
     border-bottom: 0px solid #f2f2f2;
     margin-bottom: 0px;
     padding-bottom: 0px;
 }
+
 .resultList span {
     display: inline-block;
     margin-right: 10px;
@@ -337,6 +344,7 @@ footer a {
 }
 
 .angucomplete-image-default {
+    background-color: #f5f8fa;
     background-position: center center;
     background-size: contain;
     height: 80px;
@@ -393,13 +401,14 @@ footer a {
 }
 
 .topSection {
-    height: 480px;
+    /*height: 480px;*/
     background-color: #FFF;
     /*box-shadow: 1px 1px 2px #999;*/
     position: relative;
     margin-bottom: 20px;
+    border: 1px solid #e5eaee;
+    padding: 0 0 20px;
 }
-
 .topSection .coverImage {
     height: 300px;
     overflow: hidden;
@@ -418,6 +427,7 @@ footer a {
     width: 100%;
     background: transparent;
 }
+
 .topSection .profileImage {
     background-color: #f5f8fa;
     background-position: left center;
@@ -430,10 +440,10 @@ footer a {
     position: absolute;
     width: 200px;
 }
+
 .topSection .details {
-    padding-left: 130px;
+    padding-left: 240px;
     margin: 10px 0;
-    height: 102px;
 }
 
 .topSection .details span {
@@ -624,17 +634,6 @@ ul.webimage li img {
 .resultList p span a {
     color: #2b7bb9;
 }
-.image-thumb{
-    background-color: #46422f;
-    background-position: center center;
-    background-size: cover;
-    display: block;
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    text-indent: -999em;
-    width: 100%;
-}
 
 .resultList p:last-child, .genre span:last-child {
     margin-bottom: 0px;
@@ -647,8 +646,9 @@ div.imdb span {
 .detail_left {
     display: inline-block;
     float: left;
-    margin: 0 0 0 105px;
+    margin: 0;
     vertical-align: top;
+    max-width: 545px;
 }
 
 .detail_right {
@@ -656,7 +656,7 @@ div.imdb span {
     float: right;
     margin-top: 0;
     vertical-align: top;
-    width: 13%;
+    width: 17%;
 }
 
 .detail_right p {
@@ -670,11 +670,6 @@ div.imdb span {
 .detail_right p a img {
     margin-right: 10px;
     vertical-align: middle;
-}
-
-.topSection {
-    border: 1px solid #e5eaee;
-    padding: 0;
 }
 
 .td-title img {
@@ -903,6 +898,7 @@ div.imdb span {
 }
 
 .lightbox-image-container {
+    background-color: #fff;
     padding: 0;
     overflow: hidden;
     min-width: 500px !important;
@@ -998,21 +994,74 @@ div.imdb span {
     display: block;
     line-height: 50px;
 }
+
 .panel-default > .panel-heading {
     background-color: #f5f8fa;
     border-color: transparent;
     color: #9299a6;
 }
+
 .panel-heading {
     padding: 15px;
 }
+.media-object {
+    background-color: #f5f8fa;
+}
+.image-thumb-video {
+    width: 200px; height: 150px;
+}
+.image-thumb-movie {
+    width: 110px; height: 110px;
+}
+.image-thumb-tv {
+    width: 110px; height: 110px;
+}
+.image-thumb-local {
+    width: 110px; height: 110px;
+}
+.image-thumb-app {
+    width: 110px; height: 110px; border-radius: 25px;
+}
+.image-thumb-song {
+    width: 110px; height: 110px;
+}
+.image-thumb-news {
+    width: 150px; height: 150px;
+}
+.image-thumb-celebrity {
+    width: 110px; height: 110px;
+}
 .thumbnail {
-    background-color: #fff;
+    background-color: #f5f8fa;
     border: 0px solid #ddd;
     border-radius: 0px;
     display: block;
     line-height: 1.42857;
     margin-bottom: 20px;
     padding: 0px;
-    transition: border 0.2s ease-in-out 0s;
+}
+.image-thumb {
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -999em;
+    width: 92%;
+}
+.list-img-box {
+    height: 145px;
+    width: 145px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.detail-img-box {
+    height: 167px;
+    width: 167px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
 }
