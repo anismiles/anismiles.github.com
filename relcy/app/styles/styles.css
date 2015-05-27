@@ -311,37 +311,53 @@ footer a {
     border-bottom: solid 1px #e2e2e2;
     height: auto;
 }
-
 .angucomplete-dropdown {
-    margin-top: 62px;
-    width: 510px;
-    padding: 0px;
+    border-color: #ececec;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    width: 596px;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 9999;
+    position: absolute;
+    margin-top: 65px;
     background-color: #ffffff;
-    border: 1px solid #e5eaee;
-    border-radius: 1px;
-    max-height: 70%;
-    overflow: auto;
-    position: fixed;
     box-shadow: 5px 5px 5px #ccc;
 }
+.angucomplete-dropdown .angucomplete-row:last-child {
+    border-bottom: solid 0px #e2e2e2;
+}
+/*.angucomplete-dropdown {*/
+    /*margin-top: 62px;*/
+    /*width: 510px;*/
+    /*padding: 0px;*/
+    /*background-color: #ffffff;*/
+    /*border: 1px solid #e5eaee;*/
+    /*border-radius: 1px;*/
+    /*max-height: 70%;*/
+    /*overflow: auto;*/
+    /*position: fixed;*/
+    /*box-shadow: 5px 5px 5px #ccc;*/
+/*}*/
 
 .angucomplete-selected-row {
-    background-color: #f5f8fa;
+    background-color: #f9fcfe;
 }
 
-.angucomplete-dropdown-result-list {
-    margin: 1px 0 0 -1px;
-    width: 510px;
-    padding: 0px;
-    background-color: #ffffff;
-    border-radius: 1px;
-    border: 1px solid #e5eaee;
-    border-top: 0;
-    max-height: 70%;
-    overflow: auto;
-    position: fixed;
-    box-shadow: 5px 5px 5px #ccc;
-}
+/*.angucomplete-dropdown-result-list {*/
+    /*margin: 1px 0 0 -1px;*/
+    /*width: 510px;*/
+    /*padding: 0px;*/
+    /*background-color: #ffffff;*/
+    /*border-radius: 1px;*/
+    /*border: 1px solid #e5eaee;*/
+    /*border-top: 0;*/
+    /*max-height: 70%;*/
+    /*overflow: auto;*/
+    /*position: fixed;*/
+    /*box-shadow: 5px 5px 5px #ccc;*/
+/*}*/
 
 .angucomplete-image-default {
     background-color: #f5f8fa;

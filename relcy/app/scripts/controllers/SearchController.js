@@ -188,5 +188,6 @@ angular.module('relcyApp')
 
                 }); 
         }
+        $rootScope.showTopAnchor = false;
         $timeout(function(){$("#members input").focus();},300)
     });

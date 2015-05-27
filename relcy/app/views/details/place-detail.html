@@ -19,7 +19,7 @@
                     <div class="details clearfix">
                         <div class="detail_left">
                             <h2>{{::itemDetails.title}}</h2>
-                            <p class="genre" style="margin:5px 0 0"> <span ng-if="itemDetails.mapinfo.address.display_address">{{::itemDetails.mapinfo.address.display_address}}</span> <span ng-if="itemDetails.distance">{{::itemDetails.distance}} </span> </p>
+                            <p class="genre" style="margin:5px 0 0"> <span ng-if="itemDetails.mapinfo.address.display_address">{{::itemDetails.mapinfo.address.display_address}}</span> <span ng-if="placeDistance">{{::placeDistance}} </span> </p>
                             <p class="genre" style="margin:0 0 5px"> <span ng-if="itemDetails.category">{{::itemDetails.category}}</span> <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span> <span ng-if="itemDetails.openStatus" style="color:#8cbe29">{{::itemDetails.openStatus}}</span> </p>
                             <p class="pull-left mr-r-20" ng-repeat="r in itemDetails.displayRating"> <span ng-if="r.rating_style=='STAR'">
                                 <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/{{::r.source | lowercase}}.png" width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/5</span> <span ng-if="r.rating_style=='PERCENTAGE'">

@@ -26,7 +26,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         $scope.defaultErrorImage = '../../favicon.ico';
         $scope.itemType;
         $scope.itemDetails;
-
+        $scope.placeDistance = '';
+        $rootScope.showTopAnchor = false;
         angular.extend($scope, {
             center: {
                 lat: 0,
@@ -115,6 +116,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                     }else{
                         $scope.thumbnailImgUrl = undefined;
                     }
+                        $scope.placeDistance = $stateParams.dist || '';
                     
                     SearchService.selectedItem = item;
                     $scope.itemDetails = SearchService.transformDetails(data);

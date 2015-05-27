@@ -142,7 +142,7 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
     $scope.onAutoCompleteSelect = function (item) {
         if (!item) return;
         if (item.originalObject.lookIds && item.originalObject.lookIds[0]) {
-            $location.path('/detail').search({q:item.title, cipher: item.originalObject.entity_id, cType: item.originalObject.content_type_enum, entity: item.originalObject.lookIds[0]});
+            $location.path('/detail').search({q:item.title, cipher: item.originalObject.entity_id, cType: item.originalObject.content_type_enum, entity: item.originalObject.lookIds[0], img:item.image||''});
         } else {
             $location.path('search').search({q: item.title});            
         }

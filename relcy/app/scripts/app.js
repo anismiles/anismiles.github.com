@@ -32,7 +32,7 @@ angular.module('relcyApp')
         controller: "EntityController",
     })
     .state("place", {
-        url: "/place?entity&cipher&cType&q&img",
+        url: "/place?entity&cipher&cType&q&img&dist",
         templateUrl: "views/details/place-detail.html",
         controller: "EntityController",
     });
