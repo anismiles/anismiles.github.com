@@ -319,9 +319,10 @@ div.imdb span {
 }
 
 .detail_right p a {
+    color: #8899a6;
     font-size: 17px;
-    text-decoration: none;
     font-weight: 300;
+    text-decoration: none;
 }
 .td-detail {
     color: #8899a6;

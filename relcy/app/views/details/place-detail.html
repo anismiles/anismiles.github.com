@@ -15,7 +15,7 @@
                 <div id="details_places" class="topSection">
                     <div class="coverImage" style="background-image:url('{{bannerUrl}}');"> </div>
                     <div class="profileImage"
-                         style="background-image:url('{{thumbnailImgUrl || itemDetails.imageResults[0].thumbnailUrl}}');"></div>
+                         style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl || thumbnailImgUrl}}');"></div>
                     <div class="details clearfix">
                         <div class="detail_left">
                             <h2>{{::itemDetails.title}}</h2>
