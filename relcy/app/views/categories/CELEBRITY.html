@@ -1,24 +1,20 @@
 <ul class="resultList">
     <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> -->
     <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+
         <div class="media">
             <div ng-if="result.relcy_id.entity_id"
                  ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id })"
-                 class="media-left pull-right detail-arrow" style="position: absolute;right: 0; z-index:5"><a
-                    href="javascript:void(0)" class="anchorjs-link"><span
+                 class="detail-arrow" style="position: absolute;right: 30px; z-index:1"><a
+                    href="javascript:void(0)"><span
                     class="fa fa-angle-right text-gray"></span></a></div>
-            <div class="col-sm-3 col-md-3 col-lg-3 pull-left">
+            <div class="media-left">
                 <a href="#">
-                    <div style="background-image:url({{result.image_info[0].thumbnail.mediaURL}});height:119px"
-                         class="vdothumb">
-                    </div>
+                    <img class="media-object" style="width: 110px; height: 110px;" src="{{result.image_info[0].thumbnail.mediaURL}}">
                 </a>
             </div>
-            <div class="col-sm-9 col-md-9 col-lg-9 pull-right">
-                <h4 class="media-heading" id="top-aligned-media">{{result.entity_data.common_data.name}}
-
-                </h4>
-
+            <div class="media-body">
+                <h4 class="media-heading" id="top-aligned-media">{{result.entity_data.common_data.name}}</h4>
                 <p class="genre">
                     <span ng-repeat="position in result.entity_data.people_data.work_title"> {{position}}</span>
                     <span ng-if="result.entity_data.entertainment_data.common_data.release_year">{{result.entity_data.entertainment_data.common_data.release_year}}</span>
@@ -33,13 +29,14 @@
                 <p class="score">
                     <span ng-repeat="sa in result.scoreArray track by $index" class="fa fa-star rating"></span>
                     <span ng-if="result.showHalfRating" class="fa fa-star-half-empty rating"></span>
-                </p>
-            </div>
+                </p></div>
         </div>
+        <div class="clearfix"></div>
     </li>
-    <div class="panelList">
-        <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length"
-           ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i
-                class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
-    </div>
+
 </ul>
+<div class="panelList">
+    <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length"
+       ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i
+            class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
+</div>

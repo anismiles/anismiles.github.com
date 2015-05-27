@@ -1,15 +1,12 @@
 <ul class="resultList">
-  <!-- <a name="RELATED_SEARCHES"></a> -->
 	<li ui-sref="search({q: result.text})" ng-repeat="result in relatedSearches">
-<div class="media">
-     <!-- <div class="media-left">
-      </div>-->
-      <div class="media-body related-search">
-        <h4 id="top-aligned-media">{{result.text}}
-            <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
-        </h4>
-      </div>
-     
+
+        <div class="media">
+            <div class="media-body related-search">
+                <h4 class="media-heading" id="top-aligned-media">{{result.text}}</h4>
+                <p></p>
+            </div>
         </div>
+        <div class="clearfix"></div>
     </li>
 </ul>

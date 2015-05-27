@@ -36,9 +36,9 @@
                 </p>
 
                 <p>
-                    <span>{{::hours.hours[0].open_time}} to {{::hours.hours[0].close_time}}</span><br>
+                    <span ng-if="hours.hours[0].open_time || hours.hours[0].close_time">{{::hours.hours[0].open_time}} to {{::hours.hours[0].close_time}}</span><br>
 
-                    <span>{{::hours.hours[1].open_time}} to {{::hours.hours[1].close_time}}</span>
+                    <span ng-if="hours.hours[1].open_time || hours.hours[1].close_time">{{::hours.hours[1].open_time}} to {{::hours.hours[1].close_time}}</span>
                 </p>
             </div>
 

@@ -1,12 +1,11 @@
 <ul class="resultList">
     <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+
         <div class="media">
-            <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="media-body">
                 <h4 class="media-heading" id="top-aligned-media">
                     <a href="{{result.clickUrl}}" target="_blank">{{result.title}}</a>
-                    <a href="#top-aligned-media" class="anchorjs-link"><span class="anchorjs-icon"></span></a>
                 </h4>
-
                 <p>
                     <span><a href="{{result.clickUrl}}" target="_blank">{{result.displayUrl}}</a></span>
                 </p>
@@ -16,9 +15,10 @@
         </div>
         <div class="clearfix"></div>
     </li>
-    <div class="panelList">
-        <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length"
-           ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i
-                class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
-    </div>
+
 </ul>
+<div class="panelList">
+    <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length"
+       ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy"><i class="fa fa-circle"></i>&nbsp;<i
+            class="fa fa-circle"></i>&nbsp;<i class="fa fa-circle"></i></a>
+</div>
