@@ -918,7 +918,7 @@ div.imdb span {
 }
 
 .lightbox-image-container {
-    background-color: #fff;
+    background: rgba(255, 255, 255, 1) url("../img-no-min/ajax-loader.gif") no-repeat scroll center center;
     padding: 0;
     overflow: hidden;
     min-width: 500px !important;
