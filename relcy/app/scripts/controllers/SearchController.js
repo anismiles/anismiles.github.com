@@ -31,10 +31,10 @@ angular.module('relcyApp')
             $scope.query = q;
             if(q && q.length==1){
                 $("#bighead").removeClass("title");
-                    $("#bighead").addClass("relcysmall");
-                    //$("#bigform").addClass("smallform");
-                    $("#pageMiddle").animate({'margin-top': '0%'}, 200);
-                    $("#pageMiddle").addClass("innerPageMiddle");
+                $("#bighead").addClass("relcysmall");
+                //$("#bigform").addClass("smallform");
+                $("#pageMiddle").animate({'margin-top': '0%'}, 200);
+                $("#pageMiddle").addClass("innerPageMiddle");
             }
         }
 
