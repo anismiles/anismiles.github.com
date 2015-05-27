@@ -77,6 +77,10 @@
         margin: 11px 0 0 -185px;
         width: auto;
     }
+    #map {
+        height: 400px !important;
+        width: 670px !important;
+    }
 }
 @media only screen and (min-width: 2048px){
     .container {
@@ -97,7 +101,7 @@
     }
     #map {
         height: 400px !important;
-        width: 612px !important;
+        width: 670px !important;
     }
 
 }
