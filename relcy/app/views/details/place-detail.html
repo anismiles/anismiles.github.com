@@ -20,24 +20,21 @@
                         <div class="detail_left">
                             <h2>{{::itemDetails.title}}</h2>
                             <p class="genre" style="margin:5px 0 0"> <span ng-if="itemDetails.mapinfo.address.display_address">{{::itemDetails.mapinfo.address.display_address}}</span> <span ng-if="itemDetails.distance">{{::itemDetails.distance}} </span> </p>
-                            <p class="genre" style="margin:0 0 5px"> <span ng-if="itemDetails.category">{{::itemDetails.category}}</span> <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span> <span ng-if="itemDetails.openStatus"
-                                                                                                                                                                                                                         style="color:#8cbe29">{{::itemDetails.openStatus}}</span> </p>
-                            <p class="pull-left mr-r-20" ng-repeat="r in itemDetails.displayRating"> <span ng-if="r.rating_style=='STAR'"><img src="img-no-min/icons/{{::r.source | lowercase}}.png"
-                                                                                                                                               width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/5</span> <span ng-if="r.rating_style=='PERCENTAGE'"><img src="img-no-min/icons/{{r.source}}.png"
-                                                                                                                                                                                                                                                                                          width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}%</span> <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'""><img
-                                    src="img-no-min/icons/{{::r.source | lowercase}}.png"  width="24" height="24" style="border-radius: 4px"> {{::r.source}}:
-                                {{::r.rating}}/10</span> <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"><img
-                                        src="img-no-min/icons/{{::r.source}}.png"
-                                        width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/100</span> </p>
+                            <p class="genre" style="margin:0 0 5px"> <span ng-if="itemDetails.category">{{::itemDetails.category}}</span> <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span> <span ng-if="itemDetails.openStatus" style="color:#8cbe29">{{::itemDetails.openStatus}}</span> </p>
+                            <p class="pull-left mr-r-20" ng-repeat="r in itemDetails.displayRating"> <span ng-if="r.rating_style=='STAR'">
+                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/{{::r.source | lowercase}}.png" width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/5</span> <span ng-if="r.rating_style=='PERCENTAGE'">
+                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/{{r.source}}.png" src="img-no-min/icons/{{::r.source | lowercase}}.png"  width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/10</span> <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'">
+                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/{{::r.source}}.png" width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/100</span> </p>
                         </div>
                         <!-- deatail left end-->
 
                         <div class="detail_right">
-                            <p><a ng-href="{{itemDetails.menu[0].link_id}}" target="_blank"> <img src="img-no-min/icons/Menu.png"  width="24" height="24" style="border-radius: 4px"/> Menu </a></p>
-                            <p><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.hours,'HOURS')"> <img
-                                    src="img-no-min/icons/Hours.png"  width="24" height="24" style="border-radius: 4px"/> Hours </a></p>
-                            <p><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.call,'CALL')"> <img
-                                    src="img-no-min/icons/Call.png"  width="24" height="24" style="border-radius: 4px"/> Call </a></p>
+                            <p><a ng-href="{{itemDetails.menu[0].link_id}}" target="_blank">
+                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Menu.png"  width="24" height="24" style="border-radius: 4px"/> Menu </a></p>
+                            <p><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.hours,'HOURS')">
+                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Hours.png"  width="24" height="24" style="border-radius: 4px"/> Hours </a></p>
+                            <p><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.call,'CALL')">
+                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Call.png"  width="24" height="24" style="border-radius: 4px"/> Call </a></p>
                         </div>
                     </div>
                     <div class="clearfix"></div>
