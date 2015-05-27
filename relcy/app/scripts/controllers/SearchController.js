@@ -31,11 +31,10 @@ angular.module('relcyApp')
             $scope.query = q;
             if(q && q.length==1){
                 $("#bighead").removeClass("title");
-                $("#bighead").addClass("relcysmall");
-                //$("#bigform").addClass("smallform");
-                //$("#pageMiddle").css({'margin-top':'0%'});
-                $("#pageMiddle").addClass("innerPageMiddle");
-                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+                    $("#bighead").addClass("relcysmall");
+                    //$("#bigform").addClass("smallform");
+                    $("#pageMiddle").animate({'margin-top': '0%'}, 200);
+                    $("#pageMiddle").addClass("innerPageMiddle");
             }
         }
 
@@ -177,5 +176,16 @@ angular.module('relcyApp')
              },200);
             $scope.query = q;
             $scope.search(q);
+        }else{
+                $("#members input").focus();
+                $(".tran_top").keypress(function (e) {
+                    console.log("213456");
+                    $("#bighead").removeClass("title");
+                    $("#bighead").addClass("relcysmall");
+                    //$("#bigform").addClass("smallform");
+                    $("#pageMiddle").animate({'margin-top': '0%'}, 200);
+                    $("#pageMiddle").addClass("innerPageMiddle");
+
+                }); 
         }
     });
