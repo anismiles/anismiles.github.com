@@ -168,8 +168,6 @@ angular.module('relcyApp')
         
                 $("#bighead").removeClass("title");
                 $("#bighead").addClass("relcysmall");
-                //$("#bigform").addClass("smallform");
-                //$("#pageMiddle").css({'margin-top':'0%'});
                 $("#pageMiddle").addClass("innerPageMiddle");                   
                 angular.element(document.querySelector('#members')).children().children()[0].value = q; 
 				
@@ -182,7 +180,6 @@ angular.module('relcyApp')
                     console.log("213456");
                     $("#bighead").removeClass("title");
                     $("#bighead").addClass("relcysmall");
-                    //$("#bigform").addClass("smallform");
                     $("#pageMiddle").animate({'margin-top': '0%'}, 200);
                     $("#pageMiddle").addClass("innerPageMiddle");
 
