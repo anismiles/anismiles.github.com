@@ -9,7 +9,7 @@
 </nav>
 <div class="container">
     <div class="row lg-sc" style="padding-top:105px">
-        <div class="col-lg-12">
+        <div class="col-lg-12" ng-if="itemDetails">
             <div ng-include="'views/left_nav_detail.html'" class="detail-page-nav"></div>
             <div class="col-lg-12">
                 <div class="topSection" id="details_movies">
@@ -17,8 +17,10 @@
                     <div class="profileImage" style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl || thumbnailImgUrl}}');"></div>
                     <div class="details clearfix">
                         <div class="detail_left">
-                            <h2>{{::itemDetails.title}}</h2>
-                            <p class="genre" style="margin:5px 0 0"> <span ng-if="itemDetails.parentalRating">{{::itemDetails.parentalRating}}</span> <span ng-if="itemDetails.releaseYear">{{::itemDetails.releaseYear}} </span> <span ng-if="itemDetails.duration">{{::itemDetails.duration}}</span></p>
+                            <h2 editable-text="itemDetails.title">{{itemDetails.title}}</h2>
+                            <p class="genre" style="margin:5px 0 0">
+                                <span ng-if="itemDetails.parentalRating">{{::itemDetails.parentalRating}}</span>
+                                <span ng-if="itemDetails.releaseYear">{{::itemDetails.releaseYear}} </span> <span ng-if="itemDetails.duration">{{::itemDetails.duration}}</span></p>
                             <p class="genre" ng-if="itemDetails.genre" style="margin:0 0 5px"> <span>{{::itemDetails.genre}}</span></p>
                             <p class="pull-left mr-r-20" ng-repeat="r in itemDetails.displayRating"> <span ng-if="r.rating_style=='PERCENTAGE'">
                                 <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/{{r.source | lowercase}}.png" width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}%</span> <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'">

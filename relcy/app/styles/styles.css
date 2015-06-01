@@ -473,10 +473,13 @@ footer a {
 
 .topSection .details h2 {
     margin: 0;
+    padding: 0px 4px;
+    display: inline;
 }
 
 .topSection .details p {
     margin: 5px 0;
+    padding: 0px 4px;
 }
 
 .panel, .panel-heading, .panel-body {
@@ -881,16 +884,14 @@ div.imdb span {
 .related-search h4.media-heading a {
     display: none;
 }
-
 .totop {
     cursor: pointer;
     display: none;
     opacity: 0.7;
     position: absolute;
-    right: -35px;
-    top: 66px;
+    right: 10px;
+    top: 62px;
 }
-
 .totop:hover {
     opacity: 1;
 }
@@ -1085,3 +1086,8 @@ div.imdb span {
     overflow: hidden;
     margin-bottom: 15px;
 }
+.editable-click, a.editable-click {
+    border-bottom: 0px dashed #428bca;
+    text-decoration: none;
+}
+.topSection:hover .editable{background: #eee;}

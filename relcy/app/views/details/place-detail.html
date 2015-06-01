@@ -9,7 +9,7 @@
 </nav>
 <div class="container">
     <div class="row lg-sc" style="padding-top:105px">
-        <div class="col-lg-12">
+        <div class="col-lg-12" ng-if="itemDetails">
             <div ng-include="'views/left_nav_detail.html'" class="detail-page-nav"></div>
             <div class="col-lg-12">
                 <div id="details_places" class="topSection">
@@ -18,7 +18,7 @@
                          style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl || thumbnailImgUrl}}');"></div>
                     <div class="details clearfix">
                         <div class="detail_left">
-                            <h2>{{::itemDetails.title}}</h2>
+                            <h2 editable-text="itemDetails.title">{{::itemDetails.title}}</h2>
                             <p class="genre" style="margin:5px 0 0"> <span ng-if="itemDetails.mapinfo.address.display_address">{{::itemDetails.mapinfo.address.display_address}}</span> <span ng-if="placeDistance">{{::placeDistance}} </span> </p>
                             <p class="genre" style="margin:0 0 5px"> <span ng-if="itemDetails.category">{{::itemDetails.category}}</span> <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span> <span ng-if="itemDetails.openStatus" style="color:#8cbe29">{{::itemDetails.openStatus}}</span> </p>
                             <p class="pull-left mr-r-20" ng-repeat="r in itemDetails.displayRating"> <span ng-if="r.rating_style=='STAR'">

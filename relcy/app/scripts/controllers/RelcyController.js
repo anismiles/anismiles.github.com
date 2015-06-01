@@ -155,7 +155,6 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
             angular.element(document.querySelector('#members')).children().children()[0].value = text;
         }, 250);
     };
-
     $rootScope.openCastLightbox = function (data, type, index) {
             //console.log("hello openCastLightbox")
             Lightbox.type = type;
@@ -179,7 +178,6 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
                     Lightbox.data = {value: data[0].contentUrl};
                 }
             }
-
             if (type == 'IMAGES') {
                 $scope.images = [];
                 for (var i = 0; i < data.length; i++) {

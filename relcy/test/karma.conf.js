@@ -31,6 +31,7 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
       'bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.js',
       'bower_components/angular-thumbnail/angular-thumbnail.js',
+      'bower_components/angular-xeditable/dist/js/xeditable.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

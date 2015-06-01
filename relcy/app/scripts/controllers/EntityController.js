@@ -12,6 +12,8 @@ angular.module('relcyApp')
 	'anchorSmoothScroll',
 	'Lightbox',
 	EntityController]);
+	
+
 
 function EntityController($scope, $http, $rootScope, $location, $window, $timeout,
  $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox){
@@ -36,6 +38,20 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             },
             mapData: {markers: {}}
         });
+		
+		//editableOptions
+		
+		//$scope.movieDetail = {
+		//	title: 'awesome'
+		//};
+
+        $scope.dynamicPopover = {
+            content: 'Hello, World!',
+            templateUrl: 'myPopoverTemplate.html',
+            title: 'Title'
+        };
+		
+		//end
 
         $scope.showResult = function (type, index) {
             $scope.selectedTypeIndex = type
@@ -196,6 +212,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             });
         }
     }
+
 
 
 function getMapUrl(mapinfo, token, category) {
