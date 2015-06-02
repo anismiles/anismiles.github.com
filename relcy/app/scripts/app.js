@@ -4,8 +4,7 @@ angular.module('relcyApp',
   'ui.bootstrap',
   'bootstrapLightbox',
   'angucomplete-alt',
-  'leaflet-directive',
-  'xeditable']);
+  'leaflet-directive']);
 
 angular.module('relcyApp')
 .config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider, $sceProvider, LightboxProvider) {
@@ -44,8 +43,8 @@ angular.module('relcyApp')
 	
 }
 );
-angular.module('relcyApp')
-.run(function(editableOptions) {
-	editableOptions.theme = 'bs3';
-});
+//angular.module('relcyApp')
+//.run(function(editableOptions) {
+//	editableOptions.theme = 'bs3';
+//});
 

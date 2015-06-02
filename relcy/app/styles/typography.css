@@ -68,32 +68,32 @@ body {
     color: #8899a6;
 }
 
-.genre span:nth-child(1):before {
+.media-body .genre span:nth-child(1):before {
     content: " ";
     color: #8899a6;
 }
 
-.genre span:nth-child(1):after {
+.media-body .genre span:nth-child(1):after {
     content: " ";
     color: #8899a6;
 }
 
-.genre span:nth-child(2):before {
-    content: " .  ";
-    color: #8899a6;
-}
-
-.genre span:nth-child(2):after {
-    content: " ";
-    color: #8899a6;
-}
-
-.genre span:nth-child(3):before {
+.media-body .genre span:nth-child(2):before {
     content: " . ";
     color: #8899a6;
 }
 
-.genre span:nth-child(3):after {
+.media-body .genre span:nth-child(2):after {
+    content: " ";
+    color: #8899a6;
+}
+
+.media-body .genre span:nth-child(3):before {
+    content: " . ";
+    color: #8899a6;
+}
+
+.media-body .genre span:nth-child(3):after {
     content: " ";
     color: #8899a6;
 }
@@ -104,32 +104,32 @@ body {
     color: #8899a6;
 }
 
-.performer span:nth-child(1):before {
+.media-body .performer span:nth-child(1):before {
     content: " ";
     color: #8899a6;
 }
 
-.performer span:nth-child(1):after {
+.media-body .performer span:nth-child(1):after {
     content: " ";
     color: #8899a6;
 }
 
-.performer span:nth-child(2):before {
-    content: ",  ";
-    color: #8899a6;
-}
-
-.performer span:nth-child(2):after {
-    content: " ";
-    color: #8899a6;
-}
-
-.performer span:nth-child(3):before {
+.media-body .performer span:nth-child(2):before {
     content: ", ";
     color: #8899a6;
 }
 
-.performer span:nth-child(3):after {
+.media-body .performer span:nth-child(2):after {
+    content: " ";
+    color: #8899a6;
+}
+
+.media-body .performer span:nth-child(3):before {
+    content: ", ";
+    color: #8899a6;
+}
+
+.media-body .performer span:nth-child(3):after {
     content: " ";
     color: #8899a6;
 }
@@ -233,6 +233,7 @@ footer a {
     color: #8899a6;
     font-size: 16px;
     font-weight: 300;
+    line-height: 24px;
 }
 .editable-controls button.btn.btn-primary span.glyphicon {
     color: #fff;
@@ -244,12 +245,12 @@ footer a {
     font-size: 14px;
     font-weight: 100;
 }
-.topSection .details h2 {
+.topSection .details h2, .topSection .details h2 > span {
     color: #000;
     font-size: 26px;
     font-weight: 400;
+    line-height: 32px;
 }
-
 .topSection .details p {
     color: #8899a6;
     font-weight: 300;
@@ -446,4 +447,14 @@ ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a,
 .detailvideo .media-heading a
 {
     color: inherit
+}
+a.editable{
+    color: #fff;
+    text-decoration: none;
+    font-size:26px;
+}
+a.edit-picture{
+    color: #fff;
+    text-decoration: none;
+    font-size:14px;
 }

@@ -64,10 +64,9 @@ a:focus {
     z-index: 1040;
 }
 
-.topSection div.details div.detail_left p span img {
-    vertical-align: bottom;
-}
 
+.nobg{background: none !important;}
+.nobg:hover{background: none !important;}
 .wrapper {
     min-height: 605px;
     height: 100%;
@@ -421,13 +420,13 @@ footer a {
 }
 
 .topSection {
-    /*height: 480px;*/
+    min-height: 475px;
     background-color: #FFF;
     /*box-shadow: 1px 1px 2px #999;*/
     position: relative;
     margin-bottom: 20px;
     border: 1px solid #e5eaee;
-    padding: 0 0 20px;
+    padding: 0 0 10px 0px;
 }
 .topSection .coverImage {
     background-image: url("../img-no-min/placeholder-hero.jpg");
@@ -453,16 +452,16 @@ footer a {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     border: 2px solid #fff;
-    bottom: 20px;
-    height: 250px;
-    left: 20px;
+    height: 230px;
+    left: 15px;
     overflow: hidden;
     position: absolute;
-    width: 200px;
+    top: 225px;
+    width: 180px;
 }
 
 .topSection .details {
-    padding-left: 240px;
+    padding-left: 210px;
     margin: 10px 0;
 }
 
@@ -472,20 +471,24 @@ footer a {
 }
 
 .topSection .details h2 {
-    margin: 0;
-    padding: 0px 4px;
-    display: inline;
+    margin: 0 0 12px;
+    display: inline-block;
 }
-
+.topSection .details h2 span, .topSection .details p span{
+    padding: 0px 1px;
+    display: inline-block;
+}
+.topSection div.details div.detail_left p span img {
+    vertical-align: top;
+    margin: 0 0 0 -3px;
+}
 .topSection .details p {
     margin: 5px 0;
-    padding: 0px 4px;
+    display: inline-block;
 }
-
 .panel, .panel-heading, .panel-body {
     border-radius: 0px
 }
-
 ul.thumbList {
     padding: 0px;
 }
@@ -668,10 +671,10 @@ div.imdb span {
 
 .detail_left {
     display: inline-block;
-    float: left;
+    /*float: left;*/
     margin: 0;
     vertical-align: top;
-    max-width: 545px;
+    /*max-width: 660px;*/
 }
 
 .detail_right {
@@ -679,7 +682,7 @@ div.imdb span {
     float: right;
     margin-top: 0;
     vertical-align: top;
-    width: 17%;
+    width: 16%;
 }
 
 .detail_right p {
@@ -687,12 +690,12 @@ div.imdb span {
 
 .detail_right p a {
     display: block;
-    margin-bottom: 13px;
+    margin-bottom: 0px;
 }
 
 .detail_right p a img {
-    margin-right: 10px;
-    vertical-align: middle;
+    margin: 0 2px 0 -1px;
+    vertical-align: bottom;
 }
 
 .td-title img {
@@ -1086,8 +1089,59 @@ div.imdb span {
     overflow: hidden;
     margin-bottom: 15px;
 }
-.editable-click, a.editable-click {
-    border-bottom: 0px dashed #428bca;
-    text-decoration: none;
+/* editable start */
+a.editable{
+    position:absolute; z-index: 1; right: 5px; top: 5px;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
-.topSection:hover .editable{background: #eee;}
+a.edit-picture{
+    background: #333;
+    position:absolute; z-index: 1; left: 5px; top: 5px;
+    padding:0 5px 2px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.show-edits .topSection .details h2 span,
+.show-edits .topSection .details p span{
+    background: #efefef;
+}
+.show-edits .topSection .details a.fa-pencil{
+    border-left: 2px solid #fff;
+}
+.show-edits .topSection .details h2 .btn {
+    background-color: #efefef;
+    border: 0 solid #fff;
+    border-radius: 0;
+    color: #333;
+    font-size: 16px;
+    line-height: 22px;
+    margin: -6px 0 0 -4px;
+    padding: 5px;
+    position: relative;
+}
+.show-edits .topSection .details p .btn {
+    background-color: #efefef;
+    border: 0 solid #fff;
+    border-radius: 0;
+    color: #333;
+    font-size: 14px;
+    line-height: 10px;
+    margin: -6px 0 0 0;
+    padding: 5px;
+    position: relative;
+}
+.show-edits .topSection .details .btn:hover,
+.show-edits .topSection .details h2:hover .btn,
+.show-edits .topSection .details p:hover .btn{
+    background-color: #5bc0de;
+    color:#fff
+}
+.show-edits .topSection .details h2:hover span{
+    background-color: #a5dced;
+    color: #000;
+}
+.show-edits .topSection .details p:hover span {
+    background-color: #a5dced;
+    color: #000;
+}
+
+/* editable end */
