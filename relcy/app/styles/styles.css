@@ -454,7 +454,6 @@ footer a {
     border: 2px solid #fff;
     height: 230px;
     left: 15px;
-    overflow: hidden;
     position: absolute;
     top: 225px;
     width: 180px;
@@ -1142,6 +1141,10 @@ a.edit-picture{
 .show-edits .topSection .details p:hover span {
     background-color: #a5dced;
     color: #000;
+}
+.popover {
+    width: 250px;
+    max-width: 250px;
 }
 
 /* editable end */
