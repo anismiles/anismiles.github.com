@@ -16,4 +16,35 @@ angular.module('relcyApp')
       });
     }
   }
+}).directive('popoverClose', function($timeout){
+  return{
+    scope: {
+      excludeClass: '@'
+    },
+    link: function(scope, element, attrs) {
+      var trigger = document.getElementsByClassName('trigger');
+      element.on('click', function(event){
+        var etarget = angular.element(event.target);
+        if(!etarget.hasClass('trigger') && !etarget.hasClass(scope.excludeClass)) {
+          $timeout(function(){
+            angular.element(trigger[0]).triggerHandler('click') 
+            var t = angular.element(trigger[0])
+            t.removeClass("trigger")
+            /*for(var i=0;i<trigger.length;i++)
+            {
+              angular.element(trigger[i]).triggerHandler('click')
+            }*/
+          });
+        }
+      });
+    }
+  };
+}).directive('popoverElem', function(){
+  return{
+    link: function(scope, element, attrs) {
+      element.on('click', function(){
+        element.addClass('trigger');
+      });
+    }
+  };
 });

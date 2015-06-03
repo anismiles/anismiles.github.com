@@ -29,6 +29,18 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.placeDistance = '';
     $rootScope.showTopAnchor = false;
     $scope.showEdit = false;
+    $scope.toggle = false
+    /* DT: templateType is used to identify which edit template will load */
+    $scope.templateType = 1; 
+    // 1 for title
+    // 2 for release Year"
+    // 3 for genre
+    // 4 for rating
+    // 5 for story
+    // 6 for trailer
+    // 7 for Hero Image
+    // 8 for Profile Image
+
     angular.extend($scope, {
         center: {
             lat: 0,
@@ -38,18 +50,44 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         mapData: {markers: {}}
     });
 
-    // template start //
-    $scope.movieTitle = {
-        templateUrl: "movie-title.html",
-        title: "Movie Title"
-    };
-    // template end //
+    
 
     $scope.showHideEdit = function () {
         $scope.showEdit = !$scope.showEdit;
+
+        // template start //
+        $scope.EditData = {
+            templateUrl: "movie-title.html",
+            title: $scope.itemDetails.title,
+            parentalRating:$scope.itemDetails.parentalRating,
+            releaseYear: parseInt($scope.itemDetails.releaseYear),
+            duration:parseInt($scope.itemDetails.duration),
+            genre:$scope.itemDetails.genre,
+            displayRating:$scope.itemDetails.displayRating,
+            story:$scope.itemDetails.story.value,
+            videoResults:$scope.itemDetails.videoResults,
+            bannerUrl:$scope.bannerUrl,
+            thumbnailUrl:($scope.itemDetails.imageResults[0].thumbnailUrl || $scope.thumbnailImgUrl),
+        };
+        // template end //
     };
 
-
+    $scope.saveEditData = function ()
+    {
+        $scope.EditData = {
+            templateUrl: "movie-title.html",
+            title: $scope.itemDetails.title,
+            parentalRating:$scope.itemDetails.parentalRating,
+            releaseYear: parseInt($scope.itemDetails.releaseYear),
+            duration:parseInt($scope.itemDetails.duration),
+            genre:$scope.itemDetails.genre,
+            displayRating:$scope.itemDetails.displayRating,
+            story:$scope.itemDetails.story.value,
+            videoResults:$scope.itemDetails.videoResults,
+            bannerUrl:$scope.bannerUrl,
+            thumbnailUrl:($scope.itemDetails.imageResults[0].thumbnailUrl || $scope.thumbnailImgUrl),
+        };
+    }
     //end
 
     $scope.showResult = function (type, index) {
