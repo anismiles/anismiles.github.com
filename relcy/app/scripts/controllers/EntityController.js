@@ -38,10 +38,12 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         mapData: {markers: {}}
     });
 
-    $scope.dynamicPopover = {
-        templateUrl: "myPopoverTemplate.html",
-        title: "Title"
+    // template start //
+    $scope.movieTitle = {
+        templateUrl: "movie-title.html",
+        title: "Movie Title"
     };
+    // template end //
 
     $scope.showHideEdit = function () {
         $scope.showEdit = !$scope.showEdit;
