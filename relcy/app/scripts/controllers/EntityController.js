@@ -31,7 +31,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.showEdit = false;
     $scope.toggle = false
     /* DT: templateType is used to identify which edit template will load */
-    $scope.templateType = 1; 
+    
     // 1 for title
     // 2 for release Year"
     // 3 for genre
@@ -54,7 +54,12 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
     $scope.showHideEdit = function () {
         $scope.showEdit = !$scope.showEdit;
-
+        var thumbnailUrl;
+        try{
+            thumbnailUrl = $scope.itemDetails.imageResults[0].thumbnailUrl;
+        }catch(er){
+            thumbnailUrl = $scope.thumbnailImgUrl;
+        }
         // template start //
         $scope.EditData = {
             templateUrl: "movie-title.html",
@@ -67,13 +72,19 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             story:$scope.itemDetails.story.value,
             videoResults:$scope.itemDetails.videoResults,
             bannerUrl:$scope.bannerUrl,
-            thumbnailUrl:($scope.itemDetails.imageResults[0].thumbnailUrl || $scope.thumbnailImgUrl),
+            thumbnailUrl:thumbnailUrl
         };
         // template end //
     };
 
     $scope.saveEditData = function ()
     {
+        var thumbnailUrl;
+        try{
+            thumbnailUrl = $scope.itemDetails.imageResults[0].thumbnailUrl;
+        }catch(er){
+            thumbnailUrl = $scope.thumbnailImgUrl;
+        }
         $scope.EditData = {
             templateUrl: "movie-title.html",
             title: $scope.itemDetails.title,
@@ -85,7 +96,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             story:$scope.itemDetails.story.value,
             videoResults:$scope.itemDetails.videoResults,
             bannerUrl:$scope.bannerUrl,
-            thumbnailUrl:($scope.itemDetails.imageResults[0].thumbnailUrl || $scope.thumbnailImgUrl),
+            thumbnailUrl: thumbnailUrl,
         };
     }
     //end

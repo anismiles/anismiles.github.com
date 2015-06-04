@@ -4,16 +4,17 @@
     <div ng-if="cast.title" ng-repeat="cast in Lightbox.data">
         <div class="castlist">
             <div class="castimage">
-                <img err-src="img-no-min/placeholder.png" ng-src="{{::cast.image_info.mediaURL}}" alt=""/>
+                <a href="{{::cast.image_info.source}}"><img err-src="img-no-min/placeholder.png" ng-src="{{::cast.image_info.mediaURL}}" alt=""/></a>
+                
 
             </div>
             <div class="castdetail">
                 <p>
-                    {{::cast.title}}
+                    <a href="{{::cast.image_info.source}}">{{::cast.title}}</a>
                 </p>
 
                 <p>
-                    {{::cast.title}}
+                   Character: {{::cast.relationship_title}}
                 </p>
             </div>
 
