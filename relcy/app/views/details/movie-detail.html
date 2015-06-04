@@ -15,20 +15,22 @@
                 <div class="topSection" id="details_movies">
                     <a href="javascript:void(0)" ng-click="showHideEdit()" class="fa fa-edit editable"></a>
 
-                    <div class="coverImage" style="background-image:url('{{bannerUrl}}');"> 
-                                <a href="javascript:void(0)" ng-if="showEdit" class="edit-picture" ng-click="templateType=7" data-trigger="focus"  popover-elem
-                                        popover-placement="right" popover-template="'movie-banner.html'"
-                                        popover-title="{{EditData.title}}"><i
-                                class="fa fa-picture-o"></i> Edit Hero Image</a> 
+                    <div class="coverImage" style="background-image:url('{{bannerUrl}}');">
+                        <button href="javascript:void(0)" ng-if="showEdit" class="edit-picture"
+                           popover-elem
+                           popover-placement="right" popover-template="'movie-banner.html'"
+                           popover-title="Edit Hero Image"><i
+                                class="fa fa-picture-o"></i> Edit Hero Image</button>
 
                     </div>
                     <div class="profileImage"
                          style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl || thumbnailImgUrl}}');">
-                        <a href="javascript:void(0)" ng-if="showEdit" class="edit-picture" ng-click="templateType=8"
-                                        popover-placement="right" data-trigger="focus" popover-template="'movie-thumbnail.html'" popover-elem
-                                        popover-title="{{EditData.title}}"><i
-                                class="fa fa-picture-o"></i> Edit Profile Image</a> 
-                               
+                        <button href="javascript:void(0)" ng-if="showEdit" class="edit-picture"
+                           popover-placement="right" popover-template="'movie-thumbnail.html'"
+                           popover-elem
+                           popover-title="Edit Profile Image"><i
+                                class="fa fa-picture-o"></i> Edit Profile Image</button>
+
                     </div>
                     <div class="details clearfix">
                         <!-- ng-hide="itemDetails.hideRSLinks" -->
@@ -39,8 +41,10 @@
                                     <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Story.png"
                                          width="24" height="24"/> Story </a>
                                     </span>
-                               <button  ng-if="showEdit" class="btn btn-sm btn-default" aria-hidden="true" type="button" popover-elem role="button" popover-trigger="focus" popover-placement="right" popover-template="'movie-story.html'"
-                                        popover-title="{{EditData.title}}">
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem role="button"
+                                        popover-placement="right" popover-template="'movie-story.html'"
+                                        popover-title="Story">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -48,9 +52,10 @@
                                 <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Cast.png" width="24"
                                      height="24"/> Cast </a>
                                 </span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default" aria-hidden="true" type="button" ng-click="templateType=1;" popover-trigger="focus"   popover-elem
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-cast.html'"
-                                        popover-title="{{EditData.title}}">
+                                        popover-title="Cast">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -59,9 +64,10 @@
                                 <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Trailer.png" width="24"
                                      height="24"/> Trailer </a>
                             </span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default" aria-hidden="true" type="button" ng-click="templateType=6" popover-trigger="focus"  popover-elem
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-trailer.html'"
-                                        popover-title="{{EditData.title}}">
+                                        popover-title="Trailer">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -69,17 +75,20 @@
                         <div class="detail_left">
                             <h2>
                                 <span>{{itemDetails.title}}</span>
-                                 <button ng-if="showEdit" class="btn btn-sm btn-default" aria-hidden="true" type="button" ng-click="templateType=2" popover-trigger="focus"  popover-elem
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-title.html'"
-                                        popover-title="{{EditData.title}}">
+                                        popover-title="Movie Title">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </h2>
                             <br>
+
                             <p class="genre" style="margin: 0;">
                                 <span ng-if="itemDetails.parentalRating">{{::itemDetails.parentalRating}}</span>
                                 <span ng-if="!itemDetails.parentalRating">Unrated</span>
-                                <span ng-if="itemDetails.parentalRating && itemDetails.releaseYear" class="nobg">.</span>
+                                <span ng-if="itemDetails.parentalRating && itemDetails.releaseYear"
+                                      class="nobg">.</span>
 
                                 <span ng-if="itemDetails.releaseYear">{{::itemDetails.releaseYear}} </span>
                                 <span ng-if="!itemDetails.releaseYear">-</span>
@@ -87,9 +96,10 @@
 
                                 <span ng-if="itemDetails.duration">{{::itemDetails.duration}}</span>
                                 <span ng-if="!itemDetails.duration">-</span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default" aria-hidden="true" type="button" ng-click="templateType=2" popover-trigger="focus"  popover-elem
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-detail.html'"
-                                        popover-title="{{EditData.title}}">
+                                        popover-title="Movie Details">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -97,16 +107,17 @@
 
                             <p class="genre" ng-if="itemDetails.genre" style="margin: 5px 0 0 0;">
                                 <span>{{::itemDetails.genre}}</span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default" aria-hidden="true" type="button" ng-click="templateType=3" popover-trigger="focus"  popover-elem
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-genre.html'"
-                                        popover-title="{{EditData.title}}">
+                                        popover-title="Genre">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
                             <br>
 
                             <p class="genre pull-left" style="margin: 5px 0 0 0;">
-                                <span ng-repeat="r in itemDetails.displayRating"  style="background:none !important;">
+                                <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">
                                 <span ng-if="r.rating_style=='PERCENTAGE'" style="margin: 0 5px 0 0;">
                                 <img err-src="img-no-min/placeholder.png"
                                      src="img-no-min/icons/{{r.source | lowercase}}.png" width="24" height="24"
@@ -117,16 +128,19 @@
                                      src="img-no-min/icons/{{::r.source | lowercase}}.png" width="24" height="24"
                                      style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/10
                                 </span>
-                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'" style="margin: 0 5px 0 0;">
+                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"
+                                      style="margin: 0 5px 0 0;">
                                 <img err-src="img-no-min/placeholder.png"
                                      src="img-no-min/icons/{{::r.source | lowercase}}.png" width="24" height="24"
                                      style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/100
                                 </span>
-                                    </span>  
+                                    </span>
 
-                                <button ng-if="showEdit && itemDetails.displayRating" class="btn btn-sm btn-default" style="margin:-6px 0px 0px -5px;" popover-trigger="focus"  popover-elem
+                                <button ng-if="showEdit && itemDetails.displayRating"
+                                        class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px -5px;"
+                                        popover-elem
                                         popover-placement="right" popover-template="'movie-rating.html'"
-                                        popover-title="{{EditData.title}}">
+                                        popover-title="Rating">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -370,10 +384,10 @@
 <script type="text/ng-template" id="movie-title.html">
     <div>
         <div class="form-group">
-            <input type="text" ng-model="EditData.title" class="form-control"> 
+            <input type="text" ng-model="EditData.title" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
     </div>
 </script>
 
@@ -381,11 +395,11 @@
     <div>
         <div class="form-group">
             <input type="text" ng-model="EditData.parentalRating" class="form-control">
-            <input type="text" ng-model="EditData.releaseYear" class="form-control">            
-            <input type="text" ng-model="EditData.duration" class="form-control">            
+            <input type="text" ng-model="EditData.releaseYear" class="form-control">
+            <input type="text" ng-model="EditData.duration" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
     </div>
 </script>
 
@@ -395,7 +409,7 @@
             <input type="text" ng-model="EditData.genre" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
     </div>
 </script>
 
@@ -407,57 +421,57 @@
             <input type="text" ng-model="EditData.displayRating" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
     </div>
 </script>
 
 <script type="text/ng-template" id="movie-story.html">
-    <div>    
+    <div>
         <div class="form-group">
             <input type="text" ng-model="EditData.story" class="form-control">
-            
+
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
- </div>       
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
+    </div>
 </script>
 
 <script type="text/ng-template" id="movie-trailer.html">
-    <div>    
+    <div>
         <div class="form-group">
             <input type="text" ng-model="EditData.videoResults" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
- </div>       
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
+    </div>
 </script>
 
 <script type="text/ng-template" id="movie-banner.html">
-    <div>    
+    <div>
         <div class="form-group">
             <input type="text" ng-model="EditData.bannerUrl" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
- </div>       
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
+    </div>
 </script>
 
 <script type="text/ng-template" id="movie-thumbnail.html">
-    <div>    
-        <div class="form-group" >
+    <div>
+        <div class="form-group">
             <input type="text" ng-model="EditData.thumbnailUrl" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
- </div>       
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
+    </div>
 </script>
 
 <script type="text/ng-template" id="movie-cast.html">
-    <div>    
-        <div class="form-group" >
+    <div>
+        <div class="form-group">
             <input type="text" ng-model="EditData.thumbnailUrl" class="form-control">
         </div>
         <button type="button" class="btn btn-info" popover-close>Save</button>
-        <button type="button" class="btn btn-default" popover-close>Cancel</button> 
- </div>       
+        <button type="button" class="btn btn-default" popover-close>Cancel</button>
+    </div>
 </script>

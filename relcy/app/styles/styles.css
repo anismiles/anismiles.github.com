@@ -1093,11 +1093,12 @@ a.editable{
     position:absolute; z-index: 1; right: 5px; top: 5px;
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
-a.edit-picture{
-    background: #333;
-    position:absolute; z-index: 1; left: 5px; top: 5px;
-    padding:0 5px 2px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+.edit-picture{
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+    margin: 5px;
+    padding: 0 5px 3px;
 }
 .show-edits .topSection .details h2 span,
 .show-edits .topSection .details p span{
@@ -1106,7 +1107,7 @@ a.edit-picture{
 .show-edits .topSection .details a.fa-pencil{
     border-left: 2px solid #fff;
 }
-.show-edits .topSection .details h2 .btn {
+.show-edits .topSection .details h2 .btn-edit {
     background-color: #efefef;
     border: 0 solid #fff;
     border-radius: 0;
@@ -1117,7 +1118,7 @@ a.edit-picture{
     padding: 5px;
     position: relative;
 }
-.show-edits .topSection .details p .btn {
+.show-edits .topSection .details p .btn-edit {
     background-color: #efefef;
     border: 0 solid #fff;
     border-radius: 0;
@@ -1129,8 +1130,8 @@ a.edit-picture{
     position: relative;
 }
 .show-edits .topSection .details .btn:hover,
-.show-edits .topSection .details h2:hover .btn,
-.show-edits .topSection .details p:hover .btn{
+.show-edits .topSection .details h2:hover .btn-edit,
+.show-edits .topSection .details p:hover .btn-edit{
     background-color: #5bc0de;
     color:#fff
 }

@@ -29,7 +29,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.placeDistance = '';
     $rootScope.showTopAnchor = false;
     $scope.showEdit = false;
-    $scope.toggle = false
+    $scope.toggle = false;
+
     /* DT: templateType is used to identify which edit template will load */
     
     // 1 for title
@@ -62,7 +63,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         }
         // template start //
         $scope.EditData = {
-            templateUrl: "movie-title.html",
             title: $scope.itemDetails.title,
             parentalRating:$scope.itemDetails.parentalRating,
             releaseYear: parseInt($scope.itemDetails.releaseYear),
@@ -86,7 +86,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             thumbnailUrl = $scope.thumbnailImgUrl;
         }
         $scope.EditData = {
-            templateUrl: "movie-title.html",
             title: $scope.itemDetails.title,
             parentalRating:$scope.itemDetails.parentalRating,
             releaseYear: parseInt($scope.itemDetails.releaseYear),
