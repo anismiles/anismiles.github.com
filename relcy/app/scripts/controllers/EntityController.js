@@ -51,7 +51,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         mapData: {markers: {}}
     });
 
-    
+
 
     $scope.showHideEdit = function () {
         $scope.showEdit = !$scope.showEdit;

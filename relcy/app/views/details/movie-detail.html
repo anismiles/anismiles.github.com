@@ -16,21 +16,19 @@
                     <a href="javascript:void(0)" ng-click="showHideEdit()" class="fa fa-edit editable"></a>
 
                     <div class="coverImage" style="background-image:url('{{bannerUrl}}');">
-                        <button href="javascript:void(0)" ng-if="showEdit" class="edit-picture"
+                        <button ng-if="showEdit" class="edit-picture"
                            popover-elem
                            popover-placement="right" popover-template="'movie-banner.html'"
                            popover-title="Edit Hero Image"><i
                                 class="fa fa-picture-o"></i> Edit Hero Image</button>
-
                     </div>
                     <div class="profileImage"
                          style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl || thumbnailImgUrl}}');">
-                        <button href="javascript:void(0)" ng-if="showEdit" class="edit-picture"
-                           popover-placement="right" popover-template="'movie-thumbnail.html'"
-                           popover-elem
-                           popover-title="Edit Profile Image"><i
+                        <button ng-if="showEdit" class="edit-picture"
+                                popover-elem
+                                popover-placement="right" popover-template="'movie-thumbnail.html'"
+                                popover-title="Edit Profile Image"><i
                                 class="fa fa-picture-o"></i> Edit Profile Image</button>
-
                     </div>
                     <div class="details clearfix">
                         <!-- ng-hide="itemDetails.hideRSLinks" -->
@@ -42,7 +40,7 @@
                                          width="24" height="24"/> Story </a>
                                     </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
-                                        type="button" popover-elem role="button"
+                                        type="button" popover-trigger="focus"  popover-elem role="button"
                                         popover-placement="right" popover-template="'movie-story.html'"
                                         popover-title="Story">
                                     <i class="glyphicon glyphicon-pencil"></i>
@@ -53,7 +51,7 @@
                                      height="24"/> Cast </a>
                                 </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
-                                        type="button" popover-elem
+                                        type="button" popover-trigger="focus"  popover-elem
                                         popover-placement="right" popover-template="'movie-cast.html'"
                                         popover-title="Cast">
                                     <i class="glyphicon glyphicon-pencil"></i>
@@ -65,7 +63,7 @@
                                      height="24"/> Trailer </a>
                             </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
-                                        type="button" popover-elem
+                                        type="button" popover-trigger="focus"  popover-elem
                                         popover-placement="right" popover-template="'movie-trailer.html'"
                                         popover-title="Trailer">
                                     <i class="glyphicon glyphicon-pencil"></i>
@@ -76,7 +74,7 @@
                             <h2>
                                 <span>{{itemDetails.title}}</span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
-                                        type="button" popover-elem
+                                        type="button" popover-trigger="focus"  popover-elem
                                         popover-placement="right" popover-template="'movie-title.html'"
                                         popover-title="Movie Title">
                                     <i class="glyphicon glyphicon-pencil"></i>
@@ -96,8 +94,8 @@
 
                                 <span ng-if="itemDetails.duration">{{::itemDetails.duration}}</span>
                                 <span ng-if="!itemDetails.duration">-</span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
-                                        type="button" popover-elem
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 1px;" aria-hidden="true"
+                                        type="button" popover-trigger="focus"  popover-elem
                                         popover-placement="right" popover-template="'movie-detail.html'"
                                         popover-title="Movie Details">
                                     <i class="glyphicon glyphicon-pencil"></i>
@@ -108,7 +106,7 @@
                             <p class="genre" ng-if="itemDetails.genre" style="margin: 5px 0 0 0;">
                                 <span>{{::itemDetails.genre}}</span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
-                                        type="button" popover-elem
+                                        type="button" popover-trigger="focus"  popover-elem
                                         popover-placement="right" popover-template="'movie-genre.html'"
                                         popover-title="Genre">
                                     <i class="glyphicon glyphicon-pencil"></i>
@@ -137,8 +135,8 @@
                                     </span>
 
                                 <button ng-if="showEdit && itemDetails.displayRating"
-                                        class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px -5px;"
-                                        popover-elem
+                                        class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px -7px;"
+                                        popover-trigger="focus"  popover-elem
                                         popover-placement="right" popover-template="'movie-rating.html'"
                                         popover-title="Rating">
                                     <i class="glyphicon glyphicon-pencil"></i>
