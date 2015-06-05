@@ -11,10 +11,11 @@ angular.module('relcyApp')
         '$filter',
         'anchorSmoothScroll',
         'Lightbox',
+        'EntityService',
         EntityController]);
 
 
-function EntityController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox)
+function EntityController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox,EntityService)
 {
     console.log('stateParams: ' + $stateParams.entity);
     console.log('stateParams: ' + $stateParams.cipher);
@@ -99,7 +100,20 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         };
     }
     //end
-
+    $scope.hidePopover = function (type, index) { 
+        var popover = document.getElementsByClassName('popover'); 
+        $(popover).remove()                    
+    }
+    //
+    $scope.editTitle = function () {
+        var newValue = {"newValue":  $scope.EditData.title }
+        EntityService.titleOverride({movieName: $scope.itemDetails.title},newValue, function(response){   
+                console.log("**********************************  " + response)
+            }, function(error){
+            // error
+        });
+    }
+    //
     $scope.showResult = function (type, index) {
         $scope.selectedTypeIndex = type;
         $scope.resultByType = $scope.types[index];

@@ -42,7 +42,16 @@ angular.module('relcyApp')
 }).directive('popoverElem', function(){
   return{
     link: function(scope, element, attrs) {
+      //var trigger = document.getElementsByClassName('trigger');
       element.on('click', function(){
+        var t = angular.element(".trigger")
+        for(var k=0;k < t.length; k++)
+        {
+          var c = t[k]
+          c.click()  
+          angular.element(c).removeClass("trigger")
+        }
+
         element.addClass('trigger');
       });
     }

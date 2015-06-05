@@ -4,6 +4,8 @@ angular.module('relcyApp',
   'ui.bootstrap',
   'bootstrapLightbox',
   'angucomplete-alt',
+  'ngResource',
+  'ngAnimate',  
   'leaflet-directive']);
 
 angular.module('relcyApp')
@@ -45,4 +47,3 @@ angular.module('relcyApp')
 //.run(function(editableOptions) {
 //	editableOptions.theme = 'bs3';
 //});
-
