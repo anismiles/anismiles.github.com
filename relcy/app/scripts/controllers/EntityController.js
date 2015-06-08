@@ -71,47 +71,102 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             genre:$scope.itemDetails.genre,
             displayRating:$scope.itemDetails.displayRating,
             story:$scope.itemDetails.story.value,
-            videoResults:$scope.itemDetails.videoResults,
+            videoResults:$scope.itemDetails.videoResults[0].contentUrl,
             bannerUrl:$scope.bannerUrl,
             thumbnailUrl:thumbnailUrl
         };
         // template end //
-    };
-
-    $scope.saveEditData = function ()
-    {
-        var thumbnailUrl;
-        try{
-            thumbnailUrl = $scope.itemDetails.imageResults[0].thumbnailUrl;
-        }catch(er){
-            thumbnailUrl = $scope.thumbnailImgUrl;
-        }
-        $scope.EditData = {
-            title: $scope.itemDetails.title,
-            parentalRating:$scope.itemDetails.parentalRating,
-            releaseYear: parseInt($scope.itemDetails.releaseYear),
-            duration:parseInt($scope.itemDetails.duration),
-            genre:$scope.itemDetails.genre,
-            displayRating:$scope.itemDetails.displayRating,
-            story:$scope.itemDetails.story.value,
-            videoResults:$scope.itemDetails.videoResults,
-            bannerUrl:$scope.bannerUrl,
-            thumbnailUrl: thumbnailUrl,
-        };
-    }
+    }; 
+     
     //end
-    $scope.hidePopover = function (type, index) { 
+    $scope.hidePopover = function () { 
         var popover = document.getElementsByClassName('popover'); 
         $(popover).remove()                    
     }
     //
     $scope.editTitle = function () {
         var newValue = {"newValue":  $scope.EditData.title }
-        EntityService.titleOverride({movieName: $scope.itemDetails.title},newValue, function(response){   
-                console.log("**********************************  " + response)
+        EntityService.titleOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)            
             }, function(error){
             // error
         });
+         $scope.hidePopover()
+    }
+    //
+    $scope.ratingYearLengthCount = 0
+    $scope.editRatingYearLength = function () {
+        $scope.ratingYearLengthCount = 0
+        var newValue = {"newValue":  $scope.EditData.parentalRating }
+        EntityService.ratingOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)     
+                $scope.ratingYearLengthCount++;    
+                console.log(">-->> " + $scope.ratingYearLengthCount)
+            }, function(error){
+            // error
+        });
+        var newValue = {"newValue":  $scope.EditData.releaseYear }
+        EntityService.yearOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)             
+                $scope.ratingYearLengthCount++
+                console.log(">-->> " + $scope.ratingYearLengthCount)
+            }, function(error){
+            // error
+        });
+        var newValue = {"newValue":  $scope.EditData.duration }
+        EntityService.lengthOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)      
+                $scope.ratingYearLengthCount++    
+                console.log(">-->> " + $scope.ratingYearLengthCount)   
+            }, function(error){
+            // error
+        });
+        $scope.hidePopover()
+    } 
+    $scope.editGenres = function () {
+        var newValue = {"newValue":  $scope.EditData.genre }
+        EntityService.genresOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)             
+            }, function(error){
+            // error
+        });
+        $scope.hidePopover()
+    }
+    $scope.editStory = function () {
+        var newValue = {"newValue":  $scope.EditData.story }
+        EntityService.storyOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)             
+            }, function(error){
+            // error
+        });
+        $scope.hidePopover()
+    }
+    $scope.editTrailer = function () {
+        var newValue = {"newValue":  $scope.EditData.videoResults }
+        EntityService.trailerOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)             
+            }, function(error){
+            // error
+        });
+        $scope.hidePopover()
+    }
+    $scope.editBanner = function () {
+        var newValue = {"newValue":  $scope.EditData.bannerUrl }
+        EntityService.bgImageOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)             
+            }, function(error){
+            // error
+        });
+        $scope.hidePopover()
+    }
+    $scope.editThumbnail  = function () {
+        var newValue = {"newValue":  $scope.EditData.thumbnailUrl }
+        EntityService.heroImageOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){   
+                //console.log("**********************************  " + response)             
+            }, function(error){
+            // error
+        });
+        $scope.hidePopover()
     }
     //
     $scope.showResult = function (type, index) {

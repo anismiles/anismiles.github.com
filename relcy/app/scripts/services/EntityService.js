@@ -17,42 +17,42 @@ function EntityService($timeout, $q, $http,$resource) {
             }, 
             heroImageOverride: {
                 method: 'PUT',
-                url: 'http://nedit-w.relcy.com/movies/movies/:movieName/hero-image',
+                url: 'http://nedit-w.relcy.com/movies/:movieName/hero-image',
                 responseType: 'json'
             },
             titleOverride: {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/movies/:movieName/title',
-                responseType: 'json'
+                responseType: 'json',
             },
             ratingOverride: {
                 method: 'PUT',
-                url: 'http://nedit-w.relcy.com/movies/movies/:movieName/rating',
+                url: 'http://nedit-w.relcy.com/movies/:movieName/rating',
                 responseType: 'json'
             },
             yearOverride: {
                 method: 'PUT',
-                url: 'http://nedit-w.relcy.com/movies/movies/:movieName/year',
+                url: 'http://nedit-w.relcy.com/movies/:movieName/year',
                 responseType: 'json'
             },
             lengthOverride: {
                 method: 'PUT',
-                url: 'http://nedit-w.relcy.com/movies/movies/:movieName/length',
+                url: 'http://nedit-w.relcy.com/movies/:movieName/length',
                 responseType: 'json'
             },
             genresOverride: {
                 method: 'PUT',
-                url: 'http://nedit-w.relcy.com/movies/movies/:movieName/genres',
+                url: 'http://nedit-w.relcy.com/movies/:movieName/genre',
                 responseType: 'json'
             },  
             storyOverride: {
                 method: 'PUT',
-                url: 'http://nedit-w.relcy.com/movies/movies/:movieName/story',
+                url: 'http://nedit-w.relcy.com/movies/:movieName/story',
                 responseType: 'json'
             },  
             castOverride: {
                 method: 'PUT',
-                url: 'http://nedit-w.relcy.com/movies/movies/:movieName/cast',
+                url: 'http://nedit-w.relcy.com/movies/:movieName/cast',
                 responseType: 'json'
             },  
             trailerOverride: {

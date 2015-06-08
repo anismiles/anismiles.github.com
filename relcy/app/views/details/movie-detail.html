@@ -383,87 +383,101 @@
 
 <script type="text/ng-template" id="movie-title.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.title" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info" ng-click="editTitle()" >Save</button>
-        <button type="button" class="btn btn-default" ng-click="hidePopover()"  >Cancel</button>
+        <form novalidate name="titleform">
+            <div class="form-group">
+                <input type="text" ng-model="EditData.title" required class="form-control" name="titleform.title" >
+            </div>
+            <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="editTitle()" >Save</button>
+            <button type="button" class="btn btn-default" ng-click="hidePopover()"  >Cancel</button>
+        </form>
     </div>
 </script>
 
 <script type="text/ng-template" id="movie-detail.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.parentalRating" class="form-control">
-            <input type="text" ng-model="EditData.releaseYear" class="form-control">
-            <input type="text" ng-model="EditData.duration" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info" ng-click="editRating()" >Save</button>
-        <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+        <form novalidate name="detailsform">
+            <div class="form-group">
+                <input type="text" ng-model="EditData.parentalRating"  required class="form-control" name="detailsform.parentalRating">
+                <input type="text" ng-model="EditData.releaseYear" numbers-only required class="form-control" name="detailsform.releaseYear">
+                <input type="text" ng-model="EditData.duration" numbers-only required class="form-control" name="detailsform.duration">
+            </div>
+            <button type="submit" ng-disabled="detailsform.$invalid"  class="btn btn-info" ng-click="editRatingYearLength()" >Save</button>
+            <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+         </form>
     </div>
 </script>
 
 <script type="text/ng-template" id="movie-genre.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.genre" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info"  >Save</button>
-        <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+        <form novalidate name="genreform">
+            <div class="form-group">
+                <input type="text" ng-model="EditData.genre"  required class="form-control" name="genreform.genre">
+            </div>
+            <button type="submit"  ng-disabled="genreform.$invalid"  class="btn btn-info" ng-click="editGenres()" >Save</button>
+            <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+        </form>
     </div>
 </script>
 
 <script type="text/ng-template" id="movie-rating.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.displayRating" class="form-control">
-            <input type="text" ng-model="EditData.displayRating" class="form-control">
-            <input type="text" ng-model="EditData.displayRating" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info"  >Save</button>
-        <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+        <form novalidate name="ratingform">
+            <div class="form-group" ng-repeat="rating in EditData.displayRating">
+                {{rating.source}}
+                <input type="text" numbers-only  ng-model="EditData.displayRating[$index].rating" required class="form-control" name="ratingform.{{rating.source}}">/{{rating.max_rating}}
+            </div>
+            <button type="submit" ng-disabled="ratingform.$invalid"  class="btn btn-info"   >Save</button>
+            <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+        </form>
     </div>
 </script>
 
 <script type="text/ng-template" id="movie-story.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.story" class="form-control">
-
-        </div>
-        <button type="button" class="btn btn-info"  >Save</button>
-        <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+        <form novalidate name="storyform">
+            <div class="form-group">  
+                <textarea required rows="4" cols="28" ng-model="EditData.story"   required class="form-control" name="storyform.story"></textarea> 
+            </div>
+            <button type="submit"  ng-disabled="storyform.$invalid"   class="btn btn-info" ng-click="editStory()" >Save</button>
+            <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+        </form>
     </div>
 </script>
 
 <script type="text/ng-template" id="movie-trailer.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.videoResults" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info"  >Save</button>
-        <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
-    </div>
+        <form novalidate name="trailerform">
+            <div class="form-group">
+                <input type="text" ng-model="EditData.videoResults" required class="form-control" name="trailerform.videoResults">
+            </div>
+            <button type="submit"  ng-disabled="trailerform.$invalid"  class="btn btn-info" ng-click="editTrailer()"  >Save</button>
+            <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+            </div>
+        </form>
 </script>
 
 <script type="text/ng-template" id="movie-banner.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.bannerUrl" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info"  >Save</button>
-        <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
-    </div>
+        <form novalidate name="bannerform">
+            <div class="form-group">
+                <input type="text" ng-model="EditData.bannerUrl" required class="form-control" name="bannerform.videoResults">
+            </div>
+            <button type="submit"  ng-disabled="bannerform.$invalid"   class="btn btn-info" ng-click="editBanner()" >Save</button>
+            <button type="button" class="btn btn-default"  ng-click="hidePopover()" >Cancel</button>
+            </div>
+        </form>   
 </script>
 
 <script type="text/ng-template" id="movie-thumbnail.html">
     <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.thumbnailUrl" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info"  >Save</button>
-        <button type="button" class="btn btn-default" ng-click="hidePopover()"  >Cancel</button>
-    </div>
+        <form novalidate name="thumbnailform">
+            <div class="form-group">
+                <input type="text" ng-model="EditData.thumbnailUrl" required class="form-control" name="thumbnailform.videoResults">
+            </div>
+            <button type="submit"  ng-disabled="thumbnailform.$invalid"   class="btn btn-info" ng-click="editThumbnail()" >Save</button>
+            <button type="button" class="btn btn-default" ng-click="hidePopover()"  >Cancel</button>
+            </div>
+        </form>  
 </script>
 
 <script type="text/ng-template" id="movie-cast.html">
