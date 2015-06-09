@@ -38,8 +38,7 @@
                             <p>
                                 <span><a href="javascript:void();"
                                          ng-click="openCastLightbox(itemDetails.story,'STORY')">
-                                    <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Story.png"
-                                         width="24" height="24"/> Story </a>
+                                    <img ng-src="{{ 'img-no-min/icons/Story.png' || 'img-no-min/placeholder.png' }}" width="24" height="24"/> Story </a>
                                     </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button"   popover-elem role="button"
@@ -49,7 +48,7 @@
                                 </button>
                             </p>
                             <p><span><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.cast,'CAST')">
-                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Cast.png" width="24"
+                                <img ng-src="{{ 'img-no-min/icons/Cast.png' || 'img-no-min/placeholder.png' }}" width="24"
                                      height="24"/> Cast </a>
                                 </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
@@ -61,7 +60,7 @@
                             </p>
                             <p><span><a href="javascript:void();"
                                         ng-click="openCastLightbox(itemDetails.videoResults,'VIDEO')">
-                                <img err-src="img-no-min/placeholder.png" src="img-no-min/icons/Trailer.png" width="24"
+                                <img ng-src="{{ 'img-no-min/icons/Trailer.png' || 'img-no-min/placeholder.png' }}" width="24"
                                      height="24"/> Trailer </a>
                             </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
@@ -119,19 +118,18 @@
                             <p class="genre pull-left" style="margin: 5px 0 0 0;">
                                 <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">
                                 <span ng-if="r.rating_style=='PERCENTAGE'" style="margin: 0 5px 0 0;">
-                                <img err-src="img-no-min/placeholder.png"
-                                     src="img-no-min/icons/{{r.source | lowercase}}.png" width="24" height="24"
+                                <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                      width="24" height="24"
                                      style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}%
                                 </span>
                                 <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'" style="margin: 0 5px 0 0;">
-                                <img err-src="img-no-min/placeholder.png"
-                                     src="img-no-min/icons/{{::r.source | lowercase}}.png" width="24" height="24"
+                                <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                      width="24" height="24"
                                      style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/10
                                 </span>
                                 <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"
                                       style="margin: 0 5px 0 0;">
-                                <img err-src="img-no-min/placeholder.png"
-                                     src="img-no-min/icons/{{::r.source | lowercase}}.png" width="24" height="24"
+                                <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}" width="24"         height="24"
                                      style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/100
                                 </span>
                                     </span>
@@ -180,9 +178,7 @@
                         <table class="table table-hover">
                             <tbody>
                             <tr ng-click="gotoLink(w.link_id)" ng-repeat="w in itemDetails.watches" class="pointer">
-                                <td class="td-title"><img err-src="img-no-min/placeholder.png"
-                                                          ng-src="img-no-min/icons/{{::w.app_result.app.app_id | lowercase}}.png"
-                                                          title=""><span> {{::w.app_result.result_data.title}}</span>
+                                <td class="td-title"><img ng-src="{{ 'img-no-min/icons/' + (w.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"  title=""><span> {{::w.app_result.result_data.title}}</span>
                                 </td>
                                 <td class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</td>
                                 <td class="td-lineheight" width="30"><span
@@ -203,9 +199,7 @@
                             <tbody>
                             <tr ng-click="gotoLink(pr.link_id)" ng-repeat="pr in itemDetails.profiles"
                                 class="pointer">
-                                <td class="td-title"><img err-src="img-no-min/placeholder.png"
-                                                          ng-src="img-no-min/icons/{{::pr.app_result.app.app_id | lowercase}}.png"
-                                                          title=""><span> {{::pr.app_result.result_data.title}}</span>
+                                <td class="td-title"><img ng-src="{{ 'img-no-min/icons/' + (pr.app_result.app.app_id  | lowercase) +'.png' || 'img-no-min/placeholder.png' }}" title=""><span> {{::pr.app_result.result_data.title}}</span>
                                 </td>
                                 <td class="td-detail td-lineheight">{{::pr.app_result.result_data.sub_title}}</td>
                                 <td class="td-lineheight" width="30"><span
@@ -225,9 +219,7 @@
                         <table class="table table-hover">
                             <tbody>
                             <tr ng-click="gotoLink(pl.link_id)" ng-repeat="pl in itemDetails.plays" class="pointer">
-                                <td class="td-title"><img err-src="img-no-min/placeholder.png"
-                                                          ng-src="img-no-min/icons/{{::pl.app_result.app.app_id | lowercase}}.png"
-                                                          title=""><span> {{::pl.app_result.result_data.title}}</span>
+                                <td class="td-title"><img ng-src="{{ 'img-no-min/icons/' + (pl.app_result.app.app_id   | lowercase) +'.png' || 'img-no-min/placeholder.png' }}" title=""><span> {{::pl.app_result.result_data.title}}</span>
                                 </td>
                                 <td class="td-detail td-lineheight">{{::pl.app_result.result_data.sub_title}}</td>
                                 <td class="td-lineheight" width="30"><span
@@ -248,9 +240,7 @@
                             <tbody>
                             <tr ng-click="gotoLink(inf.link_id)" ng-repeat="inf in itemDetails.infos"
                                 class="pointer">
-                                <td class="td-title"><img err-src="img-no-min/placeholder.png"
-                                                          ng-src="img-no-min/icons/{{::inf.app_result.app.app_id | lowercase}}.png"
-                                                          title=""><span> {{::inf.app_result.result_data.title}}</span>
+                                <td class="td-title"><img ng-src="{{ 'img-no-min/icons/' + (inf.app_result.app.app_id   | lowercase) +'.png' || 'img-no-min/placeholder.png' }}" title=""><span> {{::inf.app_result.result_data.title}}</span>
                                 </td>
                                 <td class="td-detail td-lineheight">{{::inf.app_result.result_data.sub_title}}</td>
                                 <td class="td-lineheight" width="30"><span
@@ -270,9 +260,7 @@
                         <table class="table table-hover">
                             <tbody>
                             <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviews" class="pointer">
-                                <td class="td-title"><img err-src="img-no-min/placeholder.png"
-                                                          ng-src="img-no-min/icons/{{::r.app_result.app.app_id | lowercase}}.png"
-                                                          title=""><span> {{::r.app_result.result_data.title}}</span>
+                                <td class="td-title"><img ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id  | lowercase) +'.png' || 'img-no-min/placeholder.png' }}" title=""><span> {{::r.app_result.result_data.title}}</span>
                                 </td>
                                 <td class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</td>
                                 <td class="td-lineheight" width="30"><span
@@ -295,7 +283,7 @@
                             <div class="row">
                                 <div ng-repeat="images in itemDetails.imageResults | limitTo: itemDetails.imageResults.maxIndex">
                                     <div class="col-xs-6 col-md-3 detail-img-box">
-                                        <a class="thumbnail image-thumb" href="#"
+                                        <a class="thumbnail image-thumb" href="javascript:void();"
                                            ng-click="openCastLightbox(itemDetails.imageResults,'IMAGES',$index)"
                                            style="background-image:url({{images.thumbnailUrl}});"></a>
                                     </div>
@@ -324,7 +312,7 @@
                                 <div class="media">
                                     <div class="media-left" style="position:relative;"><a href="{{::video.contentUrl}}"
                                                                                           target="_blank"> <img
-                                            class="media-object image-thumb-video" src="{{video.thumbnailUrl}}"> <img
+                                            class="media-object image-thumb-video" ng-src="{{video.thumbnailUrl}}"> <img
                                             src="images/play-3-24.png" alt="" class="play-icon-thumb-vdo"/> </a></div>
                                     <div class="media-body">
                                         <h4 class="media-heading" id="top-aligned-media"><a

@@ -89,6 +89,7 @@ angular.module('relcyApp')
 
                         try {
                             transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
+                            // lowercaseRating(transformedData.displayRating);
                         } catch (err) {
                             console.log('rating not found/unknown');
                         }
@@ -152,6 +153,7 @@ angular.module('relcyApp')
 
                             transformedData.moviesResult = response.results[0].content_type_enum;
                             transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
+                            // lowercaseRating(transformedData.displayRating);
                             transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
 
                             // check for other properties in the below code, only for movies
@@ -670,6 +672,12 @@ angular.module('relcyApp')
             }catch(err){
                 return false;
             }
+        }
+
+        function lowercaseRating(displayRating){
+            angular.forEach(displayRating, function(i){
+                i.source = i.source.toLowerCase();
+            });
         }
 
         this.handleError = function (response) {
