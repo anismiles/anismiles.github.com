@@ -12,7 +12,7 @@ function RelcyService($timeout, $q, $http,$resource) {
             {
             savePhoneNumber: {
                 method: 'GET',
-                url: 'https://api-w.relcy.com/app?platform=:platform&phone_number=:phone_number&client_id=:client_id',
+                url: 'https://staging-w.relcy.com/app?platform=:platform&phone_number=:phone_number&client_id=:client_id',
                 responseType: 'json'
             }      
         }

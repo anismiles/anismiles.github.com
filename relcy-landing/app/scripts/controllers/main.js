@@ -17,7 +17,7 @@ angular.module('siteApp')
 			usSpinnerService.spin('invite');
 			$scope.platform = ( $('#ios').parent().hasClass('active') ? 'ios':'android')
 			
-			RelcyService.savePhoneNumber({client_id: "131a22184a",platform:$scope.platform,phone_number:$scope.phoneNumber},function(){
+			RelcyService.savePhoneNumber({client_id: "5f4903021e",platform:$scope.platform,phone_number:$scope.phoneNumber},function(){
 				//
 				$scope.phoneNumber = "";
 				$scope.message = "Link sent to your phone!"
