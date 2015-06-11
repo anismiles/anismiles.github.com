@@ -1,12 +1,7 @@
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
 
 body {
   padding: 0;
+  background-color:#ccc;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -59,11 +54,81 @@ body {
   margin-top: 28px;
 }
 
+.no-padding{
+	padding:0 !important;}
+.mainwrap{
+	background-color:#f4f4f4;}
+
+.logo{  padding: 30px 50px;}
+
+.logo img{  width: 190px;}
+
+.border-btm{border-bottom: solid 1px #ccc;}
+
+.contentmainwrap{  background-color: #f4f4f4;
+    padding: 10px 10px 0px;}
+
+
+.contenttable{
+	background-color:#fff;
+	padding:0 10px;}
+.contenttable h4{   background: #6b6b6b;
+  color: #fff;
+  padding: 15px;
+  font-size: 20px;
+  margin: 0;}
+
+.contenttable table th{  background-color: #e8e8e8;
+  color: #7e7e7e;
+  font-size: 12px;
+  padding: 20px 15px 15px !important;
+  line-height: normal!important;
+  border-right: solid 2px #f4f4f4;
+  border-bottom: solid 1px #f4f4f4!important;}
+
+.contenttable table td{
+  color: #7e7e7e;
+  font-size: 14px;
+  padding: 15px 15px 10px !important;
+  line-height: normal!important;
+  border-right: solid 2px #f4f4f4;
+  border-bottom: solid 1px #f4f4f4!important;}
+  
+
+  
+  .contenttable table td a{
+	  color:#229aec;
+	  text-decoration:underline;}
+
+.contenttable .cust-button{background:#e8e8e8; text-align:center;  padding-top: 10px !important;}
+.contenttable .cust-button button{  background-color: #61d253;
+  border: none;
+    padding: 7px 10px;
+  font-size: 11px;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 4px;
+    margin-right: 10px;}
+
+.contenttable .cust-button button:last-child{ background-color:#d2536b !important;  margin-right: 0 !important ;}
+
+.tableheight{
+  height: 240px;
+  overflow-x: hidden;
+  overflow-y: auto;}
+  
+ .table{
+	 margin-bottom:0;}
+	 
+.showall{  padding: 15px 15px 30px;
+  text-align: center;
+  color: #bbbbbb;}
+  
+ .showall span{
+	 cursor:pointer;}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
 
   /* Remove the padding we set earlier */
   .header,
