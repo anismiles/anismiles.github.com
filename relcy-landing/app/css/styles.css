@@ -9,7 +9,7 @@
 body {font-family:"WeblySleek UI Light";}
 body {background:url(../images/relcy-background.jpg) 0 0 no-repeat; background-size:cover;}
 .container {width:1275px;}
-.logo img {margin-left:-20px;  margin-top: 20px;}
+.logo img {margin-left:20px;  margin-top: 20px;}
 .devices { text-align:center;}
 .devices h1 {font-size:79px; color:#09355f; margin:50px 0px 0px; font-weight:600;}
 .devices h2 {font-size:53px; color:#09355f; margin:0px;}
@@ -49,6 +49,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0b3f71', end
 
 .footer {text-align:right; margin:20px 0px; color:#09355f; font-weight:600;  padding-right: 30px;}
 
+.thank{  padding: 135px 0;}
+
+.thank h2{ font-size:79px;
+color:#072545;}
+
+.thank h5{  color: #04182b;
+  font-size: 30px;
+  padding: 0 100px;}
+
 @media only screen and (max-width: 768px) {
 	.col-sm-5 {width:75%;}
 	.col-sm-offset-3 {margin-left:10%;}
@@ -74,16 +83,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0b3f71', end
 	}
 	
 @media only screen and (min-width: 1600px) and (max-width: 1920px){
-	body {
-  background: url(../images/relcy-background.jpg) 0 0 no-repeat;
-  background-size: 100% 100% !important;
-}
-
 
 .bottom {
   padding-top: 147px;
 }
+
+.thank {
+  padding: 220px 0 380px;
+}
 	
 	}
+	
+	
+@media only screen and (min-width: 2000px) and (max-width: 2880px){
+
+
+
+body{
+	height:100%;
+	}
+	
+.container{
+	height:100%;
+	}
+	
+.bottom {
+  padding-top: 200px;
+}
+	
+	}
+	
+
+@media only screen and (min-width: 2890px) and (max-width: 4000px){
+
+
+html{
+	height:100%;
+}
+body{
+	height:100%;
+	}
+	
+.container{
+	height:89%;
+	}
+	
+.bottom {
+  padding-top: 200px;
+}
+	
+	}
+
 	
 	
