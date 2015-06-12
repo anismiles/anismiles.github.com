@@ -39,8 +39,8 @@
                     <td>{{data.smsent}}</td>
                     <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
-                    <button ng-click="approve(data,'pending')">OK</button>
-                    <button ng-click="reject(data,'pending')">X</button>
+                    <button class="approve" ng-click="approve(data,'pending')">OK</button>
+                    <button class="reject" ng-click="reject(data,'pending')">X</button>
                     </td>
                 </tr>                 
             </tbody>
@@ -83,7 +83,7 @@
                     <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
                     <!-- <button ng-click="approve(data,'approve')">OK</button> -->
-                    <button ng-click="reject(data,'approve')">Reject</button>
+                    <button class="reject" ng-click="reject(data,'approve')">Reject</button>
                     </td>
                 </tr>               
             </tbody>
@@ -125,7 +125,7 @@
                     <td>{{data.smsent}}</td>
                     <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
-                    <button ng-click="approve(data,'reject')">Approve</button>
+                    <button class="approve" ng-click="approve(data,'reject')">Approve</button>
                     <!-- <button ng-click="reject(data,'reject')">X</button> -->
                     </td>
                 </tr> 
