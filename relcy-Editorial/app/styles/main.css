@@ -59,7 +59,7 @@ body {
 .mainwrap{
 	background-color:#f4f4f4;}
 
-.logo{  padding: 30px 50px;}
+.logo{  padding: 30px 50px; background-image: url(../images/dots.png);}
 
 .logo img{  width: 190px;}
 
@@ -146,3 +146,4 @@ body {
     border-bottom: 0;
   }
 }
+

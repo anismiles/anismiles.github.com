@@ -1,0 +1,57 @@
+<div class="col-lg-12 mainwrap">
+	
+    <div class="row border-btm">
+    	<div class="col-lg-12 logo">
+        <a href="#/"><img src="images/logo.png" alt=""/> </a>
+        
+        </div>
+    
+    
+    </div>
+
+	<div class="row">
+    	<div class="col-lg-12 contentmainwrap"> 
+
+        <div class="col-lg-12 contenttable no-padding">
+        
+        	<h4>Approved Users</h4>
+            <div class="tableheight">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>FIRST NAME</th>
+                    <th>LAST NAME</th>
+                    <th>PHONE#</th>
+                    <th>EMAIL</th>
+                    <th>FACEBOOK VERIFIED</th>
+					<th>SMS SENT</th>
+                    <th>REQUEST DATE</th>
+                    <th class="cust-button"></th>
+                </tr>
+                </thead>
+            <tbody>  
+                <tr  class="text-center" ng-if="approvedRecords.length == 0">
+                    <td colspan="8">No Record found</td> 
+                </tr>
+                <tr ng-repeat="data in approvedRecords">
+                    <td>{{data.user.first_name}}</td>
+                    <td>{{data.user.last_name}}</td>
+                    <td>{{data.user.phone_number}}</td>
+                    <td>{{data.user.email_address}}</td>
+                    <td>NO</td>
+                    <td>{{data.smsent}}</td>
+                    <td>{{data.time  | date:'MM-dd-yyyy'}}</td>
+                    <td class="cust-button">
+                    <!-- <button ng-click="approve(data,'approve')">OK</button> -->
+                    <button ng-click="reject(data)">Reject</button>
+                    </td>
+                </tr>               
+            </tbody>
+            </table>
+        	</div> 
+        </div> 
+        </div>
+    </div>
+
+
+</div>

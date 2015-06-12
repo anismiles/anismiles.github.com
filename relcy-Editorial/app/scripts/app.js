@@ -22,11 +22,18 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
+      }).when('/pending', {
+        templateUrl: 'views/pendingRecords.html',
+        controller: 'PendingController'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .when('/approved', {
+        templateUrl: 'views/approvedRecords.html',
+        controller: 'ApprovedController'
       })
+      .when('/rejected', {
+        templateUrl: 'views/rejectedRecords.html',
+        controller: 'RejectedController'
+      })     
       .otherwise({
         redirectTo: '/'
       });

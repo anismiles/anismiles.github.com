@@ -2,11 +2,8 @@
 	
     <div class="row border-btm">
     	<div class="col-lg-12 logo">
-        <img src="../images/logo.png" alt=""/>
-        
-        </div>
-    
-    
+        <a href="#/"><img src="images/logo.png" alt=""/> </a>
+      </div> 
     </div>
 
 	<div class="row">
@@ -24,87 +21,34 @@
                     <th>PHONE#</th>
                     <th>EMAIL</th>
                     <th>FACEBOOK VERIFIED</th>
-					<th>SMS SENT</th>
+		                <th>SMS SENT</th>
                     <th>REQUEST DATE</th>
                     <th class="cust-button"></th>
-
                 </tr>
                 </thead>
-            <tbody>
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td><a href="#">Profile</a></td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
+            <tbody> 
+                <tr class="text-center" ng-if="pendingRecords.length == 0">
+                    <td colspan="8">No Record found</td> 
                 </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td><a href="#">Profile</a></td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
+                <tr ng-if="pendingRecords.length > 0" ng-repeat="data in pendingRecords">
+               	    <td>{{data.user.first_name}}</td>
+                    <td>{{data.user.last_name}}</td>
+                    <td>{{data.user.phone_number}}</td>
+                    <td>{{data.user.email_address}}</td>
+                    <td>No</td>
+                    <td>{{data.smsent}}</td>
+                    <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
+                    <button ng-click="approve(data,'pending')">OK</button>
+                    <button ng-click="reject(data,'pending')">X</button>
                     </td>
-                </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td><a href="#">Profile</a></td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td><a href="#">Profile</a></td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td><a href="#">Profile</a></td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
+                </tr>                 
             </tbody>
             </table>
         	</div>
          
             <div class=" col-lg-12 showall">
-            <span>SHOW ALL PENDING APPROVALS</span>
+            <a  href="#/pending" >SHOW ALL PENDING APPROVALS</a>
             </div>
         </div>
         
@@ -120,75 +64,34 @@
                     <th>PHONE#</th>
                     <th>EMAIL</th>
                     <th>FACEBOOK VERIFIED</th>
-					<th>SMS SENT</th>
+					           <th>SMS SENT</th>
                     <th>REQUEST DATE</th>
                     <th class="cust-button"></th>
-
                 </tr>
                 </thead>
             <tbody>
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
+                <tr  class="text-center" ng-if="approvedRecords.length == 0">
+                    <td colspan="8">No Record found</td> 
                 </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
+                <tr ng-if="approvedRecords.length > 0" ng-repeat="data in approvedRecords">
+                    <td>{{data.user.first_name}}</td>
+                    <td>{{data.user.last_name}}</td>
+                    <td>{{data.user.phone_number}}</td>
+                    <td>{{data.user.email_address}}</td>
+                    <td>NO</td>
+                    <td>{{data.smsent}}</td>
+                    <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
+                    <!-- <button ng-click="approve(data,'approve')">OK</button> -->
+                    <button ng-click="reject(data,'approve')">Reject</button>
                     </td>
-                </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
-               
+                </tr>               
             </tbody>
             </table>
         	</div>
          
             <div class=" col-lg-12 showall">
-            <span>SHOW ALL APPROVED USERS</span>
+            <a href="#/approved">SHOW ALL APPROVED USERS</a>
             </div>
         </div>
         
@@ -204,92 +107,35 @@
                     <th>PHONE#</th>
                     <th>EMAIL</th>
                     <th>FACEBOOK VERIFIED</th>
-					<th>SMS SENT</th>
+					           <th>SMS SENT</th>
                     <th>REQUEST DATE</th>
                     <th class="cust-button"></th>
-
                 </tr>
                 </thead>
             <tbody>
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
+                <tr  class="text-center" ng-if="rejectedRecords.length == 0">
+                    <td colspan="8">No Record found</td> 
                 </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
+                <tr ng-if="rejectedRecords.length > 0" ng-repeat="data in rejectedRecords">
+                    <td>{{data.user.first_name}}</td>
+                    <td>{{data.user.last_name}}</td>
+                    <td>{{data.user.phone_number}}</td>
+                    <td>{{data.user.email_address}}</td>
+                    <td><!-- <a href="#"> -->NO<!-- </a> --></td>
+                    <td>{{data.smsent}}</td>
+                    <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
+                    <button ng-click="approve(data,'reject')">Approve</button>
+                    <!-- <button ng-click="reject(data,'reject')">X</button> -->
                     </td>
-                </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
-                
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
-                <tr>
-               		<td>Irfan</td>
-                    <td>Ganchi</td>
-                    <td>408-643-5012</td>
-                    <td>irfan.abhi@gmail.com</td>
-                    <td>No</td>
-					<td>Yes</td>
-                    <td>06-08-2015</td>
-                    <td class="cust-button">
-                     <button>OK</button>
-                    <button>X</button>
-                    </td>
-                </tr>
+                </tr> 
             </tbody>
             </table>
-        	</div>
-         
+        	</div>         
             <div class=" col-lg-12 showall">
-            <span>SHOW ALL REJECTED USERS</span>
+            <a href="#/rejected"  >SHOW ALL REJECTED USERS</a>
             </div>
         </div>
-      
-        
-        
         
         </div>
     </div>
