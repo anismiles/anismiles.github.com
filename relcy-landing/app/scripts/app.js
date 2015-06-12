@@ -29,7 +29,7 @@ angular
 	  
 	  .when('/thankyou', {
         templateUrl: 'views/thankyou.html',
-        controller: 'MainCtrl'
+        controller: 'ThanksController'
       }) 
       .otherwise({
         redirectTo: '/'
