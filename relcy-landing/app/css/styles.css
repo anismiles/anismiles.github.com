@@ -1,22 +1,19 @@
 @charset "utf-8";
 /* CSS Document */
 
-
-
-
-
-
 body {font-family:"WeblySleek UI Light";}
-body {background:url(../images/relcy-background.jpg) 0 0 no-repeat; background-size:cover;}
-.container {width:1275px;}
-.logo img {margin-left:20px;  margin-top: 20px;}
+body {background:url(../images/relcy-background.jpg) 0 0 no-repeat; min-width:1440px; background-size:cover;}
+.container {width:2780px;}
+.logo {margin-top:50px;}
+.wrapper {width:2250px; margin:90px auto 0;}
+.white-bg {background:url(../images/white-box.png) 0 0 repeat-x; position:absolute; bottom:0; height:1800px; width:100%;}
 .devices { text-align:center;}
-.devices h1 {font-size:79px; color:#09355f; margin:50px 0px 0px; font-weight:600;}
-.devices h2 {font-size:53px; color:#09355f; margin:0px;}
+.devices h1 {font-size:138px; color:#09355f; margin:50px 0px 0px; font-weight:600;}
+.devices h2 {font-size:93px; color:#09355f; margin:0px;}
 .devices img {}
-.bottom {padding-top:90px;}
-.content h4 {font-size:30px; font-weight:600; margin-top:-10px;}
-.content p {font-size:20px; word-spacing:1px;}
+.bottom {padding-top:300px;}
+.content h4 {font-size:54px; font-weight:600; margin-top:-10px;}
+.content p {font-size:34px; word-spacing:1px;}
 .toggle {width:100%; margin-bottom:15px;}
 .toggle .btn-primary.active, .toggle .btn-primary.focus, 
 .toggle .btn-primary:active, .toggle .btn-primary:focus, 
@@ -47,7 +44,7 @@ background: linear-gradient(to bottom,  rgba(11,63,113,1) 0%,rgba(11,63,113,1) 5
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0b3f71', endColorstr='#09355f',GradientType=0 ); /* IE6-8 */
 }
 
-.footer {text-align:right; margin:20px 0px; color:#09355f; font-weight:600;  padding-right: 30px;}
+.footer {text-align:right; margin:20px 0px; color:#09355f; font-weight:600;  padding-right: 30px; position:absolute; right:50px; bottom:50px;}
 
 .thank{  padding: 135px 0;}
 
@@ -58,7 +55,7 @@ color:#072545;}
   font-size: 30px;
   padding: 0 100px;}
 
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
 	.col-sm-5 {width:75%;}
 	.col-sm-offset-3 {margin-left:10%;}
 	.col-xs-8 {width:95%;}
@@ -143,3 +140,4 @@ body{
 
 	
 	
+*/
