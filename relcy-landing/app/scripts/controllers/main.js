@@ -36,7 +36,7 @@ angular.module('siteApp')
 				{					 
 					$scope.message = "Not Authorized"
 				}
-				if(error.status == 401)
+				if(error.status == 500)
 				{					 
 					$scope.message = "Error! Please contact beta@relcy.com"
 				}
