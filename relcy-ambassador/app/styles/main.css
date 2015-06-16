@@ -1,0 +1,32 @@
+
+body {padding: 0; font-family:"lato"}
+
+.mainDiv {text-align: center; border-bottom: 1px solid #e5e5e5;}
+p {margin:5% 0 8%;}
+.mainDiv form .form-group {margin-bottom:25px;}
+.mainDiv form .form-group .form-control {height:45px; line-height:45px; text-align:center; font-size:18px; color:#9fa0a4;}
+.mainDiv form .form-group .btn { background-color:#007aff; border:none; color:#FFF; height:55px; line-height:45px; font-size:24px; font-family:"latobold"}
+.toggle {margin-bottom: 25px; width: 100%; }
+.toggle .btn {height:45px; line-height:35px; width:50%;}
+.toggle .btn-primary:hover, 
+.toggle .btn-primary:focus, 
+.toggle .btn-primary.focus, 
+.toggle .btn-primary:active, 
+.toggle .btn-primary.active, 
+.toggle .open > .dropdown-toggle.btn-primary {background-color:#ececec; border-color:#CCC; color:#666; font-size:18px;}
+.toggle .btn-primary {background-color:#fff; border-color:#CCC; color:#666; font-size:18px; color:#9fa0a4}
+.invited p:first-child {font-size:26px; color:#0091ff; font-family:"latobold"}
+.invited p {color:#424242; font-size:16px;}
+.rcbtn {margin:20% 0 5%;}
+.rcbtn .btn-info {background-color:#007aff; border:none; width:47%; font-size:22px}
+.rcbtn .btn-info:hover, .rcbtn .btn-info:focus {background-color:#076edf;}
+.rcbtn .btn-info:first-child {float:left;}
+.rcbtn .btn-info:last-child {float:right;}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container { max-width: 730px; } 
+  .mainDiv { border-bottom: 0;  }
+  
+  
+}

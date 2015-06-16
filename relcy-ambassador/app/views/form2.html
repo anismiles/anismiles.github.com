@@ -1,0 +1,29 @@
+<div class="mainDiv">
+  <p class="logo">
+    <img src="images/logo.png" alt="I'm Yeoman">
+  </p>
+<p>
+  	<form>
+  	<div class="form-group">
+  		<input type="text" class="form-control" placeholder="Name" name="name" ng-model="signup.name" ng-minlength=3 ng-maxlength=20 required />
+  	</div>
+    <div class="form-group">
+  		<input type="email" class="form-control" placeholder="Email" name="email" ng-model="signup.email" required />
+  	</div>
+    <div class="form-group">
+  		<input type="text" class="form-control" placeholder="Phone Number" name="phone" ng-model="signup.phone" required />
+  	</div>
+    <div class="btn-group toggle" data-toggle="buttons">
+      <label class="btn btn-primary active">
+        <input type="radio" ng-model="platform.name" value="ios" name="options" id="ios" autocomplete="off" checked> iPhone
+      </label>
+      <label class="btn btn-primary"> 
+        <input type="radio" ng-model="platform.name" value="android" name="options" id="android" autocomplete="off">Andriod
+      </label>
+    </div>
+    <div class="form-group">
+  		<button class="btn btn-info form-control" ui-sref="invited">Submit</button>
+  	</div>
+  </form>
+  </p>
+</div>
