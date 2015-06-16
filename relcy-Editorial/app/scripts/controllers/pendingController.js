@@ -62,7 +62,16 @@ angular.module('relcyEditorialApp')
 	 
 			if(response.hgetall.status == "PENDING")
 			{
-				$scope.pendingRecords.push(response.hgetall)
+				try{
+					var thirdParty = response.hgetall.user.user_data.third_party_data[0];
+					if(thirdParty.third_party_service=='FACEBOOK'){
+						response.hgetall.hasFBUrl = true;
+						response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+					}
+				}catch(err){
+					response.hgetall.hasFBUrl = false;
+				}
+				$scope.pendingRecords.push(response.hgetall);
 			}
 			 
 			index++;

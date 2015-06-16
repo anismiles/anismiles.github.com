@@ -38,7 +38,7 @@
                     <td>{{data.user.last_name}}</td>
                     <td>{{data.user.phone_number}}</td>
                     <td>{{data.user.email_address}}</td>
-                    <td>No</td>
+                    <td>{{data.hasFBUrl? data.fbURL : 'No'}}</td>
                     <td>{{data.smsent}}</td>
                     <td>{{data.time  | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">

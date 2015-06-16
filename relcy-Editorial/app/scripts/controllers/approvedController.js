@@ -46,7 +46,16 @@ angular.module('relcyEditorialApp')
 			response.hgetall.smsent = (response.hgetall.smsid ? "Yes":"No") 
 	 
 			if(response.hgetall.status == "APPROVED")
-			{
+			{	
+				try{
+					var thirdParty = response.hgetall.user.user_data.third_party_data[0];
+					if(thirdParty.third_party_service=='FACEBOOK'){
+						response.hgetall.hasFBUrl = true;
+						response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+					}
+				}catch(err){
+					response.hgetall.hasFBUrl = false;
+				}
 				$scope.approvedRecords.push(response.hgetall)
 			}
 			
