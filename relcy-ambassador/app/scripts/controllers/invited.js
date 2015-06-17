@@ -8,10 +8,20 @@
  * Controller of the relcyMobileInvitePageApp
  */
 angular.module('relcyMobileInvitePageApp')
-  .controller('InvitedCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('InvitedCtrl', function ($scope,$rootScope,$location) {
+  	if(!$rootScope.ambId || $rootScope.ambId == '')
+  	{
+  		$location.path('/');  
+  	}
+     $scope.name = $rootScope.name;
+     $scope.back =function()
+     {
+     	$location.path('invitation')
+     }
+     $scope.inviteAgain =function()
+     {
+     	$rootScope.backtoinvite = true
+     	$location.path('invitation')
+     }
+     
   });

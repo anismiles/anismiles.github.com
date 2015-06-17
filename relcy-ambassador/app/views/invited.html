@@ -4,15 +4,13 @@
   </p>
   <p>&nbsp;</p>
 <div class="invited">
-  	 <p>
-  		Sunil Chaurasia
-  	</p>
+  	 <p ng-bind="name"></p>
     <p>
   		Has been invited!!
   	</p>
     <div class="rcbtn clearfix">
-  		<button class="btn btn-info" ui-sref="invited">Back</button>
-        <button class="btn btn-info" ui-sref="invited">Invite Again</button>
+  		<button class="btn btn-info" ui-sref="invited" ng-click="back()">Back</button>
+        <button class="btn btn-info" ui-sref="invited" ng-click="inviteAgain()">Invite Again</button>
   	</div>
   </div>
 </div>

@@ -23,9 +23,9 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-	   .when('/form2', {
-        templateUrl: 'views/form2.html',
-        controller: 'MainCtrl'
+	   .when('/invitation', {
+        templateUrl: 'views/invitation.html',
+        controller: 'InvitationController'
       })
       .when('/invited', {
         templateUrl: 'views/invited.html',
