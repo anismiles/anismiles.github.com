@@ -16,8 +16,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>FIRST NAME</th>
-                    <th>LAST NAME</th>
+                    <th>NAME</th>
                     <th>PHONE#</th>
                     <th>EMAIL</th>
                     <th>FACEBOOK VERIFIED</th>
@@ -31,8 +30,7 @@
                     <td colspan="8">No Record found</td> 
                 </tr>
                 <tr ng-if="pendingRecords.length > 0" ng-repeat="data in pendingRecords">
-               	    <td>{{data.user.first_name}}</td>
-                    <td>{{data.user.last_name}}</td>
+               	    <td>{{data.user.first_name}} {{data.user.last_name}}</td>
                     <td>{{data.user.phone_number}}</td>
                     <td>{{data.user.email_address}}</td>
                     <td>{{data.hasFBUrl? data.fbURL : 'No'}}</td>
@@ -59,8 +57,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>FIRST NAME</th>
-                    <th>LAST NAME</th>
+                    <th>NAME</th>
                     <th>PHONE#</th>
                     <th>EMAIL</th>
                     <th>FACEBOOK VERIFIED</th>
@@ -74,8 +71,7 @@
                     <td colspan="8">No Record found</td> 
                 </tr>
                 <tr ng-if="approvedRecords.length > 0" ng-repeat="data in approvedRecords">
-                    <td>{{data.user.first_name}}</td>
-                    <td>{{data.user.last_name}}</td>
+                    <td>{{data.user.first_name}} {{data.user.last_name}}</td>
                     <td>{{data.user.phone_number}}</td>
                     <td>{{data.user.email_address}}</td>
                     <td>{{data.hasFBUrl? data.fbURL : 'No'}}</td>
@@ -102,8 +98,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>FIRST NAME</th>
-                    <th>LAST NAME</th>
+                    <th>NAME</th>
                     <th>PHONE#</th>
                     <th>EMAIL</th>
                     <th>FACEBOOK VERIFIED</th>
@@ -117,8 +112,7 @@
                     <td colspan="8">No Record found</td> 
                 </tr>
                 <tr ng-if="rejectedRecords.length > 0" ng-repeat="data in rejectedRecords">
-                    <td>{{data.user.first_name}}</td>
-                    <td>{{data.user.last_name}}</td>
+                    <td>{{data.user.first_name}} {{data.user.last_name}}</td>
                     <td>{{data.user.phone_number}}</td>
                     <td>{{data.user.email_address}}</td>
                     <td><!-- <a href="#"> -->NO<!-- </a> --></td>
