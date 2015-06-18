@@ -350,6 +350,11 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
+        },{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles/lato',
+          dest: '<%= yeoman.dist %>/styles',
+          src: '**/*'
         }, {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
