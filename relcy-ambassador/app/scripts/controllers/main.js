@@ -8,7 +8,7 @@
  * Controller of the relcyMobileInvitePageApp
  */
 angular.module('relcyMobileInvitePageApp')
-  .controller('MainCtrl', function ($scope,AmbassadorService,$location,$timeout,$rootScope) {
+  .controller('MainCtrl', function ($scope, AmbassadorService, $location, $timeout, $rootScope) {
   	$scope.name = "";
   	$scope.ambassadorCode = "";
   	$scope.message = "";
@@ -18,7 +18,8 @@ angular.module('relcyMobileInvitePageApp')
     	$rootScope.ambId = $scope.ambassadorCode
     	AmbassadorService.login({id:$scope.ambassadorCode},function(response){
 			console.log(response)
-			if(response.hmget[0] == $scope.name || response.hmget[1] == $scope.name)
+			if($scope.name.toLowerCase() == response.hmget[0].toLowerCase() 
+				|| $scope.name.toLowerCase() == response.hmget[1].toLowerCase())
 			{
 				$location.path("/invitation");
 			}
