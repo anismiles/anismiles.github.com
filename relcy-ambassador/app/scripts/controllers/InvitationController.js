@@ -9,10 +9,12 @@
  */
 angular.module('relcyMobileInvitePageApp')
   .controller('InvitationController', function ($scope,AmbassadorService,$location,$rootScope) {
+
   	if(!$rootScope.ambId || $rootScope.ambId == '')
   	{
   		$location.path('/');  
   	}
+    //mixpanel.track("Ambassador-Invite"); 
      $scope.name = ""
      $scope.email = ""
      $scope.phone= ""  
@@ -43,8 +45,9 @@ angular.module('relcyMobileInvitePageApp')
      	$rootScope.inviteObj = {ambId:$rootScope.ambId,CID:'5f4903021e',email:$scope.email,name:$scope.name,phone:$scope.phone,platform:$scope.platform}
      	$scope.platform = ( $('#ios').parent().hasClass('active') ? 'ios':'android')
      	AmbassadorService.invitation($rootScope.inviteObj,
-     		function(responce){     			
-				$location.path('invited');  
+     		function(responce){ 
+            mixpanel.track("Ambassador-Invite-" + $scope.platform);
+				    $location.path('invited');  
      		},function(error){
      			//if(error.status == 403)
      			$scope.message = error.data.message

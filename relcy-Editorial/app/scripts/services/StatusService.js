@@ -5,29 +5,29 @@ angular.module('relcyEditorialApp')
 
 /*Session to keep - session specific things*/
 function StatusService($timeout, $q, $http,$resource) {
-
+     var APIUrl = "http://webapp.relcy.com/redis/22/";
 	 return $resource(
-            "http://webapp.relcy.com/redis/22/",
+            APIUrl,
             {key:"@key"},
             {
             getAllKeys: {
                 method: 'GET',
-                url: 'http://webapp.relcy.com/redis/22/keys/*',
+                url: APIUrl+ 'keys/*',
                 responseType: 'json'
             },
             getRecordByKeys: {
                 method: 'GET',
-                url: 'http://webapp.relcy.com/redis/22/hgetall/:key',
+                url: APIUrl+ 'hgetall/:key',
                 responseType: 'json'
             },
             rejectRequest: {
                 method: 'GET',
-                url: 'http://webapp.relcy.com/redis/22/hmset/:key/status/REJECTED',
+                url: APIUrl+ 'hmset/:key/status/REJECTED',
                 responseType: 'json'
             }, 
             approveRequest: {
                 method: 'GET',
-                url: 'http://webapp.relcy.com/redis/22/hmset/:key/status/APPROVED',
+                url: APIUrl+ 'hmset/:key/status/APPROVED',
                 responseType: 'json'
             },    
         }

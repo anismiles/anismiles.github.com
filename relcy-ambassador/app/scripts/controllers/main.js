@@ -18,10 +18,13 @@ angular.module('relcyMobileInvitePageApp')
     	$rootScope.ambId = $scope.ambassadorCode
     	AmbassadorService.login({id:$scope.ambassadorCode},function(response){
 			console.log(response)
-			if($scope.name.toLowerCase() == response.hmget[0].toLowerCase() 
-				|| $scope.name.toLowerCase() == response.hmget[1].toLowerCase())
+			if(response.hmget[0])
 			{
-				$location.path("/invitation");
+				if($scope.name.toLowerCase() == response.hmget[0].toLowerCase() 
+					|| $scope.name.toLowerCase() == response.hmget[1].toLowerCase())
+				{
+					$location.path("/invitation");
+				}
 			}
 			else
 			{

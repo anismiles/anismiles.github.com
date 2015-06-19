@@ -8,11 +8,12 @@
  * Controller of the relcyMobileInvitePageApp
  */
 angular.module('relcyMobileInvitePageApp')
-  .controller('InvitedCtrl', function ($scope,$rootScope,$location) {
+  .controller('InvitedCtrl', function ($scope,$rootScope,$location) {  
   	if(!$rootScope.ambId || $rootScope.ambId == '')
   	{
   		$location.path('/');  
   	}
+    
      $scope.name = $rootScope.name;
      $scope.back =function()
      {

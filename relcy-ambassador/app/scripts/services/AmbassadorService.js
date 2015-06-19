@@ -5,6 +5,7 @@ angular.module('relcyMobileInvitePageApp')
 
 /*Session to keep - session specific things*/
 function AmbassadorService($timeout, $q, $http,$resource) {
+    var APIUrl = "";
 	return $resource(
             "http://webapp.relcy.com/redis/24/hmget/",
             {id:"@id",ambId:'@ambId',CID:'@CID',email:'@email',name:'@name',phone:'@phone',platform:'@platform'},
