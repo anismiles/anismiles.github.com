@@ -15,7 +15,7 @@ angular.module('relcyEditorialApp')
 	$scope.getKeys = function()
 	{
 		StatusService.getAllKeys(function(response){
-			console.log(response);
+			// console.log(response);
 			$scope.keys = response.keys;
 			addRecords($scope.keys[0],0);
 		},function(error){
@@ -41,7 +41,7 @@ angular.module('relcyEditorialApp')
 	$scope.approveRequest = function(key)
 	{
 		StatusService.approveRequest({key:key},function(response){
-			console.log(response);
+			// console.log(response);
 			if(response.hmset[0] == true)
 			{  				 
 				var tmpRecord = _.find($scope.pendingRecords, function(num){ return num.user.invite_id == key });
@@ -56,7 +56,7 @@ angular.module('relcyEditorialApp')
 	function addRecords(key,index)
 	{
 		StatusService.getRecordByKeys({key:key},function(response){
-			console.log(response);
+			// console.log(response);
 			response.hgetall.user = JSON.parse(response.hgetall.user)
 			response.hgetall.smsent = (response.hgetall.smsid ? "Yes":"No") 
 	 
