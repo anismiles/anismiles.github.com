@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 body {font-family:"WeblySleek UI Light";}
-body {background:url(../images/relcy-background.jpg) top left fixed no-repeat; }
+body {background:url(../images/relcy-background.jpg) top center no-repeat; }
 .bodywrapper {height:100%; max-height:1800px; min-height:1800px; min-width:960px;
  overflow-y:auto; width:100%; position:absolute; background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
