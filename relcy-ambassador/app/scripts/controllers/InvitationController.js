@@ -49,6 +49,7 @@ angular.module('relcyMobileInvitePageApp')
             mixpanel.track("Ambassador-Invite-" + $scope.platform);
 				    $location.path('invited');  
      		},function(error){
+                mixpanel.track("Ambassador-Invite-Failed");
      			//if(error.status == 403)
      			$scope.message = error.data.message
      			console.log( error)
