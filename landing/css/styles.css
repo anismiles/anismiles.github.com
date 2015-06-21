@@ -223,11 +223,6 @@ body {
     margin-top: 40px;
   }
 
-  .container {
-    max-width: 2100px;
-    width: 1052px;
-  }
-
   .devices-img {
     background: url("../images/devices@2x.png") no-repeat scroll center center;
     background-size: 430px 234px;
@@ -238,6 +233,368 @@ body {
     bottom: 0px;
     right: 0px;
   }
+}
+/*iPhone 6 Portrait*/
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) {
+  .container {
+    width: 100%;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 215px 117px;
+    width: 215px;
+    height: 117px;
+  }
+  .devices h1 {
+    font-size: 40px;
+    margin: 20px 0px 0px;
+  }
+  .devices h2 {
+    font-size: 30px;
+  }
+  .content p {
+    font-size: 15px;
+    line-height: 23px;
+
+  }
+  .logo {
+    background-size: 115px 47px;
+    margin-left: 0;
+    margin-top: 20px;
+    width: 115px;
+    height: 47px;
+  }
+  .devices {
+    padding: 15px 0;
+  }
+  div.col-lg-8.col-md-8.col-sm-8 {
+    width: 100%
+  }
+
+  div.col-lg-4.col-md-4.col-sm-4 {
+    width: 100%
+  }
+  .toggle .btn:first-child {
+    border-radius: 8px !important;
+    width: 152px;
+    margin-right: 5px;
+  }
+  .toggle .btn:last-child {
+    border-radius: 8px !important;
+    width: 152px;
+    margin-left: 5px;
+  }
+  .content h4 {
+    display: none;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 210px 110px;
+    width: 210px;
+    height: 110px;
+  }
+  .devices h1 {
+    font-size: 38px;
+    margin: 15px 0px 0px;
+  }
+  .content p:nth-child(3), .content p:nth-child(4) {
+    display: none;
+  }
+  .footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    padding: 0px 30px;
+    text-align: center;
+  }
+}
+
+/*iPhone 6 landscape*/
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : landscape) {
+  .container {
+    width: 100%;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 215px 117px;
+    width: 215px;
+    height: 117px;
+  }
+  .devices h1 {
+    font-size: 40px;
+    margin: 20px 0px 0px;
+  }
+  .devices h2 {
+    font-size: 30px;
+  }
+  .content p {
+    font-size: 15px;
+    line-height: 23px;
+
+  }
+  .logo {
+    background-size: 115px 47px;
+    margin-left: 0;
+    margin-top: 20px;
+    width: 115px;
+    height: 47px;
+  }
+  .devices {
+    padding: 15px 0;
+  }
+  div.col-lg-8.col-md-8.col-sm-8 {
+    width: 100%
+  }
+
+  div.col-lg-4.col-md-4.col-sm-4 {
+    width: 54.5%
+  }
+  .toggle .btn:first-child {
+    border-radius: 8px !important;
+    width: 152px;
+    margin-right: 5px;
+  }
+  .toggle .btn:last-child {
+    border-radius: 8px !important;
+    width: 152px;
+    margin-left: 5px;
+  }
+  .content h4 {
+    display: none;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 210px 110px;
+    width: 210px;
+    height: 110px;
+  }
+  .devices h1 {
+    font-size: 38px;
+    margin: 15px 0px 0px;
+  }
+  .content p:nth-child(3), .content p:nth-child(4) {
+    display: none;
+  }
+  .footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    padding: 0px 30px;
+    text-align: center;
+  }
+}
+
+/*iPhone 6+ Portrait*/
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) {
+  .container {
+    width: 100%;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 215px 117px;
+    width: 215px;
+    height: 117px;
+  }
+  .devices h1 {
+    font-size: 40px;
+    margin: 20px 0px 0px;
+  }
+  .devices h2 {
+    font-size: 30px;
+  }
+  .content p {
+    font-size: 15px;
+    line-height: 23px;
+
+  }
+  .logo {
+    background-size: 115px 47px;
+    margin-left: 0;
+    margin-top: 20px;
+    width: 115px;
+    height: 47px;
+  }
+  .devices {
+    padding: 15px 0;
+  }
+  div.col-lg-8.col-md-8.col-sm-8 {
+    width: 100%
+  }
+
+  div.col-lg-4.col-md-4.col-sm-4 {
+    width: 100%
+  }
+  .toggle .btn:first-child {
+    border-radius: 8px !important;
+    width: 172px;
+    margin-right: 5px;
+  }
+  .toggle .btn:last-child {
+    border-radius: 8px !important;
+    width: 172px;
+    margin-left: 5px;
+  }
+  .content h4 {
+    display: none;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 210px 110px;
+    width: 210px;
+    height: 110px;
+  }
+  .devices h1 {
+    font-size: 38px;
+    margin: 15px 0px 0px;
+  }
+  .content p:nth-child(3), .content p:nth-child(4) {
+    display: none;
+  }
+  .footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    padding: 0px 30px;
+    text-align: center;
+  }
+}
+
+/*iPhone 6+ landscape*/
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : landscape) {
+  .container {
+    width: 100%;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 215px 117px;
+    width: 215px;
+    height: 117px;
+  }
+  .devices h1 {
+    font-size: 40px;
+    margin: 20px 0px 0px;
+  }
+  .devices h2 {
+    font-size: 30px;
+  }
+  .content p {
+    font-size: 15px;
+    line-height: 23px;
+
+  }
+  .logo {
+    background-size: 115px 47px;
+    margin-left: 0;
+    margin-top: 20px;
+    width: 115px;
+    height: 47px;
+  }
+  .devices {
+    padding: 15px 0;
+  }
+  div.col-lg-8.col-md-8.col-sm-8 {
+    width: 100%
+  }
+
+  div.col-lg-4.col-md-4.col-sm-4 {
+    width: 48.8%
+  }
+  .toggle .btn:first-child {
+    border-radius: 8px !important;
+    width: 152px;
+    margin-right: 5px;
+  }
+  .toggle .btn:last-child {
+    border-radius: 8px !important;
+    width: 152px;
+    margin-left: 5px;
+  }
+  .content h4 {
+    display: none;
+  }
+  .devices-img {
+    background-position: center bottom;
+    background-size: 210px 110px;
+    width: 210px;
+    height: 110px;
+  }
+  .devices h1 {
+    font-size: 38px;
+    margin: 15px 0px 0px;
+  }
+  .content p:nth-child(3), .content p:nth-child(4) {
+    display: none;
+  }
+  .footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    padding: 0px 30px;
+    text-align: right;
+  }
+
+}
+
+/* IPADS --------------------------------------------------- */
+
+/* iPads (portrait and landscape) -------------------------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+}
+
+/* iPads (portrait) ---------------------------------------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  .container {
+    width: 700px;
+  }
+
+  .logo {
+    margin-left: 0;
+  }
+
+  div.col-lg-8.col-md-8.col-sm-8 {
+    width: 100%
+  }
+
+  div.col-lg-4.col-md-4.col-sm-4 {
+    width: 50%
+  }
+  .footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    padding: 10px 60px;
+  }
+}
+
+/* iPads (landscape) --------------------------------------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .container {
+    width: 960px;
+  }
+
+  .logo {
+    margin-left: 0;
+  }
+
+  div.col-lg-8.col-md-8.col-sm-8 {
+    /*width: 100%*/
+  }
+
+  div.col-lg-4.col-md-4.col-sm-4 {
+    /*width: 50%*/
+  }
+  .footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    padding: 10px 60px;
+  }
+}
+
+/* iPad Retina (iPad 3; portrait and landscape) ------------ */
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2048px) and (min--moz-device-pixel-ratio: 2), only screen and (min-device-width: 1536px) and (max-device-width: 2048px) and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-width: 1536px) and (max-device-width: 2048px) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-width: 1536px) and (max-device-width: 2048px) and (min-device-pixel-ratio: 2), only screen and (min-device-width: 1536px) and (max-device-width: 2048px) and (min-resolution: 2dppx) {
+
 }
 
 /* COMPUTERS / OTHER DEVICES ------------------------------- */
