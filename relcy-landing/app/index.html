@@ -21,11 +21,9 @@
 <body ng-app="siteApp">
 <div class="bodywrapper"></div>
 <div class="container">
-  <h1 class="logo"><img src="images/logo.png" srcset="images/logo@2x.png" title="Relcy"></h1>
+  <h1 class="logo"><img src="images/logo.png" title="Relcy"></h1>
 </div>
-<div class="wrapper">
-  <div ng-view=""></div>
-</div>
+<div ng-view=""></div>
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -98,7 +96,7 @@ mixpanel.track("Landing-Visited");
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="js/angular-spinner.js"></script>
-<script src="js/srcset.js"></script>
+<script src="js/retina.js"></script>
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/thanksController.js"></script>
