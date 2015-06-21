@@ -139,7 +139,7 @@ body {
   word-spacing: 0;
 }
 
-.form-control::-webkit-placeholder {
+.form-control::-webkit-input-placeholder {
   color: #09355f;
   opacity: 1
 }
@@ -235,7 +235,7 @@ body {
   }
 }
 /*iPhone 6 Portrait*/
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) {
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
   .container {
     width: 100%;
   }
@@ -305,12 +305,12 @@ body {
     bottom: 0px;
     right: 0px;
     padding: 0px 30px;
-    text-align: center;
+    text-align: right;
   }
 }
 
 /*iPhone 6 landscape*/
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : landscape) {
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
   .container {
     width: 100%;
   }
@@ -380,12 +380,12 @@ body {
     bottom: 0px;
     right: 0px;
     padding: 0px 30px;
-    text-align: center;
+    text-align: right;
   }
 }
 
 /*iPhone 6+ Portrait*/
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) {
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 3) {
   .container {
     width: 100%;
   }
@@ -455,12 +455,12 @@ body {
     bottom: 0px;
     right: 0px;
     padding: 0px 30px;
-    text-align: center;
+    text-align: right;
   }
 }
 
 /*iPhone 6+ landscape*/
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : landscape) {
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 3) {
   .container {
     width: 100%;
   }
@@ -497,7 +497,7 @@ body {
   }
 
   div.col-lg-4.col-md-4.col-sm-4 {
-    width: 48.8%
+    width: 48.8%;
   }
   .toggle .btn:first-child {
     border-radius: 8px !important;
