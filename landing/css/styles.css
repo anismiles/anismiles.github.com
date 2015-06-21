@@ -36,9 +36,18 @@ body {
   margin-top: 20px;
 }
 
+.logo {
+  background: url("../images/logo.png") no-repeat scroll center center;
+  width: 230px;
+  height: 94px;
+  display: block;
+  margin-left: -70px;
+  margin-top: 40px;
+}
+
 .devices {
   text-align: center;
-  padding: 0 0 40px;
+  padding: 40px 0;
 }
 
 .devices h1 {
@@ -79,7 +88,8 @@ body {
 
 .content p {
   font-size: 17px;
-  word-spacing: 5px;
+  letter-spacing: 1px;
+  word-spacing: 0;
   line-height: 26px;
   color: #04182b;
   font-weight: 600;
@@ -88,6 +98,8 @@ body {
 .toggle {
   width: 100%;
   margin-bottom: 15px;
+  letter-spacing: 1px;
+  word-spacing: 0;
 }
 
 .toggle .btn-primary.active, .toggle .btn-primary.focus,
@@ -103,7 +115,8 @@ body {
   border-radius: 8px;
   padding: 2px 12px;
   font-size: 17px;
-  word-spacing: 5px;
+  letter-spacing: 1px;
+  word-spacing: 0;
   font-weight: 600;
 }
 
@@ -121,7 +134,9 @@ body {
 
 .form-control::-moz-placeholder {
   color: #09355f;
-  opacity: 1
+  opacity: 1;
+  letter-spacing: 1px;
+  word-spacing: 0;
 }
 
 .form-control::-webkit-placeholder {
@@ -138,6 +153,14 @@ body {
   text-align: center;
 }
 
+.devices-img {
+  background: rgba(255, 255, 255, 0) url("../images/devices.png") no-repeat scroll center center;
+  display: block;
+  width: 430px;
+  height: 234px;
+  margin: 0 auto;
+}
+
 .customButton {
   background: #51cf42 !important;
   opacity: 1 !important;
@@ -147,7 +170,8 @@ body {
   padding: 12px;
   font-weight: 100;
   font-size: 17px;
-  word-spacing: 5px;
+  letter-spacing: 1px;
+  word-spacing: 0;
   margin-bottom: 20px;
 }
 
@@ -159,11 +183,13 @@ body {
   padding-right: 30px;
   padding: 10px;
 }
+
 .footer-thanks {
   position: fixed;
   bottom: 0px;
   right: 0px;
 }
+
 .thank {
   padding: 135px 0;
 }
@@ -179,33 +205,34 @@ body {
   padding: 0 100px;
 }
 
-@media (max-width: 767px) {
-  /*.col-lg-3, .col-sm-3, .col-md-3{*/
-  /*width: 40%;*/
-  /*}*/
-}
+/* --------------------------------------------------------- */
+/* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
+/* --------------------------------------------------------- */
 
-@media (min-width: 768px) {
-}
+/* Retina Displays/Screens (2880x1800) --------------------- */
 
-@media (min-width: 992px) {
-}
-
-@media (min-width: 1200px) {
-  .logo img {
-    margin-left: -30px;
-    margin-top: 20px;
-  }
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2) {
+@media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 2dppx) {
   body {
     background: rgba(255, 255, 255, 0) url("../images/relcy-background@2x.jpg") no-repeat scroll center top / cover;
-
   }
+
+  .logo {
+    background: url("../images/logo@2x.png") no-repeat scroll center center;
+    background-size: 230px 94px;
+    margin-left: -70px;
+    margin-top: 40px;
+  }
+
   .container {
     max-width: 2100px;
+    width: 1052px;
   }
+
+  .devices-img {
+    background: url("../images/devices@2x.png") no-repeat scroll center center;
+    background-size: 430px 234px;
+  }
+
   .footer {
     position: fixed;
     bottom: 0px;
@@ -213,4 +240,30 @@ body {
   }
 }
 
+/* COMPUTERS / OTHER DEVICES ------------------------------- */
+
+/* Displays/Screens (e.g. MacBook @ 1280x800) -------------- */
+@media only screen and (min-width: 1250px) and (max-width: 1409px) {
+
+}
+
+/* Displays/Screens (e.g. 19" WS @ 1440x900) --------------- */
+@media only screen and (min-width: 1410px) and (max-width: 1649px) {
+
+}
+
+/* Displays/Screens (e.g. 22" WS @ 1680x1050) -------------- */
+@media only screen and (min-width: 1650px) and (max-width: 1889px) {
+
+}
+
+/* Displays/Screens (e.g. 24" WS @ 1920x1080) -------------- */
+@media only screen and (min-width: 1890px) and (max-width: 2529px) {
+
+}
+
+/* Really Large Displays/Screens (e.g. 2560x1440) ---------- */
+@media only screen and (min-width: 2530px) {
+
+}
 
