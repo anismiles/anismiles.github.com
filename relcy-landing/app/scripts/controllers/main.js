@@ -24,7 +24,12 @@ angular.module('siteApp')
 				//$scope.phoneNumber = "";
 				//$scope.message = "Link sent to your phone!"
 				usSpinnerService.stop('invite');
-				mixpanel.track("Landing-Invite-" + $scope.platform);
+				//mixpanel.track("Landing-Invite-" + $scope.platform); 
+				mixpanel.track(
+				    "Landing-Invite",
+				    { "Platform": $scope.platform,"Phone-No":$scope.phoneNumber }
+				);
+
 				$location.path('thankyou');
 
 				$timeout(function(){
@@ -32,7 +37,11 @@ angular.module('siteApp')
 					$scope.message = ""
 				},3000)
 			},function(error){
-				mixpanel.track("Landing-Invite-failed");
+				//mixpanel.track("Landing-Invite-failed");
+				mixpanel.track(
+				    "Landing-Invite-Failed",
+				    { "Platform": $scope.platform,"Phone-No":$scope.phoneNumber }
+				);
 				$scope.phoneNumber = "";
 				if(error.status == 401)
 				{
