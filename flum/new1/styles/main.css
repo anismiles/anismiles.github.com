@@ -94,6 +94,8 @@ transition: 0.3s ease-out all;  -webkit-transition: 0.3s ease-out all;}
   opacity: 1;
   display:block!important;
   opacity:1;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
 }
 .ng-hide {
  -webkit-opacity: 0;
@@ -104,6 +106,8 @@ transition: 0.3s ease-out all;  -webkit-transition: 0.3s ease-out all;}
   -ms-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+   -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
 }
 
 @media only screen and (max-width: 1920px) {
