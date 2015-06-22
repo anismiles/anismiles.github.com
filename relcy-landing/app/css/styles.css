@@ -47,18 +47,20 @@ body {
 
 .devices {
   text-align: center;
-  padding: 40px 0;
+  padding: 30px 0;
 }
-
+.sms-form{
+  margin-top: 10px;
+}
 .devices h1 {
   font-size: 70px;
   color: #072545;
-  margin: 50px 0px 0px;
+  margin: 40px 0px 0px;
   font-weight: 100;
 }
 
 .devices h2 {
-  font-size: 46px;
+  font-size: 47px;
   color: #072444;
   margin: 0px;
   font-weight: 100;
@@ -69,7 +71,7 @@ body {
 
 .bottom {
   box-shadow: 0 0 200px rgba(255, 255, 255, 1);
-  padding: 30px 0 0;
+  padding: 20px 0 0;
   background-color: rgba(255, 255, 255, 0.8);
   width: 100%;
   border-top: solid 2px rgba(200, 200, 200, 0.9);
@@ -87,10 +89,10 @@ body {
 }
 
 .content p {
-  font-size: 17px;
+  font-size: 16px;
   letter-spacing: 1px;
   word-spacing: 0;
-  line-height: 26px;
+  line-height: 25px;
   color: #04182b;
   font-weight: 600;
 }
@@ -451,10 +453,10 @@ body {
     display: none;
   }
   .footer {
-    position: relative;
+    position: fixed;
     bottom: 0px;
     right: 0px;
-    padding: 0px 30px;
+    padding: 10px 30px;
     text-align: right;
   }
 }
@@ -588,7 +590,6 @@ body {
     position: relative;
     bottom: 0px;
     right: 0px;
-    padding: 10px 60px;
   }
 }
 
@@ -601,26 +602,46 @@ body {
 
 /* Displays/Screens (e.g. MacBook @ 1280x800) -------------- */
 @media only screen and (min-width: 1250px) and (max-width: 1409px) {
-
+  .footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+  }
 }
 
 /* Displays/Screens (e.g. 19" WS @ 1440x900) --------------- */
 @media only screen and (min-width: 1410px) and (max-width: 1649px) {
-
+  .footer {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+  }
 }
 
 /* Displays/Screens (e.g. 22" WS @ 1680x1050) -------------- */
 @media only screen and (min-width: 1650px) and (max-width: 1889px) {
-
+  .footer {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+  }
 }
 
 /* Displays/Screens (e.g. 24" WS @ 1920x1080) -------------- */
 @media only screen and (min-width: 1890px) and (max-width: 2529px) {
-
+  .footer {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+  }
 }
 
 /* Really Large Displays/Screens (e.g. 2560x1440) ---------- */
 @media only screen and (min-width: 2530px) {
-
+  .footer {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+  }
 }
 
