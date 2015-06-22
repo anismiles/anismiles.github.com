@@ -362,7 +362,7 @@ body {
   }
 
   div.col-lg-4.col-md-4.col-sm-4 {
-    width: 54.4%
+    width: 60%
   }
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
@@ -527,7 +527,7 @@ body {
   }
 
   div.col-lg-4.col-md-4.col-sm-4 {
-    width: 48.8%;
+    width: 60%;
   }
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
