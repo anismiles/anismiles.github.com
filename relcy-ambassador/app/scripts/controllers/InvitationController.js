@@ -46,10 +46,20 @@ angular.module('relcyMobileInvitePageApp')
      	$scope.platform = ( $('#ios').parent().hasClass('active') ? 'ios':'android')
      	AmbassadorService.invitation($rootScope.inviteObj,
      		function(responce){ 
-            mixpanel.track("Ambassador-Invite-" + $scope.platform);
+            //mixpanel.track("Ambassador-Invite-" + $scope.platform);
+
+            mixpanel.track(
+                "Ambassador-Invite",
+                { "Email":$scope.email,"Name":$scope.name, "Platform": $scope.platform,"Phone-No":$scope.phone }
+            ); 
 				    $location.path('invited');  
      		},function(error){
-                mixpanel.track("Ambassador-Invite-Failed");
+                //mixpanel.track("Ambassador-Invite-Failed"); 
+                mixpanel.track(
+                    "Ambassador-Invite-Failed",
+                    { "Email":$scope.email,"Name":$scope.name, "Platform": $scope.platform,"Phone-No":$scope.phone }
+                );
+
      			//if(error.status == 403)
      			$scope.message = error.data.message
      			console.log( error)
