@@ -1,67 +1,67 @@
 <div class="wrapper">
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="devices col-lg-12 col-md-12 col-sm-12 text-center">
-        <div class="devices-img"> </div>
-        <!--<img src="images/devices.png">-->
-
-        <h1>Test our App!</h1>
-
-        <h2>Win exciting Prizes</h2>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="bottom">
   <section>
     <div class="container">
-      <div class="col-lg-12">
-        <div class="row">
-          <div class="col-lg-8 col-md-8 col-sm-8 content">
-            <h4>Hello,</h4>
+      <div class="row">
+        <div class="devices col-lg-12 col-md-12 col-sm-12 text-center">
+          <div class="devices-img"></div>
+          <!--<img src="images/devices.png">-->
 
-            <p> Exciting prizes are waiting for users that test our Beta Version over the next few weeks.
-              Provide the required information on the right and you will receive a text message with the download
-              link. </p>
+          <h1>Test our App!</h1>
 
-            <p>For further question, feel free to email us @ <a href="mailto: beta@relcy.com">beta@relcy.com</a>. </p>
-
-            <p><i>Your Relcy-Team</i></p><br>
-          </div>
-          <div class="col-lg-4 col-sm-4 col-md-4">
-            <form novalidate name="relcyform">
-              <div class="btn-group toggle" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input type="radio" ng-model="platform.name" value="ios" name="options" id="ios" autocomplete="off"
-                         checked> iPhone
-                </label>
-                <label class="btn btn-primary">
-                  <input type="radio" ng-model="platform.name" value="android" name="options" id="android"
-                         autocomplete="off">Andriod
-                </label>
-              </div>
-              <div>
-                <input type="text" ng-model="phoneNumber" placeholder="Your Phone Number" required class="form-control"
-                       name="relcyform.videoResults" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
-                </ssdiv>
-                <div>
-                  <span us-spinner="{radius:5, width:2, length: 5,color:'red',top:'73%'}" spinner-key="invite"></span>
-                  <button type="submit" class="btn btn-primary customButton" ng-disabled="relcyform.$invalid"
-                          ng-click="save()">Text Me The Download Link
-                  </button>
-                </div>
-                <div> {{message}}</div>
-              </div>
-            </form>
-          </div>
+          <h2>Win exciting Prizes</h2>
         </div>
-
       </div>
     </div>
   </section>
-  <footer>
+  <div class="bottom">
+    <section>
+      <div class="container">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 content">
+              <h4>Hello,</h4>
+
+              <p>Exciting prizes are waiting for users that test our Beta Version over the next few weeks. Provide the
+                required information on the right and you will receive a text message with the download link. </p>
+
+              <p>For further question, feel free to email us @ <a href="mailto: beta@relcy.com">beta@relcy.com</a>. </p>
+
+              <p><i>Your Relcy-Team</i></p><br>
+            </div>
+            <div class="col-lg-4 col-sm-4 col-md-4">
+              <form novalidate name="relcyform">
+                <div class="btn-group toggle" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" ng-model="platform.name" value="ios" name="options" id="ios" autocomplete="off"
+                           checked> iPhone
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" ng-model="platform.name" value="android" name="options" id="android"
+                           autocomplete="off">Android
+                  </label>
+                </div>
+                <div>
+                  <input type="text" ng-model="phoneNumber" placeholder="Your Phone Number" required
+                         class="form-control"
+                         name="relcyform.videoResults" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
+                  </ssdiv>
+                  <div>
+                    <span us-spinner="{radius:5, width:2, length: 5,color:'red',top:'73%'}" spinner-key="invite"></span>
+                    <button type="submit" class="btn btn-primary customButton" ng-disabled="relcyform.$invalid"
+                            ng-click="save()">Text Me The Download Link
+                    </button>
+                  </div>
+                  <div> {{message}}</div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <footer>
       <div class="col-lg-12 footer">Copyright 2015. All right Reserved</div>
-  </footer>
-</div>
+    </footer>
+  </div>
 </div>

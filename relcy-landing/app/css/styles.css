@@ -41,7 +41,7 @@ body {
   width: 230px;
   height: 94px;
   display: block;
-  margin-left: -70px;
+  margin-left: -30px;
   margin-top: 40px;
 }
 
@@ -219,7 +219,7 @@ body {
   .logo {
     background: url("../images/logo@2x.png") no-repeat scroll center center;
     background-size: 230px 94px;
-    margin-left: -70px;
+    margin-left: -110px;
     margin-top: 40px;
   }
 
