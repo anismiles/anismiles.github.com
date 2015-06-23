@@ -10,25 +10,38 @@ html, body {
 }
 
 body {
-  background: rgba(255, 255, 255, 0) url("../images/relcy-background.jpg") no-repeat fixed center top / cover;
-
+  background-image: url("../images/relcy-background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-size: cover;
 }
-
+.wrapper {
+  z-index: 2;
+  position: relative;
+}
 .transparent-wrapper {
   height: 100%;
-  overflow-y: auto;
   width: 100%;
   position: fixed;
-  background: rgba(255, 255, 255, 0) url("../images/gradient-bg.svg") no-repeat fixed center bottom / cover;
+  z-index: 1;
+  bottom: 0px;
+  background-image: url("../images/gradient-bg.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-size: cover;
 }
-
 .logo img {
   margin-left: -70px;
   margin-top: 20px;
 }
 
 .logo {
-  background: url("../images/logo.png") no-repeat scroll center center;
+  background-image: url("../images/logo.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
   width: 230px;
   height: 94px;
   display: block;
@@ -149,7 +162,10 @@ body {
 }
 
 .devices-img {
-  background: rgba(255, 255, 255, 0) url("../images/devices.png") no-repeat scroll center center;
+  background-image: url("../images/devices.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
   display: block;
   width: 430px;
   height: 234px;
@@ -205,18 +221,28 @@ body {
 
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 2dppx) {
   body {
-    background: rgba(255, 255, 255, 0) url("../images/relcy-background@2x.jpg") no-repeat fixed center top / cover;
+    background-image: url("../images/relcy-background@2x.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center top;
+    background-size: cover;
   }
 
   .logo {
-    background: url("../images/logo@2x.png") no-repeat scroll center center;
+    background-image: url("../images/logo@2x.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
     background-size: 230px 94px;
     margin-left: -60px;
     margin-top: 40px;
   }
 
   .devices-img {
-    background: url("../images/devices@2x.png") no-repeat scroll center center;
+    background-image: url("../images/devices@2x.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
     background-size: 430px 234px;
   }
 }
