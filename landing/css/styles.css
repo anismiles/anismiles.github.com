@@ -10,25 +10,16 @@ html, body {
 }
 
 body {
-  background: rgba(255, 255, 255, 0) url("../images/relcy-background.jpg") no-repeat fixed  center top / cover;
+  background: rgba(255, 255, 255, 0) url("../images/relcy-background.jpg") no-repeat fixed center top / cover;
 
 }
 
-.bodywrapper {
+.transparent-wrapper {
   height: 100%;
-  /*max-height: 1800px;*/
-  /*min-height: 1800px;*/
-  min-width: 960px;
   overflow-y: auto;
   width: 100%;
   position: fixed;
-  background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0); /* IE6-9 */
+  background: rgba(255, 255, 255, 0) url("../images/gradient-bg.svg") no-repeat fixed center bottom / cover;
 }
 
 .logo img {
@@ -49,9 +40,11 @@ body {
   text-align: center;
   padding: 30px 0;
 }
-.sms-form{
+
+.sms-form {
   margin-top: 10px;
 }
+
 .devices h1 {
   font-size: 70px;
   color: #072545;
@@ -74,7 +67,7 @@ body {
   padding: 20px 0 0;
   background-color: rgba(255, 255, 255, 0.8);
   width: 100%;
-  border-top: solid 2px rgba(200, 200, 200, 0.9);
+  border-top: solid 2px #eee;
 }
 
 .content {
@@ -218,7 +211,7 @@ body {
   .logo {
     background: url("../images/logo@2x.png") no-repeat scroll center center;
     background-size: 230px 94px;
-    margin-left: -110px;
+    margin-left: -60px;
     margin-top: 40px;
   }
 
@@ -227,29 +220,35 @@ body {
     background-size: 430px 234px;
   }
 }
+
 /*iPhone 6 Portrait*/
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
   .container {
     width: 100%;
   }
+
   .devices-img {
     background-position: center bottom;
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
   }
+
   .devices h1 {
     font-size: 30px;
     margin: 20px 0px 0px;
     font-weight: 600;
   }
+
   .devices h2 {
     font-size: 26px;
   }
+
   .content p {
     font-size: 14px;
     line-height: 20px;
   }
+
   .logo {
     background-size: 115px 47px;
     margin-left: 0;
@@ -257,15 +256,18 @@ body {
     width: 115px;
     height: 47px;
   }
+
   .devices {
     padding: 30px 0 15px;
   }
+
   .bottom {
     box-shadow: none;
     padding: 10px 0 0;
     background-color: transparent;
     border-top: none;
   }
+
   div.col-lg-8.col-md-8.col-sm-8 {
     width: 100%
   }
@@ -273,58 +275,71 @@ body {
   div.col-lg-4.col-md-4.col-sm-4 {
     width: 100%
   }
+
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
     width: 48%;
   }
+
   .toggle .btn:first-child {
 
   }
+
   .toggle .btn:last-child {
     float: right;
   }
+
   .content h4 {
     display: none;
   }
+
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
   }
+
   .toggle .btn, .form-control, .customButton {
     font-size: 14px;
-    padding:8px;
+    padding: 8px;
     height: auto;
   }
+
   .toggle, .form-control {
     margin-bottom: 10px;
   }
+
   .toggle .btn-primary {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 }
 
 /*iPhone 6 landscape*/
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
   .container {
     width: 100%;
   }
+
   .devices-img {
     background-position: center bottom;
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
   }
+
   .devices h1 {
     font-size: 30px;
     margin: 20px 0px 0px;
     font-weight: 600;
   }
+
   .devices h2 {
     font-size: 26px;
   }
+
   .content p {
     font-size: 14px;
     line-height: 20px;
   }
+
   .logo {
     background-size: 115px 47px;
     margin-left: 0;
@@ -332,15 +347,18 @@ body {
     width: 115px;
     height: 47px;
   }
+
   .devices {
     padding: 30px 0 15px;
   }
+
   .bottom {
     box-shadow: none;
     padding: 10px 0 0;
     background-color: transparent;
     border-top: none;
   }
+
   div.col-lg-8.col-md-8.col-sm-8 {
     width: 100%
   }
@@ -348,58 +366,71 @@ body {
   div.col-lg-4.col-md-4.col-sm-4 {
     width: 100%
   }
+
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
     width: 48%;
   }
+
   .toggle .btn:first-child {
 
   }
+
   .toggle .btn:last-child {
     float: right;
   }
+
   .content h4 {
     display: none;
   }
+
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
   }
+
   .toggle .btn, .form-control, .customButton {
     font-size: 14px;
-    padding:8px;
+    padding: 8px;
     height: auto;
   }
+
   .toggle, .form-control {
     margin-bottom: 10px;
   }
+
   .toggle .btn-primary {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 }
 
 /*iPhone 6+ Portrait*/
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 3) {
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
   .container {
     width: 100%;
   }
+
   .devices-img {
     background-position: center bottom;
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
   }
+
   .devices h1 {
     font-size: 30px;
     margin: 20px 0px 0px;
     font-weight: 600;
   }
+
   .devices h2 {
     font-size: 26px;
   }
+
   .content p {
     font-size: 14px;
     line-height: 20px;
   }
+
   .logo {
     background-size: 115px 47px;
     margin-left: 0;
@@ -407,15 +438,18 @@ body {
     width: 115px;
     height: 47px;
   }
+
   .devices {
     padding: 30px 0 15px;
   }
+
   .bottom {
     box-shadow: none;
     padding: 10px 0 0;
     background-color: transparent;
     border-top: none;
   }
+
   div.col-lg-8.col-md-8.col-sm-8 {
     width: 100%
   }
@@ -423,15 +457,19 @@ body {
   div.col-lg-4.col-md-4.col-sm-4 {
     width: 100%
   }
+
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
     width: 48%;
   }
+
   .toggle .btn:first-child {
   }
+
   .toggle .btn:last-child {
-    float:right;
+    float: right;
   }
+
   .content h4 {
     display: none;
   }
@@ -439,42 +477,50 @@ body {
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
   }
+
   .toggle .btn, .form-control, .customButton {
-       font-size: 14px;
-       padding:8px;
-       height: auto;
-     }
+    font-size: 14px;
+    padding: 8px;
+    height: auto;
+  }
+
   .toggle, .form-control {
     margin-bottom: 10px;
   }
+
   .toggle .btn-primary {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 }
 
 /*iPhone 6+ landscape*/
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 3) {
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
   .container {
     width: 100%;
   }
+
   .devices-img {
     background-position: center bottom;
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
   }
+
   .devices h1 {
     font-size: 30px;
     margin: 20px 0px 0px;
     font-weight: 600;
   }
+
   .devices h2 {
     font-size: 26px;
   }
+
   .content p {
     font-size: 14px;
     line-height: 20px;
   }
+
   .logo {
     background-size: 115px 47px;
     margin-left: 0;
@@ -482,47 +528,59 @@ body {
     width: 115px;
     height: 47px;
   }
+
   .devices {
     padding: 30px 0 15px;
   }
+
   .bottom {
     box-shadow: none;
     padding: 10px 0 0;
     background-color: transparent;
     border-top: none;
   }
+
   div.col-lg-8.col-md-8.col-sm-8 {
     width: 100%
   }
+
   div.col-lg-4.col-md-4.col-sm-4 {
     width: 100%
   }
+
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
     width: 48%;
   }
+
   .toggle .btn:first-child {
 
   }
+
   .toggle .btn:last-child {
     float: right;
   }
+
   .content h4 {
     display: none;
   }
+
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
   }
+
   .toggle .btn, .form-control, .customButton {
     font-size: 14px;
-    padding:8px;
+    padding: 8px;
     height: auto;
   }
+
   .toggle, .form-control {
     margin-bottom: 10px;
   }
+
   .toggle .btn-primary {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 
 }
