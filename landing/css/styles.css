@@ -13,7 +13,7 @@ body {
   background-image: url("../images/relcy-background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center bottom;
+  background-position: center top;
   background-size: cover;
 }
 .wrapper {
@@ -183,7 +183,7 @@ body {
   font-size: 17px;
   letter-spacing: 1px;
   word-spacing: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .footer {
@@ -261,17 +261,17 @@ body {
   }
 
   .devices h1 {
-    font-size: 30px;
+    font-size: 26px;
     margin: 20px 0px 0px;
     font-weight: 600;
   }
 
   .devices h2 {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .content p {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 20px;
   }
 
@@ -352,17 +352,17 @@ body {
   }
 
   .devices h1 {
-    font-size: 30px;
+    font-size: 26px;
     margin: 20px 0px 0px;
     font-weight: 600;
   }
 
   .devices h2 {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .content p {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 20px;
   }
 
@@ -375,7 +375,7 @@ body {
   }
 
   .devices {
-    padding: 30px 0 15px;
+    padding: 10px 0 15px;
   }
 
   .bottom {
