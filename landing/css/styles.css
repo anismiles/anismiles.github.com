@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-  background: rgba(255, 255, 255, 0) url("../images/relcy-background.jpg") no-repeat scroll center top / cover;
+  background: rgba(255, 255, 255, 0) url("../images/relcy-background.jpg") no-repeat fixed  center top / cover;
 
 }
 
@@ -178,12 +178,9 @@ body {
 }
 
 .footer {
-  text-align: right;
-  margin: 0;
   color: #09355f;
   font-weight: 600;
-  padding-right: 30px;
-  padding: 10px;
+  padding: 10px 0;
 }
 
 .footer-thanks {
@@ -215,7 +212,7 @@ body {
 
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 2dppx) {
   body {
-    background: rgba(255, 255, 255, 0) url("../images/relcy-background@2x.jpg") no-repeat scroll center top / cover;
+    background: rgba(255, 255, 255, 0) url("../images/relcy-background@2x.jpg") no-repeat fixed center top / cover;
   }
 
   .logo {
@@ -228,12 +225,6 @@ body {
   .devices-img {
     background: url("../images/devices@2x.png") no-repeat scroll center center;
     background-size: 430px 234px;
-  }
-
-  .footer {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
   }
 }
 /*iPhone 6 Portrait*/
@@ -287,23 +278,16 @@ body {
     width: 48%;
   }
   .toggle .btn:first-child {
-    margin-right: 5px;
+
   }
   .toggle .btn:last-child {
-    margin-left: 5px;
+    float: right;
   }
   .content h4 {
     display: none;
   }
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
-  }
-  .footer {
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    padding: 0px 30px;
-    text-align: right;
   }
   .toggle .btn, .form-control, .customButton {
     font-size: 14px;
@@ -362,30 +346,23 @@ body {
   }
 
   div.col-lg-4.col-md-4.col-sm-4 {
-    width: 60%
+    width: 100%
   }
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
     width: 48%;
   }
   .toggle .btn:first-child {
-    margin-right: 5px;
+
   }
   .toggle .btn:last-child {
-    margin-left: 5px;
+    float: right;
   }
   .content h4 {
     display: none;
   }
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
-  }
-  .footer {
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    padding: 0px 30px;
-    text-align: right;
   }
   .toggle .btn, .form-control, .customButton {
     font-size: 14px;
@@ -448,13 +425,12 @@ body {
   }
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
-    width: 48.5%;
+    width: 48%;
   }
   .toggle .btn:first-child {
-    margin-right: 5px;
   }
   .toggle .btn:last-child {
-    margin-left: 5px;
+    float:right;
   }
   .content h4 {
     display: none;
@@ -462,13 +438,6 @@ body {
 
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
-  }
-  .footer {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    padding: 10px 30px;
-    text-align: right;
   }
   .toggle .btn, .form-control, .customButton {
        font-size: 14px;
@@ -525,32 +494,24 @@ body {
   div.col-lg-8.col-md-8.col-sm-8 {
     width: 100%
   }
-
   div.col-lg-4.col-md-4.col-sm-4 {
-    width: 60%;
+    width: 100%
   }
   .toggle .btn:first-child, .toggle .btn:last-child {
     border-radius: 8px !important;
     width: 48%;
   }
   .toggle .btn:first-child {
-    margin-right: 5px;
+
   }
   .toggle .btn:last-child {
-    margin-left: 5px;
+    float: right;
   }
   .content h4 {
     display: none;
   }
   .content p:nth-child(3), .content p:nth-child(4) {
     display: none;
-  }
-  .footer {
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    padding: 0px 30px;
-    text-align: right;
   }
   .toggle .btn, .form-control, .customButton {
     font-size: 14px;
@@ -590,12 +551,6 @@ body {
   div.col-lg-4.col-md-4.col-sm-4 {
     width: 50%
   }
-  .footer {
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    padding: 10px 60px;
-  }
 }
 
 /* iPads (landscape) --------------------------------------- */
@@ -615,11 +570,6 @@ body {
   div.col-lg-4.col-md-4.col-sm-4 {
     /*width: 50%*/
   }
-  .footer {
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-  }
 }
 
 /* iPad Retina (iPad 3; portrait and landscape) ------------ */
@@ -631,46 +581,26 @@ body {
 
 /* Displays/Screens (e.g. MacBook @ 1280x800) -------------- */
 @media only screen and (min-width: 1250px) and (max-width: 1409px) {
-  .footer {
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-  }
+
 }
 
 /* Displays/Screens (e.g. 19" WS @ 1440x900) --------------- */
 @media only screen and (min-width: 1410px) and (max-width: 1649px) {
-  .footer {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-  }
+
 }
 
 /* Displays/Screens (e.g. 22" WS @ 1680x1050) -------------- */
 @media only screen and (min-width: 1650px) and (max-width: 1889px) {
-  .footer {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-  }
+
 }
 
 /* Displays/Screens (e.g. 24" WS @ 1920x1080) -------------- */
 @media only screen and (min-width: 1890px) and (max-width: 2529px) {
-  .footer {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-  }
+
 }
 
 /* Really Large Displays/Screens (e.g. 2560x1440) ---------- */
 @media only screen and (min-width: 2530px) {
-  .footer {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-  }
+
 }
 
