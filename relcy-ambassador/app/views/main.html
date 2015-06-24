@@ -13,9 +13,7 @@
     <div class="form-group">
   		<button type="submit" class="btn btn-info form-control"  ng-disabled="Ambassadorform.$invalid"  ui-sref="invited" ng-click="login()">Submit</button>
   	</div>
-    <div >
-       {{message}}
-    </div>
+  <div class="alert alert-danger" role="alert" ng-if="message">{{message}}</div>
   </form>
   </p>
 </div>

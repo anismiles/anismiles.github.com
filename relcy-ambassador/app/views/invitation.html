@@ -17,7 +17,7 @@
       <label class="btn btn-primary active">
         <input type="radio" ng-model="platform.name" value="ios" name="options" id="ios" autocomplete="off" checked> iPhone
       </label>
-      <label class="btn btn-primary"> 
+      <label class="btn btn-primary">
         <input type="radio" ng-model="platform.name" value="android" name="options" id="android" autocomplete="off">Andriod
       </label>
     </div>
@@ -25,6 +25,6 @@
   		<button class="btn btn-info form-control" ng-disabled="invitationform.$invalid" ng-click="invite()" ui-sref="invited">Submit</button>
   	</div>
   </form>
-   <div>{{message}}</div>
+  <div class="alert alert-danger" role="alert" ng-if="message">{{message}}</div>
   </p>
 </div>
