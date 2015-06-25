@@ -5,7 +5,7 @@ angular.module('relcyMobileInvitePageApp')
 
 /*Session to keep - session specific things*/
 function AmbassadorService($timeout, $q, $http,$resource) {
-    var BASE_URL = "https://staging-w.relcy.com/";
+    var BASE_URL = "https://dev-w.relcy.com/";
     var REDIS_BASE_URL = "http://webapp.relcy.com/redis/";
 	return $resource(
             REDIS_BASE_URL+"24/hmget/",
@@ -20,7 +20,7 @@ function AmbassadorService($timeout, $q, $http,$resource) {
                 method:'GET',
                 url: BASE_URL+'app?ambassador_id=:ambId&client_id=:CID&email_address=:email&name=:name&phone_number=:phone&platform=:platform'
             }
-            
+
         }
     );
 }
