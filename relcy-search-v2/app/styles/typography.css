@@ -169,11 +169,11 @@ footer a {
 }
 
 .relcysrchInput .input-group .angucomplete-holder .form-control {
-    font-size: 32px;
-    font-family: lato;
-    font-weight: 300;
+  font-family: lato;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 57px;
 }
-
 .btn-circle {
     line-height: 24px;
     text-align: center;
@@ -287,15 +287,19 @@ footer a {
 }
 
 .nav > li > a {
-    color: #8899a6;
-    font-size: 18px;
-    font-weight: 300;
+  text-transform: uppercase;
+    color: #c4c4ca;
+    font-size: 12px;
+    font-weight: 600;
 }
-
+.nav > li > a:hover,
+.nav > li > a:focus{
+  color: #3a3a48 !important;
+}
 .selected a {
-    font-weight: 600 !important;
+  color: #3a3a48 !important;
+  font-weight: 600 !important;
 }
-
 .media-heading {
     font-size: 17px;
     font-weight: 400;
@@ -457,4 +461,9 @@ a.edit-picture{
     color: #fff;
     text-decoration: none;
     font-size:14px;
+}
+.panel-title {
+  font-size:12px;
+  olor: #c6c6c6;
+  text-transform: uppercase;
 }

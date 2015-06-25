@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="185px" height="25px" viewBox="0 0 185 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>Imported Layers Copy 11 + Table header Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Imported-Layers-Copy-11-+-Table-header-Copy" sketch:type="MSLayerGroup" transform="translate(0.000000, -2.000000)">
+            <g>
+                <path d="M24.2336746,23.3410325 C24.2293681,23.3369652 24.2243438,23.3345726 24.2202765,23.3305053 L21.161674,20.2716636 C20.8812702,19.9914991 20.8405973,19.5531887 21.061188,19.2239774 C23.94394,14.9207841 23.4872072,9.044267 19.685726,5.24278587 C15.1751009,0.732160681 7.74033303,0.927151374 3.48235835,5.82775795 C-0.114322734,9.96706345 -0.0990105819,16.2314086 3.51585369,20.3546842 C7.28360023,24.652614 13.50488,25.2918964 18.0061743,22.2780341 C18.3363426,22.0569649 18.7753707,22.0962023 19.0564923,22.3773238 L22.1155733,25.4364048 C22.140934,25.4615263 22.1595957,25.4904759 22.1811284,25.5179899 L22.8852482,26.2221097 L25,24.1073578 L24.2336746,23.3410325 L24.2336746,23.3410325 Z M5.8105233,19.1182279 C2.47151703,15.7789824 2.47151703,10.3651794 5.8105233,7.02593389 C9.14976882,3.68668837 14.5635718,3.68668837 17.9028173,7.02593389 C21.2418236,10.3651794 21.2418236,15.7789824 17.9028173,19.1182279 C14.5635718,22.4572341 9.14976882,22.4572341 5.8105233,19.1182279 L5.8105233,19.1182279 Z" id="Imported-Layers-Copy-11" fill="#C4C4CB" sketch:type="MSShapeGroup"></path>
+                <text id="Table-header-Copy" sketch:type="MSTextLayer" font-family="Lato" font-size="22" font-weight="260" letter-spacing="0.458333373" fill="#AEAEAE">
+                    <tspan x="40.4776358" y="22.2221097">Type To Search</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

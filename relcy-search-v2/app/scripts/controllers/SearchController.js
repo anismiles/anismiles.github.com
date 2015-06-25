@@ -1,10 +1,10 @@
 angular.module('relcyApp')
     .controller("SearchController", function ($scope, $http, $rootScope, $location, $window, $timeout, $stateParams,
        SearchService, $filter, anchorSmoothScroll, Lightbox) {
-        
+
         $scope.showDetailPage = false;
         $scope.selected = 0;
-        
+
         $scope.relatedSearches;
         $scope.defaultErrorImage = '../../favicon.ico';
         $scope.itemType;
@@ -30,9 +30,6 @@ angular.module('relcyApp')
         $scope.onInputChange = function (q) {
             $scope.query = q;
             if(q && q.length==1){
-                $("#bighead").removeClass("title");
-                $("#bighead").addClass("relcysmall");
-                //$("#bigform").addClass("smallform");
                 $("#pageMiddle").animate({'margin-top': '0%'}, 200);
                 $("#pageMiddle").addClass("innerPageMiddle");
             }
@@ -123,7 +120,7 @@ angular.module('relcyApp')
             });
         }
 
-      
+
         /*Will set the default selected category once results come*/
         function setDefaultCategory() {
             for (var i = 0; i < $scope.types.length; i++) {
@@ -159,18 +156,18 @@ angular.module('relcyApp')
 
         $rootScope.hideLoader = true;
         $scope.hasLocalBusiness = false;
- 
+
         var q = $stateParams.q;
         if(q){
              setTimeout ( function (){
-                
+
                 $( "#members input" ).focus();
-        
+
                 $("#bighead").removeClass("title");
                 $("#bighead").addClass("relcysmall");
-                $("#pageMiddle").addClass("innerPageMiddle");                   
-                angular.element(document.querySelector('#members')).children().children()[0].value = q; 
-				
+                $("#pageMiddle").addClass("innerPageMiddle");
+                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+
              },200);
             $scope.query = q;
             $scope.search(q);
@@ -183,7 +180,7 @@ angular.module('relcyApp')
                     $("#pageMiddle").animate({'margin-top': '0%'}, 200);
                     $("#pageMiddle").addClass("innerPageMiddle");
 
-                }); 
+                });
         }
         $rootScope.showTopAnchor = false;
         $timeout(function(){$("#members input").focus();},300)

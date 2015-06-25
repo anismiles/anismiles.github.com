@@ -19,7 +19,7 @@ angular.module('relcyApp')
             speed = 15;
             var step = Math.round(distance / 25);
             var leapY = stopY > startY ? startY + step : startY - step;
-            stopY = stopY - 120;
+            stopY = stopY - 166;
             var timer = 0;
             if (stopY > startY) {
                 for (var i = startY; i < stopY; i += step) {

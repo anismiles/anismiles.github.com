@@ -32,6 +32,9 @@ body {
   background-position: center bottom;
   background-size: cover;
 }
+.col-sm4 {
+    min-width: 280px;
+}
 .logo img {
   margin-left: -70px;
   margin-top: 20px;
