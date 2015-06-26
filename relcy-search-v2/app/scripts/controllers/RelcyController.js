@@ -37,7 +37,7 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
 	/*Will clear the search field of auto complete with given id.*/
     $scope.clearSearchInput = function (id) {
         $scope.showDetailPage = false;
-        $scope.$broadcast('angucomplete-alt:clearInput', 'members');
+        $scope.$broadcast('angucomplete-alt:clearInput', 'searchInputText');
         /*Hides the search results*/
         $scope.showingResult = false;
         $scope.$broadcast('angucomplete-alt:clearInput', id);
@@ -150,9 +150,9 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
 
     $scope.setTextOnSearchField = function(text){
     	$scope.query = text;
-    	$scope.$broadcast('angucomplete-alt:clearInput', 'members');
+    	$scope.$broadcast('angucomplete-alt:clearInput', 'searchInputText');
         $timeout(function () {
-            angular.element(document.querySelector('#members')).children().children()[0].value = text;
+            angular.element(document.querySelector('#searchInputText')).children().children()[0].value = text;
         }, 250);
     };
     $rootScope.openCastLightbox = function (data, type, index) {

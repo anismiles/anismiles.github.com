@@ -1,1 +1,1 @@
-<div ng-if="searchResults && searchResults.length>0" class="movie-navlist"> <div class="leftsidebar pull-left"> <ul class="nav"> <li ng-repeat="cat in searchResults" ng-click="scrollTo(cat.key)" ng-class="{selected: cat.key == selectedCategory}"><a href="javascript:void();">{{cat.keyTitle}}</a></li> </ul> </div> </div>
+<div class="leftsidebar"> <ul class="nav"> <li class="text-center" ng-repeat="cat in searchResults" ng-click="scrollTo(cat.key)" ng-class="{selected: cat.key == selectedCategory}"><a href="javascript:void();">{{cat.keyTitle}}</a></li> </ul> </div>

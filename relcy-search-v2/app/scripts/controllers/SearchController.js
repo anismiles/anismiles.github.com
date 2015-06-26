@@ -151,7 +151,7 @@ angular.module('relcyApp')
 
         /*Will hide the auto complete on focus out*/
         $rootScope.hideSearchDropdown = function (id) {
-            angular.element(document.querySelector('#members')).children()[0].classList.remove('angucomplete-dropdown-visible');
+            angular.element(document.querySelector('#searchInputText')).children()[0].classList.remove('angucomplete-dropdown-visible');
         }
 
         $rootScope.hideLoader = true;
@@ -161,18 +161,18 @@ angular.module('relcyApp')
         if(q){
              setTimeout ( function (){
 
-                $( "#members input" ).focus();
+                $( "#searchInputText input" ).focus();
 
                 $("#bighead").removeClass("title");
                 $("#bighead").addClass("relcysmall");
                 $("#pageMiddle").addClass("innerPageMiddle");
-                angular.element(document.querySelector('#members')).children().children()[0].value = q;
+                angular.element(document.querySelector('#searchInputText')).children().children()[0].value = q;
 
              },200);
             $scope.query = q;
             $scope.search(q);
         }else{
-                $("#members input").focus();
+                $("#searchInputText input").focus();
                 $(".tran_top").keypress(function (e) {
                     console.log("213456");
                     $("#bighead").removeClass("title");
@@ -183,5 +183,6 @@ angular.module('relcyApp')
                 });
         }
         $rootScope.showTopAnchor = false;
-        $timeout(function(){$("#members input").focus();},300)
+       $timeout(function(){$("#searchInputText input").focus();},300)
     });
+

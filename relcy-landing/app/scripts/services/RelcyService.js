@@ -5,7 +5,7 @@ angular.module('siteApp')
 
 /*Session to keep - session specific things*/
 function RelcyService($timeout, $q, $http,$resource) {
-    var APIUrl = "https://staging-w.relcy.com/app";
+    var APIUrl = "https://dev-w.relcy.com/app";
 	 return $resource(
             APIUrl,
             {client_id: "@client_id",platform: "@platform",phone_number:"@phone_number",ambassador_id:"@ambassador_id"},
@@ -14,7 +14,7 @@ function RelcyService($timeout, $q, $http,$resource) {
                 method: 'GET',
                 url: APIUrl + '?platform=:platform&phone_number=:phone_number&client_id=:client_id',
                 responseType: 'json'
-            }      
+            }
         }
     );
 }

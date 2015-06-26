@@ -5,7 +5,7 @@ angular.module('relcyApp')
         this.searchResult = [];
         this.BASE_URL = 'https://staging-w.relcy.com';
         this.ACCESS_TOKEN = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
-        
+
         /*Will be used to refer the service itself*/
         var self = this;
         this.getGeoLocation = function () {
@@ -148,7 +148,7 @@ angular.module('relcyApp')
                             }else if(response.results[0].content_type_enum == "PERSON"
                                 || response.results[0].content_type_enum == "PERSON_CELEBRITY"){
                                 transformedData.hideRSLinks = true;
-                                keyTitle = 'Celebrity or People';
+                                keyTitle = 'People';
                             }
 
                             transformedData.moviesResult = response.results[0].content_type_enum;
@@ -307,8 +307,8 @@ angular.module('relcyApp')
                             values = data[index].imageSearchResult.imageSearchResults;
                             keyTitle = 'Images';
                             template = 'WEB_IMAGES';
-                            maxIndex = 4;
-                            incrementBy = 4;
+                            maxIndex = 6;
+                            incrementBy = 6;
                         }
                         break;
                     case 'WEB':
@@ -354,7 +354,7 @@ angular.module('relcyApp')
                                 maxIndex = 2;
                                 incrementBy = 2;
                                 key = 'CELEBRITY';
-                                keyTitle = 'Celebrity or People';
+                                keyTitle = 'People';
                                 template = 'CELEBRITY';
                             }else{
                                 values = '';

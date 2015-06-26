@@ -301,7 +301,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
     /*Will hide the auto complete on focus out*/
     $rootScope.hideSearchDropdown = function (id) {
-        angular.element(document.querySelector('#members')).children()[0].classList.remove('angucomplete-dropdown-visible');
+        angular.element(document.querySelector('#searchInputText')).children()[0].classList.remove('angucomplete-dropdown-visible');
     };
 
     $rootScope.hideLoader = true;
@@ -318,8 +318,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     var q = $stateParams.q;
     if (q) {
         setTimeout(function () {
-            $("#members input").focus();
-            angular.element(document.querySelector('#members')).children().children()[0].value = q;
+            $("#searchInputText input").focus();
+            angular.element(document.querySelector('#searchInputText')).children().children()[0].value = q;
         }, 300);
         $scope.query = q;
         $scope.showDetails({

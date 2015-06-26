@@ -32,9 +32,7 @@ body {
   background-position: center bottom;
   background-size: cover;
 }
-.col-sm4 {
-    min-width: 280px;
-}
+
 .logo img {
   margin-left: -70px;
   margin-top: 20px;
@@ -664,6 +662,15 @@ body {
 }
 
 /* COMPUTERS / OTHER DEVICES ------------------------------- */
+/* Displays/Screens (e.g. MacBook @ 1280x800) -------------- */
+@media only screen and (min-width: 768px) and (max-width: 1249px) {
+  .col-sm-8 {
+    width: 100%;
+  }
+  .col-sm-4 {
+    min-width: 280px;
+  }
+}
 
 /* Displays/Screens (e.g. MacBook @ 1280x800) -------------- */
 @media only screen and (min-width: 1250px) and (max-width: 1409px) {

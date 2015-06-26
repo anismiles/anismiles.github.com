@@ -2,6 +2,7 @@
 /* CSS Document */
 
 body {
+  overflow-x: hidden;
   background-image: url(../img-no-min/blocks-bg.png);
   background-color: #f5f5f5;
   background-attachment: fixed;
@@ -24,7 +25,7 @@ a:focus {
 }
 
 .nav > li > a:hover,
-.nav > li > a:focus{
+.nav > li > a:focus {
   background-color: #d5d5d5 !important;
 }
 
@@ -35,10 +36,6 @@ a:focus {
 
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn.active.focus {
   outline: 0 dotted;
-}
-
-.page-body {
-  margin-bottom: 60px;
 }
 
 #pageloader {
@@ -139,6 +136,7 @@ a:focus {
 .mr-r-30 {
   margin: 0 30px 0 0 !important;
 }
+
 .logo {
   margin: 0;
   padding: 0;
@@ -146,14 +144,17 @@ a:focus {
   height: 92px;
   line-height: 92px;
 }
+
 .relcy-logo {
-  width: 171px;
-  height: 53px;
-  cursor:pointer;
+  width: 152px;
+  height: 60px;
+  cursor: pointer;
 }
+
 .pageMiddle {
   margin-top: 15%;
 }
+
 .relcysrchInput input[type="text"] {
   border: none;
   box-shadow: none;
@@ -242,11 +243,6 @@ footer a {
   margin: 0px 5px;
 }
 
-#members_dropdown {
-  width: 50%;
-  margin-top: 60px;
-}
-
 #result-auto_dropdown {
   width: 100%;
   margin-top: 35px;
@@ -261,9 +257,9 @@ footer a {
 }
 
 .relcysrchInput .input-group .angucomplete-holder .form-control {
-  background-image: url(../images/type-to-search.svg);
-  background-position: center center;
-  background-repeat: no-repeat;
+  /*background-image: url(../images/type-to-search.svg);*/
+  /*background-position: center center;*/
+  /*background-repeat: no-repeat;*/
   background-color: #f5f5f5;
   border: none;
   border-top: solid 1px #e9e5e5;
@@ -274,12 +270,14 @@ footer a {
   padding: 0;
   float: none;
 }
+
 .relcysrchInput .input-group .angucomplete-holder .form-control:focus {
   background-image: none;
   background-position: center center;
   background-repeat: no-repeat;
   background-color: #f5f5f5;
 }
+
 .search-btn-circle {
   position: fixed;
   top: -100px;
@@ -331,56 +329,44 @@ footer a {
   height: auto;
 }
 
-.angucomplete-dropdown {
-  border-color: #ececec;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 2px;
-  width: 596px;
-  padding: 6px;
-  cursor: pointer;
-  z-index: 9999;
-  position: absolute;
-  margin-top: 65px;
-  background-color: #ffffff;
-  box-shadow: 5px 5px 5px #ccc;
-}
-
+/*.angucomplete-dropdown {*/
+/*background-color: #fff;*/
+/*border-color: #ececec;*/
+/*border-radius: 2px;*/
+/*border-style: solid;*/
+/*border-width: 1px;*/
+/*box-shadow: 5px 5px 5px #ccc;*/
+/*cursor: pointer;*/
+/*margin: 0 auto;*/
+/*padding: 6px;*/
+/*position: relative;*/
+/*width: 596px;*/
+/*z-index: 9999;*/
+/*}*/
 .angucomplete-dropdown .angucomplete-row:last-child {
   border-bottom: solid 0px #e2e2e2;
 }
-
-/*.angucomplete-dropdown {*/
-/*margin-top: 62px;*/
-/*width: 510px;*/
-/*padding: 0px;*/
-/*background-color: #ffffff;*/
-/*border: 1px solid #e5eaee;*/
-/*border-radius: 1px;*/
-/*max-height: 70%;*/
-/*overflow: auto;*/
-/*position: fixed;*/
-/*box-shadow: 5px 5px 5px #ccc;*/
-/*}*/
-
 .angucomplete-selected-row {
   background-color: #f9fcfe;
 }
-
-/*.angucomplete-dropdown-result-list {*/
-/*margin: 1px 0 0 -1px;*/
-/*width: 510px;*/
-/*padding: 0px;*/
-/*background-color: #ffffff;*/
-/*border-radius: 1px;*/
-/*border: 1px solid #e5eaee;*/
-/*border-top: 0;*/
-/*max-height: 70%;*/
-/*overflow: auto;*/
-/*position: fixed;*/
-/*box-shadow: 5px 5px 5px #ccc;*/
-/*}*/
-
+.angucomplete-dropdown {
+  border: 1px solid #e5eaee;
+  border-radius: 1px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  height: 70%;
+  left: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 10.7em;
+  width: 500px;
+}
+.angucomplete-dropdown-result-list {
+  height: 89%;
+  overflow: auto;
+}
 .angucomplete-image-default {
   background-color: #f5f8fa;
   background-position: center center;
@@ -536,9 +522,6 @@ ul.thumbList .table > thead > tr > th,
   border-top: none;
 }
 
-
-
-
 .thumb-img-n-w img {
   width: 100%;
 }
@@ -587,13 +570,14 @@ ul.webimage li img {
 }
 
 .topictitle {
-  background: none repeat scroll 0 0 #f5f8fa;
-  height: 50px;
+  background-color: #f5f5f5;
+  background-image: url("../img-no-min/blocks-bg.png");
+  border-color: transparent;
+  height: 43px;
   margin-bottom: 0;
   margin-top: 0;
   padding: 0 15px;
 }
-
 .detail-title {
   margin-top: 0;
   margin-bottom: 0;
@@ -610,9 +594,9 @@ ul.webimage li img {
 }
 
 .leftsidebar {
-  margin: 0 0 0 20px;
   position: fixed;
-  width: 158px;
+  width: inherit;
+  max-width: 158px;
 }
 
 .rightbar {
@@ -865,7 +849,8 @@ div.imdb span {
 
 .panel {
   background-color: #fff;
-  border: 1px solid #eff2f4;
+  border: 0px solid #eff2f4;
+  border-top: 1px solid #eff2f4;
   border-radius: 0px;
   box-shadow: none;
   margin-bottom: 20px;
@@ -1106,11 +1091,11 @@ div.imdb span {
 }
 
 .list-img-box {
-  height: 145px;
-  width: 145px;
+  height: 88.3px;
+  width: 88.3px;
   display: block;
-  position: relative;
-  overflow: hidden;
+  /*position: relative;*/
+  /*overflow: hidden;*/
   margin-bottom: 15px;
 }
 
