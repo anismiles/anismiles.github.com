@@ -1,17 +1,50 @@
+<style>
+  .relcysrchInput .input-group .angucomplete-holder .form-control {
+    border-bottom: none;
+  }
+
+  body {
+    background-image: none;
+    background-color: #f5f5f5;
+  }
+
+  .pageMiddle {
+    margin-top: 0px;
+    background-image: url(img-no-min/blocks-bg.png);
+    background-color: #f5f5f5;
+    background-attachment: fixed;
+  }
+
+  .navbar-default {
+    background-image: url(img-no-min/blocks-bg.png);
+    background-color: #f5f5f5;
+    border: medium none;
+  }
+</style>
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div ng-include="'views/search_input_detail.html'"></div>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <div ng-include="'views/header.html'"></div>
+      </div>
     </div>
+  </div>
+</nav>
+<nav class="navbar navbar-default navbar-fixed-top relcy-search">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <div ng-include="'views/search_input.html'"></div>
+      </div>
+    </div>
+  </div>
 </nav>
 <div class="container">
-    <div class="row lg-sc" style="padding-top:105px">
-        <div class="col-lg-12" ng-if="itemDetails">
-            <div ng-include="'views/left_nav_detail.html'" class="detail-page-nav"></div>
-            <div class="col-lg-12">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12" ng-if="itemDetails"
+         ng-class="showEdit?'show-edits':'hide-edits'" style="margin-top: 150px;">
+        <div ng-include="'views/left_nav_detail.html'" class="col-lg-2 col-md-2 col-sm-2"></div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-offset-2">
                 <div id="details_places" class="topSection">
                     <div class="coverImage" style="background-image:url('{{bannerUrl}}');"> </div>
                     <div class="profileImage"
@@ -40,7 +73,6 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <div class="clearfix"></div>
             <div class="col-sm-5 col-md-5  col-lg-5 action-detail">
 
                 <!--Deals-->

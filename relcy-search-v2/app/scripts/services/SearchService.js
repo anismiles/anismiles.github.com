@@ -233,7 +233,7 @@ angular.module('relcyApp')
                     /*Extracting image search results*/
                     try {
                         transformedData.imageResults = searchResults.imageSearchResult.imageSearchResults;
-                        transformedData.imageResults.maxIndex = 3;
+                        transformedData.imageResults.maxIndex = 6;
                         transformedData.categories.push({key: 'details_images', keyTitle: 'Images'});
                     } catch (err) {
                         console.log('no image results found');
