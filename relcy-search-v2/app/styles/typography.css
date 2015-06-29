@@ -2,468 +2,494 @@
 /* CSS Document */
 
 body {
-    font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
+  font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
 }
-
+a:hover, a:focus {
+  text-decoration: none;
+}
 .nav > li > a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .nav > li > a:focus {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .td-title span {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 ::-webkit-input-placeholder {
-    color: #CCD6DD;
+  color: #CCD6DD;
 }
 
 :-moz-placeholder {
-    color: #CCD6DD;
+  color: #CCD6DD;
 }
 
 ::-moz-placeholder {
-    color: #CCD6DD;
+  color: #CCD6DD;
 }
 
 :-ms-input-placeholder {
-    color: #CCD6DD;
+  color: #CCD6DD;
 }
 
 .title {
-    font-size: 40px;
-    color: #8899a6;
-    text-transform: uppercase;
-    font-family: lato;
-    font-weight: 400;
+  font-size: 40px;
+  color: #8899a6;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 .titleSmall {
-    font-size: 24px;
-    color: #8899a6;
-    text-transform: uppercase;
-    font-family: lato;
-    font-weight: 400;
+  font-size: 24px;
+  color: #8899a6;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 .relcysrchInput input[type="text"] {
-    font-size: 42px;
-    color: #000;
-    font-family: latolight
+  font-size: 42px;
+  color: #000;
+  font-weight: 300;
 }
 
 .resultList span {
-    color: #8899a6;
+  color: #8899a6;
 }
 
 .resultList span.fa, .action-detail span.fa {
-    color: #cad4db;
-    font-size: 24px;
+  color: #cad4db;
+  font-size: 11px;
 }
 
 .genre span {
-    color: #8899a6;
+  color: #8899a6;
 }
 
 .media-body .genre span:nth-child(1):before {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
 }
 
 .media-body .genre span:nth-child(1):after {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
 }
 
 .media-body .genre span:nth-child(2):before {
-    content: " . ";
-    color: #8899a6;
+  content: " . ";
+  color: #8899a6;
 }
 
 .media-body .genre span:nth-child(2):after {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
 }
 
 .media-body .genre span:nth-child(3):before {
-    content: " . ";
-    color: #8899a6;
+  content: " . ";
+  color: #8899a6;
 }
 
 .media-body .genre span:nth-child(3):after {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
 }
 
 .performer span {
-    display: inline-block;
-    margin: 0;
-    color: #8899a6;
+  display: inline-block;
+  margin: 0;
+  color: #8899a6;
 }
 
 .media-body .performer span:nth-child(1):before {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
 }
 
 .media-body .performer span:nth-child(1):after {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
 }
 
 .media-body .performer span:nth-child(2):before {
-    content: ", ";
-    color: #8899a6;
+  content: ", ";
+  color: #8899a6;
 }
 
 .media-body .performer span:nth-child(2):after {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
 }
 
 .media-body .performer span:nth-child(3):before {
-    content: ", ";
-    color: #8899a6;
+  content: ", ";
+  color: #8899a6;
 }
 
 .media-body .performer span:nth-child(3):after {
-    content: " ";
-    color: #8899a6;
+  content: " ";
+  color: #8899a6;
+}
+
+.panel-sorting, .panel-sorting a {
+  color: #989898;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+.panel-title, .topictitle {
+  color: #6c6c6c;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  line-height: 15px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.panel-sorting a.active {
+  color: #6a6a6a;
 }
 
 .score span.fa.rating {
-    color: #2b7bb9;
+  color: #9d9da3;
 }
 
 .angucomplete-selected-row .text-gray {
-    color: #CCC;
+  color: #CCC;
 }
 
 .td-lineheight i {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 .dark-gray {
-    color: #8899a6;
+  color: #8899a6;
 }
 
 .btn-link:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .relcysrchInput .fa-times-circle {
-    font-size: 22px;
+  font-size: 22px;
 }
 
 footer {
-    color: #ccd6dd;
-    font-size: 13px;
-    line-height: 30px;
+  color: #ccd6dd;
+  font-size: 13px;
+  line-height: 30px;
 }
 
 footer a {
-    color: #ccd6dd
+  color: #ccd6dd
 }
 
 .relcysrchInput .input-group .angucomplete-holder .form-control {
-  font-family: lato;
   font-size: 22px;
   font-weight: 400;
   line-height: 57px;
 }
+
 .btn-circle {
-    line-height: 24px;
-    text-align: center;
+  line-height: 24px;
+  text-align: center;
 }
 
 .btn-circle .glyphicon-search {
-    color: #FFF;
-    font-size: 10px;
+  color: #FFF;
+  font-size: 10px;
 }
 
 @-moz-document url-prefix() {
-    .btn-circle .glyphicon-search {
-        vertical-align: super;
-        color: #FFF;
-        font-size: 10px;
-    }
+  .btn-circle .glyphicon-search {
+    vertical-align: super;
+    color: #FFF;
+    font-size: 10px;
+  }
 }
 
 .angucomplete-selected-row {
-    color: #000;
+  color: #000;
 }
 
 .angucomplete-image-holder img {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 .angucomplete-title {
-    font-size: 18px;
-    font-weight: 400;
-    vertical-align: middle;
+  font-size: 18px;
+  font-weight: 400;
+  vertical-align: middle;
 }
 
 .angucomplete-dropdown-result-list .genre span {
-    font-size: 16px;
-    line-height: 30px;
+  font-size: 16px;
+  line-height: 30px;
 }
 
 .angucomplete-dropdown-result-list .rating span {
-    font-size: 16px;
+  font-size: 16px;
 }
-
-.panelList {
-    text-align: center;
-}
-
 .panelList a {
-    color: #ccd6dd;
-    font-size: 8px;
-    line-height: 50px;
+  color: #aeaeae;
+  font-size: 14px;
+  line-height: 45px;
 }
-
+.panelList a:hover, .panelList a:focus{
+  color: #6b6b79;
+}
+.panelList a .fa {
+  color: #6b6b79;
+  font: 18px/45px FontAwesome;
+  text-rendering: auto;
+}
 .topSection .details {
-    color: #666;
+  color: #666;
 }
 
 .topSection .details span {
-    color: #8899a6;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 24px;
+  color: #8899a6;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
 }
+
 .editable-controls button.btn.btn-primary span.glyphicon {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 100;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 100;
 }
+
 .editable-controls button.btn.btn-default span.glyphicon {
-    color: #666;
-    font-size: 14px;
-    font-weight: 100;
+  color: #666;
+  font-size: 14px;
+  font-weight: 100;
 }
+
 .topSection .details h2, .topSection .details h2 > span {
-    color: #000;
-    font-size: 26px;
-    font-weight: 400;
-    line-height: 32px;
+  color: #000;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 32px;
 }
+
 .topSection .details p {
-    color: #8899a6;
-    font-weight: 300;
+  color: #8899a6;
+  font-weight: 300;
 }
 
 .relcysmall {
-    font-size: 28px;
-    color: #8899a6;
-    font-weight: 300;
+  font-size: 28px;
+  color: #8899a6;
+  font-weight: 300;
 }
 
 .appthumb {
-    color: #fff;
+  color: #fff;
 }
 
 .vdothumb {
-    color: #fff;
+  color: #fff;
 }
 
 .imagethumb {
-    color: #fff;
+  color: #fff;
 }
 
 .topictitle {
-    color: #9299a6;
-    font-size: 18px;
-    line-height: 50px;
+  color: #9299a6;
+  font-size: 18px;
+  line-height: 50px;
 }
 
 .detail-title {
-    color: #9299a6 !important;
-    font-size: 12px;
-    line-height: 30px;
+  color: #9299a6 !important;
+  font-size: 12px;
+  line-height: 30px;
 }
 
 .nav > li > a {
   text-transform: uppercase;
-    color: #c4c4ca;
-    font-size: 12px;
-    font-weight: 600;
+  color: #c4c4ca;
+  font-size: 12px;
+  font-weight: 600;
 }
+
 .nav > li > a:hover,
-.nav > li > a:focus{
+.nav > li > a:focus {
   color: #3a3a48 !important;
 }
+
 .selected a {
   color: #3a3a48 !important;
   font-weight: 600 !important;
 }
+
 .media-heading {
-    font-size: 17px;
-    font-weight: 400;
+  color: #3a3a48;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .resultList p span a {
-    color: #2b7bb9;
-    font-size: 16px;
-    line-height: 16px;
+  color: #2b7bb9;
+  font-size: 16px;
+  line-height: 16px;
 }
 
 ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a,
 .detailvideo .videodetail h4.media-heading a,
 .resultList h4.media-heading a {
-    color: inherit
+  color: inherit
 }
 
 p.timestamp span {
-    color: #337ab7
+  color: #337ab7
 }
 
 .resultList p {
-    font-size: 16px;
-    color: #8899a9;
-    line-height: 20px;
-    font-weight: 300;
+  color: #8899a9;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
 }
 
 div.imdb span {
-    font-size: 11px !important;
+  font-size: 11px !important;
 }
 
 .detail_right p a {
-    color: #8899a6;
-    font-size: 17px;
-    font-weight: 300;
-    text-decoration: none;
+  color: #8899a6;
+  font-size: 17px;
+  font-weight: 300;
+  text-decoration: none;
 }
+
 .td-detail {
-    color: #8899a6;
-    font-size: 14px;
-    font-weight: 300;
+  color: #8899a6;
+  font-size: 14px;
+  font-weight: 300;
 }
+
 .td-title {
-    font-size: 14px;
-    color: #292f33;
+  font-size: 14px;
+  color: #292f33;
 }
 
 .td-lineheight {
-    vertical-align: middle !important;
+  vertical-align: middle !important;
 }
 
 .videodetail p {
-    color: #000;
-    font-size: 13px;
-    font-weight: 600;
+  color: #000;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .videodetail .detail-youtube {
-    font-weight: 300;
-    color: #8899a6;
+  font-weight: 300;
+  color: #8899a6;
 }
 
 .related-search h4 {
-    color: #8899a6;
-    font-weight: 300;
+  color: #8899a6;
+  font-weight: 300;
 }
 
 .showtimetitle span {
-    font-size: 12px;
-    color: #292f33;
+  font-size: 12px;
+  color: #292f33;
 }
 
 .showtimetitle span:last-child {
-    font-size: 11px;
-    color: #8899a6;
+  font-size: 11px;
+  color: #8899a6;
 }
 
 .showtime-time span {
-    color: #8899a6;
-    font-size: 11px;
-    text-align: center;
+  color: #8899a6;
+  font-size: 11px;
+  text-align: center;
 }
 
 .castlist p {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .castlist p:last-child {
-    color: #8899a6;
-    font-weight: 600;
+  color: #8899a6;
+  font-weight: 600;
 }
 
 .close {
-    color: #fff;
-    font-size: 32px;
-    font-weight: 300;
-    line-height: 1;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 1;
 }
 
 .close:hover, .close:focus {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 .related-search h4 {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 .lightbox-img-caption {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .btn-next {
-    color: #fff;
-    font-size: 68px;
-    font-weight: 300;
+  color: #fff;
+  font-size: 68px;
+  font-weight: 300;
 }
 
 .btn-pre {
-    color: #fff;
-    font-size: 68px;
-    font-weight: 300;
+  color: #fff;
+  font-size: 68px;
+  font-weight: 300;
 }
 
 .btn-next:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .btn-pre:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .leaflet-marker-icon {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .leaflet-marker-icon span {
-    text-align: center;
-    line-height: 50px;
+  text-align: center;
+  line-height: 50px;
 }
 
 ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a,
 .detailvideo .videodetail h4.media-heading a,
 .resultList h4.media-heading a,
-.detailvideo .media-heading a
-{
-    color: inherit
+.detailvideo .media-heading a {
+  color: inherit
 }
-a.editable{
-    color: #fff;
-    text-decoration: none;
-    font-size:26px;
+
+a.editable {
+  color: #fff;
+  text-decoration: none;
+  font-size: 26px;
 }
-a.edit-picture{
-    color: #fff;
-    text-decoration: none;
-    font-size:14px;
-}
-.panel-title, .topictitle{
-  font-size:12px;
-  color: #c6c6c6;
-  text-transform: uppercase;
+
+a.edit-picture {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
 }

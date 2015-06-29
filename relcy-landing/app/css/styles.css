@@ -16,10 +16,12 @@ body {
   background-position: center top;
   background-size: cover;
 }
+
 .wrapper {
   z-index: 2;
   position: relative;
 }
+
 .transparent-wrapper {
   height: 100%;
   width: 100%;
@@ -59,6 +61,12 @@ body {
   margin-top: 10px;
 }
 
+.device-type {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 35px;
+}
+
 .devices h1 {
   font-size: 70px;
   color: #072545;
@@ -77,11 +85,11 @@ body {
 }
 
 .bottom {
-  box-shadow: 0 0 200px rgba(255, 255, 255, 1);
   padding: 20px 0 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  /*border-top: solid 2px #eee;*/
+  /*box-shadow: 0 0 200px rgba(255, 255, 255, 1);*/
+  /*background-color: rgba(255, 255, 255, 0.8);*/
   width: 100%;
-  border-top: solid 2px #eee;
 }
 
 .content {
@@ -187,10 +195,19 @@ body {
   margin-bottom: 10px;
 }
 
+/*.footer {*/
+/*color: #09355f;*/
+/*font-weight: 600;*/
+/*padding: 10px 0;*/
+/*}*/
 .footer {
+  bottom: 0;
   color: #09355f;
   font-weight: 600;
-  padding: 10px 0;
+  padding: 10px;
+  position: fixed;
+  z-index: 1;
+  right: 0;
 }
 
 .footer-thanks {
@@ -200,6 +217,8 @@ body {
 }
 
 .thank {
+  float: none;
+  margin: 0 auto;
   padding: 135px 0;
 }
 
@@ -248,7 +267,6 @@ body {
   }
 }
 
-
 /*iPhone 6 Portrait*/
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
   .container {
@@ -284,9 +302,11 @@ body {
     width: 115px;
     height: 47px;
   }
+
   .devices {
     padding: 30px 0 15px;
   }
+
   .bottom {
     box-shadow: none;
     padding: 10px 0 0;
@@ -426,6 +446,10 @@ body {
 
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .footer {
+    position: relative
   }
 }
 
@@ -609,6 +633,9 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
   }
 
+  .footer {
+    position: relative
+  }
 }
 
 /* IPADS --------------------------------------------------- */
@@ -667,6 +694,7 @@ body {
   .col-sm-8 {
     width: 100%;
   }
+
   .col-sm-4 {
     min-width: 280px;
   }

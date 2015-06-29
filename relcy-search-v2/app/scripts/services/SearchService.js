@@ -225,7 +225,7 @@ angular.module('relcyApp')
                     /*Extracting web search results*/
                     try {
                         transformedData.webResults = searchResults.webSearchResult.searchResults;
-                        transformedData.webResults.maxIndex = 10;
+                        transformedData.webResults.maxIndex = 4;
                         transformedData.categories.push({key: 'details_web', keyTitle: 'Web'});
                     } catch (err) {
                         console.log('no web results found');
@@ -241,7 +241,7 @@ angular.module('relcyApp')
                     /*Extracting video search results*/
                     try {
                         transformedData.videoResults = searchResults.videoSearchResult.videoSearchResults;
-                        transformedData.videoResults.maxIndex = 5;
+                        transformedData.videoResults.maxIndex = 3;
                         transformedData.categories.push({key: 'details_videos', keyTitle: 'Videos'});
                     } catch (err) {
                         console.log('no video results found');
@@ -249,7 +249,7 @@ angular.module('relcyApp')
                     /*Extracting places search results*/
                     try {
                         transformedData.placesResults = searchResults.placesSearchResult.placesSearchResult;
-                        transformedData.placesResults.maxIndex = 6;
+                        transformedData.placesResults.maxIndex = 3;
                         transformedData.categories.push({key: 'details_places', keyTitle: 'Places'});
                     } catch (err) {
                         console.log('no places results found');
@@ -278,8 +278,8 @@ angular.module('relcyApp')
                             values = data[index].searchResultRelcy.results;
                             keyTitle = 'Movies';
                             template = 'ENTERTAINMENT_VIDEO_MOVIE';
-                            maxIndex = 4;
-                            incrementBy = 4;
+                            maxIndex = 3;
+                            incrementBy = 3;
                             $scope.addScoresToVideoMovies(values);
                         }
                         break;
@@ -288,8 +288,8 @@ angular.module('relcyApp')
                             values = data[index].searchResultRelcy.results;
                             keyTitle = 'TV Shows';
                             template = 'ENTERTAINMENT_VIDEO_TVSHOW';
-                            maxIndex = 4;
-                            incrementBy = 4;
+                            maxIndex = 3;
+                            incrementBy = 3;
                             $scope.addScoresToVideoMovies(values);
                         }
                         break;
@@ -316,8 +316,8 @@ angular.module('relcyApp')
                             values = data[index].webSearchResult.searchResults;
                             keyTitle = 'Web';
                             template = 'WEB';
-                            maxIndex = 10;
-                            incrementBy = 10;
+                            maxIndex = 4;
+                            incrementBy = 4;
                         }
                         break;
                     case 'WEB_NEWS':
@@ -325,8 +325,8 @@ angular.module('relcyApp')
                             values = data[index].newsSearchResult.newsSearchResults;
                             keyTitle = 'News';
                             template = 'WEB_NEWS';
-                            maxIndex = 10;
-                            incrementBy = 10;
+                            maxIndex = 3;
+                            incrementBy = 3;
                         }
                         break;
                     case 'APP':
@@ -334,8 +334,8 @@ angular.module('relcyApp')
                             values = data[index].searchResultRelcy.results;
                             keyTitle = 'App';
                             template = 'APP';
-                            maxIndex = 2;
-                            incrementBy = 2;
+                            maxIndex = 6;
+                            incrementBy = 6;
                             $scope.addScoresToAppResluts(values);
                         }
                         break;
@@ -351,8 +351,8 @@ angular.module('relcyApp')
                             }
                             if(!foundCelebrity){
                                 values = data[index].searchResultRelcy.results;
-                                maxIndex = 2;
-                                incrementBy = 2;
+                                maxIndex = 3;
+                                incrementBy = 3;
                                 key = 'CELEBRITY';
                                 keyTitle = 'People';
                                 template = 'CELEBRITY';
@@ -376,8 +376,8 @@ angular.module('relcyApp')
                             values = data[index].searchResultRelcy.results;
                             keyTitle = 'Songs';
                             template = 'ENTERTAINMENT_AUDIO';
-                            maxIndex = 1;
-                            incrementBy = 1;
+                            maxIndex = 3;
+                            incrementBy = 3;
                             $scope.addScoresToVideoMovies(values);
                             self.extractPerformers(values);
                         }
@@ -387,8 +387,8 @@ angular.module('relcyApp')
                             values = data[index].searchResultRelcy.results;
                             keyTitle = 'Places';
                             template = 'LOCAL_BUSINESS';
-                            maxIndex = 6;
-                            incrementBy = 6;
+                            maxIndex = 3;
+                            incrementBy = 3;
                             $scope.addScoresToPlaceResluts(values);
                             $scope.hasLocalBusiness = true;
 

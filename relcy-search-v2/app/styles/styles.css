@@ -16,15 +16,20 @@ a:focus {
   background: #f5f5f5;
   border: none;
 }
+
 .navbar {
   margin-bottom: 0;
 }
-.relcy-search{
+
+.relcy-search {
   margin-top: 92px;
 }
+
 nav.navbar.navbar-default.navbar-fixed-top.relcy-search input.form-control,
-nav.navbar.navbar-default.navbar-fixed-top.relcy-search
-{background: none;}
+nav.navbar.navbar-default.navbar-fixed-top.relcy-search {
+  background: none;
+}
+
 #map {
   top: 0;
   bottom: 0;
@@ -97,6 +102,14 @@ nav.navbar.navbar-default.navbar-fixed-top.relcy-search
   padding: 0 10px
 }
 
+.pd-lr-15 {
+  padding: 0 15px
+}
+
+.pd-tb-5 {
+  padding: 5px 0
+}
+
 .pd-tb-10 {
   padding: 10px 0
 }
@@ -141,8 +154,28 @@ nav.navbar.navbar-default.navbar-fixed-top.relcy-search
   margin: 0 20px 0 0 !important;
 }
 
+.mr-b-10 {
+  margin: 0 0 10px !important;
+}
+
 .mr-r-30 {
   margin: 0 30px 0 0 !important;
+}
+
+.bdr-bt {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bdr-tp {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bdr-lt {
+  border-lt: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bdr-rt {
+  border-rt: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -208,7 +241,7 @@ ul.resultList li:last-child {
 }
 
 p.genre, p.performer, p.score {
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 
 .genre span {
@@ -354,9 +387,11 @@ footer a {
 .angucomplete-dropdown .angucomplete-row:last-child {
   border-bottom: solid 0px #e2e2e2;
 }
+
 .angucomplete-selected-row {
   background-color: #f9fcfe;
 }
+
 .angucomplete-dropdown {
   border: 1px solid #e5eaee;
   border-radius: 1px;
@@ -371,10 +406,12 @@ footer a {
   top: 10.7em;
   width: 500px;
 }
+
 .angucomplete-dropdown-result-list {
   height: 89%;
   overflow: auto;
 }
+
 .angucomplete-image-default {
   background-color: #f5f8fa;
   background-position: center center;
@@ -423,13 +460,22 @@ footer a {
 }
 
 .panelList {
-  background-color: #fafcfd;
+  background-color: #fff;
   width: 100%;
-  margin-top: 15px;
+  border-top: 1px solid #f5f5f5;
 }
 
 .panelList a {
+  display: block;
+  height: 45px;
+}
+
+.panelList a > .fa {
   display: inline-block;
+  float: right;
+  height: 45px;
+  padding: 0;
+  transform: translate(0px, 0px);
 }
 
 .topSection {
@@ -535,9 +581,9 @@ ul.thumbList .table > thead > tr > th,
 }
 
 .play-icon-thumb-vdo {
-  left: 46%;
+  left: 36%;
   position: absolute;
-  top: 41%;
+  top: 36%;
   vertical-align: middle;
 }
 
@@ -586,6 +632,7 @@ ul.webimage li img {
   margin-top: 0;
   padding: 0 15px;
 }
+
 .detail-title {
   margin-top: 0;
   margin-bottom: 0;
@@ -653,7 +700,7 @@ ul.webimage li img {
 
 .media-heading {
   font-weight: 400;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   margin-top: 0;
 }
 
@@ -1025,12 +1072,23 @@ div.imdb span {
 .panel-default > .panel-heading {
   background-image: url(../img-no-min/blocks-bg.png);
   background-color: #f5f5f5;
-  border-color: transparent;
-  color: #9299a6;
+  border-bottom: none;
 }
 
 .panel-heading {
   padding: 15px;
+}
+
+.panel-sorting, .panel-sorting a {
+  margin: -3px 10px 0;
+}
+
+.panel-sorting a:first-child {
+  margin: -3px 10px 0 0;
+}
+
+.panel-sorting a:last-child {
+  margin: -3px 0 0 10px;
 }
 
 .media-object {
@@ -1038,44 +1096,15 @@ div.imdb span {
 }
 
 .image-thumb-video {
-  width: 200px;
-  height: 150px;
+  width: 100px;
+  height: 75px;
+  border-radius: 4px;
 }
 
-.image-thumb-movie {
-  width: 110px;
-  height: 110px;
-}
-
-.image-thumb-tv {
-  width: 110px;
-  height: 110px;
-}
-
-.image-thumb-local {
-  width: 110px;
-  height: 110px;
-}
-
-.image-thumb-app {
-  width: 110px;
-  height: 110px;
-  border-radius: 25px;
-}
-
-.image-thumb-song {
-  width: 110px;
-  height: 110px;
-}
-
-.image-thumb-news {
-  width: 150px;
-  height: 150px;
-}
-
-.image-thumb-celebrity {
-  width: 110px;
-  height: 110px;
+.image-thumb-movie, .image-thumb-tv, .image-thumb-local, .image-thumb-app, .image-thumb-song, .image-thumb-news, .image-thumb-celebrity {
+  width: 75px;
+  height: 75px;
+  border-radius: 4px;
 }
 
 .thumbnail {
@@ -1115,12 +1144,15 @@ div.imdb span {
   position: relative;
   width: 102.308px;
 }
+
 .image-result-list {
-  margin:0 0px 15px;
+  margin: 0 0px 15px;
 }
+
 .detail-img-box:last-child {
-  margin:0 0px 1px 0;
+  margin: 0 0px 1px 0;
 }
+
 /* editable start */
 a.editable {
   position: absolute;
