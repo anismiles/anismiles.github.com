@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 body {
-  font-family: "WeblySleek UI Light";
+  font-family: "weblysleek_uilight";
 }
 
 html, body {
@@ -15,6 +15,21 @@ body {
   background-attachment: fixed;
   background-position: center top;
   background-size: cover;
+}
+
+a {
+  color: #51ce42;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #23527c;
+  text-decoration: none;
+}
+
+a:focus {
+  outline: medium none;
+  outline-offset: -2px;
 }
 
 .wrapper {
@@ -41,15 +56,17 @@ body {
 }
 
 .logo {
-  background-image: url("../images/logo.png");
-  background-repeat: no-repeat;
   background-attachment: scroll;
+  background-image: url("../images/logo.png");
   background-position: center center;
-  width: 230px;
-  height: 94px;
+  background-repeat: no-repeat;
   display: block;
-  margin-left: -30px;
-  margin-top: 40px;
+  height: 94px;
+  left: 36px;
+  position: fixed;
+  top: 40px;
+  width: 230px;
+  z-index: 1;
 }
 
 .devices {
@@ -57,35 +74,15 @@ body {
   padding: 30px 0;
 }
 
-.sms-form {
-  margin-top: 10px;
-}
-
-.device-type {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 35px;
-}
-
 .devices h1 {
-  font-size: 70px;
+  font-family: 'weblysleek_uisemilight_italic';
+  font-size: 60px;
   color: #072545;
-  margin: 40px 0px 0px;
-  font-weight: 100;
-}
-
-.devices h2 {
-  font-size: 47px;
-  color: #072444;
-  margin: 0px;
-  font-weight: 100;
-}
-
-.devices img {
+  margin: 65px 0px 0px;
 }
 
 .bottom {
-  padding: 20px 0 0;
+  padding: 30px 0 0;
   /*border-top: solid 2px #eee;*/
   /*box-shadow: 0 0 200px rgba(255, 255, 255, 1);*/
   /*background-color: rgba(255, 255, 255, 0.8);*/
@@ -94,22 +91,23 @@ body {
 
 .content {
   color: #04182b;
+  /*margin-top: 24px;*/
 }
 
 .content h4 {
+  font-family: 'weblysleek_uisemilight';
   font-size: 30px;
-  font-weight: 600;
   color: #04182b;
   margin-top: 0px;
 }
 
 .content p {
-  font-size: 17px;
+  font-family: 'weblysleek_uisemibold';
+  font-size: 16px;
   letter-spacing: 1px;
   word-spacing: 0;
-  line-height: 25px;
+  line-height: 26px;
   color: #04182b;
-  font-weight: 600;
 }
 
 .toggle {
@@ -122,10 +120,9 @@ body {
 .toggle .btn-primary.active, .toggle .btn-primary.focus,
 .toggle .btn-primary:active, .toggle .btn-primary:focus,
 .toggle .btn-primary:hover, .open > .dropdown-toggle.btn-primary {
-  background-color: #cccccc;
-  border-color: #999999;
-  color: #09355f;
-  font-weight: 600;
+  background-color: #0a355f;
+  border-color: #999;
+  color: #fff;
 }
 
 .toggle .btn {
@@ -134,7 +131,6 @@ body {
   font-size: 17px;
   letter-spacing: 1px;
   word-spacing: 0;
-  font-weight: 600;
 }
 
 .toggle .btn.active, .toggle .btn:active {
@@ -144,28 +140,27 @@ body {
 .toggle .btn-primary {
   background-color: #ffffff;
   border-color: #999999;
-  color: #09355f;
+  color: #313131;
   width: 50%;
-  font-weight: 600;
+
 }
 
 .form-control::-moz-placeholder {
-  color: #09355f;
+  color: #313131;
   opacity: 1;
   letter-spacing: 1px;
   word-spacing: 0;
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #09355f;
+  color: #313131;
   opacity: 1
 }
 
 .form-control {
   border-radius: 8px;
   margin-bottom: 15px;
-  color: #09355f;
-  font-weight: 100;
+  color: #313131;
   font-size: 17px;
   text-align: center;
 }
@@ -178,36 +173,36 @@ body {
   display: block;
   width: 430px;
   height: 234px;
-  margin: 0 auto;
+  margin: 140px auto 0;
 }
 
 .customButton {
+  font-family: 'weblysleek_uisemibold';
   background: #51cf42 !important;
   opacity: 1 !important;
   border: none !important;
   border-radius: 8px;
   width: 100%;
   padding: 12px;
-  font-weight: 100;
   font-size: 17px;
   letter-spacing: 1px;
   word-spacing: 0;
   margin-bottom: 10px;
 }
 
-/*.footer {*/
-/*color: #09355f;*/
-/*font-weight: 600;*/
-/*padding: 10px 0;*/
-/*}*/
+.sms-form {
+  min-width: 248px;
+}
+
 .footer {
   bottom: 0;
   color: #09355f;
-  font-weight: 600;
   padding: 10px;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   right: 0;
+  width: 100%;
+  background-color: none;
 }
 
 .footer-thanks {
@@ -254,8 +249,6 @@ body {
     background-attachment: scroll;
     background-position: center center;
     background-size: 230px 94px;
-    margin-left: -60px;
-    margin-top: 40px;
   }
 
   .devices-img {
@@ -278,29 +271,34 @@ body {
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
+    margin: 40px auto 0;
   }
 
   .devices h1 {
-    font-size: 26px;
+    font-size: 24px;
     margin: 20px 0px 0px;
-    font-weight: 600;
   }
 
   .devices h2 {
     font-size: 24px;
   }
 
+  .content {
+    color: #04182b;
+    margin-top: 0;
+  }
+
   .content p {
-    font-size: 13px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 18px;
   }
 
   .logo {
     background-size: 115px 47px;
-    margin-left: 0;
-    margin-top: 20px;
     width: 115px;
     height: 47px;
+    left: 15px;
+    top: 20px;
   }
 
   .devices {
@@ -355,6 +353,9 @@ body {
 
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
+  }
+  .footer {
+    position: relative;
   }
 }
 
@@ -369,12 +370,12 @@ body {
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
+    margin: 40px auto 0;
   }
 
   .devices h1 {
     font-size: 26px;
     margin: 20px 0px 0px;
-    font-weight: 600;
   }
 
   .devices h2 {
@@ -388,10 +389,10 @@ body {
 
   .logo {
     background-size: 115px 47px;
-    margin-left: 0;
-    margin-top: 20px;
     width: 115px;
     height: 47px;
+    left: 15px;
+    top: 20px;
   }
 
   .devices {
@@ -406,11 +407,13 @@ body {
   }
 
   div.col-lg-8.col-md-8.col-sm-8 {
-    width: 100%
+    width: 60%;
+    float: left;
   }
 
   div.col-lg-4.col-md-4.col-sm-4 {
-    width: 100%
+    width: 40%;
+    float: right;
   }
 
   .toggle .btn:first-child, .toggle .btn:last-child {
@@ -441,15 +444,14 @@ body {
   }
 
   .toggle, .form-control {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
 
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
   }
-
   .footer {
-    position: relative
+    position: relative;
   }
 }
 
@@ -464,12 +466,12 @@ body {
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
+    margin: 86px auto 0;
   }
 
   .devices h1 {
-    font-size: 30px;
+    font-size: 27px;
     margin: 20px 0px 0px;
-    font-weight: 600;
   }
 
   .devices h2 {
@@ -483,8 +485,8 @@ body {
 
   .logo {
     background-size: 115px 47px;
-    margin-left: 0;
-    margin-top: 20px;
+    left: 15px;
+    top: 20px;
     width: 115px;
     height: 47px;
   }
@@ -540,6 +542,9 @@ body {
 
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
+  }
+  .footer {
+    position: relative;
   }
 }
 
@@ -554,29 +559,34 @@ body {
     background-size: 147px 80px;
     width: 147px;
     height: 80px;
+    margin: 40px auto 0;
   }
 
   .devices h1 {
     font-size: 30px;
     margin: 20px 0px 0px;
-    font-weight: 600;
   }
 
   .devices h2 {
     font-size: 26px;
   }
 
+  .content {
+    color: #04182b;
+    margin-top: 20px;
+  }
+
   .content p {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 18px;
   }
 
   .logo {
     background-size: 115px 47px;
-    margin-left: 0;
-    margin-top: 20px;
     width: 115px;
     height: 47px;
+    left: 15px;
+    top: 20px;
   }
 
   .devices {
@@ -591,11 +601,13 @@ body {
   }
 
   div.col-lg-8.col-md-8.col-sm-8 {
-    width: 100%
+    width: 62.5%;
+    float: left;
   }
 
   div.col-lg-4.col-md-4.col-sm-4 {
-    width: 100%
+    width: 37%;
+    float: right;
   }
 
   .toggle .btn:first-child, .toggle .btn:last-child {
@@ -632,9 +644,8 @@ body {
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
   }
-
   .footer {
-    position: relative
+    position: relative;
   }
 }
 
@@ -651,10 +662,6 @@ body {
     width: 700px;
   }
 
-  .logo {
-    margin-left: 0;
-  }
-
   div.col-lg-8.col-md-8.col-sm-8 {
     width: 100%
   }
@@ -668,10 +675,6 @@ body {
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .container {
     width: 960px;
-  }
-
-  .logo {
-    margin-left: 0;
   }
 
   div.col-lg-8.col-md-8.col-sm-8 {
@@ -696,7 +699,7 @@ body {
   }
 
   .col-sm-4 {
-    min-width: 280px;
+    min-width: 300px;
   }
 }
 
