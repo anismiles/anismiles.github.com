@@ -5,7 +5,7 @@ angular.module('relcyApp')
         this.searchResult = [];
         this.BASE_URL = 'https://staging-w.relcy.com';
         this.ACCESS_TOKEN = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
-
+        this.searchTxt = '';
         /*Will be used to refer the service itself*/
         var self = this;
         this.getGeoLocation = function () {
@@ -27,6 +27,22 @@ angular.module('relcyApp')
                 });
             return deferred.promise;
         }
+        /* search service adding By DT */
+        this.searchOnRelcy = function (searchStr) {
+          //var currLoc = self.getGeoLocation();
+          var deferred = $q.defer();
+          $http({
+            method: "GET",
+            url: self.BASE_URL + '/autocomplete?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+searchStr
+          })
+            .success(function (data) {
+              deferred.resolve(data);
+            }).error(function (msg, code) {
+              deferred.reject(msg);
+            });
+          return deferred.promise;
+        };
+        /* end serach service */
 
         this.getEntityDetails = function (relcyId) {
             var currLoc = self.getGeoLocation();

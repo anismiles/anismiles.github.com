@@ -19,21 +19,21 @@ a:hover, a:focus {
   font-size: 17px;
 }
 
-::-webkit-input-placeholder {
-  color: #CCD6DD;
-}
+/*::-webkit-input-placeholder {*/
+  /*color: #CCD6DD;*/
+/*}*/
 
-:-moz-placeholder {
-  color: #CCD6DD;
-}
+/*:-moz-placeholder {*/
+  /*color: #CCD6DD;*/
+/*}*/
 
-::-moz-placeholder {
-  color: #CCD6DD;
-}
+/*::-moz-placeholder {*/
+  /*color: #CCD6DD;*/
+/*}*/
 
-:-ms-input-placeholder {
-  color: #CCD6DD;
-}
+/*:-ms-input-placeholder {*/
+  /*color: #CCD6DD;*/
+/*}*/
 
 .title {
   font-size: 40px;
@@ -50,9 +50,9 @@ a:hover, a:focus {
 }
 
 .relcysrchInput input[type="text"] {
-  font-size: 42px;
-  color: #000;
-  font-weight: 300;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 57px;
 }
 
 .resultList span {
@@ -226,8 +226,8 @@ footer a {
 }
 
 .angucomplete-dropdown-result-list .genre span {
-  font-size: 16px;
-  line-height: 30px;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .angucomplete-dropdown-result-list .rating span {
@@ -300,8 +300,6 @@ footer a {
 }
 
 .topictitle {
-  color: #9299a6;
-  font-size: 18px;
   line-height: 50px;
 }
 
@@ -328,7 +326,7 @@ footer a {
   font-weight: 600 !important;
 }
 
-.media-heading {
+.media-heading, .angucomplete-title {
   color: #3a3a48;
   font-size: 14px;
   font-weight: 700;
@@ -394,16 +392,17 @@ div.imdb span {
   color: #8899a6;
 }
 
-.related-search h4 {
-  color: #8899a6;
-  font-weight: 300;
-}
-
 .showtimetitle span {
   font-size: 12px;
   color: #292f33;
 }
-
+.more-icon{
+  font-size: 12px;
+  color: #6b6b76;
+}
+span.search-icon{
+  color: #ccc;
+}
 .showtimetitle span:last-child {
   font-size: 11px;
   color: #8899a6;
@@ -434,10 +433,6 @@ div.imdb span {
 .close:hover, .close:focus {
   color: #fff;
   text-decoration: none;
-}
-
-.related-search h4 {
-  font-size: 17px;
 }
 
 .lightbox-img-caption {

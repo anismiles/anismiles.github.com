@@ -1,15 +1,146 @@
+<style>
+  .body {
+    background-image: none;
+    background-color: #f5f5f5;
+  }
+
+  .pageResult {
+    padding-top: 150px;
+  }
+
+  #searchInputText {
+    border-bottom: none;
+  }
+
+  .navbar-search {
+    margin-top: 92px;
+  }
+</style>
+<nav class="navbar navbar-default navbar-fixed-top navbar-logo">
+  <div ng-include="'views/header.html'"></div>
+</nav>
+<nav class="navbar navbar-default navbar-fixed-top navbar-search">
+  <div class="container-fluid">
+    <!--<div class="totop" ng-show="showTopAnchor" ng-click="scrollTo('container');"><img-->
+    <!--src="img-no-min/to-top.png" alt="" class=""></div>-->
+    <div class="row">
+      <div id="pageMiddle" class="pageMiddle">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
+          <form class="" id="bigform">
+            <div class="form-group relcysrchInput mr0">
+              <div class="input-group">
+                <input type="text" placeholder="Type To Search" id="searchInputText" ng-model="searchTxt"
+                       ng-change="searchOnRelcy()"
+                       ng-keypress="$event.which === 13 && searchAll()" class="text-center">
+              </div>
+              <div class="input-group-addon search-btn-circle">
+                <button type="submit" class="btn btn-link btn-circle" ui-sref="search({q:query})">
+                  <i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</nav>
 <div class="container">
-  <div class="row lg-sc">
+  <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="pageResult">
         <div ng-show="showTopAnchor"><img src="img-no-min/to-top.png" alt="" class="play-icon-thumb-vdo"/></div>
-        <div ng-include="'views/left_nav.html'" class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div ng-if="searchResultShow" ng-include="'views/left_nav.html'" style="width:inherit;"></div>
+        </div>
+
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <div class="result-list">
-            <div ng-if="!showDetailPage" class="animate-switch-container" ng-repeat="cat in searchResults">
+          <!-- -->
+          <div class="panel panel-default" ng-if="suggestedSearch">
+            <div class="panel-heading">
+              <h3 class="panel-title">Suggestions</h3>
+            </div>
+            <div class="panel-body">
+              <ul class="resultList">
+                <li ng-repeat="result in searchResultsOfRelcy" ng-click="selectResult(result)"
+                    ng-mouseenter="hoverRow($index)">
+                  <div class="media">
+                    <div ng-if="result.icon=='unknown' || result.icon=='' || !result.icon"
+                         class="media-left thumb-common thumb-unknown">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='movie'" class="media-left thumb-common thumb-movie">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='music'" class="media-left thumb-common thumb-music">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='app'" class="media-left thumb-common thumb-app">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='place'" class="media-left thumb-common thumb-place">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='business'" class="media-left thumb-common thumb-place">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='bar'" class="media-left thumb-common thumb-bar">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='tv'" class="media-left thumb-common thumb-tv">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='news'" class="media-left thumb-common thumb-news">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='web'" class="media-left thumb-common thumb-search">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='video'" class="media-left thumb-common thumb-movie">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='person'" class="media-left thumb-common thumb-person">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='celebrity'" class="media-left thumb-common thumb-celebrity">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div ng-if="result.icon=='coffee'" class="media-left thumb-common thumb-coffee">
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading" ng-if="!matchClass">{{ result.title }}</h4>
+
+                      <div class="dark-gray">
+                        <p class="genre">
+                          <span ng-if="result.sub_title3">{{::result.sub_title3}}</span>
+                          <span ng-if="result.sub_title2">{{::result.sub_title2}}</span>
+                          <span ng-if="result.sub_title">{{::result.sub_title}}</span>
+                        </p>
+
+                        <p class="score" ng-if="result.score">
+                           <span ng-repeat="sa in getRatingCount(result.score) track by $index"
+                                 class="glyphicon glyphicon-star"></span>
+                            <span ng-if="getHalfRating(result.score)"
+                                  class="glyphicon glyphicon-star-empty"></span> &nbsp;
+                          <span></span>
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- -->
+          <div class="result-list" ng-if="searchResultShow">
+            <div class="animate-switch-container" ng-repeat="cat in searchResults">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <span class="pull-right panel-sorting" ng-if="cat.key == 'ENTERTAINMENT_VIDEO_TVSHOW'  || cat.key == 'ENTERTAINMENT_VIDEO_MOVIE'"><a href="" class="active">Rating</a> | <a
+                  <span class="pull-right panel-sorting"
+                        ng-if="cat.key == 'ENTERTAINMENT_VIDEO_TVSHOW'  || cat.key == 'ENTERTAINMENT_VIDEO_MOVIE'"><a
+                    href="" class="active">Rating</a> | <a
                     href="">Year</a></span>
                   <span class="pull-right panel-sorting" ng-if="cat.key == 'LOCAL_BUSINESS'"><a href="" class="active">Rating</a> | <a
                     href="">Nearby</a> | <a href="">Open</a></span>
@@ -25,7 +156,8 @@
                 </div>
                 <div class="panelList pd-lr-15">
                   <a href="javascript:void(0)" ng-if="cat.maxIndex<cat.values.length"
-                     ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy">More {{cat.keyTitle}} <i class="fa fa-angle-right"></i>
+                     ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy">More {{cat.keyTitle}}
+                    <span aria-hidden="true" class="glyphicon glyphicon-menu-right pull-right more-icon"></span>
                   </a>
                 </div>
               </div>
@@ -33,14 +165,18 @@
           </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-if="searchResultShow">
           <div ng-if="relatedSearches.length>0">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title" id="{{cat.key}}">Related Searches</h3>
               </div>
-              <div class="panel-body"
-                   ng-include="'views/categories/RELATED_SEARCHES.html'"></div>
+              <div class="panel-body" ng-include="'views/categories/RELATED_SEARCHES.html'"></div>
+              <div class="panelList pd-lr-15">
+                <a href="javascript:void(0)" ng-click="cat.maxIndex=cat.maxIndex+cat.incrementBy">More results
+                  <span aria-hidden="true" class="glyphicon glyphicon-menu-right pull-right more-icon"></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
