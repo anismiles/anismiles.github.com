@@ -32,11 +32,6 @@ a:focus {
   outline-offset: -2px;
 }
 
-.wrapper {
-  z-index: 2;
-  position: relative;
-}
-
 .transparent-wrapper {
   height: 100%;
   width: 100%;
@@ -63,7 +58,7 @@ a:focus {
   display: block;
   height: 94px;
   left: 36px;
-  position: fixed;
+  position: absolute;
   top: 40px;
   width: 230px;
   z-index: 1;
@@ -195,20 +190,11 @@ a:focus {
 }
 
 .footer {
-  bottom: 0;
   color: #09355f;
-  padding: 10px;
-  position: fixed;
+  padding:0 16px;
+  position: relative;
   z-index: 2;
-  right: 0;
   width: 100%;
-  background-color: none;
-}
-
-.footer-thanks {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
 }
 
 .thank {
@@ -258,6 +244,11 @@ a:focus {
     background-position: center center;
     background-size: 430px 234px;
   }
+
+  .wrapper {
+    z-index: 2;
+    position: relative;
+  }
 }
 
 /*iPhone 6 Portrait*/
@@ -268,9 +259,9 @@ a:focus {
 
   .devices-img {
     background-position: center bottom;
-    background-size: 147px 80px;
-    width: 147px;
-    height: 80px;
+    background-size: 188px 90px;
+    width: 200px;
+    height: 90px;
     margin: 40px auto 0;
   }
 
@@ -354,9 +345,6 @@ a:focus {
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
   }
-  .footer {
-    position: relative;
-  }
 }
 
 /*iPhone 6 landscape*/
@@ -367,9 +355,9 @@ a:focus {
 
   .devices-img {
     background-position: center bottom;
-    background-size: 147px 80px;
-    width: 147px;
-    height: 80px;
+    background-size: 188px 90px;
+    width: 200px;
+    height: 90px;
     margin: 40px auto 0;
   }
 
@@ -450,9 +438,6 @@ a:focus {
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
   }
-  .footer {
-    position: relative;
-  }
 }
 
 /*iPhone 6+ Portrait*/
@@ -463,10 +448,10 @@ a:focus {
 
   .devices-img {
     background-position: center bottom;
-    background-size: 147px 80px;
-    width: 147px;
-    height: 80px;
-    margin: 86px auto 0;
+    background-size: 188px 90px;
+    width: 200px;
+    height: 90px;
+    margin: 40px auto 0;
   }
 
   .devices h1 {
@@ -543,9 +528,6 @@ a:focus {
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
   }
-  .footer {
-    position: relative;
-  }
 }
 
 /*iPhone 6+ landscape*/
@@ -556,9 +538,9 @@ a:focus {
 
   .devices-img {
     background-position: center bottom;
-    background-size: 147px 80px;
-    width: 147px;
-    height: 80px;
+    background-size: 188px 90px;
+    width: 200px;
+    height: 90px;
     margin: 40px auto 0;
   }
 
@@ -643,9 +625,6 @@ a:focus {
 
   .toggle .btn-primary {
     background-color: rgba(255, 255, 255, 0.5);
-  }
-  .footer {
-    position: relative;
   }
 }
 
