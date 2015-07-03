@@ -6,11 +6,11 @@ angular.module('siteApp')
 /*Session to keep - session specific things*/
 function RelcyService($timeout, $q, $http, $resource) {
   /*staging*/
-  //var APIUrl = "https://staging-w.relcy.com/app";
+  var APIUrl = "https://staging-w.relcy.com/app";
   /*dev*/
   //var APIUrl = "https://dev-w.relcy.com/app";
-  /*api*/
-  var APIUrl = "https://api-w.relcy.com/app";
+  /*prod*/
+  //var APIUrl = "https://api-w.relcy.com/app";
 
   return $resource(
     APIUrl,
