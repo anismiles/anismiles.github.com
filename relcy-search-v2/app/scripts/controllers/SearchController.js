@@ -11,10 +11,10 @@ angular.module('relcyApp')
     '$filter',
     'anchorSmoothScroll',
     'Lightbox',
-    'Session',
+    '$state',
     SearchController]);
 
-function SearchController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, lodash) {
+function SearchController($scope, $http,$rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox,$state) {
 
   $scope.showDetailPage = false;
   $scope.selected = 0;
@@ -113,7 +113,10 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
   //
   $scope.searchAll = function () {
     $scope.suggestedSearch = false;
-    $location.path('search').search({q: $scope.query});
+    $scope.search($scope.query)
+    //$location.path('search').search({q: $scope.query});
+    //$state.go('/search?q='+$scope.query)
+
     //$scope.search($scope.query);
   };
   //
@@ -268,5 +271,48 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
   $timeout(function () {
     $("#searchInputText input").focus();
   }, 300)
+
+  $scope.locationActiveSort = 1
+  $scope.moviesActiveSort = 1
+
+  $scope.ratingAsc = true;
+  $scope.sortByRating = function()
+  {
+    $scope.moviesActiveSort = 1
+    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'score',$scope.ratingAsc)
+    $scope.ratingAsc = !$scope.ratingAsc
+  }
+
+  $scope.yearAsc = true;
+  $scope.sortByYear = function()
+  {
+    $scope.moviesActiveSort = 2
+    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.entertainment_data.common_data.release_year',$scope.yearAsc)
+    $scope.yearAsc = !$scope.yearAsc
+  }
+
+  $scope.locationRatingAsc = true;
+  $scope.sortByLocationRating = function()
+  {
+    $scope.locationActiveSort = 1;
+    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.common_data.display_rating[0].rating',$scope.locationRatingAsc)
+    $scope.locationRatingAsc = !$scope.locationRatingAsc
+  }
+
+  $scope.distanceAsc = true;
+  $scope.sortByDistance = function()
+  {
+    $scope.locationActiveSort = 2
+    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.local_data.location_info.distance',$scope.distanceAsc)
+    $scope.distanceAsc = !$scope.distanceAsc
+  }
+
+  $scope.openAsc = true;
+  $scope.sortByOpen = function()
+  {
+    $scope.locationActiveSort = 3
+    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.local_data.open_status',$scope.openAsc)
+    $scope.openAsc = !$scope.openAsc
+  }
 }
 

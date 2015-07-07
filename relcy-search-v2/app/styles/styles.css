@@ -201,14 +201,12 @@ nav.navbar.navbar-default.navbar-fixed-top.relcy-search {
 }
 
 .navbar-logo {
-  z-index: 99999;
   background-color: #f5f5f5 !important;
   background-image: url("../img-no-min/blocks-bg.png");
   border: medium none;
 }
 
 .navbar-search {
-  z-index: 99998;
   border: medium none;
 }
 

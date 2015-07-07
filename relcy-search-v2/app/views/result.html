@@ -31,11 +31,10 @@
               <div class="input-group">
                 <input type="text" placeholder="Type To Search" id="searchInputText" ng-model="searchTxt"
                        ng-change="searchOnRelcy()"
-                       ng-keypress="$event.which === 13 && searchAll()" class="text-center">
+                       ng-keypress="$event.which === 13 && searchAll()" class="text-center" autocomplete="off">
               </div>
               <div class="input-group-addon search-btn-circle">
-                <button type="submit" class="btn btn-link btn-circle" ui-sref="search({q:query})">
-                  <i class="glyphicon glyphicon-search"></i></button>
+
               </div>
             </div>
           </form>
@@ -140,10 +139,10 @@
                 <div class="panel-heading">
                   <span class="pull-right panel-sorting"
                         ng-if="cat.key == 'ENTERTAINMENT_VIDEO_TVSHOW'  || cat.key == 'ENTERTAINMENT_VIDEO_MOVIE'"><a
-                    href="" class="active">Rating</a> | <a
-                    href="">Year</a></span>
-                  <span class="pull-right panel-sorting" ng-if="cat.key == 'LOCAL_BUSINESS'"><a href="" class="active">Rating</a> | <a
-                    href="">Nearby</a> | <a href="">Open</a></span>
+                    href="" ng-class="{'active':moviesActiveSort == 1}" ng-click="sortByRating()">Rating</a> | <a
+                    href="" ng-click="sortByYear()" ng-class="{'active':moviesActiveSort == 2}">Year</a></span>
+                  <span class="pull-right panel-sorting" ng-if="cat.key == 'LOCAL_BUSINESS'"><a href="" ng-class="{'active': locationActiveSort == 1}" ng-click="sortByLocationRating()">Rating</a> | <a
+                    href="" ng-class="{'active': locationActiveSort == 2}" ng-click="sortByDistance()">Nearby</a> | <a href="" ng-class="{'active': locationActiveSort == 3}" ng-click="sortByOpen()">Open</a></span>
 
                   <h3 class="panel-title" id="{{cat.key}}">{{cat.keyTitle}}</h3>
                 </div>

@@ -6,7 +6,6 @@ angular.module('relcyApp',
   'angucomplete-alt',
   'ngResource',
   'ngAnimate',
-  'ngLodash',
   'leaflet-directive']);
 
 angular.module('relcyApp')
@@ -16,7 +15,7 @@ angular.module('relcyApp')
     // ThumbnailServiceProvider.defaults.height = 150;
      LightboxProvider.templateUrl = 'views/lightbox.html';
     //$locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise('/search');
+    $urlRouterProvider.otherwise('search');
 
     $stateProvider
 	 //	.state("home", {
