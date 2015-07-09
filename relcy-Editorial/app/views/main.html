@@ -16,6 +16,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th>AMBASSADOR ID</th>
                     <th>NAME</th>
                     <th>PHONE#</th>
                     <th>EMAIL</th>
@@ -30,7 +31,8 @@
                     <td colspan="8">No Record found</td> 
                 </tr>
                 <tr ng-if="pendingRecords.length > 0" ng-repeat="data in pendingRecords">
-               	    <td>{{data.user.name}}</td>
+               	    <td>{{data.user.ambassador_id}}</td>
+                    <td>{{data.user.name}}</td>
                     <td>{{data.user.phone_number}}</td>
                     <td>{{data.user.email_address}}</td>
                     <td>{{data.hasFBUrl? data.fbURL : 'No'}}</td>
