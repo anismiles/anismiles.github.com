@@ -1,0 +1,18 @@
+{
+"isValid"			:true,
+"next-default-servers-url"       :"http://relcy.com/messages/default-servers.json",
+"com.relcy-labs.search-staging":
+	{
+	"searchServer"		:"https://staging.relcy.com/servlet/ProtoServer",
+	"autocompleteServer"	: "http://staging.relcy.com/servlet/AutoCompleteProtoServer",
+	"detailServer"		:"https://staging.relcy.com/servlet/DetailServer",
+	"errorPageUrl"		:"https://relcy.com/messages/error.html"
+	},
+"com.relcy-labs.search":
+	{
+	"searchServer"		:"https://api.relcy.com/servlet/ProtoServer",
+	"autocompleteServer"	: "http://api.relcy.com/servlet/AutoCompleteProtoServer",
+        "detailServer"          :"https://api.relcy.com/servlet/DetailServer",
+	"errorPageUrl"		:"https://relcy.com/messages/error.html"
+	}
+}
