@@ -1140,7 +1140,7 @@ div.imdb span {
 }
 
 .media-left, .media-right, .media-body {
-  display: inline-block;
+  /*display: inline-block;*/
   vertical-align: top;
   width: auto;
 }
