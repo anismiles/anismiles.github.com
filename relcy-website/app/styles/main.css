@@ -1,83 +1,387 @@
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
-
+html,
 body {
-  padding: 0;
+  height: 100%;
+}
+body {
+  background: #F3F3F3;
+  font-family: 'myriad-pro', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body.disable-scroll {
+  overflow: hidden;
+}
+.relcy-row {
+  overflow: hidden;
+}
+.relcy-row.full {
+  min-height: 100%;
+}
+.image-full {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  max-height: 500px;
+  background-size: cover;
+  background-position: center center;
+}
+.hidden {
+  display: none;
+}
+.hidden img {
+  display: block;
+  width: 100%;
+}
+#alert {
+  display: none;
+}
+#navigation {
+  border-radius: 0px;
+  transition: 0.25s;
+  margin-bottom: 0;
+  border: none;
+  min-height: 100px;
+  width: 100%;
+}
+#navigation.navbar-float {
+  background-color: rgba(255, 255, 255, 0.75);
+  z-index: 50;
+  bottom: 0;
+  position: absolute;
+  font-weight: 100;
+  text-align: center;
+}
+#navigation.navbar-float div.navbar-left {
+  display: none;
+}
+#navigation.navbar-float ul.navbar-right {
+  display: inline-block !important;
+  float: none !important;
+}
+#navigation.navbar-fixed-top {
+  background-color: rgba(255, 255, 255, 0.9);
+  font-weight: 100;
+}
+#navigation .navbar-toggle {
+  float: right;
+  top: 5px;
+  right: 5px;
+  position: absolute;
+  z-index: 10000;
+}
+#navigation h1.relcy-icon a {
+  width: 183px;
+  height: 60px;
+  text-indent: -1000px;
+  display: block;
+  background-image: url('../images/text_icon.png');
+  background-size: 100%;
+}
+#navigation ul {
+  margin-top: 20px;
+}
+#navigation ul li {
+  text-transform: uppercase;
+  font-size: 24px;
+  color: #000;
+}
+#navigation ul li.active {
+  color: #4A90E2;
+}
+#navigation ul li a {
+  background: none;
+  color: inherit;
+}
+.hero {
+  z-index: 1;
+  position: relative;
+  background-color: #333;
+  background-image: url('../images/hero.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  transition: 0.5s;
+}
+.hero a.cancel {
+  display: none;
+  width: 26px;
+  height: 26px;
+  background-image: url('../images/cancel.png');
+  background-size: 100%;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.hero #signup {
+  display: none;
+}
+.hero.hero-form {
+  z-index: 100;
+  background-image: url('../images/hero-blur.jpg');
+}
+.hero.hero-form a.cancel {
+  display: block;
+}
+.hero.hero-form div.actionable {
+  display: none;
+}
+.hero.hero-form #signup {
+  display: block;
+}
+.hero div.actionable {
+  width: 246px;
+  height: 161px;
+  margin: auto;
+  margin-top: 50%;
+}
+.hero div.actionable a.btn {
+  width: 261px;
+  background-color: #FD854B !important;
+  border-color: #FD854B !important;
+}
+.hero h1.relcy-icon {
+  margin-bottom: 30px;
+}
+.hero h1.relcy-icon a {
+  width: 261px;
+  height: 86px;
+  text-indent: -10000000px;
+  display: block;
+  background-image: url('../images/text_icon.png');
+  background-size: 100%;
+}
+#signup {
+  margin-top: 30%;
+}
+/*#signup label {*/
+  /*color: #FFF;*/
+  /*font-weight: 200;*/
+  /*font-size: 18px;*/
+  /*text-transform: uppercase;*/
+  /*border-bottom: 1px #FFF solid;*/
+  /*width: 100%;*/
+/*}*/
+#signup label {
+  /*color: #fff;*/
+  font-size: 18px;
+  font-weight: 200;
+}
+#signup label.error {
+  color: red;
+  width: inherit;
+  border: none;
+  font-size: 14px;
+  text-transform: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/*#signup input[type='text'],*/
+/*#signup input[type='tel'] {*/
+  /*color: #FFF;*/
+  /*background: none;*/
+  /*outline: none;*/
+  /*border: none;*/
+  /*box-shadow: none;*/
+  /*padding: 0 10px;*/
+  /*font-size: 24px;*/
+/*}*/
+#signup .form-group {
+  position: relative;
+}
+#about {
+  background: #9EABB6;
+}
+#about .image-full {
+  background-image: url('../images/team3.jpg');
+}
+#about p {
+  margin: 3em auto;
+  color: #FFF;
+  font-weight: 200;
+  font-size: 24px;
+  line-height: 1.6;
+}
+#jobs {
+  background: #FFF;
+}
+#jobs .image-full {
+  background-image: url('../images/work.jpg');
+}
+#jobs .description {
+  margin: 40px 0;
+  text-align: center;
+}
+#jobs .description h2,
+#jobs .description h3 {
+  font-weight: 200;
+  line-height: 1.4;
+}
+#jobs .description h2 {
+  margin-bottom: 0;
+}
+#jobs .description h3 {
+  font-size: 20px;
+  margin-top: 0;
+  color: #999;
+}
+#jobs .perks .icon {
+  max-width: 165px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+#jobs .perks .icon img {
+  width: 100%;
+}
+#jobs .perks .perk {
+  margin-bottom: 40px;
+  text-align: center;
+}
+#jobs .positions .col-md-6 {
+  margin-bottom: 40px;
+}
+#jobs .positions h2 {
+  font-weight: 200;
+}
+#jobs .positions .position h3 {
+  font-weight: 200;
+}
+#blog {
+  padding: 40px 0;
+}
+#blog h2 {
+  font-weight: 200;
+}
+#blog .post {
+  margin-bottom: 40px;
+}
+#blog .post .meta {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+#contact {
+  padding: 60px 0;
+  background: #656E7A;
+  text-align: center;
+  color: #FFF;
+}
+#contact img {
+  height: 22px;
+}
+#contact div.col-md-4 {
+  padding: 10px 0;
+}
+#contact a {
+  color: inherit;
+}
+#contact a:hover {
+  color: inherit;
+}
+#contact p {
+  font-size: 18px;
+  font-weight: 100;
+}
+footer {
+  padding: 30px 0;
+  background: #24282C;
+  text-align: center;
+  color: #CCC;
+}
+footer div.col-md-4 {
+  padding: 10px 0;
+}
+footer a {
+  color: inherit;
+}
+footer a:hover {
+  color: inherit;
+}
+/*form css start*/
+
+.toggle {
+  width: 100%;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  word-spacing: 0;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.toggle .btn-primary.active, .toggle .btn-primary.focus,
+.toggle .btn-primary:active, .toggle .btn-primary:focus,
+.toggle .btn-primary:hover, .open > .dropdown-toggle.btn-primary {
+  background-color: #0a355f;
+  border-color: #999;
+  color: #fff;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
+.toggle .btn {
+  border-radius: 8px;
+  padding: 2px 12px;
+  font-size: 17px;
+  letter-spacing: 1px;
+  word-spacing: 0;
+}
+
+.toggle .btn.active, .toggle .btn:active {
+  box-shadow: none;
+}
+
+.toggle .btn-primary {
+  background-color: #ffffff;
+  border-color: #999999;
+  color: #313131;
+  width: 50%;
+
+}
+
+.form-control::-moz-placeholder {
+  color: #313131;
+  opacity: 1;
+  letter-spacing: 1px;
+  word-spacing: 0;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #313131;
+  opacity: 1
+}
+
+.form-control {
+  border-radius: 8px;
+  margin-bottom: 15px;
+  color: #313131;
+  font-size: 17px;
+  text-align: center;
+}
+
+.customButton {
+  background: #51cf42 !important;
+  opacity: 1 !important;
+  border: none !important;
+  border-radius: 8px;
+  width: 100%;
+  padding: 12px;
+  font-size: 17px;
+  letter-spacing: 1px;
+  word-spacing: 0;
   margin-bottom: 10px;
 }
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
-}
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+.sms-form {
+  min-width: 248px;
 }
-
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
+/*end*/
+@media (max-width: 768px) {
+  #navigation {
+    min-height: 60px;
   }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
+  #navigation h1.relcy-icon {
+    margin-top: 12px;
   }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
+  #navigation h1.relcy-icon a {
+    width: 100px;
+    height: 35px;
   }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
+  #navigation ul {
+    margin-top: 5px;
   }
 }
