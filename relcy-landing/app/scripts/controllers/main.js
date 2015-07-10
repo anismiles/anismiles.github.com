@@ -24,7 +24,7 @@ angular.module('siteApp')
 				//$scope.phoneNumber = "";
 				//$scope.message = "Link sent to your phone!"
 				usSpinnerService.stop('invite');
-				//mixpanel.track("Landing-Invite-" + $scope.platform); 
+				//mixpanel.track("Landing-Invite-" + $scope.platform);
 				mixpanel.track(
 				    "Landing-Invite",
 				    { "Platform": $scope.platform,"Phone-No":$scope.phoneNumber }
@@ -53,7 +53,7 @@ angular.module('siteApp')
 				}
 				if(error.status == 400)
 				{
-					$scope.message = 'theoretically it should not occur, but show a pop-up saying "Required Fields are Missing"'
+					$scope.message = 'Required fields are missing or incorrect number.'
 				}
 				if(error.status == 403)
 				{

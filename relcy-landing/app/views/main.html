@@ -36,12 +36,16 @@
                      name="relcyform.videoResults" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
             </div>
             <div>
+
               <span us-spinner="{radius:5, width:2, length: 5,color:'red',top:'73%'}" spinner-key="invite"></span>
               <button type="submit" class="btn btn-primary customButton" ng-disabled="relcyform.$invalid"
                       ng-click="save()">Text Me The Download Link
               </button>
             </div>
-            <div> {{message}}</div>
+            <div class="alert alert-danger" ng-if="message">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{message}}
+            </div>
           </form>
         </div>
       </div>
