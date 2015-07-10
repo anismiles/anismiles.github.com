@@ -1,0 +1,172 @@
+<html>
+<head>
+	<title>Feedback</title>
+	<meta name = "viewport" content = "width = device-width, initial-scale = 1.0, user-scalable = no">
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #F0F0F0;
+			font-family: 'Helvetica Neue', Helvetica, sans-serif;
+		}
+		form {
+			text-align: center;
+			margin: 20px;
+		}
+		.clear {
+			display: block;
+			clear: both;
+		}
+		.cta {
+			margin-bottom: 20px;
+		}
+		.cta h1 {
+			font-size: 18px;
+			color: #777;
+			text-transform: uppercase;
+			text-align: center;
+			padding-bottom: 5px;
+			margin-bottom: 10px;
+			border-bottom: 1px #DDD solid;
+			font-weight: 500;
+		}
+		.cta p {
+			text-align: center;
+			font-size: 16px;
+			font-weight: 200;
+			color: #666;
+		}
+		.reasons {
+			margin-top: 20px;
+			display:none;
+		}
+		input[type='radio'] {
+			display: none;
+		}
+		input[type='radio'] + label {
+			vertical-align: top;
+			width: 60px;
+			margin: 0 10px;
+			font-size: 10px;
+			color: #4A4A4A;
+			display: inline-block;
+		}
+		.rating + label {
+			text-transform: uppercase;
+		}
+		input[type='radio'] + label .icon {
+			margin-bottom: 5px;
+			width: 60px;
+			height: 60px;
+			background-color: #C6C6C6;
+			background-image: url('sprites.png');
+			background-size: 480px 60px;
+			display: block;
+		}
+		textarea.comments {
+			display:none;
+			margin-top: 20px;
+			font-family: inherit;
+			line-height: 1.5;
+			font-size: 14px;
+			width: 100%;
+			height: 200px;
+			resize: none;
+			outline: none;
+			border: 1px #CCC solid;
+			padding: 20px;
+			border-radius: 10px;
+			box-sizing: border-box;
+		}
+		.thumbs-up + label .icon {
+			background-position: -60px;
+		}
+		.thumbs-down + label .icon {
+			background-position: 0px;
+		}
+		.bad-search + label .icon {
+			background-position: -120px;
+		}
+		.bad-speed + label .icon {
+			background-position: -180px;
+		}
+		.bad-404 + label .icon {
+			background-position: -240px;
+		}
+		.thumbs-up:checked + label .icon {
+			background-color: #7ED321;
+		}
+		.thumbs-down:checked + label .icon  {
+			background-color: #D0021B;
+		}
+		.reason:checked + label .icon  {
+			background-color: #4A4A4A;
+		}
+		.thumbs-down:checked ~ .reasons.bad {
+			display: block;
+		}
+		.thumbs-down:checked ~ .reasons.good {
+			display: none;
+		}
+		.thumbs-up:checked ~ .reasons.bad {
+			display: none;
+		}
+		.thumbs-up:checked ~ .reasons.good {
+			display: block;
+		}
+		.rating:checked ~ textarea.comments {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<form id="feedback">
+		<div class="cta">
+			<h1>Feedback</h1>
+			<p>How was your Look experience?</p>
+		</div>
+		<input id="thumbs-down" class="rating thumbs-down" type="radio" name="rating" value="bad" />
+		<label for="thumbs-down"><span class="icon"></span></label>
+		<input id="thumbs-up" class="rating thumbs-up" type="radio" name="rating" value="good" />
+		<label for="thumbs-up"><span class="icon"></span></label>
+		<div class="clear"></div>
+		<div class="reasons bad">
+			<input id="bad-search" class="reason bad-search" type="radio" name="reason" value="poor search quality" />
+			<label for="bad-search">
+				<span class="icon"></span>
+				<span class="text">Poor search quality</span>
+			</label>
+			<input id="bad-speed" class="reason bad-speed" type="radio" name="reason" value="app was too slow" />
+			<label for="bad-speed">
+				<span class="icon"></span>
+				<span class="text">App is slow</span>
+			</label>
+			<input id="bad-404" class="reason bad-404" type="radio" name="reason" value="didn't get what I was looking for" />
+			<label for="bad-404">
+				<span class="icon"></span>
+				<span class="text">I'm confused</span>
+			</label>
+		</div>
+		<div class="reasons good">
+			<input id="good-ui" class="reason bad-search" type="radio" name="reason" value="nice ui" />
+			<label for="good-ui">
+				<span class="icon"></span>
+				<span class="text">Good search quality</span>
+			</label>
+			<input id="good-smile" class="reason bad-speed" type="radio" name="reason" value="made me smile" />
+			<label for="good-smile">
+				<span class="icon"></span>
+				<span class="text">App is fast</span>
+			</label>
+			<input id="good-life" class="reason bad-404" type="radio" name="reason" value="I love life" />
+			<label for="good-life">
+				<span class="icon"></span>
+				<span class="text">I get it</span>
+			</label>
+		</div>
+		<textarea id="comments" class="comments" name="comments" placeholder="Comments"></textarea>
+	</form>
+</body>
+</html>
