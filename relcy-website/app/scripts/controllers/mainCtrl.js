@@ -11,7 +11,7 @@ angular.module('relcyWebsiteApp')
   .controller('MainCtrl', function ($scope, RelcyService,usSpinnerService,$timeout,$location) {
     console.log("MainCtrl loaded")
     $scope.phoneNumber = "";
-    $scope.platform = "ios";
+    $scope.platform = "";
     $scope.message = "";
     $scope.homePage = true;
     $scope.thanksPage = false;
@@ -20,9 +20,9 @@ angular.module('relcyWebsiteApp')
 
     $scope.save = function(){
       usSpinnerService.spin('invite');
-      $scope.platform = ( $('#ios').parent().hasClass('active') ? 'ios':'android')
+      //$scope.platform = ( $('#ios').parent().hasClass('active') ? 'ios':'android')
 
-      RelcyService.savePhoneNumber({client_id: "131a22184a",platform:$scope.platform,phone_number:$scope.phoneNumber},function(){
+      RelcyService.savePhoneNumber({client_id: "131a22184a",platform:$scope.platform.id,phone_number:$scope.phoneNumber},function(){
         //
         //$scope.phoneNumber = "";
         //$scope.message = "Link sent to your phone!"

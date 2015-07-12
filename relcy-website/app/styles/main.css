@@ -152,18 +152,13 @@ body.disable-scroll {
 #signup {
   margin-top: 30%;
 }
-/*#signup label {*/
-  /*color: #FFF;*/
-  /*font-weight: 200;*/
-  /*font-size: 18px;*/
-  /*text-transform: uppercase;*/
-  /*border-bottom: 1px #FFF solid;*/
-  /*width: 100%;*/
-/*}*/
 #signup label {
-  /*color: #fff;*/
-  font-size: 18px;
+  color: #FFF;
   font-weight: 200;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-bottom: 1px #FFF solid;
+  width: 100%;
 }
 #signup label.error {
   color: red;
@@ -175,16 +170,16 @@ body.disable-scroll {
   top: 0;
   right: 0;
 }
-/*#signup input[type='text'],*/
-/*#signup input[type='tel'] {*/
-  /*color: #FFF;*/
-  /*background: none;*/
-  /*outline: none;*/
-  /*border: none;*/
-  /*box-shadow: none;*/
-  /*padding: 0 10px;*/
-  /*font-size: 24px;*/
-/*}*/
+#signup input[type='text'],
+#signup input[type='tel'] {
+  color: #FFF;
+  background: none;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  padding: 0 10px;
+  font-size: 24px;
+}
 #signup .form-group {
   position: relative;
 }
@@ -296,80 +291,7 @@ footer a {
 footer a:hover {
   color: inherit;
 }
-/*form css start*/
 
-.toggle {
-  width: 100%;
-  margin-bottom: 15px;
-  letter-spacing: 1px;
-  word-spacing: 0;
-}
-
-.toggle .btn-primary.active, .toggle .btn-primary.focus,
-.toggle .btn-primary:active, .toggle .btn-primary:focus,
-.toggle .btn-primary:hover, .open > .dropdown-toggle.btn-primary {
-  background-color: #0a355f;
-  border-color: #999;
-  color: #fff;
-}
-
-.toggle .btn {
-  border-radius: 8px;
-  padding: 2px 12px;
-  font-size: 17px;
-  letter-spacing: 1px;
-  word-spacing: 0;
-}
-
-.toggle .btn.active, .toggle .btn:active {
-  box-shadow: none;
-}
-
-.toggle .btn-primary {
-  background-color: #ffffff;
-  border-color: #999999;
-  color: #313131;
-  width: 50%;
-
-}
-
-.form-control::-moz-placeholder {
-  color: #313131;
-  opacity: 1;
-  letter-spacing: 1px;
-  word-spacing: 0;
-}
-
-.form-control::-webkit-input-placeholder {
-  color: #313131;
-  opacity: 1
-}
-
-.form-control {
-  border-radius: 8px;
-  margin-bottom: 15px;
-  color: #313131;
-  font-size: 17px;
-  text-align: center;
-}
-
-.customButton {
-  background: #51cf42 !important;
-  opacity: 1 !important;
-  border: none !important;
-  border-radius: 8px;
-  width: 100%;
-  padding: 12px;
-  font-size: 17px;
-  letter-spacing: 1px;
-  word-spacing: 0;
-  margin-bottom: 10px;
-}
-
-.sms-form {
-  min-width: 248px;
-}
-/*end*/
 @media (max-width: 768px) {
   #navigation {
     min-height: 60px;
