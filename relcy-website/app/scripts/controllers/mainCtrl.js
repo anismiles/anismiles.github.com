@@ -29,8 +29,8 @@ angular.module('relcyWebsiteApp')
         usSpinnerService.stop('invite');
         //mixpanel.track("Landing-Invite-" + $scope.platform);
         mixpanel.track(
-          "Landing-Invite",
-          { "Platform": $scope.platform,"Phone-No":$scope.phoneNumber }
+          "home_text_link",
+          { "Platform": $scope.platform.id,"Phone-No":$scope.phoneNumber }
         );
         $scope.message =  "Thank you for your interest. You have been added to our waiting list."
 
@@ -47,10 +47,7 @@ angular.module('relcyWebsiteApp')
         //},3000)
       },function(error){
         //mixpanel.track("Landing-Invite-failed");
-        mixpanel.track(
-          "Landing-Invite-Failed",
-          { "Platform": $scope.platform,"Phone-No":$scope.phoneNumber }
-        );
+
         $scope.phoneNumber = "";
         if(error.status == 401)
         {
@@ -62,11 +59,15 @@ angular.module('relcyWebsiteApp')
         }
         if(error.status == 400)
         {
-          $scope.message = 'Required fields are missing or incorrect number.'
+          $scope.message = "Required fields are missing or incorrect number."
         }
         if(error.status == 403)
         {
           $scope.message = "Already sent the SMS twice for this number. Please contact beta@relcy.com"
+          mixpanel.track(
+            "home_sms_maxout",
+            { "Platform": $scope.platform.id,"Phone-No":$scope.phoneNumber }
+          );
         }
         //$("#signup form").hide();
         $("#errorAlert").show();

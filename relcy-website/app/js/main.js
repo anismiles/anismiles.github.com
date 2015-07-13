@@ -20,6 +20,7 @@ $(function() {
     //validator.resetForm();
     $("#hero").removeClass("hero-form");
     $("body").removeClass("disable-scroll");
+    mixpanel.track("home_download_beta");
   });
   $("#navigation a[href*=#]").click(function(e) {
     e.preventDefault();
