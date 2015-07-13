@@ -29,7 +29,7 @@ angular.module('siteApp')
         usSpinnerService.stop('invite');
         //mixpanel.track("Landing-Invite-" + $scope.platform);
         mixpanel.track(
-          "Landing-Invite",
+          "fb_Landing-Invite",
           {"Platform": $scope.platform, "Phone-No": $scope.phoneNumber}
         );
 
@@ -41,11 +41,6 @@ angular.module('siteApp')
         }, 3000)
       }, function (error) {
         //mixpanel.track("Landing-Invite-failed");
-        mixpanel.track(
-          "Landing-Invite-Failed",
-          {"Platform": $scope.platform, "Phone-No": $scope.phoneNumber}
-        );
-        $scope.phoneNumber = "";
         if (error.status == 401) {
           $scope.message = "Not Authorized"
         }
@@ -56,9 +51,18 @@ angular.module('siteApp')
           $scope.message = 'Required fields are missing or incorrect number.'
         }
         if (error.status == 403) {
-          $scope.message = "Already sent the SMS twice for this number. Please contact beta@relcy.com"
+          $scope.message = "Already sent the SMS twice for this number. Please contact beta@relcy.com";
+          mixpanel.track(
+            "fb_Landing-Invite-Failed",
+            {"Platform": $scope.platform, "Phone-No": $scope.phoneNumber}
+          );
         }
+        $timeout(function(){
+          window.scrollTo(0,document.body.scrollHeight);
+        },200)
+        $scope.phoneNumber = "";
         $timeout(function () {
+
           $scope.message = ""
         }, 5000)
         usSpinnerService.stop('invite');
