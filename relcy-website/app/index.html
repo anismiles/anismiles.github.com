@@ -69,7 +69,7 @@
           <div class="form-group">
             <label>Device Type</label>
             <select ng-model="platform.id" class="form-control">
-              <option value="">iOS or Android</option>
+              <option value="">iOS or Android?</option>
               <option value="ios">iOS</option>
               <option value="android">Android</option>
             </select>
@@ -80,6 +80,7 @@
             <button type="submit" class="btn btn-default" ng-disabled="relcyform.$invalid"
                     ng-click="save()">Text Me The Download Link
             </button>
+
           </div>
         </form>
         <div id="errorAlert" class="alert alert-danger animated bounceIn">
@@ -96,18 +97,16 @@
 </section>
 
 <section id="about" class="relcy-row">
-  <div data-stellar-background-ratio="0.5" class="image-full"></div>
   <div class="container">
-    <p class="lead">Relcy is a better way to search on your phone. Look inside all of your apps and the world around you
-      at once. Powered by a knowledge graph of millions of real-world entities, we deliver an intelligent and highly
-      personalized search experience. By being contextually aware of where you are and what you want to do, Relcy helps
-      you find what you need faster.
+    <p class="lead">
+     Relcy is a better way to search on your phone. Look inside all of your apps and the world around you at once. 
+     Powered by a knowledge graph of millions of real-world entities, we deliver an intelligent and highly personalized search experience. 
+     By being contextually aware of where you are and what you want to do, Relcy helps you find what you need and take action on it instantly. 
     </p>
   </div>
 </section>
 
 <section id="jobs" class="relcy-row">
-  <div data-stellar-background-ratio="0.5" class="image-full"></div>
   <div class="container">
     <div class="description">
       <h2>Solve difficult problems that matter.</h2>
@@ -141,8 +140,8 @@
   </div>
 </section>
 
-<section id="contact" class="relcy-row"  style="padding-bottom: 0px">
-  <div class="container"  style="padding-bottom: 0px">
+<section id="contact" class="relcy-row">
+  <div class="container">
     <div class="col-md-4">
       <a href="http://twitter.com/relcy" target="_blank">
         <p><img src="images/contact/twitter.png" alt="twitter"/></p>
@@ -160,7 +159,7 @@
     <div class="col-md-4">
       <p><img src="images/contact/ggbridge.png" alt="sf"/></p>
 
-      <p>San Francisco, CA</p>
+      <p>Mountain View, CA</p>
     </div>
   </div>
 </section>
@@ -947,7 +946,7 @@
 //mixpanel.init("8031c064b460d6ae086a9031e175e81b");
 /*prod*/
 mixpanel.init("3e7139e967064c50ebeb4c2df9ee9182");
-mixpanel.track("Landing-Visited");
+mixpanel.track("home_Landing-Visited");
 
 </script>
 
