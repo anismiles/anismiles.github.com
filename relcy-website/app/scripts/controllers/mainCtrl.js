@@ -51,8 +51,6 @@ angular.module('relcyWebsiteApp')
         //},3000)
       }, function (error) {
         //mixpanel.track("Landing-Invite-failed");
-
-        $scope.phoneNumber = "";
         if (error.status == 401) {
           $scope.message = "Not Authorized"
         }
@@ -69,6 +67,7 @@ angular.module('relcyWebsiteApp')
             {"Platform": $scope.platform.id, "Phone-No": $scope.phoneNumber}
           );
         }
+        $scope.phoneNumber = "";
         //$("#signup form").hide();
         $("#errorAlert").show();
         setTimeout(function () {

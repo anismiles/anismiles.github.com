@@ -111,7 +111,11 @@ a:focus {
   letter-spacing: 1px;
   word-spacing: 0;
 }
-
+.btn input[type=radio] {
+  position: absolute;
+  clip: rect(0,0,0,0);
+  pointer-events: none;
+}
 .toggle .btn-primary.active, .toggle .btn-primary.focus,
 .toggle .btn-primary:active, .toggle .btn-primary:focus,
 .toggle .btn-primary:hover, .open > .dropdown-toggle.btn-primary {
@@ -158,6 +162,7 @@ a:focus {
   color: #313131;
   font-size: 17px;
   text-align: center;
+  height: 35px;
 }
 
 .devices-img {
@@ -169,6 +174,12 @@ a:focus {
   width: 430px;
   height: 234px;
   margin: 140px auto 0;
+}
+.devices-img-empty {
+  background:none;
+  width: 200px;
+  height: 150px;
+  margin: 40px auto 0;
 }
 
 .customButton {
@@ -244,7 +255,12 @@ a:focus {
     background-position: center center;
     background-size: 430px 234px;
   }
-
+  .devices-img-empty {
+    background:none;
+    width: 200px;
+    height: 150px;
+    margin: 40px auto 0;
+  }
   .wrapper {
     z-index: 2;
     position: relative;
@@ -262,6 +278,12 @@ a:focus {
     background-size: 188px 90px;
     width: 200px;
     height: 90px;
+    margin: 40px auto 0;
+  }
+  .devices-img-empty {
+    background:none;
+    width: 200px;
+    height: 150px;
     margin: 40px auto 0;
   }
 
@@ -360,7 +382,12 @@ a:focus {
     height: 90px;
     margin: 40px auto 0;
   }
-
+  .devices-img-empty {
+    background:none;
+    width: 200px;
+    height:150px;
+    margin: 40px auto 0;
+  }
   .devices h1 {
     font-size: 26px;
     margin: 20px 0px 0px;
@@ -453,6 +480,12 @@ a:focus {
     height: 90px;
     margin: 40px auto 0;
   }
+  .devices-img-empty {
+    background:none;
+    width: 200px;
+    height: 150px;
+    margin: 40px auto 0;
+  }
 
   .devices h1 {
     font-size: 27px;
@@ -536,6 +569,7 @@ a:focus {
     width: 100%;
   }
 
+
   .devices-img {
     background-position: center bottom;
     background-size: 188px 90px;
@@ -543,7 +577,12 @@ a:focus {
     height: 90px;
     margin: 40px auto 0;
   }
-
+  .devices-img-empty {
+    background:none;
+    width: 200px;
+    height: 150px;
+    margin: 40px auto 0;
+  }
   .devices h1 {
     font-size: 30px;
     margin: 20px 0px 0px;

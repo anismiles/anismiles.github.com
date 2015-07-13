@@ -1,7 +1,7 @@
 <section>
   <div class="container">
-    <div class="devices col-lg-12 col-md-12 col-sm-12 text-center">
-      <div class="row">
+    <div class="row">
+      <div class="devices col-lg-12 col-md-12 col-sm-12 text-center">
         <div class="devices-img"></div>
         <!--<img src="images/devices.png">-->
         <div class="col-lg-12 col-md-12 col-sm-12 content">
@@ -9,8 +9,8 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="row">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="col-lg-8 col-md-8 col-sm-8 content">
           <p>Exciting prizes are waiting for users that test our Beta Version over the next few weeks. Provide the
             required information on the right and you will receive a text message with the download link. </p>
@@ -19,19 +19,20 @@
         </div>
         <div class="col-lg-4 col-sm-4 col-md-4 sms-form">
           <form novalidate name="relcyform">
-            <div class="btn-group toggle" data-toggle="buttons">
+                      <div class="btn-group toggle">
 
-              <label class="btn btn-primary active">
-                <input type="radio" ng-model="platform.name" value="ios" name="options" id="ios" autocomplete="off"
-                       checked> iPhone
+              <label for="ios" class="btn btn-primary" ng-class="{'active':platform=='ios'}">
+                <input type="radio" ng-model="platform" value="ios" name="platform" id="ios"
+                       ng-checked="true"> iPhone
               </label>
-              <label class="btn btn-primary">
-                <input type="radio" ng-model="platform.name" value="android" name="options" id="android"
-                       autocomplete="off">Android
+              <label for="android" class="btn btn-primary" ng-class="{'active':platform=='android'}">
+                <input type="radio" ng-model="platform" value="android" name="platform" id="android"
+                       >Android
               </label>
             </div>
+
             <div>
-              <input type="text" ng-model="phoneNumber" placeholder="Your Phone Number" required
+              <input type="text" ng-model="phoneNumber" placeholder="Valid 10 digit US Number" required
                      class="form-control"
                      name="relcyform.videoResults" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
             </div>
@@ -39,13 +40,16 @@
 
               <span us-spinner="{radius:5, width:2, length: 5,color:'red',top:'73%'}" spinner-key="invite"></span>
               <button type="submit" class="btn btn-primary customButton" ng-disabled="relcyform.$invalid"
-                      ng-click="save()">Text Me The Download Link
+                      ng-click="save()" ng-if="platform=='ios'">Text Me The Download Link
               </button>
             </div>
             <div class="alert alert-danger" ng-if="message">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
               {{message}}
             </div>
+            <div class="alert alert-warning" ng-if="platform=='android'">
+              We are working hard to release the Android version and will reach out to you when it is ready.
+            </div>
+
           </form>
         </div>
       </div>
