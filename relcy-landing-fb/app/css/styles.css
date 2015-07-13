@@ -46,7 +46,7 @@ a:focus {
   height: 55px;
   left: 25px;
   position: absolute;
-  top: 50px;
+  top: 25px;
   width: 174px;
   z-index: 1;
 }
@@ -60,7 +60,7 @@ a:focus {
   font-family: 'weblysleek_uisemilight_italic';
   font-size: 39px;
   color: #09355f;
-  margin: 30px 0px 0px;
+  margin: 25px 0px 0px;
 }
 
 .bottom {
@@ -155,7 +155,7 @@ a:focus {
   display: block;
   width: 88px;
   height: 172px;
-  margin: 104px auto 0;
+  margin: 100px auto 0;
   -webkit-background-size: contain;
   background-size: contain;
 }
