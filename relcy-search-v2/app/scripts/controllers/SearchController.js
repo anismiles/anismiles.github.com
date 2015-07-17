@@ -25,6 +25,7 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
   $scope.itemType;
   $scope.itemDetails;
 
+  $scope.providedBy = false;
   $scope.searchResultShow = true;
 
   if (SearchService.searchTxt) {
@@ -107,6 +108,7 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
           return;
         }
         $scope.suggestedSearch = true;
+        $scope.providedBy = true;
         $scope.searchResultsOfRelcy = data.auto_complete_response.auto_complete_item
       }, function (error) {
         $scope.showingResult = false;
@@ -132,6 +134,7 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
   //
   $scope.searchAll = function () {
     $scope.suggestedSearch = false;
+    $scope.providedBy = false;
     $scope.search($scope.query)
     //$location.path('search').search({q: $scope.query});
     //$state.go('/search?q='+$scope.query)
@@ -189,6 +192,7 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
     SearchService.getSearchDetails(query).then(function (data) {
     $scope.showDetailPage = false;
     $scope.showingResult = true;
+      $scope.providedBy = true;
     $scope.result = data['search_response'];
     if (!$scope.result.verticalResult) {
       $scope.showingResult = false;

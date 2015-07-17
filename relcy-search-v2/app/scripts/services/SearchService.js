@@ -278,10 +278,21 @@ angular.module('relcyApp')
                             /*Extracting places search results*/
                             try {
                                 transformedData.placesResults = response.verticalResult[i].placesSearchResult.placesSearchResult;
-                                transformedData.placesResults.maxIndex = 3;
+                                transformedData.placesResults.maxIndex = 5;
                                 transformedData.categories.push({key: 'details_places', keyTitle: 'Places'});
                             } catch (err) {
                                 console.log('no places results found');
+                            }
+                        }
+                        else if(response.verticalResult[i].content_type_enum === "RELATED_SEARCHES")
+                        {
+                            /*Extracting places search results*/
+                            try {
+                                transformedData.relatedSearches = response.verticalResult[i].relatedSearchesResult.relatedSearchResults;
+                                transformedData.relatedSearches.maxIndex = 5;
+                                transformedData.relatedSearches.incrementBy = 5;
+                            } catch (err) {
+                                console.log('no RELATED_SEARCHES found');
                             }
                         }
 
@@ -398,7 +409,11 @@ angular.module('relcyApp')
                         break;
                     case 'RELATED_SEARCHES':
                         if (data[index] && data[index].relatedSearchesResult && data[index].relatedSearchesResult.relatedSearchResults && data[index].relatedSearchesResult.relatedSearchResults.length) {
-                            $scope.relatedSearches = data[index].relatedSearchesResult.relatedSearchResults;
+                            $scope.relatedSearches = {};
+                            $scope.relatedSearches.data = data[index].relatedSearchesResult.relatedSearchResults;
+                            $scope.relatedSearches.maxIndex = 5;
+                            $scope.relatedSearches.incrementBy = 5;
+
                         }
                         values = undefined;
                         break;
@@ -560,6 +575,8 @@ angular.module('relcyApp')
             transformedData.infos = [];
             transformedData.profiles = [];
             transformedData.plays = [];
+            transformedData.tickets = [];
+            transformedData.reviewsAndMore = [];
             angular.forEach(links, function (l) {
                 try {
                     var action = l.app_result.result_data.action;
@@ -578,6 +595,12 @@ angular.module('relcyApp')
                         break;
                         case 'Play':
                             transformedData.plays.push(l);
+                        break;
+                        case 'Reviews and More':
+                            transformedData.reviewsAndMore.push(l);
+                        break;
+                        case 'Tickets':
+                            transformedData.tickets.push(l);
                         break;
                     }
                 } catch (err) {
