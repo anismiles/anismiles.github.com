@@ -1,41 +1,137 @@
 <style>
-  .relcysrchInput .input-group .angucomplete-holder .form-control {
+  .body {
+    background-image: none;
+    background-color: #f5f5f5;
+  }
+
+  .pageResult {
+    padding-top: 150px;
+  }
+
+  #searchInputText {
     border-bottom: none;
   }
-  body {
-    background-image: none;
-    background-color: #f5f5f5;
-  }
-  .pageMiddle.innerPageMiddle {
-    margin-top: 0px;
-    background-image: none;
-    background-color: rgba(245, 245, 245, 0.95);
-    background-attachment: fixed;
-  }
-  .navbar-default {
-    background-image: url("img-no-min/blocks-bg.png");
-    background-color: #f5f5f5;
-    border: medium none;
+
+  .navbar-search {
+    margin-top: 92px;
   }
 </style>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top navbar-logo">
+  <div ng-include="'views/header.html'"></div>
+</nav>
+<nav class="navbar navbar-default navbar-fixed-top navbar-search">
   <div class="container-fluid">
+    <!--<div class="totop" ng-show="showTopAnchor" ng-click="scrollTo('container');"><img-->
+    <!--src="img-no-min/to-top.png" alt="" class=""></div>-->
     <div class="row">
-      <div class="col-xs-12">
-        <div ng-include="'views/header.html'"></div>
+      <div id="pageMiddle" class="pageMiddle">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
+          <form class="" id="bigform">
+            <div class="form-group relcysrchInput mr0">
+              <div class="input-group">
+                <input type="text" placeholder="Type To Search" id="searchInputText" ng-model="searchTxt"
+                       ng-change="searchOnRelcy()"
+                       ng-keypress="$event.which === 13 && searchAll()" class="text-center" autocomplete="off">
+              </div>
+              <div class="input-group-addon search-btn-circle">
+
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="clearfix"></div>
       </div>
     </div>
   </div>
 </nav>
-<nav class="navbar navbar-default navbar-fixed-top relcy-search">
-        <div ng-include="'views/search_input_detail.html'"></div>
-</nav>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12" ng-if="itemDetails"
          ng-class="showEdit?'show-edits':'hide-edits'" style="margin-top: 150px;">
-      <div ng-include="'views/left_nav_detail.html'" class="col-lg-2 col-md-2 col-sm-2"></div>
-      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-offset-2">
+
+      <!-- search suggestion html start  -->
+      <div class="panel panel-default" ng-if="suggestedSearch">
+        <div class="panel-heading">
+          <h3 class="panel-title">Suggestions</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="resultList">
+            <li ng-repeat="result in searchResultsOfRelcy" ng-click="selectResult(result)"
+                ng-mouseenter="hoverRow($index)">
+              <div class="media">
+                <div ng-if="result.icon=='unknown' || result.icon=='' || !result.icon"
+                     class="media-left thumb-common thumb-unknown">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}'), url('../img-no-min/icons/search_icon@2x.png')"></a>
+                </div>
+                <div ng-if="result.icon=='movie'" class="media-left thumb-common thumb-movie">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='music'" class="media-left thumb-common thumb-music">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='app'" class="media-left thumb-common thumb-app">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='place'" class="media-left thumb-common thumb-place">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='business'" class="media-left thumb-common thumb-place">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='bar'" class="media-left thumb-common thumb-bar">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='tv'" class="media-left thumb-common thumb-tv">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='news'" class="media-left thumb-common thumb-news">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='web'" class="media-left thumb-common thumb-search">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='video'" class="media-left thumb-common thumb-movie">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='person'" class="media-left thumb-common thumb-person">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='celebrity'" class="media-left thumb-common thumb-celebrity">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div ng-if="result.icon=='coffee'" class="media-left thumb-common thumb-coffee">
+                  <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading" ng-if="!matchClass">{{ result.title }}</h4>
+
+                  <div class="dark-gray">
+                    <p class="genre">
+                      <span ng-if="result.sub_title3">{{::result.sub_title3}}</span>
+                      <span ng-if="result.sub_title2">{{::result.sub_title2}}</span>
+                      <span ng-if="result.sub_title">{{::result.sub_title}}</span>
+                    </p>
+
+                    <p class="score" ng-if="result.score">
+                           <span ng-repeat="sa in getRatingCount(result.score) track by $index"
+                                 class="glyphicon glyphicon-star"></span>
+                            <span ng-if="getHalfRating(result.score)"
+                                  class="glyphicon glyphicon-star-empty"></span> &nbsp;
+                      <span></span>
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- search suggestion html end -->
+
+      <div ng-include="'views/left_nav_detail.html'" class="col-lg-2 col-md-2 col-sm-2" ng-if="!suggestedSearch"></div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-offset-2" ng-if="!suggestedSearch">
           <div class="topSection" id="details_movies">
             <a href="javascript:void(0)" ng-click="showHideEdit()" class="fa fa-edit editable"></a>
 

@@ -27,7 +27,6 @@ module.exports = function(config) {
       'bower_components/angular-scroll/angular-scroll.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'bower_components/angucomplete-alt/angucomplete-alt.js',
       'bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-strap/dist/angular-strap.js',

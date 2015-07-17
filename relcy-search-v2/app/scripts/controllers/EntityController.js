@@ -31,6 +31,98 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $rootScope.showTopAnchor = false;
     $scope.showEdit = false;
     $scope.toggle = false;
+    $scope.suggestedSearch = false;
+    $scope.searchResultShow = true;
+
+    if (SearchService.searchTxt) {
+        $scope.searchTxt = SearchService.searchTxt;
+        if ($scope.searchTxt) {
+            $("#pageMiddle").css({'margin-top': '0%'});
+        }
+    }
+    else {
+        if ($stateParams.q) {
+            $scope.searchTxt = $stateParams.q;
+            $("#pageMiddle").css({'margin-top': '0%'});
+        }
+    }
+
+    /*Will be invoked everytime search field will be changed on homepage*/
+    $scope.onInputChange = function (q) {
+        $scope.query = q;
+        if (q && q.length >= 1)  {
+            $("#pageMiddle").animate({'margin-top': '0%'}, 200);
+            $("#pageMiddle").addClass("innerPageMiddle");
+        }
+    };
+    var temp_Interval
+    /* getting search result from server by DT*/
+    $scope.searchOnRelcy = function () {
+
+        //console.log("searchTxt " + $rootScope.searchTxt)
+        var q = $("#searchInputText").val();
+
+        SearchService.searchTxt = $scope.searchTxt;
+
+        $scope.query = q;
+        if (q && q.length >= 1)  {
+            $("#container").addClass("body");
+            $("#pageMiddle").animate({'margin-top': '0%'}, 200);
+            $("#searchInputText").addClass("relcysrchInput-no-bdr-btm");
+
+        }
+
+        console.log("searchTxt ** " + q.length)
+        if (q.length == 0) {
+            $scope.suggestedSearch = false;
+            $scope.showSearch = false;
+            return;
+        }
+        $scope.searchResultShow = false;
+        clearInterval(temp_Interval);
+        temp_Interval = setInterval(function(){
+            SearchService.searchOnRelcy(q).then(function (data) {
+                clearInterval(temp_Interval);
+                var qq = $("#searchInputText").val();
+                console.log("result ** " + qq)
+                if (qq.length == 0) {
+                    $scope.suggestedSearch = false;
+                    $scope.showSearch = false;
+                    return;
+                }
+                $scope.suggestedSearch = true;
+                $scope.searchResultsOfRelcy = data.auto_complete_response.auto_complete_item
+            }, function (error) {
+                $scope.showingResult = false;
+                $scope.gridMessage = 'Error while loading data';
+                $rootScope.hideLoader = true;
+            });
+        },100)
+
+    };
+
+    $scope.searchAll = function () {
+        $scope.suggestedSearch = false;
+        if (!$scope.searchTxt) return;
+        $location.path('search').search({q: $scope.searchTxt});
+        $rootScope.hideLoader = false;
+        //$location.path('search').search({q: $scope.query});
+        //$state.go('/search?q='+$scope.query)
+
+        //$scope.search($scope.query);
+    };
+
+    $scope.selectResult = function (item) {
+        SearchService.searchTxt = item.title;
+        //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
+        $location.path('detail').search({
+            q:item.title,
+            cType:item.content_type_enum,
+            entity: item.lookIds[0],
+            cipher: item.entity_id,
+            img: item.image
+        });
+    };
 
     /* DT: templateType is used to identify which edit template will load */
 
@@ -256,7 +348,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                 SearchService.searchResults = $scope.searchResults;
                 var title = '';
                 try {
-                    title = data.detail_response.results[0].entity_data.common_data.name;
+                    title = data.detail_response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.name;
                 } catch (err) {
                     console.log('title not found');
                 }
@@ -319,7 +411,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     if (q) {
         setTimeout(function () {
             $("#searchInputText input").focus();
-            angular.element(document.querySelector('#searchInputText')).children().children()[0].value = q;
+            //angular.element(document.querySelector('#searchInputText')).children().children()[0].value = q;
         }, 300);
         $scope.query = q;
         $scope.showDetails({

@@ -54,61 +54,60 @@
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <!-- -->
+          <!-- search suggestion html start  -->
           <div class="panel panel-default" ng-if="suggestedSearch">
             <div class="panel-heading">
               <h3 class="panel-title">Suggestions</h3>
             </div>
             <div class="panel-body">
               <ul class="resultList">
-                <li ng-repeat="result in searchResultsOfRelcy" ng-click="selectResult(result)"
-                    ng-mouseenter="hoverRow($index)">
+                <li ng-repeat="result in searchResultsOfRelcy" ng-mouseenter="hoverRow($index)">
                   <div class="media">
                     <div ng-if="result.icon=='unknown' || result.icon=='' || !result.icon"
                          class="media-left thumb-common thumb-unknown">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='movie'" class="media-left thumb-common thumb-movie">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='music'" class="media-left thumb-common thumb-music">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='app'" class="media-left thumb-common thumb-app">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='place'" class="media-left thumb-common thumb-place">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='business'" class="media-left thumb-common thumb-place">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='bar'" class="media-left thumb-common thumb-bar">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='tv'" class="media-left thumb-common thumb-tv">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='news'" class="media-left thumb-common thumb-news">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='web'" class="media-left thumb-common thumb-search">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='video'" class="media-left thumb-common thumb-movie">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='person'" class="media-left thumb-common thumb-person">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='celebrity'" class="media-left thumb-common thumb-celebrity">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div ng-if="result.icon=='coffee'" class="media-left thumb-common thumb-coffee">
-                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')"></a>
+                      <a class="pointer image-thumb-common" style="background-image:url('{{result.image}}')" ng-click="selectResult(result)"></a>
                     </div>
                     <div class="media-body">
-                      <h4 class="media-heading" ng-if="!matchClass">{{ result.title }}</h4>
+                      <h4 class="media-heading pointer" ng-if="!matchClass"  ng-click="selectResult(result)">{{ result.title }}</h4>
 
                       <div class="dark-gray">
                         <p class="genre">
@@ -132,17 +131,23 @@
               </ul>
             </div>
           </div>
-          <!-- -->
+          <!-- search suggestion html end -->
           <div class="result-list" ng-if="searchResultShow">
             <div class="animate-switch-container" ng-repeat="cat in searchResults">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <span class="pull-right panel-sorting"
-                        ng-if="cat.key == 'ENTERTAINMENT_VIDEO_TVSHOW'  || cat.key == 'ENTERTAINMENT_VIDEO_MOVIE'"><a
-                    href="" ng-class="{'active':moviesActiveSort == 1}" ng-click="sortByRating()">Rating</a> | <a
-                    href="" ng-click="sortByYear()" ng-class="{'active':moviesActiveSort == 2}">Year</a></span>
-                  <span class="pull-right panel-sorting" ng-if="cat.key == 'LOCAL_BUSINESS'"><a href="" ng-class="{'active': locationActiveSort == 1}" ng-click="sortByLocationRating()">Rating</a> | <a
-                    href="" ng-class="{'active': locationActiveSort == 2}" ng-click="sortByDistance()">Nearby</a> | <a href="" ng-class="{'active': locationActiveSort == 3}" ng-click="sortByOpen()">Open</a></span>
+                        ng-if="cat.key == 'ENTERTAINMENT_VIDEO_MOVIE'"><a
+                    href="" ng-class="{'active':moviesActiveSort == 1}" ng-click="sortByRating($index)">Rating</a> | <a
+                    href="" ng-click="sortByYear($index)" ng-class="{'active':moviesActiveSort == 2}">Year</a></span>
+
+                  <span class="pull-right panel-sorting"
+                        ng-if="cat.key == 'ENTERTAINMENT_VIDEO_TVSHOW'"><a
+                          href="" ng-class="{'active':tvShowActiveSort == 1}" ng-click="sortTvShowByRating($index)">Rating</a> | <a
+                          href="" ng-click="sortTvShowByYear($index)" ng-class="{'active':tvShowActiveSort == 2}">Year</a></span>
+
+                  <span class="pull-right panel-sorting" ng-if="cat.key == 'LOCAL_BUSINESS'"><a href="" ng-class="{'active': locationActiveSort == 1}" ng-click="sortByLocationRating($index)">Rating</a> | <a
+                    href="" ng-class="{'active': locationActiveSort == 2}" ng-click="sortByDistance($index)">Nearby</a> | <a href="" ng-class="{'active': locationActiveSort == 3}" ng-click="sortByOpen($index)">Open</a></span>
 
                   <h3 class="panel-title" id="{{cat.key}}">{{cat.keyTitle}}</h3>
                 </div>
@@ -162,6 +167,7 @@
               </div>
             </div>
           </div>
+          <div ng-if="suggestedSearch || searchResultShow" class="pull-right web-result-credit">Web Results provided by <img src="img-no-min/bing-logo.png"></div>
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-if="searchResultShow">

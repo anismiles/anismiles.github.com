@@ -18,6 +18,8 @@ a:hover, a:focus {
 .td-title span {
   font-size: 17px;
 }
+.web-result-credit{color:#aeaeae; font-size: 10.5px;
+  line-height: 17px;}
 
 /*::-webkit-input-placeholder {*/
   /*color: #CCD6DD;*/

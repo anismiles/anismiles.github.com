@@ -69,6 +69,10 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
     return results.auto_complete_response;
   };
 
+  $scope.me = function()
+  {
+    console.log("me here")
+  }
   /*Will add rating array to app resutls*/
   $scope.addScoresToAppResluts = function (results) {
     if (!results) return;
