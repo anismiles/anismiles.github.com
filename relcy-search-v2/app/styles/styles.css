@@ -414,13 +414,13 @@ footer a {
 .panelList {
     background-color: #fff;
     width: 100%;
-    border-top: 1px solid #f5f5f5;
-	margin-top: 10px;
+    /*border-top: 1px solid #f5f5f5;*/
+	/*margin-top: 10px;*/
 }
 
 .panelList a {
     display: block;
-    height: 30px;
+    height: 45px;
 }
 
 .panelList a > .fa {
@@ -1229,8 +1229,8 @@ div.imdb span {
 a.editable {
     position: absolute;
     z-index: 1;
-    right: 5px;
-    top: 5px;
+    right: 90px;
+    top: 16px;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
