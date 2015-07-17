@@ -16,7 +16,7 @@ a:hover, a:focus {
 }
 
 .td-title span {
-  font-size: 17px;
+  font-size: 14px;
 }
 .web-result-credit{color:#aeaeae; font-size: 10.5px;
   line-height: 17px;}
@@ -370,7 +370,7 @@ div.imdb span {
 
 .td-detail {
   color: #8899a6;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
 }
 
@@ -490,3 +490,5 @@ a.edit-picture {
   text-decoration: none;
   font-size: 14px;
 }
+/**********Sunilc***/
+.td-title .td-detail {font-size:12px;}
