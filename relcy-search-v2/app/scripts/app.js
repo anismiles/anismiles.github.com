@@ -3,7 +3,6 @@ angular.module('relcyApp',
  ['ui.router',
   'ui.bootstrap',
   'bootstrapLightbox',
-  'angucomplete-alt',
   'ngResource',
   'ngAnimate',
   'leaflet-directive']);

@@ -80,14 +80,14 @@ angular.module('relcyApp')
 
 
             if (response) {
-                var searchResults = response.search_result_collection;
+                var searchResults = response.verticalResult;
                 if (searchResults) {
 
                     transformedData.hideRSLinks = false;
-                    if (response.results[0].content_type_enum == "LOCAL_BUSINESS") {
+                    if (response.verticalResult[0].content_type_enum == "LOCAL_BUSINESS") {
 
                         try {
-                            transformedData.placesResult = response.results[0].content_type_enum;
+                            transformedData.placesResult = response.verticalResult[0].content_type_enum;
                             transformedData.categories.push({key: 'details_places', keyTitle: 'Places'});
                         } catch (err) {
                             console.log('no places results found');
@@ -95,7 +95,7 @@ angular.module('relcyApp')
 
                         // check for other properties in the below code, only for movies
                         try {
-                            var links = response.results[0].link;
+                            var links = response.verticalResult[0].searchResultRelcy.results[0].link;
                             if (links && links.length > 0) {
                                 self.getAppActionForPlaces(transformedData, links, response);
                             }
@@ -104,52 +104,52 @@ angular.module('relcyApp')
                         }
 
                         try {
-                            transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
+                            transformedData.displayRating = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.display_rating;
                             // lowercaseRating(transformedData.displayRating);
                         } catch (err) {
                             console.log('rating not found/unknown');
                         }
                         try {
-                            transformedData.title = response.results[0].entity_data.common_data.name;
+                            transformedData.title = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.name;
                         } catch (err) {
                             console.log('title not found/unknown');
                         }
                         try {
-                            transformedData.category = response.results[0].entity_data.local_data.category.toString();
+                            transformedData.category = response.verticalResult[0].searchResultRelcy.results[0].entity_data.local_data.category.toString();
                         } catch (err) {
                             console.log('category unknown');
                         }
                         try {
-                            transformedData.categoryHero = response.results[0].entity_data.local_data.category[0];
+                            transformedData.categoryHero = response.verticalResult[0].searchResultRelcy.results[0].entity_data.local_data.category[0];
                         } catch (err) {
                             console.log('category unknown');
                         }
 
                         try {
-                            transformedData.mapinfo = response.results[0].entity_data.local_data.location_info;
+                            transformedData.mapinfo = response.verticalResult[0].searchResultRelcy.results[0].entity_data.local_data.location_info;
                         } catch (err) {
                             console.log('address unknown');
                         }
 
                         try {
-                            transformedData.hours = response.results[0].entity_data.local_data.business_hours.days;
+                            transformedData.hours = response.verticalResult[0].searchResultRelcy.results[0].entity_data.local_data.business_hours.days;
                         } catch (err) {
                             console.log('businessHours unknown');
                         }
 
                         try {
-                            transformedData.call = response.results[0].entity_data.common_data.contact_info.phone_with_type;
+                            transformedData.call = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.contact_info.phone_with_type;
                         } catch (err) {
                             console.log('businessHours unknown');
                         }
                         try {
-                            transformedData.openStatus = response.results[0].entity_data.local_data.open_status;
+                            transformedData.openStatus = response.verticalResult[0].searchResultRelcy.results[0].entity_data.local_data.open_status;
                         } catch (err) {
                             console.log('openStatus unknown');
                         }
 
                         try {
-                            transformedData.priceRange = response.results[0].entity_data.local_data.price_range.display_price_range;
+                            transformedData.priceRange = response.verticalResult[0].searchResultRelcy.results[0].searchResultRelcy.results[0].entity_data.local_data.price_range.display_price_range;
                         } catch (err) {
                             console.log('priceRange unknown');
                         }
@@ -157,24 +157,24 @@ angular.module('relcyApp')
                     else {
                         var keyTitle = 'Movies';
                         try {
-                            if(response.results[0].content_type_enum=='ENTERTAINMENT_VIDEO_TVSHOW'){
+                            if(response.verticalResult[0].content_type_enum=='ENTERTAINMENT_VIDEO_TVSHOW'){
                                 keyTitle = 'TV Shows';
-                            }else if(response.results[0].content_type_enum == "ENTERTAINMENT_AUDIO"){
+                            }else if(response.verticalResult[0].content_type_enum == "ENTERTAINMENT_AUDIO"){
                                 keyTitle = 'Audio';
-                            }else if(response.results[0].content_type_enum == "PERSON"
-                                || response.results[0].content_type_enum == "PERSON_CELEBRITY"){
+                            }else if(response.verticalResult[0].content_type_enum == "PERSON"
+                                || response.verticalResult[0].content_type_enum == "PERSON_CELEBRITY"){
                                 transformedData.hideRSLinks = true;
                                 keyTitle = 'People';
                             }
 
-                            transformedData.moviesResult = response.results[0].content_type_enum;
-                            transformedData.displayRating = response.results[0].entity_data.common_data.display_rating;
+                            transformedData.moviesResult = response.verticalResult[0].content_type_enum;
+                            transformedData.displayRating = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.display_rating;
                             // lowercaseRating(transformedData.displayRating);
                             transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
 
                             // check for other properties in the below code, only for movies
                             try {
-                                var links = response.results[0].link;
+                                var links = response.verticalResult[0].searchResultRelcy.results[0].link;
                                 if (links && links.length > 0) {
                                     self.insertReviewsAndWatchesAndShowtimes(transformedData, links, response);
                                 }
@@ -183,53 +183,53 @@ angular.module('relcyApp')
                             }
 
                             try {
-                                transformedData.duration = response.results[0].entity_data.entertainment_data.movie_data.length;
+                                transformedData.duration = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.movie_data.length;
                             } catch (err) {
                                 console.log('duration unknown');
                             }
 
                             try {
-                                transformedData.releaseYear = response.results[0].entity_data.entertainment_data.common_data.release_year;
+                                transformedData.releaseYear = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.release_year;
                             } catch (err) {
                                 console.log('release year unknown');
                             }
 
                             try {
-                                transformedData.title = response.results[0].entity_data.common_data.name;
+                                transformedData.title = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.name;
                             } catch (err) {
                                 console.log('title not found/unknown');
                             }
 
                             try {
-                                transformedData.story = response.results[0].entity_data.common_data.summary;
+                                transformedData.story = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.summary;
                             } catch (err) {
                                 console.log('title not found/unknown');
                             }
 
                             try {
-                                transformedData.parentalRating = response.results[0].entity_data.entertainment_data.common_data.parental_rating;
+                                transformedData.parentalRating = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.parental_rating;
                             } catch (err) {
                                 console.log('parentalRating not found/unknown');
                             }
 
                             try {
-                                transformedData.cast = response.results[0].entity_data.entertainment_data.common_data.performer;
+                                transformedData.cast = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.performer;
                             } catch (err) {
                                 console.log('cast not found/unknown');
                             }
 
                             try {
                                 if (transformedData.cast) {
-                                    transformedData.cast.push(response.results[0].entity_data.entertainment_data.common_data.director);
+                                    transformedData.cast.push(response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.director);
                                 } else {
-                                    transformedData.cast = [response.results[0].entity_data.entertainment_data.common_data.director];
+                                    transformedData.cast = [response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.director];
                                 }
                             } catch (err) {
                                 console.log('director not found/unknown');
                             }
 
                             try {
-                                transformedData.genre = response.results[0].entity_data.entertainment_data.common_data.genre.join();
+                                transformedData.genre = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.genre.join();
                                 transformedData.genre = transformedData.genre.replace(/&amp;/g, '&');
                             } catch (err) {
                                 console.log('cast not found/unknown');
@@ -239,38 +239,64 @@ angular.module('relcyApp')
                         }
                     }
                     /*Extracting web search results*/
-                    try {
-                        transformedData.webResults = searchResults.webSearchResult.searchResults;
-                        transformedData.webResults.maxIndex = 4;
-                        transformedData.categories.push({key: 'details_web', keyTitle: 'Web'});
-                    } catch (err) {
-                        console.log('no web results found');
-                    }
-                    /*Extracting image search results*/
-                    try {
-                        transformedData.imageResults = searchResults.imageSearchResult.imageSearchResults;
-                        transformedData.imageResults.maxIndex = 6;
-                        transformedData.categories.push({key: 'details_images', keyTitle: 'Images'});
-                    } catch (err) {
-                        console.log('no image results found');
-                    }
-                    /*Extracting video search results*/
-                    try {
-                        transformedData.videoResults = searchResults.videoSearchResult.videoSearchResults;
-                        transformedData.videoResults.maxIndex = 3;
-                        transformedData.categories.push({key: 'details_videos', keyTitle: 'Videos'});
-                    } catch (err) {
-                        console.log('no video results found');
-                    }
-                    /*Extracting places search results*/
-                    try {
-                        transformedData.placesResults = searchResults.placesSearchResult.placesSearchResult;
-                        transformedData.placesResults.maxIndex = 3;
-                        transformedData.categories.push({key: 'details_places', keyTitle: 'Places'});
-                    } catch (err) {
-                        console.log('no places results found');
-                    }
+                    for(var i=0;i<response.verticalResult.length ; i++)
+                    {
+                        if(response.verticalResult[i].content_type_enum === "WEB")
+                        {
+                            try {
+                                transformedData.webResults = response.verticalResult[i].webSearchResult.searchResults;
+                                transformedData.webResults.maxIndex = 4;
+                                transformedData.categories.push({key: 'details_web', keyTitle: 'Web'});
+                            } catch (err) {
+                                console.log('no web results found');
+                            }
+                        }
+                        else if(response.verticalResult[i].content_type_enum === "WEB_IMAGES")
+                        {
+                            /*Extracting image search results*/
+                            try {
+                                transformedData.imageResults =  response.verticalResult[i].imageSearchResult.imageSearchResults;
+                                transformedData.imageResults.maxIndex = 6;
+                                transformedData.categories.push({key: 'details_images', keyTitle: 'Images'});
+                            } catch (err) {
+                                console.log('no image results found');
+                            }
+                        }
+                        else if(response.verticalResult[i].content_type_enum === "WEB_VIDEOS")
+                        {
+                            /*Extracting video search results*/
+                            try {
+                                transformedData.videoResults = response.verticalResult[i].videoSearchResult.videoSearchResults;
+                                transformedData.videoResults.maxIndex = 3;
+                                transformedData.categories.push({key: 'details_videos', keyTitle: 'Videos'});
+                            } catch (err) {
+                                console.log('no video results found');
+                            }
+                        }
+                        else if(response.verticalResult[i].content_type_enum === "WEB_PLACES")
+                        {
+                            /*Extracting places search results*/
+                            try {
+                                transformedData.placesResults = response.verticalResult[i].placesSearchResult.placesSearchResult;
+                                transformedData.placesResults.maxIndex = 5;
+                                transformedData.categories.push({key: 'details_places', keyTitle: 'Places'});
+                            } catch (err) {
+                                console.log('no places results found');
+                            }
+                        }
+                        else if(response.verticalResult[i].content_type_enum === "RELATED_SEARCHES")
+                        {
+                            /*Extracting places search results*/
+                            try {
+                                transformedData.relatedSearches = response.verticalResult[i].relatedSearchesResult.relatedSearchResults;
+                                transformedData.relatedSearches.maxIndex = 5;
+                                transformedData.relatedSearches.incrementBy = 5;
+                            } catch (err) {
+                                console.log('no RELATED_SEARCHES found');
+                            }
+                        }
 
+                    }
                 }
 
 
@@ -383,7 +409,11 @@ angular.module('relcyApp')
                         break;
                     case 'RELATED_SEARCHES':
                         if (data[index] && data[index].relatedSearchesResult && data[index].relatedSearchesResult.relatedSearchResults && data[index].relatedSearchesResult.relatedSearchResults.length) {
-                            $scope.relatedSearches = data[index].relatedSearchesResult.relatedSearchResults;
+                            $scope.relatedSearches = {};
+                            $scope.relatedSearches.data = data[index].relatedSearchesResult.relatedSearchResults;
+                            $scope.relatedSearches.maxIndex = 5;
+                            $scope.relatedSearches.incrementBy = 5;
+
                         }
                         values = undefined;
                         break;
@@ -545,6 +575,8 @@ angular.module('relcyApp')
             transformedData.infos = [];
             transformedData.profiles = [];
             transformedData.plays = [];
+            transformedData.tickets = [];
+            transformedData.reviewsAndMore = [];
             angular.forEach(links, function (l) {
                 try {
                     var action = l.app_result.result_data.action;
@@ -563,6 +595,12 @@ angular.module('relcyApp')
                         break;
                         case 'Play':
                             transformedData.plays.push(l);
+                        break;
+                        case 'Reviews and More':
+                            transformedData.reviewsAndMore.push(l);
+                        break;
+                        case 'Tickets':
+                            transformedData.tickets.push(l);
                         break;
                     }
                 } catch (err) {

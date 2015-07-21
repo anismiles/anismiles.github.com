@@ -25,14 +25,21 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
   $scope.itemType;
   $scope.itemDetails;
 
+  $scope.providedBy = false;
   $scope.searchResultShow = true;
 
-  if (SearchService.searchTxt != '') {
+  if (SearchService.searchTxt) {
     $scope.searchTxt = SearchService.searchTxt;
+    if ($scope.searchTxt) {
+      $("#pageMiddle").css({'margin-top': '0%'});
+      $("#container").addClass("body");
+    }
   }
   else {
-    if ($stateParams.q != "") {
+    if ($stateParams.q) {
       $scope.searchTxt = $stateParams.q;
+      $("#pageMiddle").css({'margin-top': '0%'});
+      $("#container").addClass("body");
     }
   }
 
@@ -60,11 +67,13 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
   /*Will be invoked everytime search field will be changed on homepage*/
   $scope.onInputChange = function (q) {
     $scope.query = q;
-    if (q && q.length == 1) {
+    if (q && q.length >= 1) {
       $("#pageMiddle").animate({'margin-top': '0%'}, 200);
       $("#pageMiddle").addClass("innerPageMiddle");
+      $("#container").addClass("body");
     }
   };
+  var temp_Interval
   /* getting search result from server by DT*/
   $scope.searchOnRelcy = function () {
 
@@ -74,27 +83,39 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
     SearchService.searchTxt = $scope.searchTxt;
 
     $scope.query = q;
-    if (q && q.length == 1) {
+    if (q && q.length >= 1)  {
       $("#container").addClass("body");
-      $("#pageMiddle").animate({'margin-top': '0'}, 200);
+      $("#pageMiddle").animate({'margin-top': '0%'}, 200);
       $("#searchInputText").addClass("relcysrchInput-no-bdr-btm");
 
     }
-    if (q.length == 0) {
+    if (!q) {
       $scope.suggestedSearch = false;
       $scope.showSearch = false;
       return;
     }
 
     $scope.searchResultShow = false;
-    SearchService.searchOnRelcy(q).then(function (data) {
-      $scope.suggestedSearch = true;
-      $scope.searchResultsOfRelcy = data.auto_complete_response.auto_complete_item
-    }, function (error) {
-      $scope.showingResult = false;
-      $scope.gridMessage = 'Error while loading data';
-      $rootScope.hideLoader = true;
-    });
+    clearInterval(temp_Interval);
+    temp_Interval = setInterval(function(){
+      SearchService.searchOnRelcy(q).then(function (data) {
+        clearInterval(temp_Interval);
+        var qq = $("#searchInputText").val();
+        console.log("result ** " + qq)
+        if (qq.length == 0) {
+          $scope.suggestedSearch = false;
+          $scope.showSearch = false;
+          return;
+        }
+        $scope.suggestedSearch = true;
+        $scope.providedBy = true;
+        $scope.searchResultsOfRelcy = data.auto_complete_response.auto_complete_item
+      }, function (error) {
+        $scope.showingResult = false;
+        $scope.gridMessage = 'Error while loading data';
+        $rootScope.hideLoader = true;
+      });
+    },100)
   };
   /**/
   $scope.getRatingCount = function (num) {
@@ -113,6 +134,7 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
   //
   $scope.searchAll = function () {
     $scope.suggestedSearch = false;
+    $scope.providedBy = false;
     $scope.search($scope.query)
     //$location.path('search').search({q: $scope.query});
     //$state.go('/search?q='+$scope.query)
@@ -120,8 +142,22 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
     //$scope.search($scope.query);
   };
   //
-  $scope.selectResult = function (item) {
 
+  //q=Avengers:%20Age%20of%20Ultron&
+  //cipher=iyvp6LTxP53J12axw1UPXDpkdAjV3YOLJMADFSMKVeg6qK46oa3DMGOvgr6HikKk&
+  //cType=ENTERTAINMENT_VIDEO_MOVIE&
+  //entity=look:3960841344802438073&
+  //img=http:%2F%2Fcdn-serve-s.relcy.com%2Fimagev2%2FImageServerV2%3Ffetchonlycached%26fetchonlyspecified%26d%3D150x200%26f%3Dhttp%253A%252F%252Fcps-static.rovicorp.com%252F2%252FOpen%252FDisney%252FThe%2BAvengers%2BAge%2Bof%2BUltron%252FThe-Avengers-Age-of-Ultron-poster.jpg
+  $scope.selectResult = function (item) {
+    SearchService.searchTxt = item.title;
+    //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
+    $location.path('detail').search({
+      q:item.title,
+      cType:item.content_type_enum,
+      entity: item.lookIds[0],
+      cipher: item.entity_id,
+      img: item.image
+    });
   };
 
   $scope.$on('search', function (event, q) {
@@ -156,6 +192,7 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
     SearchService.getSearchDetails(query).then(function (data) {
     $scope.showDetailPage = false;
     $scope.showingResult = true;
+      $scope.providedBy = true;
     $scope.result = data['search_response'];
     if (!$scope.result.verticalResult) {
       $scope.showingResult = false;
@@ -274,44 +311,62 @@ function SearchController($scope, $http,$rootScope, $location, $window, $timeout
 
   $scope.locationActiveSort = 1
   $scope.moviesActiveSort = 1
+  $scope.tvShowActiveSort = 1
 
   $scope.ratingAsc = true;
-  $scope.sortByRating = function()
+  $scope.sortByRating = function(index)
   {
     $scope.moviesActiveSort = 1
-    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'score',$scope.ratingAsc)
+    $scope.searchResults[index].values = _.sortByOrder( $scope.searchResults[index].values,'score',$scope.ratingAsc)
     $scope.ratingAsc = !$scope.ratingAsc
   }
 
   $scope.yearAsc = true;
-  $scope.sortByYear = function()
+  $scope.sortByYear = function(index)
   {
     $scope.moviesActiveSort = 2
-    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.entertainment_data.common_data.release_year',$scope.yearAsc)
+    $scope.searchResults[index].values = _.sortByOrder( $scope.searchResults[index].values,'entity_data.entertainment_data.common_data.release_year',$scope.yearAsc)
     $scope.yearAsc = !$scope.yearAsc
   }
 
+  $scope.tvShowRatingAsc = true;
+  $scope.sortTvShowByRating = function(index)
+  {
+    $scope.tvShowActiveSort = 1
+    $scope.searchResults[index].values = _.sortByOrder( $scope.searchResults[index].values,'score',$scope.tvShowRatingAsc)
+    $scope.tvShowRatingAsc = !$scope.tvShowRatingAsc
+  }
+
+  $scope.tvShowYearAsc = true;
+  $scope.sortTvShowByYear = function(index)
+  {
+    $scope.tvShowActiveSort = 2
+    $scope.searchResults[index].values = _.sortByOrder( $scope.searchResults[index].values,'entity_data.entertainment_data.common_data.release_year',$scope.tvShowYearAsc)
+    $scope.tvShowYearAsc = !$scope.tvShowYearAsc
+  }
+
+
   $scope.locationRatingAsc = true;
-  $scope.sortByLocationRating = function()
+  $scope.sortByLocationRating = function(index)
   {
     $scope.locationActiveSort = 1;
-    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.common_data.display_rating[0].rating',$scope.locationRatingAsc)
+    $scope.searchResults[index].values = _.sortByOrder( $scope.searchResults[index].values,'entity_data.common_data.display_rating[0].rating',$scope.locationRatingAsc)
     $scope.locationRatingAsc = !$scope.locationRatingAsc
   }
 
   $scope.distanceAsc = true;
-  $scope.sortByDistance = function()
+  $scope.sortByDistance = function(index)
   {
     $scope.locationActiveSort = 2
-    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.local_data.location_info.distance',$scope.distanceAsc)
+    $scope.searchResults[index].values = _.sortByOrder( $scope.searchResults[index].values,'entity_data.local_data.location_info.distance',$scope.distanceAsc)
     $scope.distanceAsc = !$scope.distanceAsc
   }
 
   $scope.openAsc = true;
-  $scope.sortByOpen = function()
+  $scope.sortByOpen = function(index)
   {
     $scope.locationActiveSort = 3
-    $scope.searchResults[0].values = _.sortByOrder( $scope.searchResults[0].values,'entity_data.local_data.open_status',$scope.openAsc)
+    $scope.searchResults[index].values = _.sortByOrder( $scope.searchResults[index].values,'entity_data.local_data.open_status',$scope.openAsc)
     $scope.openAsc = !$scope.openAsc
   }
 }

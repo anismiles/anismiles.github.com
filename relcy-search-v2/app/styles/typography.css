@@ -16,8 +16,10 @@ a:hover, a:focus {
 }
 
 .td-title span {
-  font-size: 17px;
+  font-size: 14px;
 }
+.web-result-credit{color:#aeaeae; font-size: 10.5px;
+  line-height: 17px;}
 
 /*::-webkit-input-placeholder {*/
   /*color: #CCD6DD;*/
@@ -368,7 +370,7 @@ div.imdb span {
 
 .td-detail {
   color: #8899a6;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
 }
 
@@ -480,7 +482,7 @@ ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a,
 a.editable {
   color: #fff;
   text-decoration: none;
-  font-size: 26px;
+  font-size: 20px;
 }
 
 a.edit-picture {
@@ -488,3 +490,5 @@ a.edit-picture {
   text-decoration: none;
   font-size: 14px;
 }
+/**********Sunilc***/
+.td-title .td-detail {font-size:12px;}

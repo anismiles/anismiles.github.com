@@ -1,15 +1,10 @@
-<ul class="resultList">
+<ul class="resultList celebrity-result-list">
     <!-- <a name="ENTERTAINMENT_VIDEO_MOVIE"></a> -->
     <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
 
         <div class="media">
-            <div ng-if="result.relcy_id.entity_id"
-                 ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id })"
-                 class="detail-arrow" style="position: absolute;right: 30px; z-index:1"><a
-                    href="javascript:void(0)"><span
-                    class="fa fa-angle-right text-gray"></span></a></div>
-            <div class="media-left">
-                <a href="#">
+            <div class="media-left thumb-common thumb-celebrity">
+                <a href="#" ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id })">
                     <img class="media-object image-thumb-celebrity" src="{{result.image_info[0].thumbnail.mediaURL}}">
                 </a>
             </div>
