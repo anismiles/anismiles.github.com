@@ -13,6 +13,7 @@ angular
     'ngAnimate',
     'ngCookies',
     'ngResource',
+    'ui.bootstrap',
     'ngRoute',
     'ngSanitize',
     'ngTouch'

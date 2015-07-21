@@ -11,11 +11,23 @@ angular.module('relcyEditorialApp')
 .controller('ApprovedController', function ($scope,StatusService) {
 	$scope.keys = [];
 	$scope.approvedRecords = [];
+
+	$scope.maxSize = 5;
+	$scope.totalItems = 0;
+	$scope.currentPage = 0;
+	 
+	$scope.setPage = function (pageNo) {
+		$scope.currentPage = pageNo;
+	};
+
+	$scope.pageChanged = function() { 
+		console.log('Page changed to: ' + $scope.currentPage)
+	};  
 	 
 	$scope.getKeys = function()
 	{
 		StatusService.getAllKeys(function(response){
-			// console.log(response);
+			console.log(response);
 			$scope.keys = response.keys;
 			addRecords($scope.keys[0],0);
 		},function(error){
@@ -30,7 +42,8 @@ angular.module('relcyEditorialApp')
 			if(response.hmset[0] == true)
 			{				 
 				var tmpRecord = _.find($scope.approvedRecords, function(num){ return num.user.invite_id == key });
-				$scope.approvedRecords = _.without($scope.approvedRecords,tmpRecord);				 			 
+				$scope.approvedRecords = _.without($scope.approvedRecords,tmpRecord);
+				$scope.totalItems = $scope.approvedRecords.length				 			 
 			}
 		},function(error){
 			console.log(error)
@@ -41,7 +54,7 @@ angular.module('relcyEditorialApp')
 	function addRecords(key,index)
 	{
 		StatusService.getRecordByKeys({key:key},function(response){
-			// console.log(response);
+			console.log(response);
 			response.hgetall.user = JSON.parse(response.hgetall.user)
 			response.hgetall.smsent = (response.hgetall.smsid ? "Yes":"No") 
 	 
@@ -63,6 +76,7 @@ angular.module('relcyEditorialApp')
 			if ($scope.keys.length > index) {
 				addRecords($scope.keys[index],index)
 			};
+			$scope.totalItems = $scope.approvedRecords.length
 		},function(error){
 			console.log(error)
 		});
