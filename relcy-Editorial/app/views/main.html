@@ -56,7 +56,33 @@
         
         	<h4>Approved Users</h4>
             <div class="tableheight">
-            <table class="table table-striped">
+
+                <table ng-table="tableParams" class="table">
+                    <tr ng-repeat="user in approvedRecords">
+
+                        <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
+                        <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
+                        <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
+                        <td data-title="'FACEBOOK VERIFIED'" >{{user.hasFBUrl? user.fbURL : 'No'}}</td>
+                        <td data-title="'SMS SENT'" >{{user.smsent}}</td>
+                        <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
+                        <td class="cust-button">
+                        <!-- <button ng-click="approve(data,'approve')">OK</button> -->
+                        <button class="reject" ng-click="reject(user,'approve')">Reject</button>
+                        </td>
+
+
+                      <!--   <td data-title="'Name'" sortable="'name'">
+                            {{user.name}}
+                        </td>
+                        <td data-title="'Age'" sortable="'age'">
+                            {{user.age}}
+                        </td> -->
+                    </tr>
+                </table>
+
+
+           <!--  <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>NAME</th>
@@ -80,12 +106,12 @@
                     <td>{{data.smsent}}</td>
                     <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
-                    <!-- <button ng-click="approve(data,'approve')">OK</button> -->
+                    
                     <button class="reject" ng-click="reject(data,'approve')">Reject</button>
                     </td>
                 </tr>               
             </tbody>
-            </table>
+            </table> -->
         	</div>
          
             <div class=" col-lg-12 showall">
