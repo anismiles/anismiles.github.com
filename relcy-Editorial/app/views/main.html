@@ -1,16 +1,16 @@
 <div class="col-lg-12 mainwrap">
-	
+
     <div class="row border-btm">
     	<div class="col-lg-12 logo">
         <a href="#/"><img src="images/logo.png" alt=""/> </a>
-      </div> 
+      </div>
     </div>
 
 	<div class="row">
     	<div class="col-lg-12 contentmainwrap">
-        
+
         <div class="col-lg-12 contenttable no-padding">
-        
+
         	<h4>Pending Approvals</h4>
             <div class="tableheight">
             <table class="table table-striped">
@@ -26,11 +26,11 @@
                     <th class="cust-button"></th>
                 </tr>
                 </thead>
-            <tbody> 
+            <tbody>
                 <tr class="text-center" ng-if="pendingRecords.length == 0">
-                    <td colspan="8">No Record found</td> 
+                    <td colspan="8">No Record found</td>
                 </tr>
-                <tr ng-if="pendingRecords.length > 0" ng-repeat="data in pendingRecords">
+                <tr ng-if="pendingRecords.length > 0" ng-repeat="data in pendingRecords | limitTo : 30">
                	    <td>{{data.user.ambassador_id}}</td>
                     <td>{{data.user.name}}</td>
                     <td>{{data.user.phone_number}}</td>
@@ -42,23 +42,23 @@
                     <button class="approve" ng-click="approve(data,'pending')">OK</button>
                     <button class="reject" ng-click="reject(data,'pending')">X</button>
                     </td>
-                </tr>                 
+                </tr>
             </tbody>
             </table>
         	</div>
-         
+
             <div class=" col-lg-12 showall">
             <a  href="#/pending" >SHOW ALL PENDING APPROVALS</a>
             </div>
         </div>
-        
+
         <div class="col-lg-12 contenttable no-padding">
-        
+
         	<h4>Approved Users</h4>
             <div class="tableheight">
 
                 <table ng-table="tableParams" class="table">
-                    <tr ng-repeat="user in approvedRecords">
+                    <tr ng-repeat="user in approvedRecords | limitTo :30">
 
                         <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
                         <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
@@ -96,7 +96,7 @@
                 </thead>
             <tbody>
                 <tr  class="text-center" ng-if="approvedRecords.length == 0">
-                    <td colspan="8">No Record found</td> 
+                    <td colspan="8">No Record found</td>
                 </tr>
                 <tr ng-if="approvedRecords.length > 0" ng-repeat="data in approvedRecords">
                     <td>{{data.user.name}}</td>
@@ -106,21 +106,21 @@
                     <td>{{data.smsent}}</td>
                     <td>{{data.time | date:'MM-dd-yyyy'}}</td>
                     <td class="cust-button">
-                    
+
                     <button class="reject" ng-click="reject(data,'approve')">Reject</button>
                     </td>
-                </tr>               
+                </tr>
             </tbody>
             </table> -->
         	</div>
-         
+
             <div class=" col-lg-12 showall">
             <a href="#/approved">SHOW ALL APPROVED USERS</a>
             </div>
         </div>
-        
+
         <div class="col-lg-12 contenttable no-padding">
-        
+
         	<h4>REJECTED USERS</h4>
             <div class="tableheight">
             <table class="table table-striped">
@@ -137,9 +137,9 @@
                 </thead>
             <tbody>
                 <tr  class="text-center" ng-if="rejectedRecords.length == 0">
-                    <td colspan="8">No Record found</td> 
+                    <td colspan="8">No Record found</td>
                 </tr>
-                <tr ng-if="rejectedRecords.length > 0" ng-repeat="data in rejectedRecords">
+                <tr ng-if="rejectedRecords.length > 0" ng-repeat="data in rejectedRecords | limitTo : 30">
                     <td>{{data.user.name}}</td>
                     <td>{{data.user.phone_number}}</td>
                     <td>{{data.user.email_address}}</td>
@@ -150,15 +150,15 @@
                     <button class="approve" ng-click="approve(data,'reject')">Approve</button>
                     <!-- <button ng-click="reject(data,'reject')">X</button> -->
                     </td>
-                </tr> 
+                </tr>
             </tbody>
             </table>
-        	</div>         
+        	</div>
             <div class=" col-lg-12 showall">
             <a href="#/rejected"  >SHOW ALL REJECTED USERS</a>
             </div>
         </div>
-        
+
         </div>
     </div>
 

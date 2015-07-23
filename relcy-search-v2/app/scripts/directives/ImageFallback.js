@@ -76,3 +76,11 @@ angular.module('relcyApp')
         }
     };
 });
+    //.directive('LiSelection', function () {
+    //    return {
+    //        require: 'ngModel',
+    //        link: function (scope, element, attr, ngModelCtrl) {
+    //           //
+    //        }
+    //    };
+    //});
