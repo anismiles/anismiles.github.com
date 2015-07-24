@@ -10,7 +10,7 @@
 angular.module('relcyEditorialApp')
 .controller('RejectedController', function ($scope,StatusService, ngTableParams,DataService,$filter) {
 	$scope.keys = [];
-	$scope.rejectedRecords = []; 
+	$scope.rejectedRecords = [];
 
     $scope.rejectedLoader = true;
 
@@ -19,7 +19,7 @@ angular.module('relcyEditorialApp')
 		$scope.rejectedLoader = false;
 		$scope.rejectedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 30,          // count per page
+          count: 100,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
@@ -34,30 +34,30 @@ angular.module('relcyEditorialApp')
             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
           },
           counts: []
-        });  
+        });
 	}
 
 	$scope.getKeys = function()
 	{
 		$scope.rejectedLoader = true;
-		StatusService.getAllRecord(function (response) {  
+		StatusService.getAllRecord(function (response) {
 	        angular.forEach(response.rejected, function(item){
 		          try{
 		            var thirdParty = item.user.user_data.third_party_data[0];
 		            if(thirdParty.third_party_service=='FACEBOOK'){
 		              item.hasFBUrl = true;
 		              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-		            } 
+		            }
 		          }catch(err){
 		            item.hasFBUrl = false;
 		          }
 		      });
- 
+
 	        $scope.rejectedRecords = response.rejected;
-	        
+
 	        DataService.approvedRecords = response.approved;
 	        DataService.pendingRecords = response.pending;
-	        DataService.rejectedRecords = response.rejected;   
+	        DataService.rejectedRecords = response.rejected;
 
 	        $scope.tableParameterSetting();
 
@@ -65,7 +65,7 @@ angular.module('relcyEditorialApp')
         console.log(error);
       });
 	}
-	 
+
 	if(DataService.rejectedRecords.length >0)
 	{
 		$scope.rejectedRecords = DataService.rejectedRecords;
@@ -74,25 +74,25 @@ angular.module('relcyEditorialApp')
 	else
 	{
 		$scope.getKeys();
-	} 
+	}
 
-	//	 
+	//
 	$scope.approveRequest = function(key)
 	{
 		$scope.rejectedLoader = true;
 		StatusService.approveRequest({key:key},function(response){
-			console.log(response); 
+			console.log(response);
 			$scope.getDataAfterAction();
 		},function(error){
 			console.log(error)
 		});
 	}
 	//
-	$scope.getDataAfterAction = function () {  
+	$scope.getDataAfterAction = function () {
 
       StatusService.getAllRecord(function (response) {
         console.log(response);
-         
+
         angular.forEach(response.approved, function(item){
           try{
             var thirdParty = item.user.user_data.third_party_data[0];
@@ -111,10 +111,10 @@ angular.module('relcyEditorialApp')
             if(thirdParty.third_party_service=='FACEBOOK'){
               item.hasFBUrl = true;
               item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-            } 
+            }
           }catch(err){
             item.hasFBUrl = false;
-          } 
+          }
         })
 
         angular.forEach(response.rejected, function(item){
@@ -127,24 +127,24 @@ angular.module('relcyEditorialApp')
           }catch(err){
             item.hasFBUrl = false;
           }
-        }) 
-			
+        })
+
 			$scope.rejectedRecords = response.rejected;
           DataService.approvedRecords = response.approved;
           DataService.pendingRecords = response.pending;
-          DataService.rejectedRecords = response.rejected;  
-         
-          $scope.rejectedRecordsTableParams.reload() ; 
+          DataService.rejectedRecords = response.rejected;
 
-          $scope.rejectedLoader = false; 
-           
+          $scope.rejectedRecordsTableParams.reload() ;
+
+          $scope.rejectedLoader = false;
+
       }, function (error) {
         console.log(error);
       });
-    }  
+    }
 	//
 	$scope.approve = function(data,type)
 	{
 		$scope.approveRequest(data.user.invite_id)
-	} 
+	}
 });

@@ -1,21 +1,19 @@
+<style>
+  ul.pagination {
+    position: fixed;
+    top: 64px;
+    z-index: 9999;
+    right: 14px;
+  }
+</style>
 <div class="col-lg-12 mainwrap">
-	
-    <div class="row border-btm">
-    	<div class="col-lg-12 logo">
-        <a href="#/"><img src="images/logo.png" alt=""/> </a>
-        
-        </div>
-    
-    
-    </div>
-
 	<div class="row">
     	<div class="col-lg-12 contentmainwrap">
-        
+
         <div class="col-lg-12 contenttable no-padding">
-        
+
         	<h4>Pending Approvals  <a href="#/" class="pull-right back">back</a></h4>
-            <div style="height:470px;" class="tableheight">
+            <div class="tableheight">
             <div ng-if="pendingLoader" class="loader"></div>
 
               <table   ng-table="pendingRecordsTableParams" class="table">
@@ -41,10 +39,10 @@
                     </td> -->
                 </tr>
               </table>
-        	</div>  
-        </div> 
+        	</div>
+        </div>
          <pagination ng-if="false" total-items="totalItems" ng-change="pageChanged()" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></pagination>
-         
+
     </div>
 
 

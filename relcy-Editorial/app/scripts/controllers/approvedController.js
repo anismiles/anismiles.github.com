@@ -10,16 +10,16 @@
 angular.module('relcyEditorialApp')
 .controller('ApprovedController', function ($scope,StatusService, ngTableParams,DataService,$filter) {
 	$scope.keys = [];
-	$scope.approvedRecords = []; 
+	$scope.approvedRecords = [];
 
-    $scope.approvedLoader = true; 
+    $scope.approvedLoader = true;
 
 	$scope.tableParameterSetting = function()
 	{
-		$scope.approvedLoader = false; 
+		$scope.approvedLoader = false;
 		$scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 30,          // count per page
+          count: 100,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
@@ -34,37 +34,37 @@ angular.module('relcyEditorialApp')
             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
           },
           counts: []
-        } ); 
-	}  
+        } );
+	}
 
 	$scope.getKeys = function()
 	{
-		$scope.approvedLoader = true; 
-		StatusService.getAllRecord(function (response) {  
+		$scope.approvedLoader = true;
+		StatusService.getAllRecord(function (response) {
 	        angular.forEach(response.approved, function(item){
 		          try{
 		            var thirdParty = item.user.user_data.third_party_data[0];
 		            if(thirdParty.third_party_service=='FACEBOOK'){
 		              item.hasFBUrl = true;
 		              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-		            } 
+		            }
 		          }catch(err){
 		            item.hasFBUrl = false;
 		          }
 		      });
- 
+
 	        $scope.approvedRecords = response.approved;
-	         
+
 	        DataService.approvedRecords = response.approved;
 	        DataService.pendingRecords = response.pending;
-	        DataService.rejectedRecords = response.rejected; 
+	        DataService.rejectedRecords = response.rejected;
 
 	        $scope.tableParameterSetting();
 
       }, function (error) {
         console.log(error);
       });
-	} 
+	}
 	//
 	if(DataService.approvedRecords.length >0)
 	{
@@ -78,7 +78,7 @@ angular.module('relcyEditorialApp')
 	//
 	$scope.rejectRequest = function(key)
 	{
-		$scope.approvedLoader = true; 
+		$scope.approvedLoader = true;
 		StatusService.rejectRequest({key:key},function(response){
 			//console.log(response);
 			$scope.getDataAfterAction();
@@ -87,11 +87,11 @@ angular.module('relcyEditorialApp')
 		});
 	}
 	//
-	$scope.getDataAfterAction = function () {  
+	$scope.getDataAfterAction = function () {
 
       StatusService.getAllRecord(function (response) {
         console.log(response);
-         
+
         angular.forEach(response.approved, function(item){
           try{
             var thirdParty = item.user.user_data.third_party_data[0];
@@ -110,10 +110,10 @@ angular.module('relcyEditorialApp')
             if(thirdParty.third_party_service=='FACEBOOK'){
               item.hasFBUrl = true;
               item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-            } 
+            }
           }catch(err){
             item.hasFBUrl = false;
-          } 
+          }
         })
 
         angular.forEach(response.rejected, function(item){
@@ -126,24 +126,24 @@ angular.module('relcyEditorialApp')
           }catch(err){
             item.hasFBUrl = false;
           }
-        }) 
+        })
 
           $scope.approvedRecords = response.approved;
           DataService.approvedRecords = response.approved;
           DataService.pendingRecords = response.pending;
-          DataService.rejectedRecords = response.rejected;  
-         
-          $scope.approvedRecordsTableParams.reload() ; 
+          DataService.rejectedRecords = response.rejected;
 
-          $scope.approvedLoader = false; 
-           
+          $scope.approvedRecordsTableParams.reload() ;
+
+          $scope.approvedLoader = false;
+
       }, function (error) {
         console.log(error);
       });
-    }  
+    }
 	//
 	$scope.reject = function(data,type)
 	{
 		$scope.rejectRequest(data.user.invite_id)
-	} 
+	}
 });

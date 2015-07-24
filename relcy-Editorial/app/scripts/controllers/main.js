@@ -15,21 +15,21 @@ angular.module('relcyEditorialApp')
     $scope.rejectedRecords = [];
     $scope.approvedKeys = [];
     $scope.rejectedKeys = [];
-    $scope.pendingKeys = []; 
+    $scope.pendingKeys = [];
 
-    $scope.pendingLoader = true; 
+    $scope.pendingLoader = true;
     $scope.approvedLoader = true;
     $scope.rejectedLoader = true;
 
     $scope.tableParamaterSetting = function()
     {
-      $scope.pendingLoader = false; 
+      $scope.pendingLoader = false;
       $scope.approvedLoader = false;
-      $scope.rejectedLoader = false; 
+      $scope.rejectedLoader = false;
 
       $scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 30,          // count per page
+          count: 10,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
@@ -48,7 +48,7 @@ angular.module('relcyEditorialApp')
 
         $scope.pendingRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 30,          // count per page
+          count: 10,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
@@ -67,7 +67,7 @@ angular.module('relcyEditorialApp')
 
         $scope.rejectedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 30,          // count per page
+          count: 10,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
@@ -82,10 +82,10 @@ angular.module('relcyEditorialApp')
             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
           },
           counts: []
-        }); 
+        });
     }
-    $scope.getKeys = function () { 
-      $scope.pendingLoader = true; 
+    $scope.getKeys = function () {
+      $scope.pendingLoader = true;
       $scope.approvedLoader = true;
       $scope.rejectedLoader = true;
 
@@ -111,10 +111,10 @@ angular.module('relcyEditorialApp')
             if(thirdParty.third_party_service=='FACEBOOK'){
               item.hasFBUrl = true;
               item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-            } 
+            }
           }catch(err){
             item.hasFBUrl = false;
-          } 
+          }
         })
 
         angular.forEach(response.rejected, function(item){
@@ -128,14 +128,14 @@ angular.module('relcyEditorialApp')
             item.hasFBUrl = false;
           }
         })
-        
+
         console.log($scope.pendingRecords)
         $scope.approvedRecords = response.approved;
         $scope.pendingRecords = response.pending;
         $scope.rejectedRecords = response.rejected;
         DataService.approvedRecords = response.approved;
         DataService.pendingRecords = response.pending;
-        DataService.rejectedRecords = response.rejected; 
+        DataService.rejectedRecords = response.rejected;
 
         $scope.tableParamaterSetting();
 
@@ -146,31 +146,31 @@ angular.module('relcyEditorialApp')
 
     if(DataService.pendingRecords.length >0)
     {
-      $scope.pendingRecords = DataService.pendingRecords; 
+      $scope.pendingRecords = DataService.pendingRecords;
     }
     if(DataService.approvedRecords.length >0)
     {
-      $scope.approvedRecords = DataService.approvedRecords; 
+      $scope.approvedRecords = DataService.approvedRecords;
     }
     if(DataService.rejectedRecords.length >0)
     {
-      $scope.rejectedRecords = DataService.rejectedRecords; 
+      $scope.rejectedRecords = DataService.rejectedRecords;
     }
 
     if($scope.pendingRecords.length == 0 && $scope.approvedRecords.length == 0 && $scope.rejectedRecords.length == 0)
     {
         $scope.getKeys();
-    } 
+    }
     else
     {
       $scope.tableParamaterSetting();
     }
-    
-    $scope.getDataAfterAction = function (update) {  
+
+    $scope.getDataAfterAction = function (update) {
 
       StatusService.getAllRecord(function (response) {
         console.log(response);
-         
+
         angular.forEach(response.approved, function(item){
           try{
             var thirdParty = item.user.user_data.third_party_data[0];
@@ -189,10 +189,10 @@ angular.module('relcyEditorialApp')
             if(thirdParty.third_party_service=='FACEBOOK'){
               item.hasFBUrl = true;
               item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-            } 
+            }
           }catch(err){
             item.hasFBUrl = false;
-          } 
+          }
         })
 
         angular.forEach(response.rejected, function(item){
@@ -206,7 +206,7 @@ angular.module('relcyEditorialApp')
             item.hasFBUrl = false;
           }
         })
-        
+
         console.log($scope.pendingRecords)
 
         // 1 for update pending and approved
@@ -216,59 +216,59 @@ angular.module('relcyEditorialApp')
         $timeout(function(){
           if(update == 1 )
           {
-            
+
             $scope.approvedRecords = response.approved;
             $scope.pendingRecords = response.pending;
           }
           else if(update == 2 )
           {
-             
+
             $scope.rejectedRecords = response.rejected;
             $scope.pendingRecords = response.pending;
           }
           else if(update == 3 || update == 4)
           {
-             
+
             $scope.approvedRecords = response.approved;
             $scope.rejectedRecords = response.rejected;
           }
 
           DataService.approvedRecords = response.approved;
           DataService.pendingRecords = response.pending;
-          DataService.rejectedRecords = response.rejected; 
+          DataService.rejectedRecords = response.rejected;
 
           // $scope.tableParamaterSetting();
           $scope.approvedRecordsTableParams.reload() ;
           $scope.pendingRecordsTableParams.reload() ;
           $scope.rejectedRecordsTableParams.reload() ;
 
-          $scope.pendingLoader = false; 
+          $scope.pendingLoader = false;
           $scope.approvedLoader = false;
           $scope.rejectedLoader = false;
-        },500)  
+        },500)
 
       }, function (error) {
         console.log(error);
       });
-    }   
+    }
 
     //
     $scope.rejectRequest = function (key, type) {
       if (type == 'approve') // called from approved section to reject user request
-      { 
+      {
         $scope.approvedLoader = true;
         $scope.rejectedLoader = true;
       }
       if (type == 'pending') // called from approved section to reject user request
       {
-        $scope.pendingLoader = true;  
+        $scope.pendingLoader = true;
         $scope.rejectedLoader = true;
       }
       StatusService.rejectRequest({key: key}, function (response) {
         //console.log(response);
         if (response.hmset[0] == true) {
           if (type == 'approve') // called from approved section to reject user request
-          { 
+          {
             $scope.getDataAfterAction(3)
             // var tmpRecord = _.find($scope.approvedRecords, function (num) {
             //   return num.user.invite_id == key
@@ -277,7 +277,7 @@ angular.module('relcyEditorialApp')
             // $scope.rejectedRecords.push(tmpRecord)
           }
           if (type == 'pending') // called from approved section to reject user request
-          { 
+          {
             $scope.getDataAfterAction(2)
             // var tmpRecord = _.find($scope.pendingRecords, function (num) {
             //   return num.user.invite_id == key
@@ -285,7 +285,7 @@ angular.module('relcyEditorialApp')
             // $scope.pendingRecords = _.without($scope.pendingRecords, tmpRecord);
             // $scope.rejectedRecords.push(tmpRecord)
           }
-        }  
+        }
       }, function (error) {
         console.log(error)
       });
@@ -299,14 +299,14 @@ angular.module('relcyEditorialApp')
       }
       if (type == 'pending') // called from approved section to reject user request
       {
-        $scope.pendingLoader = true; 
-        $scope.approvedLoader = true; 
+        $scope.pendingLoader = true;
+        $scope.approvedLoader = true;
       }
       StatusService.approveRequest({key: key}, function (response) {
         console.log(response);
         if (response.hmset[0] == true) {
           if (type == 'reject') // called from approved section to reject user request
-          { 
+          {
             $scope.getDataAfterAction(4)
             // var tmpRecord = _.find($scope.rejectedRecords, function (num) {
             //   return num.user.invite_id == key
@@ -315,7 +315,7 @@ angular.module('relcyEditorialApp')
             // $scope.approvedRecords.push(tmpRecord)
           }
           if (type == 'pending') // called from approved section to reject user request
-          { 
+          {
             $scope.getDataAfterAction(1)
             // var tmpRecord = _.find($scope.pendingRecords, function (num) {
             //   return num.user.invite_id == key
@@ -323,12 +323,12 @@ angular.module('relcyEditorialApp')
             // $scope.pendingRecords = _.without($scope.pendingRecords, tmpRecord);
             // $scope.approvedRecords.push(tmpRecord)
           }
-        } 
+        }
       }, function (error) {
         console.log(error)
       });
-    } 
-     
+    }
+
     $scope.approve = function (data, type) {
       $scope.approveRequest(data.user.invite_id, type)
     }
