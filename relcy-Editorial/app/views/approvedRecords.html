@@ -17,28 +17,30 @@
         	<h4>Approved Users  <a href="#/" class="pull-right back">back</a></h4>
             <div  style="height:470px;" class="tableheight">
 
-              <table ng-table="tableParams" class="table">
-                <tr ng-repeat="user in approvedRecords">
+              <table ng-table="approvedRecordsTableParams" class="table">
+                    <tr ng-repeat="user in $data">
 
-                  <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
-                  <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
-                  <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
-                  <td data-title="'FACEBOOK VERIFIED'" >{{user.hasFBUrl? user.fbURL : 'No'}}</td>
-                  <td data-title="'SMS SENT'" >{{user.smsent}}</td>
-                  <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
-                  <td class="cust-button">
-                    <!-- <button ng-click="approve(data,'approve')">OK</button> -->
-                    <button class="reject" ng-click="reject(user,'approve')">Reject</button>
-                  </td>
+                        <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
+                        <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
+                        <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
+                        <td data-title="'FACEBOOK VERIFIED'" >
+                          <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
+                          <span ng-if="!user.hasFBUrl">No</span></td>
+                        <td data-title="'SMS SENT'" >{{user.smsent}}</td>
+                        <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
+                        <td class="cust-button">
+                        <!-- <button ng-click="approve(data,'approve')">OK</button> -->
+                        <button class="reject" ng-click="reject(user,'approve')">Reject</button>
+                        </td>
 
 
-                  <!--   <td data-title="'Name'" sortable="'name'">
-                        {{user.name}}
-                    </td>
-                    <td data-title="'Age'" sortable="'age'">
-                        {{user.age}}
-                    </td> -->
-                </tr>
+                      <!--   <td data-title="'Name'" sortable="'name'">
+                            {{user.name}}
+                        </td>
+                        <td data-title="'Age'" sortable="'age'">
+                            {{user.age}}
+                        </td> -->
+                    </tr>
               </table>
         	</div>
         </div>

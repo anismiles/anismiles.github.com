@@ -13,38 +13,31 @@
         
         	<h4>REJECTED USERS   <a href="#/" class="pull-right back">back</a></h4>
             <div style="height:470px;" class="tableheight">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>AMBASSADOR ID</th>
-                    <th>NAME</th>
-                    <th>PHONE#</th>
-                    <th>EMAIL</th>
-                    <th>FACEBOOK VERIFIED</th>
-					<th>SMS SENT</th>
-                    <th>REQUEST DATE</th>
-                    <th class="cust-button"></th>
-                </tr>
-                </thead>
-            <tbody>
-                <tr  class="text-center" ng-if="rejectedRecords.length == 0">
-                    <td colspan="8">No Record found</td> 
-                </tr>
-                <tr ng-repeat="data in rejectedRecords">
-                    <td>{{data.user.ambassador_id}}</td>
-                    <td>{{data.user.name}}</td>
-                    <td>{{data.user.phone_number}}</td>
-                    <td>{{data.user.email_address}}</td>
-                    <td><!-- <a href="#"> -->NO<!-- </a> --></td>
-                    <td>{{data.smsent}}</td>
-                    <td>{{data.time  | date:'MM-dd-yyyy'}}</td>
-                    <td class="cust-button">
+             <table ng-table="rejectedRecordsTableParams" class="table">
+                <tr ng-repeat="user in $data">
+
+                  <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
+                  <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
+                  <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
+                  <td data-title="'FACEBOOK VERIFIED'" >
+                    <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
+                    <span ng-if="!user.hasFBUrl">No</span></td>
+                  <td data-title="'SMS SENT'" >{{user.smsent}}</td>
+                  <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
+                  <td class="cust-button">
+                    <!-- <button ng-click="approve(data,'approve')">OK</button> -->
                     <button class="approve" ng-click="approve(data,'reject')">Approve</button>
-                    <!-- <button ng-click="reject(data,'reject')">X</button> -->
+                  </td>
+
+
+                  <!--   <td data-title="'Name'" sortable="'name'">
+                        {{user.name}}
                     </td>
-                </tr> 
-            </tbody>
-            </table>
+                    <td data-title="'Age'" sortable="'age'">
+                        {{user.age}}
+                    </td> -->
+                </tr>
+              </table>
         	</div>    
         </div> 
          <pagination ng-if="false" total-items="totalItems" ng-change="pageChanged()" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></pagination>

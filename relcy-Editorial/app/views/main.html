@@ -11,15 +11,15 @@
 
         <div class="col-lg-12 contenttable no-padding">
 
-        	<h4>Pending Approvals</h4> {{pendingRecordsTableParams.sorting()|json}}
+        	<h4>Pending Approvals</h4>
             <div class="tableheight">
 
               <table ng-table="pendingRecordsTableParams" class="table">
-                <tr ng-repeat="user in pendingRecords | limitTo :30">
-                  <td data-title="'AMBASSADOR ID'" sortable="'id'">{{user.id}}</td>
-                  <td data-title="'NAME'" sortable="'name'">{{user.user.name}}</td>
-                  <td data-title="'PHONE#'" sortable="'phone_number'">{{user.user.phone_number}}</td>
-                  <td data-title="'EMAIL'" sortable="'email_address'">{{user.user.email_address}}</td>
+                <tr ng-repeat="user in $data">
+                  <td data-title="'AMBASSADOR ID'" sortable="'ambassador_id'">{{user.ambassador_id}}</td>
+                  <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
+                  <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
+                  <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
                   <td data-title="'FACEBOOK VERIFIED'" >
                     <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
                     <span ng-if="!user.hasFBUrl">No</span></td>
@@ -51,11 +51,11 @@
             <div class="tableheight">
 
                 <table ng-table="approvedRecordsTableParams" class="table">
-                    <tr ng-repeat="user in approvedRecords | limitTo :30">
+                    <tr ng-repeat="user in $data">
 
-                        <td data-title="'NAME'" sortable="'user.user.name'">{{user.user.name}}</td>
-                        <td data-title="'PHONE#'" sortable="'user.user.phone_number'">{{user.user.phone_number}}</td>
-                        <td data-title="'EMAIL'" sortable="'user.user.email_address'">{{user.user.email_address}}</td>
+                        <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
+                        <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
+                        <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
                         <td data-title="'FACEBOOK VERIFIED'" >
                           <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
                           <span ng-if="!user.hasFBUrl">No</span></td>
@@ -120,11 +120,11 @@
             <div class="tableheight">
 
               <table ng-table="rejectedRecordsTableParams" class="table">
-                <tr ng-repeat="user in rejectedRecords | limitTo :30">
+                <tr ng-repeat="user in $data">
 
-                  <td data-title="'NAME'" sortable="'user.user.name'">{{user.user.name}}</td>
-                  <td data-title="'PHONE#'" sortable="'user.user.phone_number'">{{user.user.phone_number}}</td>
-                  <td data-title="'EMAIL'" sortable="'user.user.email_address'">{{user.user.email_address}}</td>
+                  <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
+                  <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
+                  <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
                   <td data-title="'FACEBOOK VERIFIED'" >
                     <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
                     <span ng-if="!user.hasFBUrl">No</span></td>

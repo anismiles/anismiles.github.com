@@ -8,33 +8,69 @@
  * Controller of the relcyEditorialApp
  */
 angular.module('relcyEditorialApp')
-.controller('RejectedController', function ($scope,StatusService) {
+.controller('RejectedController', function ($scope,StatusService, ngTableParams,DataService,$filter) {
 	$scope.keys = [];
 	$scope.rejectedRecords = [];
 
-	$scope.maxSize = 5;
-	$scope.totalItems = 0;
-	$scope.currentPage = 0;
-	 
-	$scope.setPage = function (pageNo) {
-		$scope.currentPage = pageNo;
-	};
+	$scope.tableParameterSetting = function()
+	{
+		$scope.rejectedRecordsTableParams = new ngTableParams({
+          page: 1,            // show first page
+          count: 10,          // count per page
+          sorting: {
+            'user.name': 'asc'     // initial sorting
+          }
+        }, {
+          total: $scope.rejectedRecords.length, // length of data
+          getData: function($defer, params) {
+            // use build-in angular filter
+            var orderedData = params.sorting() ?
+              $filter('orderBy')($scope.rejectedRecords, params.orderBy()) :
+              $scope.rejectedRecords;
 
-	$scope.pageChanged = function() { 
-		console.log('Page changed to: ' + $scope.currentPage)
-	};  
-
+            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+          }
+        });  
+	}
 
 	$scope.getKeys = function()
 	{
-		StatusService.getAllKeys(function(response){
-			console.log(response);
-			$scope.keys = response.keys;
-			addRecords($scope.keys[0],0);
-		},function(error){
-			console.log(error)
-		});
+		StatusService.getAllRecord(function (response) {  
+	        angular.forEach(response.rejected, function(item){
+		          try{
+		            var thirdParty = item.user.user_data.third_party_data[0];
+		            if(thirdParty.third_party_service=='FACEBOOK'){
+		              item.hasFBUrl = true;
+		              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+		            } 
+		          }catch(err){
+		            item.hasFBUrl = false;
+		          }
+		      });
+ 
+	        $scope.rejectedRecords = response.rejected;
+	        
+	        DataService.approvedRecords = response.approved;
+	        DataService.pendingRecords = response.pending;
+	        DataService.rejectedRecords = response.rejected;   
+
+	        $scope.tableParameterSetting();
+
+      }, function (error) {
+        console.log(error);
+      });
 	}
+	 
+	if(DataService.rejectedRecords.length >0)
+	{
+		$scope.rejectedRecords = DataService.rejectedRecords;
+		$scope.tableParameterSetting();
+	}
+	else
+	{
+		$scope.getKeys();
+	} 
+
 	//	 
 	$scope.approveRequest = function(key)
 	{
@@ -76,7 +112,5 @@ angular.module('relcyEditorialApp')
 	$scope.approve = function(data,type)
 	{
 		$scope.approveRequest(data.user.invite_id)
-	}
-	
-	$scope.getKeys();
+	} 
 });
