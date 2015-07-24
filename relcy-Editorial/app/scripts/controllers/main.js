@@ -29,7 +29,7 @@ angular.module('relcyEditorialApp')
 
       $scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 10,          // count per page
+          count: 30,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
@@ -48,7 +48,7 @@ angular.module('relcyEditorialApp')
 
         $scope.pendingRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 10,          // count per page
+          count: 30,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
@@ -67,7 +67,7 @@ angular.module('relcyEditorialApp')
 
         $scope.rejectedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 10,          // count per page
+          count: 30,          // count per page
           sorting: {
             'user.name': 'asc'     // initial sorting
           }
