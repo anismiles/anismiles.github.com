@@ -17,15 +17,15 @@
               <div ng-if="approvedLoader" class="loader"></div>
                 <table ng-table="approvedRecordsTableParams" class="table">
                     <tr ng-repeat="user in $data">
-
+                      <td data-title="'AMBASSADOR ID'">{{user.ambassador_id}}</td>
                         <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
-                        <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
-                        <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
+                        <td data-title="'PHONE#'" >{{user.user.phone_number}}</td>
+                        <td data-title="'EMAIL'">{{user.user.email_address}}</td>
                         <td data-title="'FACEBOOK VERIFIED'" >
                           <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
                           <span ng-if="!user.hasFBUrl">No</span></td>
                         <td data-title="'SMS SENT'" >{{user.smsent}}</td>
-                        <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
+                      <td data-title="'REQUEST DATE'" sortable="'user.timestamp'">{{user.timestamp | date:'MM-dd-yyyy'}}</td>
                         <td class="cust-button">
                         <!-- <button ng-click="approve(data,'approve')">OK</button> -->
                         <button class="reject" ng-click="reject(user,'approve')">Reject</button>

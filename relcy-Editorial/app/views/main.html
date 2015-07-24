@@ -47,7 +47,7 @@
                 <div ng-if="approvedLoader" class="loader"></div>
                 <table  ng-table="approvedRecordsTableParams" class="table">
                     <tr ng-repeat="user in $data">
-
+                      <td data-title="'AMBASSADOR ID'">{{user.ambassador_id}}</td>
                         <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
                         <td data-title="'PHONE#'" >{{user.user.phone_number}}</td>
                         <td data-title="'EMAIL'" >{{user.user.email_address}}</td>
@@ -116,7 +116,7 @@
                 <div ng-if="rejectedLoader" class="loader"></div>
                 <table   ng-table="rejectedRecordsTableParams" class="table">
                 <tr ng-repeat="user in $data">
-
+                  <td data-title="'AMBASSADOR ID'">{{user.ambassador_id}}</td>
                   <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
                   <td data-title="'PHONE#'" >{{user.user.phone_number}}</td>
                   <td data-title="'EMAIL'" >{{user.user.email_address}}</td>
