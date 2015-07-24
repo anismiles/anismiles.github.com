@@ -11,40 +11,33 @@
 
         <div class="col-lg-12 contenttable no-padding">
 
-        	<h4>Pending Approvals</h4>
+        	<h4>Pending Approvals</h4> {{pendingRecordsTableParams.sorting()|json}}
             <div class="tableheight">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>AMBASSADOR ID</th>
-                    <th>NAME</th>
-                    <th>PHONE#</th>
-                    <th>EMAIL</th>
-                    <th>FACEBOOK VERIFIED</th>
-		            <th>SMS SENT</th>
-                    <th>REQUEST DATE</th>
-                    <th class="cust-button"></th>
-                </tr>
-                </thead>
-            <tbody>
-                <tr class="text-center" ng-if="pendingRecords.length == 0">
-                    <td colspan="8">No Record found</td>
-                </tr>
-                <tr ng-if="pendingRecords.length > 0" ng-repeat="data in pendingRecords | limitTo : 30">
-               	    <td>{{data.user.ambassador_id}}</td>
-                    <td>{{data.user.name}}</td>
-                    <td>{{data.user.phone_number}}</td>
-                    <td>{{data.user.email_address}}</td>
-                    <td>{{data.hasFBUrl? data.fbURL : 'No'}}</td>
-                    <td>{{data.smsent}}</td>
-                    <td>{{data.time | date:'MM-dd-yyyy'}}</td>
-                    <td class="cust-button">
+
+              <table ng-table="pendingRecordsTableParams" class="table">
+                <tr ng-repeat="user in pendingRecords | limitTo :30">
+                  <td data-title="'AMBASSADOR ID'" sortable="'id'">{{user.id}}</td>
+                  <td data-title="'NAME'" sortable="'name'">{{user.user.name}}</td>
+                  <td data-title="'PHONE#'" sortable="'phone_number'">{{user.user.phone_number}}</td>
+                  <td data-title="'EMAIL'" sortable="'email_address'">{{user.user.email_address}}</td>
+                  <td data-title="'FACEBOOK VERIFIED'" >
+                    <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
+                    <span ng-if="!user.hasFBUrl">No</span></td>
+                  <td data-title="'SMS SENT'" >{{user.smsent}}</td>
+                  <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
+                  <td class="cust-button">
                     <button class="approve" ng-click="approve(data,'pending')">OK</button>
                     <button class="reject" ng-click="reject(data,'pending')">X</button>
+                  </td>
+                  <!--   <td data-title="'Name'" sortable="'name'">
+                        {{user.name}}
                     </td>
+                    <td data-title="'Age'" sortable="'age'">
+                        {{user.age}}
+                    </td> -->
                 </tr>
-            </tbody>
-            </table>
+              </table>
+
         	</div>
 
             <div class=" col-lg-12 showall">
@@ -57,13 +50,15 @@
         	<h4>Approved Users</h4>
             <div class="tableheight">
 
-                <table ng-table="tableParams" class="table">
+                <table ng-table="approvedRecordsTableParams" class="table">
                     <tr ng-repeat="user in approvedRecords | limitTo :30">
 
-                        <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
-                        <td data-title="'PHONE#'" sortable="'user.phone_number'">{{user.user.phone_number}}</td>
-                        <td data-title="'EMAIL'" sortable="'user.email_address'">{{user.user.email_address}}</td>
-                        <td data-title="'FACEBOOK VERIFIED'" >{{user.hasFBUrl? user.fbURL : 'No'}}</td>
+                        <td data-title="'NAME'" sortable="'user.user.name'">{{user.user.name}}</td>
+                        <td data-title="'PHONE#'" sortable="'user.user.phone_number'">{{user.user.phone_number}}</td>
+                        <td data-title="'EMAIL'" sortable="'user.user.email_address'">{{user.user.email_address}}</td>
+                        <td data-title="'FACEBOOK VERIFIED'" >
+                          <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
+                          <span ng-if="!user.hasFBUrl">No</span></td>
                         <td data-title="'SMS SENT'" >{{user.smsent}}</td>
                         <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
                         <td class="cust-button">
@@ -123,36 +118,33 @@
 
         	<h4>REJECTED USERS</h4>
             <div class="tableheight">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>NAME</th>
-                    <th>PHONE#</th>
-                    <th>EMAIL</th>
-                    <th>FACEBOOK VERIFIED</th>
-					<th>SMS SENT</th>
-                    <th>REQUEST DATE</th>
-                    <th class="cust-button"></th>
-                </tr>
-                </thead>
-            <tbody>
-                <tr  class="text-center" ng-if="rejectedRecords.length == 0">
-                    <td colspan="8">No Record found</td>
-                </tr>
-                <tr ng-if="rejectedRecords.length > 0" ng-repeat="data in rejectedRecords | limitTo : 30">
-                    <td>{{data.user.name}}</td>
-                    <td>{{data.user.phone_number}}</td>
-                    <td>{{data.user.email_address}}</td>
-                    <td><!-- <a href="#"> -->NO<!-- </a> --></td>
-                    <td>{{data.smsent}}</td>
-                    <td>{{data.time | date:'MM-dd-yyyy'}}</td>
-                    <td class="cust-button">
+
+              <table ng-table="rejectedRecordsTableParams" class="table">
+                <tr ng-repeat="user in rejectedRecords | limitTo :30">
+
+                  <td data-title="'NAME'" sortable="'user.user.name'">{{user.user.name}}</td>
+                  <td data-title="'PHONE#'" sortable="'user.user.phone_number'">{{user.user.phone_number}}</td>
+                  <td data-title="'EMAIL'" sortable="'user.user.email_address'">{{user.user.email_address}}</td>
+                  <td data-title="'FACEBOOK VERIFIED'" >
+                    <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
+                    <span ng-if="!user.hasFBUrl">No</span></td>
+                  <td data-title="'SMS SENT'" >{{user.smsent}}</td>
+                  <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
+                  <td class="cust-button">
+                    <!-- <button ng-click="approve(data,'approve')">OK</button> -->
                     <button class="approve" ng-click="approve(data,'reject')">Approve</button>
-                    <!-- <button ng-click="reject(data,'reject')">X</button> -->
+                  </td>
+
+
+                  <!--   <td data-title="'Name'" sortable="'name'">
+                        {{user.name}}
                     </td>
+                    <td data-title="'Age'" sortable="'age'">
+                        {{user.age}}
+                    </td> -->
                 </tr>
-            </tbody>
-            </table>
+              </table>
+
         	</div>
             <div class=" col-lg-12 showall">
             <a href="#/rejected"  >SHOW ALL REJECTED USERS</a>

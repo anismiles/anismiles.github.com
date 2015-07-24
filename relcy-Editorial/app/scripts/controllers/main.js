@@ -8,7 +8,7 @@
  * Controller of the relcyEditorialApp
  */
 angular.module('relcyEditorialApp')
-  .controller('MainCtrl', function ($scope, StatusService, ngTableParams,DataService) {
+  .controller('MainCtrl', function ($scope, StatusService, ngTableParams,DataService,$filter) {
     $scope.keys = [];
     $scope.pendingRecords = [];
     $scope.approvedRecords = [];
@@ -17,13 +17,7 @@ angular.module('relcyEditorialApp')
     $scope.rejectedKeys = [];
     $scope.pendingKeys = [];
 
-    $scope.tableParams = new ngTableParams({
-      page: 1,            // show first page
-      count: 10,          // count per page
-      sorting: {
-        name: 'asc'     // initial sorting
-      }
-    });
+
 
     $scope.getKeys = function () {
 
@@ -31,13 +25,104 @@ angular.module('relcyEditorialApp')
         console.log(response);
         //$scope.keys = response.keys;
         //addRecords($scope.keys[0], 0);
+        angular.forEach(response.approved, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        })
+        angular.forEach(response.pending, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
 
-        $scope.approvedRecords = response.approved.splice(0,1000);
-        $scope.pendingRecords = response.pending.splice(0,1000);
-        $scope.rejectedRecords = response.rejected.splice(0,1000);
-        DataService.approvedRecords = $scope.approvedRecords
-        DataService.pendingRecords = $scope.pendingRecords
-        DataService.rejectedRecords = $scope.rejectedRecords
+            //$scope.pendingRecords.push(
+            //  {
+            //    id:item.id,
+            //    timestamp:item.timestamp,
+            //    name:item.user.name,
+            //    email_address:
+            //    invite_id
+            //    client_id
+            //    phone_number
+            //    account_type
+            //    ambassador_id
+            //    hasFBUrl
+            //    fbURL
+            //
+            //  }
+            //)
+
+
+
+
+
+
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        })
+
+        angular.forEach(response.rejected, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        })
+
+        $scope.approvedRecords = response.approved;
+        //$scope.pendingRecords = response.pending;
+        $scope.rejectedRecords = response.rejected;
+        //DataService.approvedRecords = response.approved;
+        //DataService.pendingRecords = response.pending;
+        //DataService.rejectedRecords = response.rejected;
+
+
+        $scope.approvedRecordsTableParams = new ngTableParams({
+          page: 1,            // show first page
+          count: 10,          // count per page
+          sorting: {
+            name: 'asc'     // initial sorting
+          }
+        });
+        $scope.pendingRecordsTableParams = new ngTableParams({
+          page: 1,            // show first page
+          count: 10,          // count per page
+          sorting: {
+            id: 'asc'     // initial sorting
+          }
+        }, {
+          total: $scope.pendingRecords.length, // length of data
+          getData: function($defer, params) {
+            // use build-in angular filter
+            var orderedData = params.sorting() ?
+              $filter('orderBy')($scope.pendingRecords, params.orderBy()) :
+              $scope.pendingRecords;
+
+            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+          }
+        });
+
+        $scope.rejectedRecordsTableParams = new ngTableParams({
+          page: 1,            // show first page
+          count: 10,          // count per page
+          sorting: {
+            name: 'asc'     // initial sorting
+          }
+        });
 
       }, function (error) {
         console.log(error);
@@ -82,7 +167,7 @@ angular.module('relcyEditorialApp')
       });
     }
     //
-    $scope.approveRequest = function (key) {
+    $scope.approveRequest = function (key, type) {
       StatusService.approveRequest({key: key}, function (response) {
         console.log(response);
         if (response.hmset[0] == true) {
@@ -107,111 +192,7 @@ angular.module('relcyEditorialApp')
         console.log(error)
       });
     }
-    //
-    function addApproveRecords(key, index) {
-      var tmpJson = '{   "hgetall":{      "smsid":"SM45e5dd0dc1f5470fb8d96283de9c9a1e",      "time":"2015-06-21T14:41:54.239-07:00",      "status":"APPROVED",      "user":{"name": "Manju","email_address": "leomanjucs@gmail.com","invite_id": "62f8c3593eea0a2a3e2d2c203293f76c","client_id": "1a133c4635","phone_number": "4086060562","ambassador_id": "","device": [{"device_uid": "ADC162B8-2778-4B43-A007-2C6B95421D78","platform": "IOS","modelName": "iPhone","language": "en","timezone": "America/Los_Angeles","version_number": "8.3","advertising_uid": "A2DCA463-9CA9-4D2A-AAE2-CF6D0978E2EC","app_version": "0.9.38","phone_country_code": "310","bundle_id": "com.relcy-labs.Relcy","screenWidth": 375,"screenHeight": 667,"screenScale": 2.0,"timestamp_utc": 1434948093583}]}   }}';
-      var response = JSON.parse(tmpJson);
-      response.hgetall.user = response.hgetall.user
-      response.hgetall.smsent = (response.hgetall.smsid ? "Yes" : "No")
-      try {
-        var thirdParty = response.hgetall.user.user_data.third_party_data[0];
-        if (thirdParty.third_party_service == 'FACEBOOK') {
-          response.hgetall.hasFBUrl = true;
-          response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-        }
-      } catch (err) {
-        response.hgetall.hasFBUrl = false;
-      }
-      $scope.approvedRecords.push(response.hgetall);
 
-      // StatusService.getRecordByKeys({key:key},function(response){
-      // 	console.log(response);
-      // 	response.hgetall.user = JSON.parse(response.hgetall.user)
-      // 	response.hgetall.smsent = (response.hgetall.smsid ? "Yes":"No")
-      // 		try{
-      // 			var thirdParty = response.hgetall.user.user_data.third_party_data[0];
-      // 			if(thirdParty.third_party_service=='FACEBOOK'){
-      // 				response.hgetall.hasFBUrl = true;
-      // 				response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-      // 			}
-      // 		}catch(err){
-      // 			response.hgetall.hasFBUrl = false;
-      // 		}
-      // 		$scope.approvedRecords.push(response.hgetall);
-      // },function(error){
-      // 	console.log(error)
-      // });
-    }
-
-    function addPendingRecords(key, index) {
-      var tmpJson = '{   "hgetall":{      "smsid":"SM45e5dd0dc1f5470fb8d96283de9c9a1e",      "time":"2015-06-21T14:41:54.239-07:00",      "status":"APPROVED",      "user":{"name": "Manju","email_address": "leomanjucs@gmail.com","invite_id": "62f8c3593eea0a2a3e2d2c203293f76c","client_id": "1a133c4635","phone_number": "4086060562","ambassador_id": "","device": [{"device_uid": "ADC162B8-2778-4B43-A007-2C6B95421D78","platform": "IOS","modelName": "iPhone","language": "en","timezone": "America/Los_Angeles","version_number": "8.3","advertising_uid": "A2DCA463-9CA9-4D2A-AAE2-CF6D0978E2EC","app_version": "0.9.38","phone_country_code": "310","bundle_id": "com.relcy-labs.Relcy","screenWidth": 375,"screenHeight": 667,"screenScale": 2.0,"timestamp_utc": 1434948093583}]}   }}';
-      var response = JSON.parse(tmpJson);
-      response.hgetall.user = response.hgetall.user
-      response.hgetall.smsent = (response.hgetall.smsid ? "Yes" : "No")
-      try {
-        var thirdParty = response.hgetall.user.user_data.third_party_data[0];
-        if (thirdParty.third_party_service == 'FACEBOOK') {
-          response.hgetall.hasFBUrl = true;
-          response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-        }
-      } catch (err) {
-        response.hgetall.hasFBUrl = false;
-      }
-      $scope.pendingRecords.push(response.hgetall);
-
-      // StatusService.getRecordByKeys({key:key},function(response){
-      // 	console.log(response);
-      // 	response.hgetall.user = JSON.parse(response.hgetall.user)
-      // 	response.hgetall.smsent = (response.hgetall.smsid ? "Yes":"No")
-      // 		try{
-      // 			var thirdParty = response.hgetall.user.user_data.third_party_data[0];
-      // 			if(thirdParty.third_party_service=='FACEBOOK'){
-      // 				response.hgetall.hasFBUrl = true;
-      // 				response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-      // 			}
-      // 		}catch(err){
-      // 			response.hgetall.hasFBUrl = false;
-      // 		}
-      // 		$scope.approvedRecords.push(response.hgetall);
-      // },function(error){
-      // 	console.log(error)
-      // });
-    }
-
-    function addRejectedRecords(key, index) {
-      var tmpJson = '{   "hgetall":{      "smsid":"SM45e5dd0dc1f5470fb8d96283de9c9a1e",      "time":"2015-06-21T14:41:54.239-07:00",      "status":"APPROVED",      "user":{"name": "Manju","email_address": "leomanjucs@gmail.com","invite_id": "62f8c3593eea0a2a3e2d2c203293f76c","client_id": "1a133c4635","phone_number": "4086060562","ambassador_id": "","device": [{"device_uid": "ADC162B8-2778-4B43-A007-2C6B95421D78","platform": "IOS","modelName": "iPhone","language": "en","timezone": "America/Los_Angeles","version_number": "8.3","advertising_uid": "A2DCA463-9CA9-4D2A-AAE2-CF6D0978E2EC","app_version": "0.9.38","phone_country_code": "310","bundle_id": "com.relcy-labs.Relcy","screenWidth": 375,"screenHeight": 667,"screenScale": 2.0,"timestamp_utc": 1434948093583}]}   }}';
-      var response = JSON.parse(tmpJson);
-      response.hgetall.user = response.hgetall.user
-      response.hgetall.smsent = (response.hgetall.smsid ? "Yes" : "No")
-      try {
-        var thirdParty = response.hgetall.user.user_data.third_party_data[0];
-        if (thirdParty.third_party_service == 'FACEBOOK') {
-          response.hgetall.hasFBUrl = true;
-          response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-        }
-      } catch (err) {
-        response.hgetall.hasFBUrl = false;
-      }
-      $scope.rejectedRecords.push(response.hgetall);
-
-      // StatusService.getRecordByKeys({key:key},function(response){
-      // 	console.log(response);
-      // 	response.hgetall.user = JSON.parse(response.hgetall.user)
-      // 	response.hgetall.smsent = (response.hgetall.smsid ? "Yes":"No")
-      // 		try{
-      // 			var thirdParty = response.hgetall.user.user_data.third_party_data[0];
-      // 			if(thirdParty.third_party_service=='FACEBOOK'){
-      // 				response.hgetall.hasFBUrl = true;
-      // 				response.hgetall.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
-      // 			}
-      // 		}catch(err){
-      // 			response.hgetall.hasFBUrl = false;
-      // 		}
-      // 		$scope.approvedRecords.push(response.hgetall);
-      // },function(error){
-      // 	console.log(error)
-      // });
-    }
 
     // function addRecords(key,index)
     // {

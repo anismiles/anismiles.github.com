@@ -5,7 +5,7 @@ angular.module('relcyEditorialApp')
 
 /*Session to keep - session specific things*/
 function StatusService($timeout, $q, $http,$resource) {
-     var APIUrl = "http://relcy-redis2.relcy.com/redis/22/";
+     var APIUrl = "https://relcy-redis2.relcy.com/22/";
      var newAPIUrl = "http://webapp.relcy.com/invites"
 	 return $resource(
             APIUrl,
