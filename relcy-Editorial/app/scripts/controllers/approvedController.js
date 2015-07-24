@@ -10,10 +10,13 @@
 angular.module('relcyEditorialApp')
 .controller('ApprovedController', function ($scope,StatusService, ngTableParams,DataService,$filter) {
 	$scope.keys = [];
-	$scope.approvedRecords = [];
+	$scope.approvedRecords = []; 
+
+    $scope.approvedLoader = true; 
 
 	$scope.tableParameterSetting = function()
 	{
+		$scope.approvedLoader = false; 
 		$scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
           count: 10,          // count per page
@@ -36,6 +39,7 @@ angular.module('relcyEditorialApp')
 
 	$scope.getKeys = function()
 	{
+		$scope.approvedLoader = true; 
 		StatusService.getAllRecord(function (response) {  
 	        angular.forEach(response.approved, function(item){
 		          try{
@@ -60,9 +64,8 @@ angular.module('relcyEditorialApp')
       }, function (error) {
         console.log(error);
       });
-	}
-
-
+	} 
+	//
 	if(DataService.approvedRecords.length >0)
 	{
 		$scope.approvedRecords = DataService.approvedRecords;
@@ -71,24 +74,74 @@ angular.module('relcyEditorialApp')
 	else
 	{
 		$scope.getKeys();
-	} 
-
+	}
 	//
 	$scope.rejectRequest = function(key)
 	{
+		$scope.approvedLoader = true; 
 		StatusService.rejectRequest({key:key},function(response){
 			//console.log(response);
-			if(response.hmset[0] == true)
-			{
-				var tmpRecord = _.find($scope.approvedRecords, function(num){ return num.user.invite_id == key });
-				$scope.approvedRecords = _.without($scope.approvedRecords,tmpRecord);
-				$scope.totalItems = $scope.approvedRecords.length
-			}
+			$scope.getDataAfterAction();
 		},function(error){
 			console.log(error)
 		});
 	}
+	//
+	$scope.getDataAfterAction = function () {  
 
+      StatusService.getAllRecord(function (response) {
+        console.log(response);
+         
+        angular.forEach(response.approved, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        })
+
+        angular.forEach(response.pending, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            } 
+          }catch(err){
+            item.hasFBUrl = false;
+          } 
+        })
+
+        angular.forEach(response.rejected, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        }) 
+
+          $scope.approvedRecords = response.approved;
+          DataService.approvedRecords = response.approved;
+          DataService.pendingRecords = response.pending;
+          DataService.rejectedRecords = response.rejected;  
+         
+          $scope.approvedRecordsTableParams.reload() ; 
+
+          $scope.approvedLoader = false; 
+           
+      }, function (error) {
+        console.log(error);
+      });
+    }  
+	//
 	$scope.reject = function(data,type)
 	{
 		$scope.rejectRequest(data.user.invite_id)

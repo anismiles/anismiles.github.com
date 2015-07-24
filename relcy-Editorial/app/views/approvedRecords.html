@@ -16,8 +16,8 @@
 
         	<h4>Approved Users  <a href="#/" class="pull-right back">back</a></h4>
             <div  style="height:470px;" class="tableheight">
-
-              <table ng-table="approvedRecordsTableParams" class="table">
+              <div ng-if="approvedLoader" class="loader"></div>
+                <table   ng-table="approvedRecordsTableParams" class="table">
                     <tr ng-repeat="user in $data">
 
                         <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>

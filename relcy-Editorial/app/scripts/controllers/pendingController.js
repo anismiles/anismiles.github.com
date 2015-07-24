@@ -12,9 +12,12 @@ angular.module('relcyEditorialApp')
 	$scope.keys = [];
 	$scope.pendingRecords = [];   
 	 
+	$scope.pendingLoader = true; 
+     
 
 	$scope.tableParameterSetting = function()
 	{
+		$scope.pendingLoader = false; 
 		$scope.pendingRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
           count: 10,          // count per page
@@ -30,12 +33,14 @@ angular.module('relcyEditorialApp')
               $scope.pendingRecords;
 
             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-          }
+          },
+          counts: []
         });  
 	}
 
 	$scope.getKeys = function()
 	{
+		$scope.pendingLoader = true; 
 		StatusService.getAllRecord(function (response) {  
 	        angular.forEach(response.pending, function(item){
 		          try{
@@ -53,7 +58,7 @@ angular.module('relcyEditorialApp')
 	        
 	        DataService.approvedRecords = response.approved;
 	        DataService.pendingRecords = response.pending;
-	        DataService.rejectedRecords = response.rejected;   
+	        DataService.rejectedRecords = response.rejected;    
 
 	        $scope.tableParameterSetting();
 
@@ -75,14 +80,10 @@ angular.module('relcyEditorialApp')
 	//
 	$scope.rejectRequest = function(key)
 	{
+		$scope.pendingLoader = true; 
 		StatusService.rejectRequest({key:key},function(response){
 			//console.log(response); 
-			if(response.hmset[0] == true)
-			{  				
-				var tmpRecord = _.find($scope.pendingRecords, function(num){ return num.user.invite_id == key });
-				$scope.pendingRecords = _.without($scope.pendingRecords,tmpRecord);
-				$scope.totalItems = $scope.pendingRecords.length
-			}
+			$scope.getDataAfterAction();
 		},function(error){
 			console.log(error)
 		});
@@ -90,19 +91,70 @@ angular.module('relcyEditorialApp')
 	//
 	$scope.approveRequest = function(key)
 	{
+		$scope.pendingLoader = true; 
 		StatusService.approveRequest({key:key},function(response){
-			console.log(response);
-			if(response.hmset[0] == true)
-			{  				 
-				var tmpRecord = _.find($scope.pendingRecords, function(num){ return num.user.invite_id == key });
-				$scope.pendingRecords = _.without($scope.pendingRecords,tmpRecord);
-				$scope.totalItems = $scope.pendingRecords.length
-				//$scope.approvedRecords.push(tmpRecord)				 
-			}
+			 
+			$scope.getDataAfterAction() 			 
 		},function(error){
 			console.log(error)
 		});
 	} 
+
+	$scope.getDataAfterAction = function () {  
+
+      StatusService.getAllRecord(function (response) {
+        console.log(response);
+         
+        angular.forEach(response.approved, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        })
+
+        angular.forEach(response.pending, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            } 
+          }catch(err){
+            item.hasFBUrl = false;
+          } 
+        })
+
+        angular.forEach(response.rejected, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        }) 
+
+          $scope.pendingRecords = response.pending;
+          DataService.approvedRecords = response.approved;
+          DataService.pendingRecords = response.pending;
+          DataService.rejectedRecords = response.rejected;  
+         
+          $scope.pendingRecordsTableParams.reload() ; 
+
+          $scope.pendingLoader = false; 
+           
+      }, function (error) {
+        console.log(error);
+      });
+    }  
+
 	//
 	$scope.approve = function(data)
 	{

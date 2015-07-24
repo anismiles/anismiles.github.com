@@ -13,7 +13,8 @@
         
         	<h4>REJECTED USERS   <a href="#/" class="pull-right back">back</a></h4>
             <div style="height:470px;" class="tableheight">
-             <table ng-table="rejectedRecordsTableParams" class="table">
+            <div ng-if="rejectedLoader" class="loader"></div>
+            <table   ng-table="rejectedRecordsTableParams" class="table">
                 <tr ng-repeat="user in $data">
 
                   <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
@@ -26,7 +27,7 @@
                   <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
                   <td class="cust-button">
                     <!-- <button ng-click="approve(data,'approve')">OK</button> -->
-                    <button class="approve" ng-click="approve(data,'reject')">Approve</button>
+                    <button class="approve" ng-click="approve(user,'reject')">Approve</button>
                   </td>
 
 

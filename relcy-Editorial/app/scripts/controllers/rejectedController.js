@@ -10,10 +10,13 @@
 angular.module('relcyEditorialApp')
 .controller('RejectedController', function ($scope,StatusService, ngTableParams,DataService,$filter) {
 	$scope.keys = [];
-	$scope.rejectedRecords = [];
+	$scope.rejectedRecords = []; 
+
+    $scope.rejectedLoader = true;
 
 	$scope.tableParameterSetting = function()
 	{
+		$scope.rejectedLoader = false;
 		$scope.rejectedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
           count: 10,          // count per page
@@ -29,12 +32,14 @@ angular.module('relcyEditorialApp')
               $scope.rejectedRecords;
 
             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-          }
+          },
+          counts: []
         });  
 	}
 
 	$scope.getKeys = function()
 	{
+		$scope.rejectedLoader = true;
 		StatusService.getAllRecord(function (response) {  
 	        angular.forEach(response.rejected, function(item){
 		          try{
@@ -74,40 +79,69 @@ angular.module('relcyEditorialApp')
 	//	 
 	$scope.approveRequest = function(key)
 	{
+		$scope.rejectedLoader = true;
 		StatusService.approveRequest({key:key},function(response){
-			console.log(response);
-			if(response.hmset[0] == true)
-			{
-			 	var tmpRecord = _.find($scope.rejectedRecords, function(num){ return num.user.invite_id == key });
-				$scope.rejectedRecords = _.without($scope.rejectedRecords,tmpRecord); 
-				$scope.totalItems = $scope.rejectedRecords.length
-			}
+			console.log(response); 
+			$scope.getDataAfterAction();
 		},function(error){
 			console.log(error)
 		});
 	}
 	//
-	function addRecords(key,index)
-	{
-		StatusService.getRecordByKeys({key:key},function(response){
-			console.log(response);
-			response.hgetall.user = JSON.parse(response.hgetall.user)
-			response.hgetall.smsent = (response.hgetall.smsid ? "Yes":"No") 
-	  
-			if(response.hgetall.status == "REJECTED")
-			{
-				$scope.rejectedRecords.push(response.hgetall)
-			}
+	$scope.getDataAfterAction = function () {  
+
+      StatusService.getAllRecord(function (response) {
+        console.log(response);
+         
+        angular.forEach(response.approved, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        })
+
+        angular.forEach(response.pending, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            } 
+          }catch(err){
+            item.hasFBUrl = false;
+          } 
+        })
+
+        angular.forEach(response.rejected, function(item){
+          try{
+            var thirdParty = item.user.user_data.third_party_data[0];
+            if(thirdParty.third_party_service=='FACEBOOK'){
+              item.hasFBUrl = true;
+              item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;
+            }
+          }catch(err){
+            item.hasFBUrl = false;
+          }
+        }) 
 			
-			index++;
-			if ($scope.keys.length > index) {
-				addRecords($scope.keys[index],index)
-			};
-			$scope.totalItems = $scope.rejectedRecords.length
-		},function(error){
-			console.log(error)
-		});
-	}
+			$scope.rejectedRecords = response.rejected;
+          DataService.approvedRecords = response.approved;
+          DataService.pendingRecords = response.pending;
+          DataService.rejectedRecords = response.rejected;  
+         
+          $scope.rejectedRecordsTableParams.reload() ; 
+
+          $scope.rejectedLoader = false; 
+           
+      }, function (error) {
+        console.log(error);
+      });
+    }  
 	//
 	$scope.approve = function(data,type)
 	{

@@ -16,7 +16,9 @@
         
         	<h4>Pending Approvals  <a href="#/" class="pull-right back">back</a></h4>
             <div style="height:470px;" class="tableheight">
-            <table ng-table="pendingRecordsTableParams" class="table">
+            <div ng-if="pendingLoader" class="loader"></div>
+
+              <table   ng-table="pendingRecordsTableParams" class="table">
                 <tr ng-repeat="user in $data">
                   <td data-title="'AMBASSADOR ID'" sortable="'ambassador_id'">{{user.ambassador_id}}</td>
                   <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
@@ -28,8 +30,8 @@
                   <td data-title="'SMS SENT'" >{{user.smsent}}</td>
                   <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
                   <td class="cust-button">
-                    <button class="approve" ng-click="approve(data,'pending')">OK</button>
-                    <button class="reject" ng-click="reject(data,'pending')">X</button>
+                    <button class="approve" ng-click="approve(user,'pending')">OK</button>
+                    <button class="reject" ng-click="reject(user,'pending')">X</button>
                   </td>
                   <!--   <td data-title="'Name'" sortable="'name'">
                         {{user.name}}

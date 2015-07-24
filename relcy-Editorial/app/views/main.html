@@ -1,3 +1,4 @@
+ 
 <div class="col-lg-12 mainwrap">
 
     <div class="row border-btm">
@@ -14,7 +15,9 @@
         	<h4>Pending Approvals</h4>
             <div class="tableheight">
 
-              <table ng-table="pendingRecordsTableParams" class="table">
+              <div ng-if="pendingLoader" class="loader"></div>
+
+              <table   ng-table="pendingRecordsTableParams" class="table">
                 <tr ng-repeat="user in $data">
                   <td data-title="'AMBASSADOR ID'" sortable="'ambassador_id'">{{user.ambassador_id}}</td>
                   <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
@@ -26,8 +29,8 @@
                   <td data-title="'SMS SENT'" >{{user.smsent}}</td>
                   <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
                   <td class="cust-button">
-                    <button class="approve" ng-click="approve(data,'pending')">OK</button>
-                    <button class="reject" ng-click="reject(data,'pending')">X</button>
+                    <button class="approve" ng-click="approve(user,'pending')">OK</button>
+                    <button class="reject" ng-click="reject(user,'pending')">X</button>
                   </td>
                   <!--   <td data-title="'Name'" sortable="'name'">
                         {{user.name}}
@@ -49,8 +52,8 @@
 
         	<h4>Approved Users</h4>
             <div class="tableheight">
-
-                <table ng-table="approvedRecordsTableParams" class="table">
+                <div ng-if="approvedLoader" class="loader"></div>
+                <table  ng-table="approvedRecordsTableParams" class="table">
                     <tr ng-repeat="user in $data">
 
                         <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
@@ -118,8 +121,8 @@
 
         	<h4>REJECTED USERS</h4>
             <div class="tableheight">
-
-              <table ng-table="rejectedRecordsTableParams" class="table">
+                <div ng-if="rejectedLoader" class="loader"></div>
+                <table   ng-table="rejectedRecordsTableParams" class="table">
                 <tr ng-repeat="user in $data">
 
                   <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
@@ -132,7 +135,7 @@
                   <td data-title="'REQUEST DATE'" >{{user.time | date:'MM-dd-yyyy'}}</td>
                   <td class="cust-button">
                     <!-- <button ng-click="approve(data,'approve')">OK</button> -->
-                    <button class="approve" ng-click="approve(data,'reject')">Approve</button>
+                    <button class="approve" ng-click="approve(user,'reject')">Approve</button>
                   </td>
 
 
