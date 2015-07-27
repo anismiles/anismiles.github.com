@@ -8,7 +8,7 @@ angular.module('relcyApp')
           attrs.$set('src', attrs.errSrc);
         }
       });
-      
+
       attrs.$observe('ngSrc', function(value) {
         if (!value && attrs.errSrc) {
           attrs.$set('src', attrs.errSrc);
@@ -27,7 +27,7 @@ angular.module('relcyApp')
         var etarget = angular.element(event.target);
         if(!etarget.hasClass('trigger') && !etarget.hasClass(scope.excludeClass)) {
           $timeout(function(){
-            angular.element(trigger[0]).triggerHandler('click') 
+            angular.element(trigger[0]).triggerHandler('click')
             var t = angular.element(trigger[0])
             t.removeClass("trigger")
             /*for(var i=0;i<trigger.length;i++)
@@ -48,7 +48,7 @@ angular.module('relcyApp')
         for(var k=0;k < t.length; k++)
         {
           var c = t[k]
-          c.click()  
+          c.click()
           angular.element(c).removeClass("trigger")
         }
 
@@ -71,7 +71,7 @@ angular.module('relcyApp')
                     return transformedInput;
                 }
                 return undefined;
-            }            
+            }
             ngModelCtrl.$parsers.push(fromUser);
         }
     };
