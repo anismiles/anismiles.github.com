@@ -14,7 +14,7 @@ angular.module('relcyApp')
     // ThumbnailServiceProvider.defaults.height = 150;
      LightboxProvider.templateUrl = 'views/lightbox.html';
     //$locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise('search');
+    $urlRouterProvider.otherwise('login');
 
     $stateProvider
 	 //	.state("home", {
@@ -22,6 +22,11 @@ angular.module('relcyApp')
     //  	templateUrl: "views/home.html",
   	//    controller: "SearchController"
     //})
+	.state("login", {
+        url: "/login",
+        templateUrl: "views/login.html",
+        controller: "LoginController"
+    })
     .state("search", {
         url: "/search?q",
         templateUrl: "views/result.html",
