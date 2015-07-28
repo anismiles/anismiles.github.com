@@ -3,7 +3,7 @@
 angular.module('relcyApp')
     .service("SearchService", function ($timeout, $q, $http, Session) {
         this.searchResult = [];
-        this.BASE_URL = 'https://staging-w.relcy.com';
+        this.BASE_URL = 'https://dev-w.relcy.com';
         this.ACCESS_TOKEN = 'pk.eyJ1IjoiaHVudGVyb3dlbnMyIiwiYSI6ImI5dzd0YWMifQ.fFpJUocWQigRBbrLOqU4oQ';
         this.searchTxt = '';
         /*Will be used to refer the service itself*/
@@ -19,7 +19,7 @@ angular.module('relcyApp')
         this.getSearchDetails = function (query) {
             var currLoc = self.getGeoLocation();
             var deferred = $q.defer();
-            $http.get(self.BASE_URL + '/search?lat=' + currLoc.lat + '&lng=' + currLoc.lng + '&sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query=' + query)
+            $http.get(self.BASE_URL + '/search?lat=' + currLoc.lat + '&lng=' + currLoc.lng + '&query=' + query)
                 .success(function (data) {
                     deferred.resolve(data);
                 }).error(function (msg, code) {
@@ -33,7 +33,7 @@ angular.module('relcyApp')
           var deferred = $q.defer();
           $http({
             method: "GET",
-            url: self.BASE_URL + '/autocomplete?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query='+searchStr
+            url: self.BASE_URL + '/autocomplete?&query='+searchStr
           })
             .success(function (data) {
               deferred.resolve(data);
@@ -50,7 +50,7 @@ angular.module('relcyApp')
             var dataObj = relcyId
             $http({
                 method: "POST",
-                url: self.BASE_URL + '/detail?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1',
+                url: self.BASE_URL + '/detail',
                 data: dataObj
             })
                 .success(function (data) {
@@ -63,7 +63,7 @@ angular.module('relcyApp')
 
         this.getBannerUrl = function (query) {
             var deferred = $q.defer();
-            $http.get(self.BASE_URL + '/imagefetcher?sessionId=b9a30926-e912-11e4-b02c-1681e6b88ec1&query=' + query)
+            $http.get(self.BASE_URL + '/imagefetcher?&query=' + query)
                 .success(function (data) {
                     deferred.resolve(data);
                 }).error(function (msg, code) {
@@ -161,14 +161,22 @@ angular.module('relcyApp')
                                 keyTitle = 'TV Shows';
                             }else if(response.verticalResult[0].content_type_enum == "ENTERTAINMENT_AUDIO"){
                                 keyTitle = 'Audio';
-                            }else if(response.verticalResult[0].content_type_enum == "PERSON"
-                                || response.verticalResult[0].content_type_enum == "PERSON_CELEBRITY"){
-                                transformedData.hideRSLinks = true;
+                            }else if(response.verticalResult[0].content_type_enum == "PERSON_CELEBRITY"){
+                                keyTitle = 'Celebrity';
+                            }
+                            else if(response.verticalResult[0].content_type_enum == "PERSON"){
                                 keyTitle = 'People';
                             }
 
                             transformedData.moviesResult = response.verticalResult[0].content_type_enum;
                             transformedData.displayRating = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.display_rating;
+
+                            try {
+                                transformedData.workTitle = response.verticalResult[0].searchResultRelcy.results[0].entity_data.people_data.work_title[0];
+                            }
+                            catch (err) {
+                                console.log('Links not available');
+                            }
                             // lowercaseRating(transformedData.displayRating);
                             transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
 
@@ -382,6 +390,30 @@ angular.module('relcyApp')
                         }
                         break;
                     case 'PERSON':
+                        var foundCelebrity = false;
+                        try {
+                            for(var i=0;i<transformedData.length;i++){
+                                if(transformedData[i].key=='PEOPLE'){
+                                    foundCelebrity = true;
+                                    transformedData[i].values = transformedData[i].values.concat(data[index].searchResultRelcy.results);
+                                }
+                            }
+                            if(!foundCelebrity){
+                                values = data[index].searchResultRelcy.results;
+                                maxIndex = 3;
+                                incrementBy = 3;
+                                key = 'PEOPLE';
+                                keyTitle = 'People';
+                                template = 'PEOPLE';
+                            }else{
+                                values = '';
+                            }
+
+                        }catch(err){
+                            values = '';
+                            console.log('celebrity results empty');
+                        }
+                        break;
                     case 'PERSON_CELEBRITY':
                         var foundCelebrity = false;
                         try {
@@ -396,7 +428,7 @@ angular.module('relcyApp')
                                 maxIndex = 3;
                                 incrementBy = 3;
                                 key = 'CELEBRITY';
-                                keyTitle = 'People';
+                                keyTitle = 'Celebrity';
                                 template = 'CELEBRITY';
                             }else{
                                 values = '';
@@ -529,6 +561,7 @@ angular.module('relcyApp')
 
             transformedData.getThere = [];
             transformedData.menu = [];
+            transformedData.reviewsAndMore = [];
 
             angular.forEach(links, function (l) {
                 try {
@@ -560,6 +593,9 @@ angular.module('relcyApp')
                             break;
                         case 'menu':
                             transformedData.menu.push(l);
+                        break;
+                        case 'reviews and more':
+                            transformedData.reviewsAndMore.push(l);
                             break;
                     }
                 } catch (err) {
@@ -572,34 +608,39 @@ angular.module('relcyApp')
         this.insertReviewsAndWatchesAndShowtimes = function (transformedData, links, response) {
             transformedData.reviews = [];
             transformedData.watches = [];
-            transformedData.infos = [];
             transformedData.profiles = [];
+            transformedData.blog = [];
+            transformedData.infos = [];
             transformedData.plays = [];
             transformedData.tickets = [];
             transformedData.reviewsAndMore = [];
+
             angular.forEach(links, function (l) {
                 try {
                     var action = l.app_result.result_data.action;
-                    switch (action) {
-                        case 'Reviews':
+                    switch (action.toLowerCase()) {
+                        case 'reviews':
                             transformedData.reviews.push(l);
                             break;
-                        case 'Watch':
+                        case 'watch':
                             transformedData.watches.push(l);
                         break;
-                        case 'Profile':
+                        case 'profile':
                             transformedData.profiles.push(l);
                         break;
-                        case 'Info':
-                            transformedData.infos.push(l);
+                        case 'blog':
+                            transformedData.blog.push(l);
                         break;
-                        case 'Play':
+                        case 'info':
+                            transformedData.infos.push(l);
+                            break;
+                        case 'play':
                             transformedData.plays.push(l);
                         break;
-                        case 'Reviews and More':
+                        case 'reviews and more':
                             transformedData.reviewsAndMore.push(l);
                         break;
-                        case 'Tickets':
+                        case 'tickets':
                             transformedData.tickets.push(l);
                         break;
                     }

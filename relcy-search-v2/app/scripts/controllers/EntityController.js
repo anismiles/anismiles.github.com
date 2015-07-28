@@ -68,7 +68,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         if (q && q.length >= 1)  {
             $("#container").addClass("body");
             $("#pageMiddle").animate({'margin-top': '0%'}, 200);
-            $("#searchInputText").addClass("relcysrchInput-no-bdr-btm");
+            $("#bigform").addClass("big-form-no-bdr-btm ");
 
         }
 

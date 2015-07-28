@@ -1,16 +1,13 @@
 <ul class="resultList tv-result-list">
     <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
-        <div class="media">
+        <a href="#" ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })">
+            <div class="media">
             <div class="media-left thumb-common thumb-tv">
-                <a href="#" ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })">
-                    <img class="media-object image-thumb-tv" src="{{result.image_info[0].thumbnail.mediaURL}}">
-                </a>
+                <img class="media-object image-thumb-tv" src="{{result.image_info[0].thumbnail.mediaURL}}" ng-if="result.image_info[0].thumbnail.mediaURL">
             </div>
             <div class="media-body">
-                <a class="pointer" ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })">
-                    <h4 class="media-heading pointer">{{result.entity_data.common_data.name}}</h4>
-                </a>
-                <p class="genre">
+               <h4 class="media-heading pointer">{{result.entity_data.common_data.name}}</h4>
+               <p class="genre">
                     <span ng-if="result.entity_data.entertainment_data.common_data.parental_rating">{{result.entity_data.entertainment_data.common_data.parental_rating}}</span>
                     <span ng-if="result.entity_data.entertainment_data.common_data.release_year">{{result.entity_data.entertainment_data.common_data.release_year}}</span>
                     <span ng-if="result.entity_data.entertainment_data.movie_data.length">{{result.entity_data.entertainment_data.movie_data.length}}</span>
@@ -29,6 +26,7 @@
             </div>
         </div>
         <div class="clearfix"></div>
+            </a>
     </li>
 
 </ul>

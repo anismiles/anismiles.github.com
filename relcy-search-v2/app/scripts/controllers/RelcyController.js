@@ -145,28 +145,28 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
     anchorSmoothScroll.scrollTo(id);
   };
 
-  //$scope.onAutoCompleteSelect = function (item) {
-  //  if (!item) return;
-  //  if (item.originalObject.lookIds && item.originalObject.lookIds[0]) {
-  //    $location.path('/detail').search({
-  //      q: item.title,
-  //      cipher: item.originalObject.entity_id,
-  //      cType: item.originalObject.content_type_enum,
-  //      entity: item.originalObject.lookIds[0],
-  //      img: item.image || ''
-  //    });
-  //  } else {
-  //    $location.path('search').search({q: item.title});
-  //  }
-  //};
+  $scope.onAutoCompleteSelect = function (item) {
+    if (!item) return;
+    if (item.originalObject.lookIds && item.originalObject.lookIds[0]) {
+      $location.path('/detail').search({
+        q: item.title,
+        cipher: item.originalObject.entity_id,
+        cType: item.originalObject.content_type_enum,
+        entity: item.originalObject.lookIds[0],
+        img: item.image || ''
+      });
+    } else {
+      $location.path('search').search({q: item.title});
+    }
+  };
 
-  //$scope.setTextOnSearchField = function (text) {
-  //  $scope.query = text;
-  //  $scope.$broadcast('angucomplete-alt:clearInput', 'searchInputText');
-  //  $timeout(function () {
-  //    angular.element(document.querySelector('#searchInputText')).children().children()[0].value = text;
-  //  }, 250);
-  //};
+  $scope.setTextOnSearchField = function (text) {
+    $scope.query = text;
+    $scope.$broadcast('angucomplete-alt:clearInput', 'searchInputText');
+    $timeout(function () {
+      angular.element(document.querySelector('#searchInputText')).children().children()[0].value = text;
+    }, 250);
+  };
   $rootScope.openCastLightbox = function (data, type, index) {
     //console.log("hello openCastLightbox")
     Lightbox.type = type;

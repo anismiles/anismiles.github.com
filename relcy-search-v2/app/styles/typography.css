@@ -335,9 +335,12 @@ footer a {
 }
 
 .resultList p span a {
-  color: #2b7bb9;
-  font-size: 16px;
+  color: #2fa820;
+  font-size: 12px;
   line-height: 16px;
+}
+.resultList p span.duration {
+  color: #2fa820;
 }
 
 ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a,
@@ -463,13 +466,13 @@ span.search-icon{
 
 .leaflet-marker-icon {
   color: #fff;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .leaflet-marker-icon span {
   text-align: center;
-  line-height: 50px;
+  line-height: 28px;
 }
 
 ul.resultList div.media div.media-body h4 a, ul.resultList h4.media-heading a,

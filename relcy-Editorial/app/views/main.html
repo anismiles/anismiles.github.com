@@ -120,6 +120,7 @@
                   <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
                   <td data-title="'PHONE#'" >{{user.user.phone_number}}</td>
                   <td data-title="'EMAIL'" >{{user.user.email_address}}</td>
+                  
                   <td data-title="'FACEBOOK VERIFIED'" >
                     <a href="{{user.fbURL}}" target="_blank" ng-if="user.hasFBUrl"> {{user.fbURL}}</a>
                     <span ng-if="!user.hasFBUrl">No</span></td>

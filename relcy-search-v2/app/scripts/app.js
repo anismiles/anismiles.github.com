@@ -29,14 +29,25 @@ angular.module('relcyApp')
     })
     .state("detail", {
         url: "/detail?entity&cipher&cType&q&artist&img",
-        templateUrl: "views/details/movie-detail.html",
+        templateUrl: "views/details/movie.html",
         controller: "EntityController"
     })
     .state("place", {
         url: "/place?entity&cipher&cType&q&img&dist",
-        templateUrl: "views/details/place-detail.html",
+        templateUrl: "views/details/place.html",
+        controller: "EntityController"
+    })
+    .state("celebrity", {
+        url: "/celebrity?entity&cipher&cType&q&img&dist",
+        templateUrl: "views/details/celebrity.html",
+        controller: "EntityController"
+    })
+    .state("people", {
+        url: "/people?entity&cipher&cType&q&img&dist",
+        templateUrl: "views/details/people.html",
         controller: "EntityController"
     });
+
 
       $sceProvider.enabled(false);
 
