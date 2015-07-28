@@ -22,6 +22,11 @@ angular.module('relcyApp')
     //  	templateUrl: "views/home.html",
   	//    controller: "SearchController"
     //})
+	.state("login", {
+        url: "/login",
+        templateUrl: "views/login.html",
+        controller: "LoginController"
+    })
     .state("search", {
         url: "/search?q",
         templateUrl: "views/result.html",
