@@ -32,7 +32,7 @@
                     <form id="bigform">
                         <p class="search-icon p-src"><input class="text-left" type="text" placeholder="Type To Search" value="Type To Search"
                                                             id="searchInputText" ng-model="searchTxt"
-                                                            ng-change="searchOnRelcy()"
+                                                            ng-keydown="keyDown($event.which)"
                                                             ng-keypress="$event.which === 13 && searchAll()">
                         </p>
 
@@ -58,7 +58,7 @@
                         <h3 class="panel-title">Suggestions</h3>
                     </div>
                     <div class="panel-body">
-                        <ul class="resultList">
+                        <ul class="resultList" id="serachResultList">
                             <li class="pointer" ng-repeat="result in searchResultsOfRelcy | limitTo: maxShowSerachRecord.max"
                                 ng-mouseenter="hoverRow($index)" ng-click="selectResult(result)">
                                 <div class="media">
@@ -146,7 +146,7 @@
                         </ul>
                         <div class="panelList pd-lr-15"><a
                                 ng-if="maxShowSerachRecord.max<searchResultsOfRelcy.length"
-                                ng-click="maxShowSerachRecord.max=maxShowSerachRecord.max+maxShowSerachRecord.increment"
+                                ng-click="maxShowSerachRecord.max=maxShowSerachRecord.max+maxShowSerachRecord.increment;setFocusOnSearch();"
                                 href="javascript:void(0)" class="ng-scope">More<span
                                 aria-hidden="true"
                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></a>
@@ -619,13 +619,14 @@
                                         <li ng-repeat="video in itemDetails.videoResults  | limitTo: itemDetails.videoResults.maxIndex">
                                             <a href="{{::video.contentUrl}}" target="_blank"><div class="media">
                                                 <div class="media-left thumb-common thumb-video" style="position:relative;">
-                                                    <img class="media-object image-thumb-video" src="{{video.thumbnailUrl}}" ng-if="video.thumbnailUrl">
+                                                    <span class="media-object image-thumb-video" style="background: url('{{video.thumbnailUrl}}');" ng-if="video.thumbnailUrl"></span>
                                                     <img src="images/play-3-24.png"  alt="" class="play-icon-thumb-vdo" ng-if="video.thumbnailUrl"/>
                                                 </div>
                                                 <div class="media-body">
                                                     <h4 class="media-heading" id="top-aligned-media">{{::video.title}}
                                                     </h4>
-                                                    <p class="genre"><span>{{::video.duration}}</span></p>                                                </div>
+                                                    <p class="genre"><span>{{::video.duration}}</span></p>
+                                                </div>
 
                                             </div>
                                             <div class="clearfix"></div>

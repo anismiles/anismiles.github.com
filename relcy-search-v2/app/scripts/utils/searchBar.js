@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    resizeTextBox();
+});
+//
+function resizeTextBox()
+{
     $('input[type=text]').each(function (index) {
 
         // get initial value
@@ -15,28 +20,28 @@ $(document).ready(function () {
         }
         inputResize(this, 0);
 
-        // on focus
-        $(this).focus(function () {
-            var valueCur = $(this).val();
-            if (valueCur == valueInit) {
-                $(this).val('');
-            }
-            if ($(this).width() < 50) {
-                $(this).width(50);
-            }
-            $(this).removeClass('inputted');
-        });
-
-        // on blur
-        $(this).blur(function () {
-            var valueCur = $(this).val();
-            if (valueCur == '') {
-                $(this).val(valueInit);
-            } else {
-                $(this).addClass('inputted');
-            }
-            inputResize(this, 0);
-        });
+        //// on focus
+        //$(this).focus(function () {
+        //    var valueCur = $(this).val();
+        //    if (valueCur == valueInit) {
+        //        $(this).val('');
+        //    }
+        //    if ($(this).width() < 50) {
+        //        $(this).width(50);
+        //    }
+        //    $(this).removeClass('inputted');
+        //});
+        //
+        //// on blur
+        //$(this).blur(function () {
+        //    var valueCur = $(this).val();
+        //    if (valueCur == '') {
+        //        $(this).val(valueInit);
+        //    } else {
+        //        $(this).addClass('inputted');
+        //    }
+        //    inputResize(this, 0);
+        //});
 
         // on keystroke
         $(this).keydown(function () {
@@ -44,4 +49,4 @@ $(document).ready(function () {
         });
 
     });
-});
+}

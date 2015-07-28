@@ -33,6 +33,13 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.toggle = false;
     $scope.suggestedSearch = false;
     $scope.searchResultShow = true;
+    $scope.maxShowSerachRecord = {max:3,increment:3}
+
+
+    $timeout(function(){
+        resizeTextBox();
+    },500);
+
 
     if (SearchService.searchTxt) {
         $scope.searchTxt = SearchService.searchTxt;
@@ -55,32 +62,90 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             $("#pageMiddle").addClass("innerPageMiddle");
         }
     };
+
+    $scope.setFocusOnSearch = function ()
+    {
+        $("#searchInputText").focus();
+        console.log("focus " )
+    }
+
+    var intervalCounter = -1
+    $scope.selectedIndexOfSearchItem = -1;
+    $scope.keyDown = function(val)
+    {
+        //console.log(val + " " )
+        if( !(val === 40 || val === 38) )
+        {
+            clearInterval(intervalCounter);
+            intervalCounter = setInterval(function(){
+                clearInterval(intervalCounter);
+                $scope.searchOnRelcy();
+            },350);
+            return;
+        }
+        if(val === 40)
+        {
+            $scope.selectedIndexOfSearchItem++;
+            //down
+            //console.log(">--->> Down " + val)
+        }
+        else if(val === 38)
+        {
+            $scope.selectedIndexOfSearchItem--;
+            // up
+            //console.log(">--->> Up " + val)
+        }
+
+        var max = $scope.maxShowSerachRecord.max <= $scope.searchResultsOfRelcy.length ? $scope.maxShowSerachRecord.max : $scope.searchResultsOfRelcy.length
+
+        if($scope.selectedIndexOfSearchItem <= -1)
+        {
+            $scope.selectedIndexOfSearchItem = max-1;
+        }
+        if($scope.selectedIndexOfSearchItem >= max)
+        {
+            $scope.selectedIndexOfSearchItem = 0;
+        }
+        console.log(">--->> index " + $scope.selectedIndexOfSearchItem + " = " + max)
+
+        var tmpList = angular.element(document.getElementById('serachResultList')).find('li')
+        $(tmpList).removeClass('activeList')
+        var t = tmpList[$scope.selectedIndexOfSearchItem]
+        $(t).addClass('activeList')
+        $scope.searchTxt = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem].title
+        SearchService.searchTxt = $scope.searchTxt;
+        resizeTextBox();
+    }
+
+
     var temp_Interval
     /* getting search result from server by DT*/
     $scope.searchOnRelcy = function () {
-
-        //console.log("searchTxt " + $rootScope.searchTxt)
+        console.log("searching....")
+        $scope.selectedIndexOfSearchItem = -1;
+        $("#bigform").addClass("big-form-no-bdr-btm ");
+        $scope.maxShowSerachRecord = {max:3,increment:3}
         var q = $("#searchInputText").val();
 
         SearchService.searchTxt = $scope.searchTxt;
 
         $scope.query = q;
-        if (q && q.length >= 1)  {
+        if (q && q.length >= 1) {
             $("#container").addClass("body");
             $("#pageMiddle").animate({'margin-top': '0%'}, 200);
             $("#bigform").addClass("big-form-no-bdr-btm ");
 
         }
-
-        console.log("searchTxt ** " + q.length)
-        if (q.length == 0) {
+        if (!q) {
             $scope.suggestedSearch = false;
             $scope.showSearch = false;
+            $scope.providedBy = false;
             return;
         }
+
         $scope.searchResultShow = false;
         clearInterval(temp_Interval);
-        temp_Interval = setInterval(function(){
+        temp_Interval = setInterval(function () {
             SearchService.searchOnRelcy(q).then(function (data) {
                 clearInterval(temp_Interval);
                 var qq = $("#searchInputText").val();
@@ -91,17 +156,36 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
                     return;
                 }
                 $scope.suggestedSearch = true;
-                $scope.searchResultsOfRelcy = data.auto_complete_response.auto_complete_item
+                $scope.providedBy = true;
+                $scope.searchResultsOfRelcy = data.auto_complete_response.auto_complete_item;
             }, function (error) {
                 $scope.showingResult = false;
                 $scope.gridMessage = 'Error while loading data';
                 $rootScope.hideLoader = true;
             });
-        },100)
-
+        }, 100)
     };
 
     $scope.searchAll = function () {
+        if($scope.selectedIndexOfSearchItem !== -1)
+        {
+            var item = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem]
+            if (!item.entity_id && !item.lookIds) {
+                $location.search('q', item.title);
+                return;
+            }
+
+            $location.path('detail').search({
+                q: item.title,
+                cType: item.content_type_enum,
+                entity: item.lookIds[0],
+                cipher: item.entity_id,
+                img: item.image
+            });
+
+            return;
+        }
+
         $scope.suggestedSearch = false;
         if (!$scope.searchTxt) return;
         $location.path('search').search({q: $scope.searchTxt});
@@ -113,11 +197,17 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     };
 
     $scope.selectResult = function (item) {
+
         SearchService.searchTxt = item.title;
         //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
+        if (!item.entity_id && !item.lookIds) {
+            $location.search('q', item.title);
+            return;
+        }
+
         $location.path('detail').search({
-            q:item.title,
-            cType:item.content_type_enum,
+            q: item.title,
+            cType: item.content_type_enum,
             entity: item.lookIds[0],
             cipher: item.entity_id,
             img: item.image

@@ -24,7 +24,7 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.defaultErrorImage = '../../favicon.ico';
     $scope.itemType;
     $scope.itemDetails;
-    $scope.maxShowSerachRecord = {max:8,increment:8}
+    $scope.maxShowSerachRecord = {max:3,increment:3}
 
     $scope.providedBy = false;
     $scope.searchResultShow = true;
@@ -75,6 +75,62 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
             $("#bigform").addClass("big-form-no-bdr-btm ");
         }
     };
+
+    $scope.setFocusOnSearch = function ()
+    {
+        $("#searchInputText").focus();
+        console.log("focus " )
+    }
+
+    var intervalCounter = -1
+    $scope.selectedIndexOfSearchItem = -1;
+    $scope.keyDown = function(val)
+    {
+        //console.log(val + " " )
+        if( !(val === 40 || val === 38) )
+        {
+            clearInterval(intervalCounter);
+            intervalCounter = setInterval(function(){
+                clearInterval(intervalCounter);
+                $scope.searchOnRelcy();
+            },350);
+            return;
+        }
+        if(val === 40)
+        {
+            $scope.selectedIndexOfSearchItem++;
+            //down
+            //console.log(">--->> Down " + val)
+        }
+        else if(val === 38)
+        {
+            $scope.selectedIndexOfSearchItem--;
+            // up
+            //console.log(">--->> Up " + val)
+        }
+
+        var max = $scope.maxShowSerachRecord.max <= $scope.searchResultsOfRelcy.length ? $scope.maxShowSerachRecord.max : $scope.searchResultsOfRelcy.length
+
+        if($scope.selectedIndexOfSearchItem <= -1)
+        {
+            $scope.selectedIndexOfSearchItem = max-1;
+        }
+        if($scope.selectedIndexOfSearchItem >= max)
+        {
+            $scope.selectedIndexOfSearchItem = 0;
+        }
+        console.log(">--->> index " + $scope.selectedIndexOfSearchItem + " = " + max)
+
+        var tmpList = angular.element(document.getElementById('serachResultList')).find('li')
+        $(tmpList).removeClass('activeList')
+        var t = tmpList[$scope.selectedIndexOfSearchItem]
+        $(t).addClass('activeList')
+        $scope.searchTxt = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem].title
+        SearchService.searchTxt = $scope.searchTxt;
+        resizeTextBox();
+    }
+
+
     var temp_Interval
     /* getting search result from server by DT*/
     $scope.query = q;
@@ -91,8 +147,10 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
     }
 
     $scope.searchOnRelcy = function () {
+        console.log("searching....")
+        $scope.selectedIndexOfSearchItem = -1;
         $("#bigform").addClass("big-form-no-bdr-btm ");
-        $scope.maxShowSerachRecord = {max:8,increment:8}
+        $scope.maxShowSerachRecord = {max:3,increment:3}
         var q = $("#searchInputText").val();
 
         SearchService.searchTxt = $scope.searchTxt;
@@ -149,6 +207,24 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
     };
     //
     $scope.searchAll = function () {
+        if($scope.selectedIndexOfSearchItem !== -1)
+        {
+            var item = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem]
+            if (!item.entity_id && !item.lookIds) {
+                $location.search('q', item.title);
+                return;
+            }
+
+            $location.path('detail').search({
+                q: item.title,
+                cType: item.content_type_enum,
+                entity: item.lookIds[0],
+                cipher: item.entity_id,
+                img: item.image
+            });
+
+            return;
+        }
         $("#bigform").addClass("big-form-no-bdr-btm ");
         $scope.suggestedSearch = false;
         $scope.providedBy = false;
