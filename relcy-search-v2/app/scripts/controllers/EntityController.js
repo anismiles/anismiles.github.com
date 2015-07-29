@@ -33,7 +33,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.toggle = false;
     $scope.suggestedSearch = false;
     $scope.searchResultShow = true;
-    $scope.maxShowSerachRecord = {max:3,increment:3}
+    $scope.maxShowSerachRecord = {max:100,increment:100}
 
 
     $timeout(function(){
@@ -124,7 +124,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         console.log("searching....")
         $scope.selectedIndexOfSearchItem = -1;
         $("#bigform").addClass("big-form-no-bdr-btm ");
-        $scope.maxShowSerachRecord = {max:3,increment:3}
+        $scope.maxShowSerachRecord = {max:100,increment:100}
         var q = $("#searchInputText").val();
 
         SearchService.searchTxt = $scope.searchTxt;

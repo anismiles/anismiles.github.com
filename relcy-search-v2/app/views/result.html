@@ -174,7 +174,7 @@
                                     <h3 class="panel-title" id="{{cat.key}}">{{cat.keyTitle}}</h3>
                                 </div>
                                 <div ng-if="hasLocalBusiness && cat.key == 'LOCAL_BUSINESS'" class="pd-tb-10 bdr-bt">
-                                    <leaflet id='map' center="center" markers="mapData.markers" height="95px"
+                                    <leaflet id='map' center="center" markers="mapData.markers" height="150px"
                                              width="100%"></leaflet>
                                 </div>
                                 <div class="panel-body">
@@ -217,8 +217,7 @@
                             <div class="panelList pd-lr-15"
                                  ng-if="relatedSearches.maxIndex<relatedSearches.data.length">
                                 <a href="javascript:void(0)"
-                                   ng-click="relatedSearches.maxIndex=relatedSearches.maxIndex+relatedSearches.incrementBy">More
-                                    results
+                                   ng-click="relatedSearches.maxIndex=relatedSearches.maxIndex+relatedSearches.incrementBy">More Related Searches
                                     <span aria-hidden="true"
                                           class="glyphicon glyphicon-menu-right pull-right more-icon"></span>
                                 </a>

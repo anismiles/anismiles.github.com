@@ -250,7 +250,7 @@
 
                         </div>
                         <div class="detail_left">
-                            <p class="genre pull-left" style="margin: 5px 0 0 0;">
+                            <p class="rating pull-left" style="margin: 10px 0 0 0;">
                                 <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">
                                 <span ng-if="r.rating_style=='PERCENTAGE'" style="margin: 0 5px 0 0;">
                                 <img
@@ -442,6 +442,66 @@
                                         <td class="td-title">
                                             <span> {{::t.app_result.result_data.title}}</span>
                                             <span class="td-detail td-lineheight">{{::t.app_result.result_data.sub_title}}</span>
+                                        </td>
+                                        <td class="" width="30px"><span
+                                                class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+                                    <!--<tr class="pointer">-->
+                                    <!--<td class="td-title" width="30px">More</td>-->
+                                    <!--<td class="td-title"></td>-->
+                                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>-->
+                                    <!--</tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--social-->
+
+                        <div class="panel panel-default" ng-if="itemDetails.social.length>0">
+                            <h4 class="topictitle" id="top-aligned-media">Social</h4>
+
+                            <div class="panel-body pad_none">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr ng-click="gotoLink(s.link_id)" ng-repeat="s in itemDetails.reviewsAndMore"
+                                        class="pointer">
+                                        <td class="td-title" width="30px"><img
+                                                ng-src="{{ 'img-no-min/icons/' + (s.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                                title="">
+                                        </td>
+                                        <td class="td-title">
+                                            <span> {{::s.app_result.result_data.title}}</span>
+                                            <span class="td-detail td-lineheight">{{::s.app_result.result_data.sub_title}}</span>
+                                        </td>
+                                        <td class="" width="30px"><span
+                                                class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+                                    <!--<tr class="pointer">-->
+                                    <!--<td class="td-title" width="30px">More</td>-->
+                                    <!--<td class="td-title"></td>-->
+                                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>-->
+                                    <!--</tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Rent-->
+
+                        <div class="panel panel-default" ng-if="itemDetails.rent.length>0">
+                            <h4 class="topictitle" id="top-aligned-media">Rent</h4>
+
+                            <div class="panel-body pad_none">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviewsAndMore"
+                                        class="pointer">
+                                        <td class="td-title" width="30px"><img
+                                                ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                                title="">
+                                        </td>
+                                        <td class="td-title">
+                                            <span> {{::r.app_result.result_data.title}}</span>
+                                            <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                                         </td>
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>

@@ -24,7 +24,7 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.defaultErrorImage = '../../favicon.ico';
     $scope.itemType;
     $scope.itemDetails;
-    $scope.maxShowSerachRecord = {max:3,increment:3}
+    $scope.maxShowSerachRecord = {max:100,increment:100}
 
     $scope.providedBy = false;
     $scope.searchResultShow = true;
@@ -61,7 +61,7 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
     };
     $rootScope.reload = function () {
         SearchService.searchTxt = '';
-        $location.path('/').search({q: ''});
+        $location.path('/search').search({q: ''});
         $("#container").removeClass("body");
     };
 
@@ -150,7 +150,7 @@ function SearchController($scope, $http, $rootScope, $location, $window, $timeou
         console.log("searching....")
         $scope.selectedIndexOfSearchItem = -1;
         $("#bigform").addClass("big-form-no-bdr-btm ");
-        $scope.maxShowSerachRecord = {max:3,increment:3}
+        $scope.maxShowSerachRecord = {max:100,increment:100}
         var q = $("#searchInputText").val();
 
         SearchService.searchTxt = $scope.searchTxt;

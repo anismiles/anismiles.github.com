@@ -15,7 +15,7 @@ function LoginController($scope, $http, $rootScope, $location, $window, $timeout
 	$scope.loginInfo = {};
     $scope.login = function()
 	{
-		if($scope.loginInfo.username=="admin"  && $scope.loginInfo.password=="1234")
+		if($scope.loginInfo.username=="admin"  && $scope.loginInfo.password=="!relcyadmin@2015!")
 		{
 			console.log("user password is correct")
 			$state.go('search')

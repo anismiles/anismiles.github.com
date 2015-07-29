@@ -221,7 +221,7 @@ angular.module('relcyApp')
                             }
 
                             try {
-                                transformedData.cast = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.performer;
+                                transformedData.cast = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.performer_set.display_sub_entity;
                             } catch (err) {
                                 console.log('cast not found/unknown');
                             }
@@ -614,6 +614,8 @@ angular.module('relcyApp')
             transformedData.plays = [];
             transformedData.tickets = [];
             transformedData.reviewsAndMore = [];
+            transformedData.social = [];
+            transformedData.rent = [];
 
             angular.forEach(links, function (l) {
                 try {
@@ -643,6 +645,12 @@ angular.module('relcyApp')
                         case 'tickets':
                             transformedData.tickets.push(l);
                         break;
+                        case 'social':
+                            transformedData.social.push(l);
+                            break;
+                        case 'rent':
+                            transformedData.rent.push(l);
+                            break;
                     }
                 } catch (err) {
                     console.log('invalid link');

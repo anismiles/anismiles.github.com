@@ -45,7 +45,7 @@ function RelcyController($scope, $http, $rootScope, $location, $window, $timeout
 
   $rootScope.reload = function () {
     SearchService.searchTxt =''
-    $location.path('/').search({q: ''});
+    $location.path('/search').search({q: ''});
     $("#container").removeClass("body");
   };
 

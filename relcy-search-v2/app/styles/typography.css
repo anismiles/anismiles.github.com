@@ -1,8 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
-
 body {
-  font-family: "lato", Helvetica, Neue Helvetica, Arial, sans-serif;
+  font-family: 'Lato', Helvetica, Neue Helvetica, Arial, sans-serif;
 }
 a:hover, a:focus {
   text-decoration: none;
@@ -253,9 +252,9 @@ footer a {
 }
 
 .topSection .details span {
-  color: #8899a6;
+  color: #6c6c6c;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 24px;
 }
 
@@ -272,12 +271,11 @@ footer a {
 }
 
 .topSection .details h2, .topSection .details h2 > span {
-  color: #000;
-  font-size: 26px;
-  font-weight: 400;
+  color: #3a3a48;
+  font-size: 28px;
+  font-weight: 300;
   line-height: 32px;
 }
-
 .topSection .details p {
   color: #8899a6;
   font-weight: 300;
@@ -315,7 +313,7 @@ footer a {
   text-transform: uppercase;
   color: #c4c4ca;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .nav > li > a:hover,
@@ -374,12 +372,13 @@ div.imdb span {
 .td-detail {
   color: #8899a6;
   font-size: 12px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .td-title {
   font-size: 14px;
   color: #292f33;
+  font-weight: 700;
 }
 
 .td-lineheight {
@@ -389,7 +388,7 @@ div.imdb span {
 .videodetail p {
   color: #000;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .videodetail .detail-youtube {
@@ -425,7 +424,7 @@ span.search-icon{
 
 .castlist p:last-child {
   color: #8899a6;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .close {
@@ -467,7 +466,7 @@ span.search-icon{
 .leaflet-marker-icon {
   color: #fff;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .leaflet-marker-icon span {
