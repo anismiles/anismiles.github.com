@@ -1553,10 +1553,14 @@ a.editable {
 .details .detail_left .topTitle {
     margin: 15px 0 5px;
 }
+
+
+.logoutBtn {position:absolute; right:100px; top:30px; color:#999!important; z-index: 100000;}
+
+
 .activeList
 {
     background-color: #f9f9f9 !important;
-}
 /* editable end */
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */

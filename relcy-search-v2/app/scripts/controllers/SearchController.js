@@ -12,10 +12,14 @@ angular.module('relcyApp')
         'anchorSmoothScroll',
         'Lightbox',
         '$state',
+		'$cookies',
         SearchController]);
 
-function SearchController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, $state) {
-
+function SearchController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, $state,$cookies) {
+	
+	var loggedIn = $cookies.get('LoggedIn')
+if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
+}
     $scope.showDetailPage = false;
     $scope.selected = 0;
     $scope.searchResultsOfRelcy = [];

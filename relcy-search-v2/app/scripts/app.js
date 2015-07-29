@@ -5,6 +5,7 @@ angular.module('relcyApp',
   'bootstrapLightbox',
   'ngResource',
   'ngAnimate',
+  'ngCookies',
   'leaflet-directive']);
 
 angular.module('relcyApp')
@@ -57,8 +58,11 @@ angular.module('relcyApp')
       $sceProvider.enabled(false);
 
 }
-);
-//angular.module('relcyApp')
-//.run(function(editableOptions) {
-//	editableOptions.theme = 'bs3';
-//});
+)
+.run(function($rootScope,$cookies,$state) {
+//editableOptions.theme = 'bs3';
+$rootScope.logout = function(){
+	$cookies.remove("LoggedIn");
+	$state.go('login')
+	}
+});
