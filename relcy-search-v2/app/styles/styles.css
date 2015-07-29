@@ -1550,6 +1550,7 @@ a.editable {
     margin: 15px 0 5px;
 }
 
+.logoutBtn {position:absolute; right:100px; top:30px; color:#999!important; z-index: 100000;}
 
 /* editable end */
 /* --------------------------------------------------------- */
