@@ -10,6 +10,7 @@
     .navbar-search {
         margin-top: 92px;
     }
+
 </style>
 <nav class="navbar navbar-default navbar-fixed-top navbar-logo">
     <div ng-include="'views/header.html'"></div>
@@ -24,8 +25,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
 
                     <form id="bigform">
-                        <p class="search-icon p-src"><input class="text-left" type="text" placeholder="Type To Search"                                                          id="searchInputText" ng-model="searchTxt"
-                                                         ng-change="searchOnRelcy()"
+                        <p class="search-icon p-src"><input class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt"
+                                                           ng-keydown="keyDown($event.which)"
                                                          ng-keypress="$event.which === 13 && searchAll()">
                         </p>
 
@@ -53,7 +54,7 @@
                             <h3 class="panel-title">Suggestions</h3>
                         </div>
                         <div class="panel-body">
-                            <ul class="resultList">
+                            <ul class="resultList" id="serachResultList">
                                 <li class="pointer" ng-repeat="result in searchResultsOfRelcy | limitTo: maxShowSerachRecord.max"
                                     ng-mouseenter="hoverRow($index)" ng-click="selectResult(result)">
                                     <div class="media">
@@ -141,7 +142,7 @@
                             </ul>
                             <div class="panelList pd-lr-15"><a
                                     ng-if="maxShowSerachRecord.max<searchResultsOfRelcy.length"
-                                    ng-click="maxShowSerachRecord.max=maxShowSerachRecord.max+maxShowSerachRecord.increment"
+                                    ng-click="maxShowSerachRecord.max=maxShowSerachRecord.max+maxShowSerachRecord.increment;setFocusOnSearch();"
                                     href="javascript:void(0)" class="ng-scope">More<span
                                     aria-hidden="true"
                                     class="glyphicon glyphicon-menu-right pull-right more-icon"></span></a>
@@ -232,4 +233,3 @@
         </div>
     </div>
 </div>
-<script src="scripts/utils/searchBar.js" type="text/javascript"></script>

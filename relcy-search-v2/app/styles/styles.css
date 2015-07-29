@@ -102,43 +102,43 @@ div.action-detail table tr td:first-child {
 }
 
 .pd0 {
-    padding: 0px
+    padding: 0px !important;
 }
 
 .pd5 {
-    padding: 5px
+    padding: 5px !important;
 }
 
 .pd10 {
-    padding: 10px
+    padding: 10px !important;
 }
 
 .pd-lr-10 {
-    padding: 0 10px
+    padding: 0 10px !important;
 }
 
 .pd-lr-15 {
-    padding: 0 15px
+    padding: 0 15px !important;
 }
 
 .pd-tb-5 {
-    padding: 5px 0
+    padding: 5px 0 !important;
 }
 
 .pd-tb-10 {
-    padding: 10px 0
+    padding: 10px 0 !important;
 }
 
 .pd15 {
-    padding: 15px
+    padding: 15px !important;
 }
 
 .pd20 {
-    padding: 20px
+    padding: 20px !important;
 }
 
 .pd25 {
-    padding: 25px
+    padding: 25px !important;
 }
 
 .mr0 {
@@ -146,23 +146,23 @@ div.action-detail table tr td:first-child {
 }
 
 .mr5 {
-    margin: 5px
+    margin: 5px !important;
 }
 
 .mr10 {
-    margin: 10px
+    margin: 10px !important;
 }
 
 .mr15 {
-    margin: 15px
+    margin: 15px !important;
 }
 
 .mr20 {
-    margin: 20px
+    margin: 20px !important;
 }
 
 .mr25 {
-    margin: 25px
+    margin: 25px !important;
 }
 
 .mr-r-20 {
@@ -1248,7 +1248,7 @@ div.imdb span {
 .image-thumb-celebrity {
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover !important;
     border-radius: 4px;
     display: block;
     height: 75px;
@@ -1258,7 +1258,7 @@ div.imdb span {
 .image-thumb-video {
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover !important;
     border-radius: 4px;
     display: block;
     width: 100px;
@@ -1268,7 +1268,7 @@ div.imdb span {
 .image-thumb-app {
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover !important;
     border-radius: 4px;
     display: block;
     width: 50px;
@@ -1550,8 +1550,13 @@ a.editable {
     margin: 15px 0 5px;
 }
 
+
 .logoutBtn {position:absolute; right:100px; top:30px; color:#999!important; z-index: 100000;}
 
+
+.activeList
+{
+    background-color: #f9f9f9 !important;
 /* editable end */
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
