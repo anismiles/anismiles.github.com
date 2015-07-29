@@ -16,5 +16,5 @@
 .loginForm {background-color: rgba(255, 255, 255, 0.6);
     border: 1px solid rgb(226, 226, 226);
     border-radius: 6px;
-    margin-top: 40%;
+    margin-top: 30%;
     padding: 40px 40px 20px;}</style> <nav class="navbar navbar-default navbar-logo"> <div ng-include="'views/header.html'"></div> </nav> <div class="container"> <div class="row"> <div class="col-lg-5 col-md-4 col-sm-5 col-xs-5 col-lg-offset-4 col-md-offset-4 col-sm-offset-4"> <form novalidate class="loginForm" name="loginForm"> <div class="form-group"> <input id="username" required class="form-control" name="loginForm.username" ng-model="loginInfo.username" placeholder="Username"> </div> <div class="form-group"> <input id="password" required type="password" name="loginForm.password" class="form-control" ng-model="loginInfo.password" placeholder="Password"> </div> <div class="form-group"><span class="text-danger">{{errorMsg}}</span></div> <div class="form-group"> <button type="submit" class="btn btn-info btn-lg" ng-click="login()" ng-disabled="loginForm.$invalid" style="width:100%">Log In</button> </div> </form> </div> </div> </div>
