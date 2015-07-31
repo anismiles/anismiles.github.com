@@ -1565,6 +1565,12 @@ a.editable {
 .activeList {
     background-color: #f9f9f9 !important;
 }
+/**********************************Rating**/
+.full-star-list {background:url(../img-no-min/default-icons/full_star_list.png) 0px 8px no-repeat; padding:6px;}
+.half-star-list {background:url(../img-no-min/default-icons/half_star_list.png) 0px 8px no-repeat; padding:6px;}
+.full-star-header {background:url(../img-no-min/default-icons/full_star_header.png) 0 0 no-repeat; padding:10px;}
+.half-star-header {background:url(../img-no-min/default-icons/half_star_header.png) 0 0 no-repeat; padding:10px;}
+
 /* editable end */
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
@@ -1680,4 +1686,10 @@ a.editable {
     .thumb-bar {
         background-image: url("../img-no-min/default-icons/autocomplete_bar_icon@2x.png");
     }
-}
+	
+	/*******************Rating****/
+	.full-star-list {background:url(../img-no-min/default-icons/full_star_list@2x.png) 0px 8px no-repeat; padding:6px;}
+	.half-star-list {background:url(../img-no-min/default-icons/half_star_list@2x.png) 0px 8px no-repeat; padding:6px;}
+	.full-star-header {background:url(../img-no-min/default-icons/full_star_header@2x.png) 0 0 no-repeat; padding:10px;}
+	.half-star-header {background:url(../img-no-min/default-icons/half_star_header@2x.png) 0 0 no-repeat; padding:10px;}
+	

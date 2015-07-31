@@ -20,9 +20,9 @@
                 </p>
                 <p class="score">
                     <span ng-if="!result.showStrRating" ng-repeat="sa in result.scoreArray track by $index"
-                          class="glyphicon glyphicon-star rating"></span>
+                          class="full-star-list rating"></span>
                     <span ng-if="result.showHalfRating && !result.showStrRating"
-                          class="glyphicon glyphicon-star-half-empty rating"></span>
+                          class="half-star-list rating"></span>
                     <span ng-if="result.showStrRating">{{::result.rating}}</span>
                     <span ng-if="result.ratingSource"> - {{::result.ratingSource}}</span>
                 </p>
