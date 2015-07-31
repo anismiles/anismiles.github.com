@@ -164,7 +164,8 @@
             <!-- content body html start  -->
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-offset-2" ng-if="!suggestedSearch">
                 <div class="topSection" id="details_movies">
-                    <!--<a href="javascript:void(0)" ng-click="showHideEdit()" class="glyphicon glyphicon-pencil editable"></a>-->
+                    <a href="javascript:void(0)" ng-click="showHideEdit()"
+                       class="glyphicon glyphicon-pencil editable"></a>
 
                     <div class="coverImage" style="background-image:url('{{bannerUrl}}');">
                         <button ng-if="showEdit" class="edit-picture" aria-hidden="true"
@@ -200,10 +201,22 @@
 
                             <p>
                                 <span><a href=""><img src="img-no-min/upload.png" title="Upload"></a></span>
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem role="button"
+                                        popover-placement="right" popover-template="''"
+                                        popover-title="Upload">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
                             </p>
 
                             <p>
                                 <span><a href=""><img src="img-no-min/favorite.png" title="Favorite"></a></span>
+                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem role="button"
+                                        popover-placement="right" popover-template="''"
+                                        popover-title="Favorite">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
                             </p>
 
                             <p>
@@ -219,20 +232,20 @@
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
-                            <p><span><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.cast,'CAST')">
-                                <img ng-src="{{ 'img-no-min/cast.png' || 'img-no-min/placeholder.png' }}" title="Cast">
-                            </a>
-                                </span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
-                                        type="button" popover-elem
-                                        popover-placement="right" popover-template="'movie-cast.html'"
-                                        popover-title="Cast">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </button>
-                            </p>
-                            <p>
-                                <span><a href=""><img src="img-no-min/rec.png" title="REC"></a></span>
-                            </p>
+                            <!--<p><span><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.cast,'CAST')">-->
+                                <!--<img ng-src="{{ 'img-no-min/cast.png' || 'img-no-min/placeholder.png' }}" title="Cast">-->
+                            <!--</a>-->
+                                <!--</span>-->
+                                <!--<button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"-->
+                                        <!--type="button" popover-elem-->
+                                        <!--popover-placement="right" popover-template="'movie-cast.html'"-->
+                                        <!--popover-title="Cast">-->
+                                    <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                <!--</button>-->
+                            <!--</p>-->
+                            <!--<p>-->
+                                <!--<span><a href=""><img src="img-no-min/rec.png" title="REC"></a></span>-->
+                            <!--</p>-->
 
                             <p><span><a href="javascript:void();"
                                         ng-click="openCastLightbox(itemDetails.videoResults,'VIDEO')">
@@ -273,7 +286,7 @@
                                     </span>
 
                                 <button ng-if="showEdit && itemDetails.displayRating"
-                                        class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px -7px;"
+                                        class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 0px;"
                                         popover-elem
                                         popover-placement="right" popover-template="'movie-rating.html'"
                                         popover-title="Rating">
@@ -764,4 +777,3 @@
         <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
     </div>
 </script>
-<script src="scripts/utils/searchBar.js" type="text/javascript"></script>

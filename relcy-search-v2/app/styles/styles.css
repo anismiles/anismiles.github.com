@@ -261,6 +261,14 @@ div.fake_form {
     display: inline-block;
     visibility: collapse;
 }
+div.popover-content form input[type=text]{
+    background-color: transparent;
+    font-size: 12px;
+    line-height: 0;
+    min-width: 100% !important;
+    width: auto;
+    border: 1px solid #eee;
+}
 
 p.search-icon {
     background-image: url("../img-no-min/icons/search_icon@2x.png");
@@ -319,7 +327,7 @@ ul.resultList li > a {
 }
 
 ul.resultList li:hover {
-    background: none repeat scroll 0 0 #f9f9f9;
+    background: #f5f5f5;
 }
 
 ul.resultList.app-result-list {
@@ -1049,16 +1057,16 @@ div.imdb span {
     opacity: 0.8;
 }
 
-.btn-next:hover {
-    background: none;
-    border: medium none;
-    opacity: 1;
+.btn-next:hover, .btn-next:active, .btn-next:focus {
+    background: none !important;
+    border: medium none !important;
+    opacity: 1 !important;
 }
 
-.btn-pre:hover {
-    background: none;
-    border: medium none;
-    opacity: 1;
+.btn-pre:hover, .btn-pre:active, .btn-pre:focus {
+    background: none !important;
+    border: medium none !important;
+    opacity: 1 !important;
 }
 
 .pointer {
@@ -1471,7 +1479,7 @@ a.editable {
     color: #333;
     font-size: 16px;
     line-height: 22px;
-    margin: -6px 0 0 -2px;
+    margin: -8px 0 0 -3px;
     padding: 5px;
     position: relative;
 }
@@ -1519,10 +1527,6 @@ a.editable {
     margin-left: 2px;
 }
 
-/*****SunilC******/
-.profileImage {
-}
-
 .profileImage .profileBg {
     background-color: #000;
     height: 300px;
@@ -1536,8 +1540,8 @@ a.editable {
 .profileImage .pfImg {
     height: 200px;
     width: 200px;
-    background-position: center center;
-    background-size: 100% 100%;
+    background-position: top center;
+    background-size: contain;
     background-repeat: no-repeat;
 }
 
@@ -1558,9 +1562,9 @@ a.editable {
 .logoutBtn {position:absolute; right:100px; top:30px; color:#999!important; z-index: 100000;}
 
 
-.activeList
-{
+.activeList {
     background-color: #f9f9f9 !important;
+}
 /* editable end */
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */

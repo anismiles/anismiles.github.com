@@ -6,10 +6,11 @@ angular.module('relcyApp',
   'ngResource',
   'ngAnimate',
   'ngCookies',
+     'puElasticInput',
   'leaflet-directive']);
 
 angular.module('relcyApp')
-.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $locationProvider, $sceProvider, LightboxProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider, $sceProvider, LightboxProvider) {
     // otherwise both defaults to 100
     // ThumbnailServiceProvider.defaults.width = 150;
     // ThumbnailServiceProvider.defaults.height = 150;

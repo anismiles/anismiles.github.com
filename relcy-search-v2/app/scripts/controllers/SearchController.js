@@ -97,7 +97,7 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
             intervalCounter = setInterval(function(){
                 clearInterval(intervalCounter);
                 $scope.searchOnRelcy();
-            },350);
+            },100);
             return;
         }
         if(val === 40)
@@ -131,10 +131,10 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
         $(t).addClass('activeList')
         $scope.searchTxt = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem].title
         SearchService.searchTxt = $scope.searchTxt;
-        resizeTextBox();
+
     }
 
-
+//
     var temp_Interval
     /* getting search result from server by DT*/
     $scope.query = q;
@@ -175,8 +175,10 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
 
         $scope.searchResultShow = false;
         clearInterval(temp_Interval);
+        console.log(" aaila... " + SearchService.searchTxt + " = " + q)
+
         temp_Interval = setInterval(function () {
-            SearchService.searchOnRelcy(q).then(function (data) {
+            SearchService.searchOnRelcy(SearchService.searchTxt).then(function (data) {
                 clearInterval(temp_Interval);
                 var qq = $("#searchInputText").val();
                 console.log("result ** " + qq)
@@ -330,14 +332,20 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
                 try {
                     $scope.center.lat = $scope.searchResults.points.p0.lat;
                     $scope.center.lng = $scope.searchResults.points.p0.lng;
-                    $scope.center.zoom = 10;
+                    if($scope.searchResults[0].values.length > 1){
+                        $scope.center.zoom = 8;
+                    }
+                    else{
+                        $scope.center.zoom = 13;
+                    }
+
                 } catch (er) {
                     console.log('Unable to center the map');
                 }
                 $timeout(function () {
                     var mylocationEle = angular.element(document.querySelector('#my-location'));
                     if (mylocationEle) {
-                        mylocationEle.parent().css('background', 'url(img-no-min/my-location.svg)center center no-repeat');
+                        mylocationEle.parent().css('background', 'url(img-no-min/my-location.svg) center center no-repeat');
                     }
                 }, 250);
             }

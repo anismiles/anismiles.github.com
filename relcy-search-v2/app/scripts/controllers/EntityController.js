@@ -36,11 +36,6 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.maxShowSerachRecord = {max:100,increment:100}
 
 
-    $timeout(function(){
-        resizeTextBox();
-    },500);
-
-
     if (SearchService.searchTxt) {
         $scope.searchTxt = SearchService.searchTxt;
         if ($scope.searchTxt) {
@@ -114,7 +109,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         $(t).addClass('activeList')
         $scope.searchTxt = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem].title
         SearchService.searchTxt = $scope.searchTxt;
-        resizeTextBox();
+
     }
 
 
