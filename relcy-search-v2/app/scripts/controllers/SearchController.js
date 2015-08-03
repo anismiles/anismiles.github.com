@@ -215,19 +215,47 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
     $scope.searchAll = function () {
         if($scope.selectedIndexOfSearchItem !== -1)
         {
+            var detailPage = '';
             var item = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem]
-            if (!item.entity_id && !item.lookIds) {
-                $location.search('q', item.title);
-                return;
+            //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
+            try{
+                switch (item.content_type_enum) {
+                    case 'ENTERTAINMENT_VIDEO_MOVIE':
+                    case 'ENTERTAINMENT_VIDEO_TVSHOW':
+                        detailPage = 'detail';
+                        break;
+                    case 'PERSON':
+                        detailPage = 'people';
+                        break;
+                    case 'PERSON_CELEBRITY':
+                        detailPage = 'celebrity';
+                        break;
+                    case 'LOCAL_BUSINESS':
+                        detailPage = 'place';
+                        break;
+                    default:
+                        detailPage = '';
+                        window.open(item.redirect_url,"_blank")
+                        break;
+                }
+            }catch(err){
+                return false;
             }
 
-            $location.path('detail').search({
-                q: item.title,
-                cType: item.content_type_enum,
-                entity: item.lookIds[0],
-                cipher: item.entity_id,
-                img: item.image
-            });
+
+            if(detailPage != '') {
+                if (!item.entity_id && !item.lookIds) {
+                    $location.search('q', item.title);
+                    return;
+                }
+                $location.path(detailPage).search({
+                    q: item.title,
+                    cType: item.content_type_enum,
+                    entity: item.lookIds[0],
+                    cipher: item.entity_id,
+                    img: item.image
+                });
+            }
 
             return;
         }
@@ -245,19 +273,44 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
     //img=http:%2F%2Fcdn-serve-s.relcy.com%2Fimagev2%2FImageServerV2%3Ffetchonlycached%26fetchonlyspecified%26d%3D150x200%26f%3Dhttp%253A%252F%252Fcps-static.rovicorp.com%252F2%252FOpen%252FDisney%252FThe%2BAvengers%2BAge%2Bof%2BUltron%252FThe-Avengers-Age-of-Ultron-poster.jpg
     $scope.selectResult = function (item) {
         SearchService.searchTxt = item.title;
+        var detailPage = '';
         //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
-        if (!item.entity_id && !item.lookIds) {
-            $location.search('q', item.title);
-            return;
+        try{
+            switch (item.content_type_enum) {
+                case 'ENTERTAINMENT_VIDEO_MOVIE':
+                case 'ENTERTAINMENT_VIDEO_TVSHOW':
+                    detailPage = 'detail';
+                    break;
+                case 'PERSON':
+                    detailPage = 'people';
+                    break;
+                case 'PERSON_CELEBRITY':
+                    detailPage = 'celebrity';
+                    break;
+                case 'LOCAL_BUSINESS':
+                    detailPage = 'place';
+                    break;
+                default:
+                    detailPage = '';
+                    window.open(item.redirect_url,"_blank")
+                    break;
+            }
+        }catch(err){
+            return false;
         }
-
-        $location.path('detail').search({
-            q: item.title,
-            cType: item.content_type_enum,
-            entity: item.lookIds[0],
-            cipher: item.entity_id,
-            img: item.image
-        });
+        if(detailPage != '') {
+            if (!item.entity_id && !item.lookIds) {
+                $location.search('q', item.title);
+                return;
+            }
+            $location.path(detailPage).search({
+                q: item.title,
+                cType: item.content_type_enum,
+                entity: item.lookIds[0],
+                cipher: item.entity_id,
+                img: item.image
+            });
+        }
     };
 
     $scope.$on('search', function (event, q) {

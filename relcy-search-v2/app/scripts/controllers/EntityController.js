@@ -112,6 +112,11 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
     }
 
+    $scope.searchOnclick = function(str){
+        $scope.searchTxt = str;
+        SearchService.searchTxt = str;
+        $location.search('q', str);
+    }
 
     var temp_Interval
     /* getting search result from server by DT*/
@@ -241,16 +246,26 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         }
         // template start //
         $scope.EditData = {
-            title: $scope.itemDetails.title,
-            parentalRating:$scope.itemDetails.parentalRating,
-            releaseYear: parseInt($scope.itemDetails.releaseYear),
-            duration:parseInt($scope.itemDetails.duration),
-            genre:$scope.itemDetails.genre,
-            displayRating:$scope.itemDetails.displayRating,
-            story:$scope.itemDetails.story.value,
-            videoResults:$scope.itemDetails.videoResults[0].contentUrl,
-            bannerUrl:$scope.bannerUrl,
-            thumbnailUrl:thumbnailUrl
+            title: $scope.itemDetails.title === undefined ? '' : $scope.itemDetails.title,
+            parentalRating:$scope.itemDetails.parentalRating === undefined ? '' : $scope.itemDetails.parentalRating,
+            releaseYear: parseInt($scope.itemDetails.releaseYear  === undefined ? '' : $scope.itemDetails.releaseYear),
+            duration:parseInt($scope.itemDetails.duration  === undefined ? '' : $scope.itemDetails.duration),
+            genre:$scope.itemDetails.genre === undefined ? '' : $scope.itemDetails.genre,
+            displayRating:$scope.itemDetails.displayRating === undefined ? '' : $scope.itemDetails.displayRating,
+            story:$scope.itemDetails.story === undefined ? '' : $scope.itemDetails.story.value,
+            videoResults:$scope.itemDetails.videoResults === undefined ? '' : $scope.itemDetails.videoResults[0].contentUrl,
+            bannerUrl:$scope.bannerUrl === undefined ? '' : $scope.bannerUrl,
+            workTitle:$scope.itemDetails.workTitle === undefined ? '' : $scope.itemDetails.workTitle,
+            thumbnailUrl: thumbnailUrl === undefined ? '' : thumbnailUrl,
+            menuLink: $scope.itemDetails.menu === undefined ? '' : $scope.itemDetails.menu[0].link_id,
+            call : $scope.itemDetails.call === undefined ? '' :$scope.itemDetails.call[0].number.value,
+            display_address :  $scope.itemDetails.mapinfo   === undefined ? '' :  $scope.itemDetails.mapinfo.address.display_address,
+            category : $scope.itemDetails.category === undefined ? '' : $scope.itemDetails.category,
+            placeDistance : $scope.placeDistance === undefined ? '' : $scope.placeDistance,
+            priceRange : $scope.itemDetails.priceRange === undefined ? '' :$scope.itemDetails.priceRange,
+            openStatus : $scope.itemDetails.openStatus === undefined ? '' :$scope.itemDetails.openStatus
+
+
         };
         // template end //
     };
@@ -261,9 +276,73 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         $(popover).remove()
     }
     //
+
+    $scope.editAddressCatOpen = function () {
+        var newValue = {"newValue":  $scope.EditData.display_address }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        newValue = {"newValue":  $scope.EditData.category }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        newValue = {"newValue":  $scope.EditData.openStatus }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        newValue = {"newValue":  $scope.EditData.priceRange }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        newValue = {"newValue":  $scope.EditData.placeDistance }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        $scope.hidePopover()
+    }
+    $scope.editMenuLink = function () {
+        var newValue = {"newValue":  $scope.EditData.menuLink }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        $scope.hidePopover()
+    }
+    //
+    $scope.editCall = function () {
+        var newValue = {"newValue":  $scope.EditData.call }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        $scope.hidePopover()
+    }
+    //
+    $scope.editWorkTitle = function () {
+        var newValue = {"newValue":  $scope.EditData.workTitle }
+        //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'celebrity'},newValue, function(response,responseHeaders){
+        //    //console.log("**********************************  " + response)
+        //}, function(error){
+        //    // error
+        //});
+        $scope.hidePopover()
+    }
+    //
     $scope.editTitle = function () {
         var newValue = {"newValue":  $scope.EditData.title }
-        EntityService.titleOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'movies'},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
             }, function(error){
             // error
@@ -275,7 +354,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.editRatingYearLength = function () {
         $scope.ratingYearLengthCount = 0
         var newValue = {"newValue":  $scope.EditData.parentalRating }
-        EntityService.ratingOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.ratingOverride({movieName: $scope.itemDetails.title,serviceName:'movies'},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
                 $scope.ratingYearLengthCount++;
                 console.log(">-->> " + $scope.ratingYearLengthCount)
@@ -283,7 +362,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             // error
         });
         var newValue = {"newValue":  $scope.EditData.releaseYear }
-        EntityService.yearOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.yearOverride({movieName: $scope.itemDetails.title,serviceName:'movies'},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
                 $scope.ratingYearLengthCount++
                 console.log(">-->> " + $scope.ratingYearLengthCount)
@@ -291,7 +370,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             // error
         });
         var newValue = {"newValue":  $scope.EditData.duration }
-        EntityService.lengthOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.lengthOverride({movieName: $scope.itemDetails.title,serviceName:'movies'},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
                 $scope.ratingYearLengthCount++
                 console.log(">-->> " + $scope.ratingYearLengthCount)
@@ -302,25 +381,25 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     }
     $scope.editGenres = function () {
         var newValue = {"newValue":  $scope.EditData.genre }
-        EntityService.genresOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.genresOverride({movieName: $scope.itemDetails.title,serviceName:'movies'},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
             }, function(error){
             // error
         });
         $scope.hidePopover()
     }
-    $scope.editStory = function () {
+    $scope.editStory = function (serviceName) {
         var newValue = {"newValue":  $scope.EditData.story }
-        EntityService.storyOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.storyOverride({movieName: $scope.itemDetails.title,serviceName:serviceName},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
             }, function(error){
             // error
         });
         $scope.hidePopover()
     }
-    $scope.editTrailer = function () {
+    $scope.editTrailer = function (serviceName) {
         var newValue = {"newValue":  $scope.EditData.videoResults }
-        EntityService.trailerOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.trailerOverride({movieName: $scope.itemDetails.title,serviceName:serviceName},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
             }, function(error){
             // error
@@ -329,7 +408,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     }
     $scope.editBanner = function () {
         var newValue = {"newValue":  $scope.EditData.bannerUrl }
-        EntityService.bgImageOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.bgImageOverride({movieName: $scope.itemDetails.title,serviceName:'movies'},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
             }, function(error){
             // error
@@ -338,7 +417,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     }
     $scope.editThumbnail  = function () {
         var newValue = {"newValue":  $scope.EditData.thumbnailUrl }
-        EntityService.heroImageOverride({movieName: $scope.itemDetails.title},newValue, function(response,responseHeaders){
+        EntityService.heroImageOverride({movieName: $scope.itemDetails.title,serviceName:'movies'},newValue, function(response,responseHeaders){
                 //console.log("**********************************  " + response)
             }, function(error){
             // error

@@ -30,9 +30,8 @@
             <div id="pageMiddle" class="pageMiddle">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
                     <form id="bigform">
-                        <p class="search-icon p-src"><input class="text-left" type="text" placeholder="Type To Search" value="Type To Search"
-                                                            id="searchInputText" ng-model="searchTxt"
-                                                            ng-keydown="keyDown($event.which)"
+                        <p class="search-icon p-src"><input pu-elastic-input  class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt"
+                                                            ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;"
                                                             ng-keypress="$event.which === 13 && searchAll()">
                         </p>
 
@@ -225,8 +224,8 @@
                                     </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem role="button"
-                                        popover-placement="right" popover-template="'movie-story.html'"
-                                        popover-title="Story">
+                                        popover-placement="right" popover-template="'menu-link.html'"
+                                        popover-title="Menu">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -237,8 +236,8 @@
                                 </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem
-                                        popover-placement="right" popover-template="'movie-cast.html'"
-                                        popover-title="Cast">
+                                        popover-placement="right" popover-template="'tel-number.html'"
+                                        popover-title="Hours">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -249,8 +248,8 @@
                             </span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem
-                                        popover-placement="right" popover-template="'movie-trailer.html'"
-                                        popover-title="Trailer">
+                                        popover-placement="right" popover-template="'call.html'"
+                                        popover-title="Call">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -271,6 +270,10 @@
                                 <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/100
                                 </span>
+                                     <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'">
+                                <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                     width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/10
+                                </span>
                                     </span>
                                 <button ng-if="showEdit && itemDetails.displayRating"
                                         class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 0px"
@@ -287,7 +290,7 @@
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-title.html'"
-                                        popover-title="Movie Title">
+                                        popover-title="Title">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </h2>
@@ -301,6 +304,14 @@
                                 <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span> <span
                                         ng-if="itemDetails.openStatus" style="color:#8cbe29">{{::itemDetails.openStatus}}</span>
                             </p>
+
+                            <button ng-if="showEdit"
+                                    class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 0px"
+                                    popover-elem
+                                    popover-placement="right" popover-template="'address-cat-open.html'"
+                                    popover-title="Place Detail">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </button>
                         </div>
                         <!-- deatail left end-->
 
@@ -603,7 +614,7 @@
                                 </div>
                                 <ul class="resultList">
                                     <li ng-repeat="result in itemDetails.relatedSearches | limitTo: itemDetails.relatedSearches.maxIndex">
-                                        <a class="pointer" ui-sref="search({q: result.text})">
+                                        <a class="pointer"  ng-click="searchOnclick(result.text)">
                                             <div class="media">
                                                 <div class="media-body related-search">
                                                     <h4 class="media-heading" id="top-aligned-media"><span
@@ -702,25 +713,13 @@
         <textarea required rows="4" cols="28" ng-model="EditData.story" required class="form-control"
                   name="storyform.story"></textarea>
             </div>
-            <button type="submit" ng-disabled="storyform.$invalid" class="btn btn-info" ng-click="editStory()">Save
+            <button type="submit" ng-disabled="storyform.$invalid" class="btn btn-info" ng-click="editStory('place')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
     </div>
 </script>
-<script type="text/ng-template" id="movie-trailer.html">
-    <div>
-        <form novalidate name="trailerform">
-            <div class="form-group">
-                <input type="text" ng-model="EditData.videoResults" required class="form-control"
-                       name="trailerform.videoResults">
-            </div>
-            <button type="submit" ng-disabled="trailerform.$invalid" class="btn btn-info" ng-click="editTrailer()">Save
-            </button>
-            <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
-    </div>
-    </form>
-</script>
+
 <script type="text/ng-template" id="movie-banner.html">
     <div>
         <form novalidate name="bannerform">
@@ -731,8 +730,9 @@
             <button type="submit" ng-disabled="bannerform.$invalid" class="btn btn-info" ng-click="editBanner()">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+        </form>
     </div>
-    </form>
+
 </script>
 <script type="text/ng-template" id="movie-thumbnail.html">
     <div>
@@ -745,15 +745,59 @@
                 Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+        </form>
     </div>
-    </form>
+
 </script>
-<script type="text/ng-template" id="movie-cast.html">
+<script type="text/ng-template" id="menu-link.html">
     <div>
+        <form novalidate name="menuLink">
         <div class="form-group">
-            <input type="text" ng-model="EditData.thumbnailUrl" class="form-control">
+            <input type="text" ng-model="EditData.menuLink" class="form-control">
         </div>
-        <button type="button" class="btn btn-info">Save</button>
+        <button type="submit" ng-disabled="menuLink.$invalid" class="btn btn-info" ng-click="editMenuLink()">
+            Save
+        </button>
         <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+            </form>
     </div>
 </script>
+<script type="text/ng-template" id="call.html">
+    <div>
+        <form novalidate name="call">
+        <div class="form-group">
+            <input type="text" ng-model="EditData.call" class="form-control">
+        </div>
+        <button type="submit" ng-disabled="call.$invalid" class="btn btn-info" ng-click="editCall()">
+            Save
+        </button>
+        <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+            </form>
+    </div>
+</script>
+<script type="text/ng-template" id="address-cat-open.html">
+    <div>
+        <form novalidate name="address-cat-open">
+            <div class="form-group" ng-if="EditData.display_address">
+                <input type="text" ng-model="EditData.display_address" class="form-control">
+            </div>
+            <div class="form-group"  ng-if="EditData.placeDistance">
+                <input type="text" ng-model="EditData.placeDistance" class="form-control">
+            </div>
+            <div class="form-group"  ng-if="EditData.category">
+                <input type="text" ng-model="EditData.category" class="form-control">
+            </div>
+            <div class="form-group" ng-if="EditData.openStatus">
+                <input type="text" ng-model="EditData.openStatus" class="form-control">
+            </div>
+            <div class="form-group"  ng-if="EditData.priceRange">
+                <input type="text" ng-model="EditData.priceRange" class="form-control">
+            </div>
+            <button type="submit" ng-disabled="address-cat-open.$invalid" class="btn btn-info" ng-click="editAddressCatOpen()">
+                Save
+            </button>
+            <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+        </form>
+    </div>
+</script>
+

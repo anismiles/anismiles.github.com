@@ -30,9 +30,8 @@
             <div id="pageMiddle" class="pageMiddle">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
                     <form id="bigform">
-                        <p class="search-icon p-src"><input class="text-left" type="text" placeholder="Type To Search" value="Type To Search"
-                                                            id="searchInputText" ng-model="searchTxt"
-                                                            ng-keydown="keyDown($event.which)"
+                        <p class="search-icon p-src"><input pu-elastic-input  class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt"
+                                                            ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;"
                                                             ng-keypress="$event.which === 13 && searchAll()">
                         </p>
 
@@ -262,37 +261,37 @@
 
                         </div>
                         <div class="detail_left">
-                            <p class="rating pull-left" style="margin: 5px 0 0 0;">
-                                <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">
-                                <span ng-if="r.rating_style=='PERCENTAGE'" style="margin: 0 5px 0 0;">
-                                <img
-                                        ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                        width="24" height="24"
-                                        style="border-radius: 4px"> <!--{{::r.source}}:--> &nbsp; {{::r.rating}}%
-                                </span>
-                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'" style="margin: 0 5px 0 0;">
-                                <img
-                                        ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                        width="24" height="24"
-                                        style="border-radius: 4px"> <!--{{::r.source}}: --> &nbsp; {{::r.rating}}/10
-                                </span>
-                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"
-                                      style="margin: 0 5px 0 0;">
-                                <img
-                                        ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                        width="24" height="24"
-                                        style="border-radius: 4px"> <!--{{::r.source}}:--> &nbsp; {{::r.rating}}/100
-                                </span>
-                                    </span>
+                            <!--<p class="rating pull-left" style="margin: 5px 0 0 0;">-->
+                                <!--<span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">-->
+                                <!--<span ng-if="r.rating_style=='PERCENTAGE'" style="margin: 0 5px 0 0;">-->
+                                <!--<img-->
+                                        <!--ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                        <!--width="24" height="24"-->
+                                        <!--style="border-radius: 4px"> &lt;!&ndash;{{::r.source}}:&ndash;&gt; &nbsp; {{::r.rating}}%-->
+                                <!--</span>-->
+                                <!--<span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'" style="margin: 0 5px 0 0;">-->
+                                <!--<img-->
+                                        <!--ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                        <!--width="24" height="24"-->
+                                        <!--style="border-radius: 4px"> &lt;!&ndash;{{::r.source}}: &ndash;&gt; &nbsp; {{::r.rating}}/10-->
+                                <!--</span>-->
+                                <!--<span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"-->
+                                      <!--style="margin: 0 5px 0 0;">-->
+                                <!--<img-->
+                                        <!--ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                        <!--width="24" height="24"-->
+                                        <!--style="border-radius: 4px"> &lt;!&ndash;{{::r.source}}:&ndash;&gt; &nbsp; {{::r.rating}}/100-->
+                                <!--</span>-->
+                                    <!--</span>-->
 
-                                <button ng-if="showEdit && itemDetails.displayRating"
-                                        class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 0px;"
-                                        popover-elem
-                                        popover-placement="right" popover-template="'movie-rating.html'"
-                                        popover-title="Rating">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </button>
-                            </p>
+                                <!--<button ng-if="showEdit && itemDetails.displayRating"-->
+                                        <!--class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 0px;"-->
+                                        <!--popover-elem-->
+                                        <!--popover-placement="right" popover-template="'movie-rating.html'"-->
+                                        <!--popover-title="Rating">-->
+                                    <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                <!--</button>-->
+                            <!--</p>-->
                             <br>
 
                             <h2 class="topTitle">
@@ -300,7 +299,7 @@
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-title.html'"
-                                        popover-title="Movie Title">
+                                        popover-title="Title">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </h2>
@@ -314,7 +313,7 @@
                                         aria-hidden="true"
                                         type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-detail.html'"
-                                        popover-title="Movie Details">
+                                        popover-title="Details">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
@@ -622,7 +621,7 @@
                                 </div>
                                 <ul class="resultList">
                                     <li ng-repeat="result in itemDetails.relatedSearches | limitTo: itemDetails.relatedSearches.maxIndex">
-                                        <a class="pointer" ui-sref="search({q: result.text})">
+                                        <a class="pointer" ng-click="searchOnclick(result.text)">
                                         <div class="media">
                                             <div class="media-body related-search">
                                                 <h4 class="media-heading" id="top-aligned-media"><span
@@ -664,7 +663,7 @@
             <div class="form-group">
                 <input type="text" ng-model="EditData.title" required class="form-control" name="titleform.title">
             </div>
-            <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="editTitle()">Save
+            <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="editTitle('celebrity')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
@@ -674,15 +673,11 @@
     <div>
         <form novalidate name="detailsform">
             <div class="form-group">
-                <input type="text" ng-model="EditData.parentalRating" required class="form-control"
+                <input type="text" ng-model="EditData.workTitle" required class="form-control"
                        name="detailsform.parentalRating">
-                <input type="text" ng-model="EditData.releaseYear" numbers-only required class="form-control"
-                       name="detailsform.releaseYear">
-                <input type="text" ng-model="EditData.duration" numbers-only required class="form-control"
-                       name="detailsform.duration">
             </div>
             <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
-                    ng-click="editRatingYearLength()">
+                    ng-click="editWorkTitle('celebrity')">
                 Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
@@ -722,7 +717,7 @@
         <textarea required rows="4" cols="28" ng-model="EditData.story" required class="form-control"
                   name="storyform.story"></textarea>
             </div>
-            <button type="submit" ng-disabled="storyform.$invalid" class="btn btn-info" ng-click="editStory()">Save
+            <button type="submit" ng-disabled="storyform.$invalid" class="btn btn-info" ng-click="editStory('celebrity')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
@@ -735,11 +730,12 @@
                 <input type="text" ng-model="EditData.videoResults" required class="form-control"
                        name="trailerform.videoResults">
             </div>
-            <button type="submit" ng-disabled="trailerform.$invalid" class="btn btn-info" ng-click="editTrailer()">Save
+            <button type="submit" ng-disabled="trailerform.$invalid" class="btn btn-info" ng-click="editTrailer('celebrity')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+        </form>
     </div>
-    </form>
+
 </script>
 <script type="text/ng-template" id="movie-banner.html">
     <div>
@@ -751,8 +747,9 @@
             <button type="submit" ng-disabled="bannerform.$invalid" class="btn btn-info" ng-click="editBanner()">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+        </form>
     </div>
-    </form>
+
 </script>
 <script type="text/ng-template" id="movie-thumbnail.html">
     <div>
@@ -765,8 +762,9 @@
                 Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+        </form>
     </div>
-    </form>
+
 </script>
 <script type="text/ng-template" id="movie-cast.html">
     <div>
