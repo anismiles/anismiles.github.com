@@ -30,18 +30,21 @@ angular.module('relcyEditorialApp')
       $scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
           count: 10,          // count per page
+        filter: {
+        },
           sorting: {
-            'user.name': 'asc'     // initial sorting
+            'timestamp': 'desc'     // initial sorting
           }
         }, {
           total: $scope.approvedRecords.length, // length of data
           getData: function($defer, params) {
             // use build-in angular filter
             var orderedData = params.sorting() ?
-              $filter('orderBy')($scope.approvedRecords, params.orderBy()) :
-              $scope.approvedRecords;
+                $filter('orderBy')($scope.approvedRecords, params.orderBy()) :
+                $scope.approvedRecords;
 
-            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+              $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            //}
           },
           counts: []
         });
@@ -50,7 +53,7 @@ angular.module('relcyEditorialApp')
           page: 1,            // show first page
           count: 10,          // count per page
           sorting: {
-            'user.name': 'asc'     // initial sorting
+            'timestamp': 'desc'     // initial sorting
           }
         }, {
           total: $scope.pendingRecords.length, // length of data
@@ -69,7 +72,7 @@ angular.module('relcyEditorialApp')
           page: 1,            // show first page
           count: 10,          // count per page
           sorting: {
-            'user.name': 'asc'     // initial sorting
+            'timestamp': 'desc'     // initial sorting
           }
         }, {
           total: $scope.rejectedRecords.length, // length of data
@@ -108,6 +111,7 @@ angular.module('relcyEditorialApp')
         angular.forEach(response.pending, function(item){
           try{
             var thirdParty = item.user.user_data.third_party_data[0];
+            item.timestamp = new Date(item.timestamp);
             if(thirdParty.third_party_service=='FACEBOOK'){
               item.hasFBUrl = true;
               item.fbURL = 'https://www.facebook.com/' + thirdParty.fixed_id;

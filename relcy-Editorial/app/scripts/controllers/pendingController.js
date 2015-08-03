@@ -14,15 +14,14 @@ angular.module('relcyEditorialApp')
 
 	$scope.pendingLoader = true;
 
-
 	$scope.tableParameterSetting = function()
 	{
 		$scope.pendingLoader = false;
 		$scope.pendingRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 100,          // count per page
+          count: 200,          // count per page
           sorting: {
-            'user.name': 'asc'     // initial sorting
+            'timestamp': 'desc'      // initial sorting
           }
         }, {
           total: $scope.pendingRecords.length, // length of data

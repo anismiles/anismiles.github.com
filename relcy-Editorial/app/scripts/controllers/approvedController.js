@@ -19,9 +19,9 @@ angular.module('relcyEditorialApp')
 		$scope.approvedLoader = false;
 		$scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 100,          // count per page
+          count: 200,          // count per page
           sorting: {
-            'user.name': 'asc'     // initial sorting
+            'timestamp': 'desc'      // initial sorting
           }
         }, {
           total: $scope.approvedRecords.length, // length of data
