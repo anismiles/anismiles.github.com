@@ -29,7 +29,7 @@ angular.module('relcyEditorialApp')
 
       $scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 100,          // count per page
+          count: 10,          // count per page
         filter: {
         },
           sorting: {
@@ -48,8 +48,8 @@ angular.module('relcyEditorialApp')
                     var size = params.count();
                     var testUrl = 'http://webapp.relcy.com/invites';
 
-                    if(page >= 1)
-                      page = page * 100;
+                    if(page > 1)
+                      page = page * 10;
 
                     var search = { 
                       from: page,

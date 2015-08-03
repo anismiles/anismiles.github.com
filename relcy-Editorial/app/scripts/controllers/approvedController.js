@@ -8,7 +8,7 @@
  * Controller of the relcyEditorialApp
  */
 angular.module('relcyEditorialApp')
-.controller('ApprovedController', function ($scope,StatusService, ngTableParams,DataService,$filter) {
+.controller('ApprovedController', function ($scope,StatusService, ngTableParams,DataService,$filter,$http) {
 	$scope.keys = [];
 	$scope.approvedRecords = [];
 
@@ -19,19 +19,45 @@ angular.module('relcyEditorialApp')
 		$scope.approvedLoader = false;
 		$scope.approvedRecordsTableParams = new ngTableParams({
           page: 1,            // show first page
-          count: 200,          // count per page
+          count: 100,          // count per page
           sorting: {
             'timestamp': 'desc'      // initial sorting
           }
         }, {
-          total: $scope.approvedRecords.length, // length of data
+          total: $scope.approved_total, // length of data
           getData: function($defer, params) {
             // use build-in angular filter
+            $scope.approvedLoader = true;
             var orderedData = params.sorting() ?
-              $filter('orderBy')($scope.approvedRecords, params.orderBy()) :
-              $scope.approvedRecords;
+                $filter('orderBy')($scope.approvedRecords, params.orderBy()) :
+                $scope.approvedRecords;
 
-            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    var page = params.page();
+                    var size = params.count();
+                    var testUrl = 'http://webapp.relcy.com/invites';
+
+                    if(page > 1)
+                      page = page * 100;
+
+                    var search = { 
+                      from: page,
+                      size: size
+                    }
+                    $http.get(testUrl, { params: search, headers: { 'Content-Type': 'application/json'} })
+                         .then(function(res) {
+                            params.total(res.data.approved_total);
+                            $scope.approvedRecords = res.data.approved
+                            var orderedData = params.sorting() ?
+                              $filter('orderBy')($scope.approvedRecords, params.orderBy()) :
+                              $scope.approvedRecords;
+                              $scope.approvedLoader = false;
+                            $defer.resolve(orderedData);
+                        }, function(reason) {
+                            $defer.reject();
+                        }
+                    );
+
+            //$defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
           },
           counts: []
         } );
@@ -41,6 +67,11 @@ angular.module('relcyEditorialApp')
 	{
 		$scope.approvedLoader = true;
 		StatusService.getAllRecord(function (response) {
+
+        $scope.approved_from = response.approved_from;
+        $scope.approved_size = response.approved_size;
+        $scope.approved_total = response.approved_total; 
+
 	        angular.forEach(response.approved, function(item){
 		          try{
 		            var thirdParty = item.user.user_data.third_party_data[0];
