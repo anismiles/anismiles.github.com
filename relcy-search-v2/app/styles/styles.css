@@ -1276,6 +1276,15 @@ div.imdb span {
     height: 75px;
     width: 75px;
 }
+.image-thumb-flight {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    display: block;
+    height: 75px;
+    width: 75px;
+}
 
 .image-thumb-video {
     background-position: center center;
@@ -1387,6 +1396,13 @@ div.imdb span {
 
 .thumb-bar {
     background-image: url("../img-no-min/default-icons/autocomplete_bar_icon@2x.png");
+}
+
+.thumb-flight {
+    background-image: url("../img-no-min/flights/generic_airline_icon2x.png");
+	background-color:transparent;
+	height: 64px;
+    width: 64px;
 }
 
 .thumbnail {
@@ -1581,6 +1597,35 @@ a.editable {
 .half-star-list {background:url(../img-no-min/default-icons/half_star_list.png) 0px 8px no-repeat; padding:6px;}
 .full-star-header {background:url(../img-no-min/default-icons/full_star_header.png) 0 0 no-repeat; padding:10px;}
 .half-star-header {background:url(../img-no-min/default-icons/half_star_header.png) 0 0 no-repeat; padding:10px;}
+
+/******************************FLIGHTS*/
+.flights-result-list .media-body .genre span span.text-green {
+	color: #2fa820;
+}
+.flightStatus { 
+	display:flex;
+}
+.flightStatus div {
+	color:#3a3a48; 
+	font-weight:700;
+}
+.flightStatus .flightOnTime {
+	margin:0px 5px;
+	position:relative;
+}
+.flightStatus .flight_plane_icon_active2x {
+	left: 50%;
+    position: absolute;
+    top: 2px;
+}
+.flights-result-list hr {
+	margin-bottom: 5px;
+    margin-top: 5px;
+	border-color: #e7e7e7;
+}
+
+
+
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
 /* --------------------------------------------------------- */

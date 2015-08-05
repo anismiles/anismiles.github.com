@@ -59,6 +59,9 @@ a:hover, a:focus {
 .resultList span {
   color: #8899a6;
 }
+.flights-result-list span {
+	color: #3a3a48;
+	}
 
 .resultList span.fa, .action-detail span.fa {
   color: #cad4db;

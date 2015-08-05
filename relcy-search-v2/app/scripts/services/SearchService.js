@@ -2768,6 +2768,9 @@ angular.module('relcyApp')
                             else if(response.verticalResult[0].content_type_enum == "PERSON"){
                                 keyTitle = 'People';
                             }
+							else if(response.verticalResult[0].content_type_enum == "LIVE_API"){
+                                keyTitle = 'Flights';
+                            }
 
                             transformedData.moviesResult = response.verticalResult[0].content_type_enum;
                             transformedData.displayRating = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.display_rating;
@@ -2778,6 +2781,7 @@ angular.module('relcyApp')
                             catch (err) {
                                 console.log('Links not available');
                             }
+							
                             // lowercaseRating(transformedData.displayRating);
                             transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
 
@@ -2932,6 +2936,16 @@ angular.module('relcyApp')
                             maxIndex = 3;
                             incrementBy = 3;
                             $scope.addScoresToVideoMovies(values);
+                        }
+                        break;
+						case 'LIVE_API':
+                        if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length) {
+                            values = data[index].searchResultRelcy.results;
+                            keyTitle = 'Flights';
+                            template = 'FLIGHTS';
+                            maxIndex = 3;
+                            incrementBy = 3;
+                           // $scope.addScoresToVideoMovies(values);
                         }
                         break;
                     case 'ENTERTAINMENT_VIDEO_TVSHOW':
