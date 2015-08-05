@@ -26,23 +26,86 @@
                     <span class="pull-left">London, Monday, July 13</span>
                     <span class="pull-right">San Franci clasco, Monday, July 13</span>
                 </p>
-                <p class="clearfix">
-                    <span class="pull-left">Departed <b>11:29 AM</b></span>
-                    <span class="pull-right">Arrives <b>2:25 PM</b></span>
-                </p>
+                <div class="row flightsDetails">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    	<table>
+                        	<tr>
+                            	<td>Departed</td>
+                                <td>11:29 AM</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                    	<table>
+                        	<tr>
+                            	<td>Arrives</td>
+                                <td>11:29 AM</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
                 <hr>
-                <p class="clearfix">
-                    <span class="pull-left">Scheduled <b>11:30 AM</b></span>
-                    <span class="pull-right">Scheduled <b>2:35 PM</b></span>
-                </p>
-                <p class="clearfix">
-                    <span class="pull-left">Terminal <b>5</b></span>
-                    <span class="pull-right">Terminal <b>5</b></span>
-                </p>
-                <p class="clearfix">
-                    <span class="pull-left">Gate <b>-</b></span>
-                    <span class="pull-right">Gate <b>INTL</b></span>
-                </p>
+                
+                <div class="row flightsDetails">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    	
+                        <table>
+                        	<tr>
+                            	<td>Scheduled</td>
+                                <td>11:29 AM</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                    	<table>
+                        	<tr>
+                            	<td>Scheduled</td>
+                                <td>11:29 AM</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="row flightsDetails">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    	
+                        <table>
+                        	<tr>
+                            	<td>Terminal</td>
+                                <td>5</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                    	<table>
+                        	<tr>
+                            	<td>Terminal</td>
+                                <td>5</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                
+                <div class="row flightsDetails">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    	<table>
+                        	<tr>
+                            	<td>Gate</td>
+                                <td>-</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                    	<table>
+                        	<tr>
+                            	<td>Gate</td>
+                                <td>-</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
                 
                 <p class="score">
                     <span ng-repeat="sa in result.scoreArray track by $index" class="full-star-list rating"></span>
