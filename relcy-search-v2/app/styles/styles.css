@@ -1649,6 +1649,26 @@ a.editable {
     margin-top: 5px;
 	border-color: #e7e7e7;
 }
+.flightsDetails table {
+	width:100%;
+}
+.flightsDetails table td:first-child {
+	font-size:12px;
+	color:#6b6b76;
+	text-align:left;
+	width:35%;
+}
+.flightsDetails table td:last-child {
+	font-size:14px;
+	color:#3a3a4b;
+}
+.flightsDetails div:last-child table { 
+	float:right;
+}
+.flightsDetails div:last-child table td:first-child {
+    text-align: right;
+    width: 60%;
+}
 
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
