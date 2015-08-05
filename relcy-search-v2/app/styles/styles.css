@@ -1642,7 +1642,7 @@ a.editable {
 .flightStatus .flight_plane_icon_active2x {
 	left: 50%;
     position: absolute;
-    top: 2px;
+    top: 0px;
 }
 .flights-result-list hr {
 	margin-bottom: 5px;
@@ -1662,7 +1662,7 @@ a.editable {
 	font-size:14px;
 	color:#3a3a4b;
 }
-.flightsDetails div:last-child table { 
+.flightsDetails div:last-child table {
 	float:right;
 }
 .flightsDetails div:last-child table td:first-child {
