@@ -33,7 +33,7 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
     $scope.providedBy = false;
     $scope.searchResultShow = true;
 
-    if (SearchService.searchTxt) { 
+    if (SearchService.searchTxt) {
         if(SearchService.searchTxt === $stateParams.q)
         {
             $scope.searchTxt = SearchService.searchTxt;

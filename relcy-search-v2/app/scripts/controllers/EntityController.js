@@ -44,6 +44,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     }
     else {
         if ($stateParams.q) {
+
+
             $scope.searchTxt = $stateParams.q;
             $("#pageMiddle").css({'margin-top': '0%'});
         }

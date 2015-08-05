@@ -2925,14 +2925,14 @@ angular.module('relcyApp')
                 var maxIndex = undefined, incrementBy = undefined;
                 switch (key) {
                     case 'ENTERTAINMENT_VIDEO_MOVIE':
-                        if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length) {
-                            values = data[index].searchResultRelcy.results;
-                            keyTitle = 'Movies';
-                            template = 'ENTERTAINMENT_VIDEO_MOVIE';
-                            maxIndex = 3;
-                            incrementBy = 3;
-                            $scope.addScoresToVideoMovies(values);
-                        }
+                  if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length) {
+                    values = data[index].searchResultRelcy.results;
+                    keyTitle = 'Movies';
+                    template = 'ENTERTAINMENT_VIDEO_MOVIE';
+                    maxIndex = 3;
+                    incrementBy = 3;
+                    $scope.addScoresToVideoMovies(values);
+                  }
                         break;
                     case 'ENTERTAINMENT_VIDEO_TVSHOW':
                         if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length) {

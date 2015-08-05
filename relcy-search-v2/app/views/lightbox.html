@@ -1,11 +1,16 @@
 <div ng-if="Lightbox.type=='CAST'" class="modal-body castmodel" style="background:#fff;">
+    <!-- navigation -->
+    <div class="lightbox-nav">
+        <!-- close button -->
+        <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+    </div>
     <h4 class="topictitle">Cast</h4>
 
     <div ng-if="cast.title" ng-repeat="cast in Lightbox.data">
         <div class="castlist">
             <div class="castimage">
-                <a href="{{::cast.image_info.source}}"><img err-src="img-no-min/placeholder.png" ng-src="{{::cast.image_info.mediaURL}}" alt=""/></a>
-                
+                <a href="{{::cast.image_info.source}}" style="background-image: url({{cast.image_info.mediaURL}});"> </a>
+
 
             </div>
             <div class="castdetail">
@@ -23,6 +28,11 @@
 </div>
 
 <div ng-if="Lightbox.type=='HOURS'" class="modal-body castmodel" style="background:#fff;">
+    <!-- navigation -->
+    <div class="lightbox-nav">
+        <!-- close button -->
+        <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+    </div>
     <h4 class="topictitle">HOURS</h4>
 
     <div ng-repeat="hours in Lightbox.data">
@@ -48,6 +58,11 @@
 </div>
 
 <div ng-if="Lightbox.type=='CALL'" class="modal-body castmodel" style="background:#fff;">
+    <!-- navigation -->
+    <div class="lightbox-nav">
+        <!-- close button -->
+        <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+    </div>
     <h4 class="topictitle">CALL</h4>
 
     <div ng-repeat="phone in Lightbox.data">
@@ -90,6 +105,11 @@
 
 
 <div ng-if="Lightbox.type=='STORY'" class="modal-body castmodel" style="background:#fff;">
+    <!-- navigation -->
+    <div class="lightbox-nav">
+        <!-- close button -->
+        <button class="close" aria-hidden="true" ng-click="$dismiss()">×</button>
+    </div>
     <h4 class="topictitle">Story</h4>
 
     <div style="padding:20px">
