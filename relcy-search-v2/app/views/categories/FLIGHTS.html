@@ -1,0 +1,58 @@
+
+<ul class="resultList flights-result-list">
+    <li id="{{::cat.key+$index}}" ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+        <a class="pointer" ui-sref="detail({q:query, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, artist: result.performer })">
+
+        <div class="media">
+            <div class="media-left thumb-common thumb-flight">
+                <img class="media-object image-thumb-flight" src="{{result.image_info[0].mediaURL}}" ng-if="result.image_info[0].mediaURL">
+            </div>
+            <div class="media-body">
+             <h4 class="media-heading" id="top-aligned-media">{{results.entity_data.live_data.flight_data[0].airline_name}} American Airlines <span>285</span></h4>
+                <p class="genre">
+                    <span> Arrives in 3 hrs 23 mins. <span class="text-green">On Time</span> </span>
+                </p>
+                <p>
+                    <div class="flightStatus">
+                    	<div>LHR</div>
+                        <div class="flightOnTime">
+                        	<img src="img-no-min/flights/flight_plane_icon_active2x.png" class="flight_plane_icon_active2x" title="">
+                            <img src="images/flight-on-time-half.png" class="flight-on-time-half" title="">
+                        </div>
+                    	<div>SFO</div>
+                    </div>
+                </p>
+                <p class="clearfix">
+                    <span class="pull-left">London, Monday, July 13</span>
+                    <span class="pull-right">San Franci clasco, Monday, July 13</span>
+                </p>
+                <p class="clearfix">
+                    <span class="pull-left">Departed <b>11:29 AM</b></span>
+                    <span class="pull-right">Arrives <b>2:25 PM</b></span>
+                </p>
+                <hr>
+                <p class="clearfix">
+                    <span class="pull-left">Scheduled <b>11:30 AM</b></span>
+                    <span class="pull-right">Scheduled <b>2:35 PM</b></span>
+                </p>
+                <p class="clearfix">
+                    <span class="pull-left">Terminal <b>5</b></span>
+                    <span class="pull-right">Terminal <b>5</b></span>
+                </p>
+                <p class="clearfix">
+                    <span class="pull-left">Gate <b>-</b></span>
+                    <span class="pull-right">Gate <b>INTL</b></span>
+                </p>
+                
+                <p class="score">
+                    <span ng-repeat="sa in result.scoreArray track by $index" class="full-star-list rating"></span>
+                    <span ng-if="result.showHalfRating" class="half-star-list rating"></span>
+                    <span ng-if="result.image_info[0].source"> - {{result.image_info[0].source}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+            </a>
+    </li>
+
+</ul>
