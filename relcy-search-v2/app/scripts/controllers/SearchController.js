@@ -33,9 +33,15 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
     $scope.providedBy = false;
     $scope.searchResultShow = true;
 
-    if (SearchService.searchTxt) {
-        $scope.searchTxt = SearchService.searchTxt;
-        if ($scope.searchTxt) {
+    if (SearchService.searchTxt) { 
+        if(SearchService.searchTxt === $stateParams.q)
+        {
+            $scope.searchTxt = SearchService.searchTxt;
+            $("#pageMiddle").css({'margin-top': '0%'});
+            $("#container").addClass("body");
+        }
+        else{
+            $scope.searchTxt = $stateParams.q;
             $("#pageMiddle").css({'margin-top': '0%'});
             $("#container").addClass("body");
         }

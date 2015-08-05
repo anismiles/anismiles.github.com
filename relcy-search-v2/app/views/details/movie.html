@@ -361,30 +361,52 @@
                             <h4 class="topictitle" id="top-aligned-media">Showtimes</h4>
 
                             <div class="panel-body pad_none">
+
                                 <table class="table table-hover">
+
                                     <tbody>
-                                    <tr ng-click="gotoLink(s.link_id)" ng-repeat="s in itemDetails.watches"
-                                        class="pointer">
-                                        <td class="td-title" width="30px"><img
-                                                ng-src="{{ 'img-no-min/icons/' + (s.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                    <tr ng-repeat="s in itemDetails.showTimes">
+                                        <td class="td-title" width="30px" style="vertical-align: top !important;"><img
+                                                src="img-no-min/placeholder.png"
                                                 title="">
                                         </td>
                                         <td class="td-title">
-                                            <span> {{::s.app_result.result_data.title}}</span>
-                                            <span class="td-detail td-lineheight">{{::s.app_result.result_data.sub_title}}</span>
+                                            <span> {{::s.playing_entity.title}}</span>
+                                            <span class="td-detail td-lineheight">{{::s.playing_entity.location.display_distance}}</span>
+                                            <span class="td-detail td-lineheight">{{::s.playing_entity.location.address.street_address}}</span>
+                                            <div class="showtime-time-outer">
+                                            <div class="showtime-time">
+                                                <div ng-repeat="d in s.shows.days" style="margin: 0 0 10px;">
+                                                    <p>{{::d.date | date}} </p>
+                                                    <span ng-repeat="h in d.hours" ng-click="gotoLink(h.link_info.link_id[0]);"  class="pointer"  >{{::h.open_time | date:'h:mm a'}}</span></div>
+                                            </div>
+                                            </div>
                                         </td>
-                                        <td class="" width="30px"><span
-                                                class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+
                                     </tr>
-                                    <!--<tr class="pointer">-->
-                                    <!--<td class="td-title" width="30px">More</td>-->
-                                    <!--<td class="td-title"></td>-->
-                                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>-->
-                                    <!--</tr>-->
+
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
+                        <!--  -->
+
+                        <!--<div class="panel panel-default" ng-if="itemDetails.showTimes.length>0">-->
+                            <!--<h4 class="topictitle" id="top-aligned-media">Showtimes</h4>-->
+
+                            <!--<div ng-repeat="s in itemDetails.showTimes" class="panel-body pad_none">-->
+                                <!--<div class="showtimetitle"><span> <img src="img-no-min/placeholder.png"-->
+                                                                       <!--err-src="img-no-min/placeholder.png" alt=""/></span>-->
+                                    <!--<span>{{::s.playing_entity.title}}</span> <span>{{s.playing_entity.location.display_distance}}</span> <span>{{s.playing_entity.location.address.street_address}}</span></div>-->
+                                <!--<div class="showtime-time">-->
+                                    <!--<div ng-repeat="d in s.shows.days">-->
+                                        <!--<p>{{::d.date | date}} </p>-->
+                                        <!--<span ng-repeat="h in d.hours" ng-click="gotoLink(h.link_info.link_id[0]);" >{{::h.open_time | date:'h:mm a'}}</span></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
 
                         <!--Watch-->
 

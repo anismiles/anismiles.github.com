@@ -58,6 +58,13 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         }
     };
 
+    //search on click
+    $scope.searchOnclick = function(str){
+        $scope.searchTxt = str;
+        SearchService.searchTxt = str;
+        $location.search('q', str);
+    }
+
     $scope.setFocusOnSearch = function ()
     {
         $("#searchInputText").focus();

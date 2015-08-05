@@ -10,7 +10,7 @@
             </div>
             <div class="castdetail">
                 <p>
-                    <a href="{{::cast.image_info.source}}">{{::cast.title}}</a>
+                    <a  ui-sref="search({q:cast.title})" ng-click="$dismiss()"  class="pointer">{{::cast.title}}</a>
                 </p>
 
                 <p>
