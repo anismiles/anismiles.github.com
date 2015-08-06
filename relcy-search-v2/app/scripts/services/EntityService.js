@@ -14,7 +14,7 @@ function EntityService($timeout, $q, $http,$resource) {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/bg-image',
                 responseType: 'json'
-            }, 
+            },
             heroImageOverride: {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/hero-image',
@@ -23,7 +23,7 @@ function EntityService($timeout, $q, $http,$resource) {
             titleOverride: {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/title',
-                responseType: 'json',
+                responseType: 'json'
             },
             ratingOverride: {
                 method: 'PUT',
@@ -44,27 +44,27 @@ function EntityService($timeout, $q, $http,$resource) {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/genre',
                 responseType: 'json'
-            },  
+            },
             storyOverride: {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/story',
                 responseType: 'json'
-            },  
+            },
             castOverride: {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/cast',
                 responseType: 'json'
-            },  
+            },
             trailerOverride: {
                 method: 'PUT',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/trailer',
                 responseType: 'json'
-            },  
+            },
             bgImageAdd: {
                 method: 'POST',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/bg-image',
                 responseType: 'json'
-            }, 
+            },
             heroImageAdd: {
                 method: 'POST',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/hero-image',
@@ -94,27 +94,27 @@ function EntityService($timeout, $q, $http,$resource) {
                 method: 'POST',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/genres',
                 responseType: 'json'
-            },  
+            },
             storyAdd: {
                 method: 'POST',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/story',
                 responseType: 'json'
-            },  
+            },
             castAdd: {
                 method: 'POST',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/cast',
                 responseType: 'json'
-            },  
+            },
             trailerAdd: {
                 method: 'POST',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/trailer',
                 responseType: 'json'
-            }, 
+            },
             bgImageDelete: {
                 method: 'DELETE',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/bg-image',
                 responseType: 'json'
-            }, 
+            },
             heroImageDelete: {
                 method: 'DELETE',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/hero-image',
@@ -144,22 +144,22 @@ function EntityService($timeout, $q, $http,$resource) {
                 method: 'DELETE',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/genres',
                 responseType: 'json'
-            },  
+            },
             storyDelete: {
                 method: 'DELETE',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/story',
                 responseType: 'json'
-            },  
+            },
             castDelete: {
                 method: 'DELETE',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/cast',
                 responseType: 'json'
-            },  
+            },
             trailerDelete: {
                 method: 'DELETE',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/trailer',
                 responseType: 'json'
-            },              
+            }
         }
     );
 }
