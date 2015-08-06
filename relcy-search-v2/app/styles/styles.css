@@ -1628,6 +1628,9 @@ a.editable {
 .flights-result-list .media-body .genre span span.text-green {
 	color: #2fa820;
 }
+.flights-result-list .media-body{
+	width:1000px;	
+}
 .flightStatus {
 	display:flex;
 }
@@ -1639,6 +1642,31 @@ a.editable {
 	margin:0px 5px;
 	position:relative;
 }
+.flights-result-list .flightPointDisable {
+	background-color:#d8d8d8; 
+	display:block; 
+	height:10px; 
+	width:10px; 
+	border-radius:100%; 
+	position:absolute; 
+	top:7px;
+}
+.flights-result-list .flightPoint {
+	background-color:#2fa820; 
+	display:block; 
+	height:10px; 
+	width:10px; 
+	border-radius:100%; 
+	position:absolute; 
+	top:7px;
+}
+.startPoint {
+	left:0px;
+}
+.endPoint {
+	right:0px;
+}
+
 .flightStatus .flight_plane_icon_active2x {
 	left: 50%;
     position: absolute;
@@ -1661,13 +1689,56 @@ a.editable {
 .flightsDetails table td:last-child {
 	font-size:14px;
 	color:#3a3a4b;
+	font-weight:700;
 }
 .flightsDetails div:last-child table {
 	float:right;
 }
 .flightsDetails div:last-child table td:first-child {
-    text-align: right;
-    width: 60%;
+    width: 55%;
+}
+
+.flightsDetails .rowRight {
+	float:right;
+}
+.flightsDetails .rowRight table {
+	width:78%;
+}
+/*****************weather-result-list****/
+.weather-result-list .media-heading {
+	font-size:30px;	
+	font-weight: 300;
+	display: table-cell;
+}
+.weather-result-list .media-heading sup{
+	font-size:14px;
+	top: -0.8em;
+}
+.weather-result-list .weather-heading{
+	display: table-cell;
+    padding-left: 15px;
+    vertical-align: middle;
+}
+.weather-result-list .weather-heading span {
+	display: block;
+}
+.weather-result-list .weather-heading span:first-child {
+	color:#6b6b76;
+	font-size:12px;	
+}
+.weather-result-list .weather-heading span:last-child {
+	color:#3a3a48;
+	font-size:14px;
+	font-weight:700;
+	
+}
+.weather-result-list p span {
+	color:#6b6b76;
+}
+.weather-result-list .thumb-weather {
+	background-color:transparent;
+	height: 64px;
+    width: 64px;
 }
 
 /* --------------------------------------------------------- */

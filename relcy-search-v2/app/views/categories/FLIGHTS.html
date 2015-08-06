@@ -21,23 +21,26 @@
           <div class="flightStatus" ng-if="!result.entity_data.live_data.flight_data[0].flight_status == 'Landed' && !result.entity_data.live_data.flight_data[0].flight_status == 'Active'">
             <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
             <div class="flightOnTime">
+              <span class="flightPoint startPoint"></span>
               <img src="img-no-min/flights/flight_plane_icon_active2x.png" class="flight_plane_icon_active2x" title="">
-              <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="340">
+              <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="375">
             </div>
             <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
           </div>
           <div class="flightStatus" ng-if="result.entity_data.live_data.flight_data[0].flight_status == 'Active'">
             <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
             <div class="flightOnTime">
+              <span class="flightPoint startPoint"></span>
               <img src="img-no-min/flights/flight_plane_icon_active2x.png" class="flight_plane_icon_active2x" title="">
-              <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="340">
+              <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="375">
             </div>
             <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
           </div>
           <div class="flightStatus flightsDisable" ng-if="result.entity_data.live_data.flight_data[0].flight_status == 'Landed'">
             <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
             <div class="flightOnTime">
-              <img src="img-no-min/flights/flight-on-time-disable.png" class="flight-on-time-half" title="" width="340">
+              <span class="flightPointDisable startPoint"></span>
+              <img src="img-no-min/flights/flight-on-time-disable.png" class="flight-on-time-half" title="" width="375">
             </div>
             <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
             </div>
@@ -48,7 +51,7 @@
             </p>
 
             <div class="row flightsDetails">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 rowLeft">
                 <table>
                   <tr>
                     <td>Departed</td>
@@ -56,7 +59,7 @@
                   </tr>
                 </table>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
                 <table>
                   <tr>
                     <td>Arrives</td>
@@ -78,7 +81,7 @@
                   </tr>
                 </table>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
                 <table>
                   <tr>
                     <td>Scheduled</td>
@@ -99,7 +102,7 @@
                   </tr>
                 </table>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
                 <table>
                   <tr>
                     <td>Terminal</td>
@@ -119,7 +122,7 @@
                   </tr>
                 </table>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
                 <table>
                   <tr>
                     <td>Gate</td>
@@ -135,3 +138,29 @@
   </li>
 
 </ul>
+<!--Weather UI -->
+<!--<ul class="resultList weather-result-list">
+    <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
+        <a class="pointer" ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })">
+        <div class="media">
+            <div class="media-left thumb-common thumb-weather">
+               <img class="media-object image-thumb-weather" src="img-no-min/weather/weather_sunny2x.png">
+           </div>
+            <div class="media-body">
+             <h4 class="media-heading pointer">103 <sup>&deg;F</sup></h4>
+             <div class="weather-heading">
+             	<span>Tuesday 2:00 PM</span>
+                <span>Cupertino</span>
+             </div>
+
+                <p>
+                    <span>Precipitation: 0%. Huminity: 49%. Wind: 13mph</span>
+                </p>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+</a>
+    </li>
+
+</ul>-->
