@@ -26,7 +26,7 @@
 
                     <form id="bigform">
                         <p class="search-icon p-src"><input pu-elastic-input  class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt"
-                                                                                                                  ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;"
+                                                                                                                  ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;" ng-change="searchOnRelcy()"
                                                                                                                   ng-keypress="$event.which === 13 && searchAll()">
                         </p>
 

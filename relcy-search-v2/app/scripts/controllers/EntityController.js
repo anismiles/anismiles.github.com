@@ -78,6 +78,10 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.keyDown = function(val)
     {
         //console.log(val + " " )
+        if(!$scope.suggestedSearch)
+        {
+          return;
+        }
         if( !(val === 40 || val === 38) )
         {
             clearInterval(intervalCounter);

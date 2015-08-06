@@ -16,7 +16,7 @@ angular.module('relcyApp')
         SearchController]);
 
 function SearchController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, $state,$cookies) {
-	
+
 	var loggedIn = $cookies.get('LoggedIn')
 if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
 }
@@ -96,14 +96,18 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
     $scope.selectedIndexOfSearchItem = -1;
     $scope.keyDown = function(val)
     {
-        //console.log(val + " " )
+        console.log(val + " " )
+        if(!$scope.suggestedSearch)
+        {
+          return;
+        }
         if( !(val === 40 || val === 38) )
         {
-            clearInterval(intervalCounter);
-            intervalCounter = setInterval(function(){
-                clearInterval(intervalCounter);
-                $scope.searchOnRelcy();
-            },100);
+            //clearInterval(intervalCounter);
+            //intervalCounter = setInterval(function(){
+            //    clearInterval(intervalCounter);
+            //    $scope.searchOnRelcy();
+            //},100);
             return;
         }
         if(val === 40)

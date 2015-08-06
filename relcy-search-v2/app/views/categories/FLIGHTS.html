@@ -11,11 +11,11 @@
         </div>
         <div class="media-body">
           <h4 class="media-heading" id="top-aligned-media">
-            {{result.entity_data.live_data.flight_data[0].airline_name}}<span>{{result.entity_data.live_data.flight_data[0].airline_code}} {{result.entity_data.live_data.flight_data[0].flight_number}}</span>
+            {{result.entity_data.live_data.flight_data[0].airline_name}}<span> {{result.entity_data.live_data.flight_data[0].airline_code}} {{result.entity_data.live_data.flight_data[0].flight_number}}</span>
           </h4>
 
           <p class="genre">
-            <span> Arrives in 3 hrs 23 mins. <span class="text-green">{{result.entity_data.live_data.flight_data[0].flight_status}}</span> </span>
+            <span><span class="text-green">{{result.entity_data.live_data.flight_data[0].flight_status}}</span></span>
           </p>
 
           <div class="flightStatus" ng-if="!result.entity_data.live_data.flight_data[0].flight_status == 'Landed' && !result.entity_data.live_data.flight_data[0].flight_status == 'Active'">
