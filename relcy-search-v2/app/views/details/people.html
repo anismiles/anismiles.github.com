@@ -30,7 +30,7 @@
         <div class="row">
             <div id="pageMiddle" class="pageMiddle">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
-                    <form id="bigform">
+                    <form id="bigform" ng-click="setFocusOnSearch()">
                       <p class="search-icon p-src"><input pu-elastic-input  class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt"
                                                           ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;" ng-change="searchOnRelcy()"
                                                           ng-keypress="$event.which === 13 && searchAll()">
@@ -199,7 +199,7 @@
                         <div class="detail_right">
 
                             <p>
-                                <span><a href=""><img src="img-no-min/upload.png" title="Upload"></a></span>
+                                <span><a class="pointer"><img src="img-no-min/upload.png" title="Upload"></a></span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem role="button"
                                         popover-placement="right" popover-template="''"
@@ -209,7 +209,7 @@
                             </p>
 
                             <p>
-                                <span><a href=""><img src="img-no-min/favorite.png" title="Favorite"></a></span>
+                                <span><a class="pointer"><img src="img-no-min/favorite.png" title="Favorite"></a></span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem role="button"
                                         popover-placement="right" popover-template="''"
@@ -219,7 +219,7 @@
                             </p>
 
                             <p>
-                                <span><a href="javascript:void();"
+                                <span><a class="pointer"
                                          ng-click="openCastLightbox(itemDetails.story,'STORY')">
                                     <img ng-src="{{ 'img-no-min/story.png' || 'img-no-min/placeholder.png' }}"
                                          title="Story"> </a>

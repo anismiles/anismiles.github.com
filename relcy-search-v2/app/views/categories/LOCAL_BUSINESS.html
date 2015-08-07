@@ -1,6 +1,6 @@
 <ul class="resultList local-result-list">
     <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
-        <a class="pointer" ui-sref="place({q:query, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL, dist:result.entity_data.local_data.location_info.display_distance })">
+        <a class="pointer" ui-sref="place({q:query, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].mediaURL, dist:result.entity_data.local_data.location_info.display_distance })">
             <div class="media">
             <div class="media-left thumb-common thumb-place pointer">
                     <img class="media-object image-thumb-place" src="{{result.image_info[0].mediaURL}}" ng-if="result.image_info[0].mediaURL">

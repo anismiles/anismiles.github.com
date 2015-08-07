@@ -29,7 +29,7 @@
         <div class="row">
             <div id="pageMiddle" class="pageMiddle">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
-                    <form id="bigform">
+                    <form id="bigform" ng-click="setFocusOnSearch()">
                       <p class="search-icon p-src"><input pu-elastic-input  class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt"
                                                           ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;" ng-change="searchOnRelcy()"
                                                           ng-keypress="$event.which === 13 && searchAll()">
@@ -198,7 +198,7 @@
                         <div class="detail_right">
 
                             <p>
-                                <span><a href=""><img src="img-no-min/upload.png" title="Upload"></a></span>
+                                <span><a class="pointer"><img src="img-no-min/upload.png" title="Upload"></a></span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem role="button"
                                         popover-placement="right" popover-template="''"
@@ -208,7 +208,7 @@
                             </p>
 
                             <p>
-                                <span><a href=""><img src="img-no-min/favorite.png" title="Favorite"></a></span>
+                                <span><a class="pointer"><img src="img-no-min/favorite.png" title="Favorite"></a></span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem role="button"
                                         popover-placement="right" popover-template="''"
@@ -218,7 +218,7 @@
                             </p>
 
                             <p>
-                                <span><a ng-href="{{itemDetails.menu[0].link_id}}" target="_blank">
+                                <span><a ng-href="{{itemDetails.menu[0].link_id}}" target="_blank" title="Menu">
                                     <img ng-src="{{ 'img-no-min/icons/Menu.png' || 'img-no-min/placeholder.png' }}"
                                          width="24" height="24" style="border-radius: 4px"/></a>
                                     </span>
@@ -229,8 +229,8 @@
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
-                            <p><span><a href="javascript:void();"
-                                        ng-click="openCastLightbox(itemDetails.hours,'HOURS')">
+                            <p><span><a class="pointer"
+                                        ng-click="openCastLightbox(itemDetails.hours,'HOURS')" title="Hours">
                                 <img ng-src="{{ 'img-no-min/icons/Hours.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"/></a>
                                 </span>
@@ -242,7 +242,7 @@
                                 </button>
                             </p>
 
-                            <p><span><a href="javascript:void();" ng-click="openCastLightbox(itemDetails.call,'CALL')">
+                            <p><span><a class="pointer" ng-click="openCastLightbox(itemDetails.call,'CALL')" title="Call">
                                 <img ng-src="{{ 'img-no-min/icons/Call.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"/></a>
                             </span>
@@ -256,9 +256,9 @@
 
                         </div>
                         <div class="detail_left">
-                            <p class="pull-left mr-r-20" >
-                                <span ng-repeat="r in itemDetails.displayRating">
-                                <span ng-if="r.rating_style=='STAR'">
+                            <p class="rating pull-left" style="margin: 10px 0 0 0;">
+                                <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">
+                                <span ng-if="r.rating_style=='STAR'" style="margin: 0 5px 0 0;">
                                 <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/5
                                 </span>
@@ -303,7 +303,7 @@
                             <p class="genre" style="margin:0 0 5px"><span ng-if="itemDetails.category">{{::itemDetails.category}}</span>
                                 <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span> <span
                                         ng-if="itemDetails.openStatus" style="color:#8cbe29">{{::itemDetails.openStatus}}</span>
-                            </p>
+
 
                             <button ng-if="showEdit"
                                     class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 0px"
@@ -311,7 +311,7 @@
                                     popover-placement="right" popover-template="'address-cat-open.html'"
                                     popover-title="Place Detail">
                                 <i class="glyphicon glyphicon-pencil"></i>
-                            </button>
+                            </button></p>
                         </div>
                         <!-- deatail left end-->
 
