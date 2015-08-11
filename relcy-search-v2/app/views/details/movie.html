@@ -199,8 +199,8 @@
                         <div class="detail_right">
 
                             <p>
-                                <span><a class="pointer"><img src="img-no-min/upload.png" title="Upload"></a></span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                <span class="nobg"><a class="pointer"><img src="img-no-min/upload.png" title="Upload"></a></span>
+                                <button ng-if="showEdit" ng-hide="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem role="button"
                                         popover-placement="right" popover-template="''"
                                         popover-title="Upload">
@@ -209,8 +209,8 @@
                             </p>
 
                             <p>
-                                <span><a class="pointer"><img src="img-no-min/favorite.png" title="Favorite"></a></span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                <span class="nobg"><a class="pointer"><img src="img-no-min/favorite.png" title="Favorite"></a></span>
+                                <button ng-if="showEdit" ng-hide="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem role="button"
                                         popover-placement="right" popover-template="''"
                                         popover-title="Favorite">
@@ -231,11 +231,11 @@
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
-                            <p><span><a class="pointer" ng-click="openCastLightbox(itemDetails.cast,'CAST')">
+                            <p><span class="nobg"><a class="pointer" ng-click="openCastLightbox(itemDetails.cast,'CAST')">
                                 <img ng-src="{{ 'img-no-min/cast.png' || 'img-no-min/placeholder.png' }}" title="Cast">
                             </a>
                                 </span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                <button ng-if="showEdit" ng-hide="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-cast.html'"
                                         popover-title="Cast">
@@ -243,8 +243,8 @@
                                 </button>
                             </p>
                             <p>
-                                <span><a class="pointer"><img src="img-no-min/rec.png" title="REC"></a></span>
-                                <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                <span class="nobg"><a class="pointer"><img src="img-no-min/rec.png" title="REC"></a></span>
+                                <button ng-if="showEdit" ng-hide="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
                                         type="button" popover-elem
                                         popover-placement="right" popover-template="'movie-rec.html'"
                                         popover-title="Rec">
@@ -268,27 +268,27 @@
                         </div>
                         <div class="detail_left">
                             <p class="rating pull-left" style="margin: 10px 0 0 0;">
-                                <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">
-                                <span ng-if="r.rating_style=='PERCENTAGE'" style="margin: 0 5px 0 0;">
+                                <span ng-repeat="r in itemDetails.displayRating" class="nobg">
+                                <span ng-if="r.rating_style=='PERCENTAGE'" style="margin: 0 5px 0 0;"  class="nobg">
                                 <img
                                         ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                         width="24" height="24"
                                         style="border-radius: 4px"> <!--{{::r.source}}:--> &nbsp; {{::r.rating}}%
                                 </span>
-                                    <span ng-if="r.rating_style=='STAR' && r.max_rating=='5'" style="margin: 0 5px 0 0;">
+                                    <span ng-if="r.rating_style=='STAR' && r.max_rating=='5'" style="margin: 0 5px 0 0;"  class="nobg">
                                 <img
                                         ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                         width="24" height="24"
                                         style="border-radius: 4px"> <!--{{::r.source}}: --> &nbsp; {{::r.rating}}/5
                                 </span>
-                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'" style="margin: 0 5px 0 0;">
+                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'" style="margin: 0 5px 0 0;"  class="nobg">
                                 <img
                                         ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                         width="24" height="24"
                                         style="border-radius: 4px"> <!--{{::r.source}}: --> &nbsp; {{::r.rating}}/10
                                 </span>
                                 <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'"
-                                      style="margin: 0 5px 0 0;">
+                                      style="margin: 0 5px 0 0;"  class="nobg">
                                 <img
                                         ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                         width="24" height="24"
@@ -296,7 +296,7 @@
                                 </span>
                                     </span>
 
-                                <button ng-if="showEdit && itemDetails.displayRating"
+                                <button ng-if="showEdit && itemDetails.displayRating" ng-hide="showEdit"
                                         class="btn btn-sm btn-default btn-edit" style="margin:-6px 0px 0px 0px;"
                                         popover-elem
                                         popover-placement="right" popover-template="'movie-rating.html'"
@@ -319,11 +319,27 @@
 
                             <p class="genre" style="margin: 0;">
                                 <span ng-if="itemDetails.parentalRating">{{::itemDetails.parentalRating}}</span>
+                              <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit"
+                                      style="margin:-6px 0px 0px 1px;"
+                                      aria-hidden="true"
+                                      type="button" popover-elem
+                                      popover-placement="right" popover-template="'movie-parentalRating.html'"
+                                      popover-title="Movie Details">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                              </button>
                                 <span ng-if="!itemDetails.parentalRating">Unrated</span>
                                 <span ng-if="itemDetails.parentalRating && itemDetails.releaseYear"
                                       class="nobg">.</span>
 
                                 <span ng-if="itemDetails.releaseYear">{{::itemDetails.releaseYear}} </span>
+                              <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit"
+                                      style="margin:-6px 0px 0px 1px;"
+                                      aria-hidden="true"
+                                      type="button" popover-elem
+                                      popover-placement="right" popover-template="'movie-releaseYear.html'"
+                                      popover-title="Movie Details">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                              </button>
                                 <span ng-if="!itemDetails.releaseYear">-</span>
                                 <span ng-if="itemDetails.releaseYear && itemDetails.duration" class="nobg">.</span>
 
@@ -333,7 +349,7 @@
                                         style="margin:-6px 0px 0px 1px;"
                                         aria-hidden="true"
                                         type="button" popover-elem
-                                        popover-placement="right" popover-template="'movie-detail.html'"
+                                        popover-placement="right" popover-template="'movie-duration.html'"
                                         popover-title="Movie Details">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
@@ -416,8 +432,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-click="gotoLink(w.link_id)" ng-repeat="w in itemDetails.watches"
-                                        class="pointer">
+                                    <tr ng-if="!showEdit" ng-click="gotoLink(w.link_id)"  class="pointer" ng-repeat="w in itemDetails.watches">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (w.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                                 title="">
@@ -428,6 +443,26 @@
                                         </td>
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+                                    <tr ng-if="showEdit"  class="pointer" ng-repeat="w in itemDetails.watches">
+                                      <td class="td-title" width="30px"><img
+                                        ng-src="{{ 'img-no-min/icons/' + (w.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                        title="">
+                                      </td>
+                                      <td class="td-title">
+                                        <span> {{::w.app_result.result_data.title}}</span>
+                                        <span class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</span>
+                                        <button  class="btn btn-sm btn-default btn-edit"
+                                                style="margin:0; height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedWatchIndex=$index"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-watchLink.html'"
+                                                popover-title="Movie Details">
+                                          <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                      </td>
+                                      <td class="" width="30px"><span
+                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
                                     <!--<tr class="pointer">-->
                                     <!--<td class="td-title" width="30px">More</td>-->
@@ -508,7 +543,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-click="gotoLink(s.link_id)" ng-repeat="s in itemDetails.reviewsAndMore"
+                                    <tr ng-click="gotoLink(s.link_id)" ng-repeat="s in itemDetails.social"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (s.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -538,7 +573,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviewsAndMore"
+                                    <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.rent"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -841,24 +876,69 @@
         </form>
     </div>
 </script>
-<script type="text/ng-template" id="movie-detail.html">
+
+
+<script type="text/ng-template" id="movie-watchLink.html">
+  <div>
+    <form novalidate name="detailsform">
+      <div class="form-group">
+        <input type="text" ng-model="EditData.watches[selectedWatchIndex].link_id" required class="form-control"
+               name="detailsform.parentalRating">
+      </div>
+      <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
+              ng-click="editWatchLink()">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+    </form>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="movie-parentalRating.html">
     <div>
         <form novalidate name="detailsform">
             <div class="form-group">
                 <input type="text" ng-model="EditData.parentalRating" required class="form-control"
                        name="detailsform.parentalRating">
-                <input type="text" ng-model="EditData.releaseYear" numbers-only required class="form-control"
-                       name="detailsform.releaseYear">
-                <input type="text" ng-model="EditData.duration" numbers-only required class="form-control"
-                       name="detailsform.duration">
             </div>
             <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
-                    ng-click="editRatingYearLength()">
+                    ng-click="editRating()">
                 Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
     </div>
+</script>
+<script type="text/ng-template" id="movie-releaseYear.html">
+  <div>
+    <form novalidate name="detailsform">
+      <div class="form-group">
+        <input type="text" ng-model="EditData.releaseYear" numbers-only required class="form-control"
+               name="detailsform.releaseYear">
+      </div>
+      <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
+              ng-click="editYear()">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+    </form>
+  </div>
+</script>
+<script type="text/ng-template" id="movie-duration.html">
+  <div>
+    <form novalidate name="detailsform">
+      <div class="form-group">
+        <input type="text" ng-model="EditData.duration" numbers-only required class="form-control"
+               name="detailsform.duration">
+      </div>
+      <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
+              ng-click="editLength()">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+    </form>
+  </div>
 </script>
 <script type="text/ng-template" id="movie-genre.html">
     <div>

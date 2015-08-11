@@ -262,7 +262,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
       category: $scope.itemDetails.category === undefined ? '' : $scope.itemDetails.category,
       placeDistance: $scope.placeDistance === undefined ? '' : $scope.placeDistance,
       priceRange: $scope.itemDetails.priceRange === undefined ? '' : $scope.itemDetails.priceRange,
-      openStatus: $scope.itemDetails.openStatus === undefined ? '' : $scope.itemDetails.openStatus
+      openStatus: $scope.itemDetails.openStatus === undefined ? '' : $scope.itemDetails.openStatus,
+      watches: $scope.itemDetails.watches
     };
 
     $scope.newData = {
@@ -293,11 +294,26 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   };
 
   //end
+
+  $scope.selectedWatchIndex = -1;
+
+
   $scope.hidePopover = function () {
     var popover = document.getElementsByClassName('popover');
     $(popover).remove()
   };
   //
+
+  $scope.editWatchLink = function () {
+    $scope.newData['newValue'] = $scope.EditData.watches[$scope.selectedWatchIndex].link_id;
+    var newValue = $scope.newData;
+    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
+    //    //console.log("**********************************  " + response)
+    //}, function(error){
+    //    // error
+    //});
+    $scope.hidePopover()
+  };
 
   $scope.editAddressCatOpen = function () {
     $scope.newData['newValue'] = $scope.EditData.display_address;
@@ -383,39 +399,46 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.hidePopover()
   };
   //
-  $scope.ratingYearLengthCount = 0;
-  $scope.editRatingYearLength = function () {
-    $scope.ratingYearLengthCount = 0;
+
+  $scope.editRating = function () {
+
     $scope.newData['newValue'] = $scope.EditData.parentalRating;
     var newValue = $scope.newData;
     EntityService.ratingOverride({
       movieName: $scope.itemDetails.title,
       serviceName: 'movies'
     }, newValue, function (response, responseHeaders) {
-      $scope.ratingYearLengthCount++;
-      console.log(">-->> " + $scope.ratingYearLengthCount)
+
     }, function (error) {
       // error
     });
+    $scope.hidePopover()
+  };
+
+
+  $scope.editYear = function () {
     $scope.newData['newValue'] = $scope.EditData.releaseYear;
     var newValue = $scope.newData;
     EntityService.yearOverride({
       movieName: $scope.itemDetails.title,
       serviceName: 'movies'
     }, newValue, function (response, responseHeaders) {
-      $scope.ratingYearLengthCount++;
-      console.log(">-->> " + $scope.ratingYearLengthCount)
+
     }, function (error) {
       // error
     });
+  $scope.hidePopover()
+};
+
+
+  $scope.editLength = function () {
     $scope.newData['newValue'] = $scope.EditData.duration;
     var newValue = $scope.newData;
     EntityService.lengthOverride({
       movieName: $scope.itemDetails.title,
       serviceName: 'movies'
     }, newValue, function (response, responseHeaders) {
-      $scope.ratingYearLengthCount++;
-      console.log(">-->> " + $scope.ratingYearLengthCount)
+
     }, function (error) {
       // error
     });
