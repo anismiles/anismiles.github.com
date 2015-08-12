@@ -157,7 +157,8 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
     $scope.searchOnclick = function(str){
         $scope.searchTxt = str;
         SearchService.searchTxt = str;
-        $location.search('q', str);
+        //$location.search('q', str);
+        $location.path('search').search({q: str});
     }
 
     $scope.searchOnRelcy = function () {

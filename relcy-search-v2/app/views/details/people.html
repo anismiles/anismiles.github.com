@@ -334,7 +334,21 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-click="gotoLink(p.link_id)" ng-repeat="p in itemDetails.profiles"
+                                    <tr ng-if="!showEdit" ng-click="gotoLink(p.link_id)" ng-repeat="p in itemDetails.profiles"
+                                        class="pointer">
+                                      <td class="td-title" width="30px"><img
+                                        ng-src="{{ 'img-no-min/icons/' + (p.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                        title="">
+                                      </td>
+                                      <td class="td-title">
+                                        <span> {{::p.app_result.result_data.title}}</span>
+                                        <span class="td-detail td-lineheight">{{::p.app_result.result_data.sub_title}}</span>
+
+                                      </td>
+                                      <td class="" width="30px"><span
+                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+                                    <tr ng-if="showEdit" ng-repeat="p in itemDetails.profiles"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (p.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -343,6 +357,14 @@
                                         <td class="td-title">
                                             <span> {{::p.app_result.result_data.title}}</span>
                                             <span class="td-detail td-lineheight">{{::p.app_result.result_data.sub_title}}</span>
+                                          <button  class="btn btn-sm btn-default btn-edit"
+                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Profiles',title:p.app_result.result_data.title,app_id:p.app_result.app.app_id,link_id:p.link_id};"
+                                                   type="button" popover-elem
+                                                   popover-placement="right" popover-template="'movie-actionitem.html'"
+                                                   popover-title="Profiles">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                          </button>
                                         </td>
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
@@ -365,7 +387,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-click="gotoLink(b.link_id)" ng-repeat="b in itemDetails.blog"
+                                    <tr ng-if="!showEdit" ng-click="gotoLink(b.link_id)" ng-repeat="b in itemDetails.blog"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (b.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -374,9 +396,31 @@
                                         <td class="td-title">
                                             <span> {{::b.app_result.result_data.title}}</span>
                                             <span class="td-detail td-lineheight">{{::b.app_result.result_data.sub_title}}</span>
+
                                         </td>
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+                                    <tr ng-if="showEdit" ng-repeat="b in itemDetails.blog"
+                                    class="pointer">
+                                    <td class="td-title" width="30px"><img
+                                      ng-src="{{ 'img-no-min/icons/' + (b.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                      title="">
+                                    </td>
+                                    <td class="td-title">
+                                      <span> {{::b.app_result.result_data.title}}</span>
+                                      <span class="td-detail td-lineheight">{{::b.app_result.result_data.sub_title}}</span>
+                                      <button  class="btn btn-sm btn-default btn-edit"
+                                               style="margin:0; height:24px; font-size: 10px;"
+                                               aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Blog',title:b.app_result.result_data.title,app_id:b.app_result.app.app_id,link_id:b.link_id};"
+                                               type="button" popover-elem
+                                               popover-placement="right" popover-template="'movie-actionitem.html'"
+                                               popover-title="Blog">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                      </button>
+                                    </td>
+                                    <td class="" width="30px"><span
+                                      class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
                                     <!--<tr class="pointer">-->
                                     <!--<td class="td-title" width="30px">More</td>-->
@@ -396,7 +440,21 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-click="gotoLink(i.link_id)" ng-repeat="i in itemDetails.infos"
+                                    <tr ng-if="!showEdit" ng-click="gotoLink(i.link_id)" ng-repeat="i in itemDetails.infos"
+                                        class="pointer">
+                                      <td class="td-title" width="30px"><img
+                                        ng-src="{{ 'img-no-min/icons/' + (i.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                        title="">
+                                      </td>
+                                      <td class="td-title">
+                                        <span> {{::i.app_result.result_data.title}}</span>
+                                        <span class="td-detail td-lineheight">{{::i.app_result.result_data.sub_title}}</span>
+
+                                      </td>
+                                      <td class="" width="30px"><span
+                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+                                    <tr ng-if="showEdit" ng-repeat="i in itemDetails.infos"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (i.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -405,6 +463,14 @@
                                         <td class="td-title">
                                             <span> {{::i.app_result.result_data.title}}</span>
                                             <span class="td-detail td-lineheight">{{::i.app_result.result_data.sub_title}}</span>
+                                          <button  class="btn btn-sm btn-default btn-edit"
+                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Info',title:i.app_result.result_data.title,app_id:i.app_result.app.app_id,link_id:i.link_id};"
+                                                   type="button" popover-elem
+                                                   popover-placement="right" popover-template="'movie-actionitem.html'"
+                                                   popover-title="Info">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                          </button>
                                         </td>
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
@@ -427,7 +493,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviews"
+                                    <tr ng-if="!showEdit" ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviews"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -436,9 +502,31 @@
                                         <td class="td-title">
                                             <span> {{::r.app_result.result_data.title}}</span>
                                             <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
+
                                         </td>
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+                                    <tr ng-if="showEdit" ng-repeat="r in itemDetails.reviews"
+                                        class="pointer">
+                                      <td class="td-title" width="30px"><img
+                                        ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                        title="">
+                                      </td>
+                                      <td class="td-title">
+                                        <span> {{::r.app_result.result_data.title}}</span>
+                                        <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
+                                        <button  class="btn btn-sm btn-default btn-edit"
+                                                 style="margin:0; height:24px; font-size: 10px;"
+                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Reviews & Info',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
+                                                 type="button" popover-elem
+                                                 popover-placement="right" popover-template="'movie-actionitem.html'"
+                                                 popover-title="Reviews & Info">
+                                          <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                      </td>
+                                      <td class="" width="30px"><span
+                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
                                     <!--<tr class="pointer">-->
                                     <!--<td class="td-title" width="30px">More</td>-->
@@ -517,6 +605,82 @@
                                 </div>
                             </div>
                         </div>
+                      <!-- News -->
+                      <div ng-if="itemDetails.newsResults.length>0" id="details_web">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title" id="{{cat.key}}">News</h3>
+                          </div>
+                          <div class="panel-body">
+                            <ul class="resultList news-result-list">
+                              <li ng-repeat="news in itemDetails.newsResults  | limitTo: itemDetails.newsResults.maxIndex">
+                                <a href="{{news.clickUrl}}" target="_blank">
+                                  <div class="media">
+                                    <div class="media-left thumb-common thumb-news" ng-if="news.imageContentUrl">
+                                      <img class="media-object image-thumb-news" src="{{news.imageContentUrl}}">
+                                    </div>
+                                    <div class="media-body">
+                                      <h4 class="media-heading" id="top-aligned-media">
+                                        {{news.title}}
+                                      </h4>
+                                      <p>{{news.displayUrl}}</p>
+                                      <p class="timestamp"><span>{{news.publishedTime}}</span></p>
+                                      <p><span>{{news.description}}</span></p>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                </a>
+                              </li>
+                            </ul>
+
+                            <div class="panelList pd-lr-15"><a
+                              ng-if="itemDetails.newsResults.maxIndex < itemDetails.newsResults.length"
+                              ng-click="itemDetails.newsResults.maxIndex=itemDetails.newsResults.maxIndex+4"
+                              href="javascript:void(0)" class="ng-scope">More News<span
+                              aria-hidden="true"
+                              class="glyphicon glyphicon-menu-right pull-right more-icon"></span></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- social -->
+                      <div ng-if="itemDetails.socialActvity.length>0" id="details_social">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title" id="{{cat.key}}">Social Activities</h3>
+                          </div>
+                          <div class="panel-body">
+                            <ul class="resultList news-result-list">
+                              <li ng-repeat="social in itemDetails.socialActvity  | limitTo: itemDetails.socialActvity.maxIndex">
+                                <a href="{{social.url}}" target="_blank">
+                                  <div class="media">
+                                    <div class="media-left thumb-common thumb-news" ng-if="social.result_data.image_url">
+                                      <img class="media-object image-thumb-news" src="{{social.result_data.image_url}}">
+                                    </div>
+                                    <div class="media-body">
+                                      <h4 class="media-heading" id="top-aligned-media">
+                                        <img class="web-src-img" src='http://www.google.com/s2/favicons?domain={{social.url}}' /> {{social.result_data.title}}
+                                      </h4>
+                                      <!--<p>{{news.displayUrl}}</p>-->
+                                      <p class="timestamp"><span>{{social.result_data.annotation}}</span></p>
+                                      <p><span>{{social.result_data.sub_title}}</span></p>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                </a>
+                              </li>
+                            </ul>
+
+                            <div class="panelList pd-lr-15"><a
+                              ng-if="itemDetails.socialActvity.maxIndex < itemDetails.socialActvity.length"
+                              ng-click="itemDetails.socialActvity.maxIndex=itemDetails.socialActvity.maxIndex+4"
+                              href="javascript:void(0)" class="ng-scope">More Social Activities<span
+                              aria-hidden="true"
+                              class="glyphicon glyphicon-menu-right pull-right more-icon"></span></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                         <!-- Web-->
                         <div ng-if="itemDetails.webResults.length>0" id="details_web">
                             <div class="panel panel-default">
@@ -554,7 +718,41 @@
                                 </div>
                             </div>
                         </div>
+                      <!-- similar entity -->
+                      <div ng-if="itemDetails.similarEntity.length>0" id="details_similar">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title" id="{{cat.key}}">Similar Celebrity</h3>
+                          </div>
+                          <div class="panel-body">
+                            <ul class="resultList news-result-list">
+                              <li ng-repeat="similar in itemDetails.similarEntity  | limitTo: itemDetails.similarEntity.maxIndex">
+                                <a   ng-click="searchOnclick(similar.title)" target="_blank">
+                                  <div class="media">
+                                    <div class="media-left thumb-common thumb-news" ng-if="similar.image_info.mediaURL">
+                                      <img class="media-object image-thumb-news" src="{{similar.image_info.mediaURL}}">
+                                    </div>
+                                    <div class="media-body">
+                                      <h4 class="media-heading" id="top-aligned-media">
+                                        {{similar.title}}
+                                      </h4>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                </a>
+                              </li>
+                            </ul>
 
+                            <div class="panelList pd-lr-15"><a
+                              ng-if="itemDetails.similarEntity.maxIndex < itemDetails.similarEntity.length"
+                              ng-click="itemDetails.similarEntity.maxIndex=itemDetails.similarEntity.maxIndex+4"
+                              href="javascript:void(0)" class="ng-scope">More Social Activities<span
+                              aria-hidden="true"
+                              class="glyphicon glyphicon-menu-right pull-right more-icon"></span></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                         <!-- Releated search -->
 
                         <div ng-if="itemDetails.relatedSearches.length>0">
@@ -599,7 +797,21 @@
 
     </div>
 </div>
-
+<script type="text/ng-template" id="movie-actionitem.html">
+  <div>
+    <form novalidate name="detailsform">
+      <div class="form-group">
+        <input type="text" ng-model="selectedAction.link_id" required class="form-control"
+               name="detailsform.parentalRating">
+      </div>
+      <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
+              ng-click="editAction(selectedAction)">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+    </form>
+  </div>
+</script>
 <script type="text/ng-template" id="movie-title.html">
     <div>
         <form novalidate name="titleform">

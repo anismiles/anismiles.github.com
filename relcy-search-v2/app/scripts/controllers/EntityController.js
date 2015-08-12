@@ -12,10 +12,11 @@ angular.module('relcyApp')
     'anchorSmoothScroll',
     'Lightbox',
     'EntityService',
+    '$state',
     EntityController]);
 
 
-function EntityController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, EntityService) {
+function EntityController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, EntityService,$state) {
   console.log('stateParams: ' + $stateParams.entity);
   console.log('stateParams: ' + $stateParams.cipher);
   console.log('stateParams: ' + $stateParams.cType);
@@ -35,15 +36,23 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   $scope.maxShowSerachRecord = {max: 100, increment: 100};
 
   if (SearchService.searchTxt) {
-    $scope.searchTxt = SearchService.searchTxt;
-    if ($scope.searchTxt) {
+    if(SearchService.searchTxt === $stateParams.q)
+    {
+      $scope.searchTxt = SearchService.searchTxt;
       $("#pageMiddle").css({'margin-top': '0%'});
+      $("#container").addClass("body");
+    }
+    else{
+      $scope.searchTxt = $stateParams.q;
+      $("#pageMiddle").css({'margin-top': '0%'});
+      $("#container").addClass("body");
     }
   }
   else {
     if ($stateParams.q) {
       $scope.searchTxt = $stateParams.q;
       $("#pageMiddle").css({'margin-top': '0%'});
+      $("#container").addClass("body");
     }
   }
 
@@ -60,7 +69,9 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   $scope.searchOnclick = function (str) {
     $scope.searchTxt = str;
     SearchService.searchTxt = str;
-    $location.search('q', str);
+    //$location.search('q', str);
+    $location.path('search').search({q: str});
+
   };
 
   $scope.setFocusOnSearch = function () {
@@ -71,24 +82,28 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   var intervalCounter = -1;
   $scope.selectedIndexOfSearchItem = -1;
   $scope.keyDown = function (val) {
-    //console.log(val + " " )
-    if (!$scope.suggestedSearch) {
+    console.log(val + " " )
+    if(!$scope.suggestedSearch)
+    {
       return;
     }
-    if (!(val === 40 || val === 38)) {
-      clearInterval(intervalCounter);
-      intervalCounter = setInterval(function () {
-        clearInterval(intervalCounter);
-        $scope.searchOnRelcy();
-      }, 350);
+    if( !(val === 40 || val === 38) )
+    {
+      //clearInterval(intervalCounter);
+      //intervalCounter = setInterval(function(){
+      //    clearInterval(intervalCounter);
+      //    $scope.searchOnRelcy();
+      //},100);
       return;
     }
-    if (val === 40) {
+    if(val === 40)
+    {
       $scope.selectedIndexOfSearchItem++;
       //down
       //console.log(">--->> Down " + val)
     }
-    else if (val === 38) {
+    else if(val === 38)
+    {
       $scope.selectedIndexOfSearchItem--;
       // up
       //console.log(">--->> Up " + val)
@@ -96,27 +111,23 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
     var max = $scope.maxShowSerachRecord.max <= $scope.searchResultsOfRelcy.length ? $scope.maxShowSerachRecord.max : $scope.searchResultsOfRelcy.length
 
-    if ($scope.selectedIndexOfSearchItem <= -1) {
-      $scope.selectedIndexOfSearchItem = max - 1;
+    if($scope.selectedIndexOfSearchItem <= -1)
+    {
+      $scope.selectedIndexOfSearchItem = max-1;
     }
-    if ($scope.selectedIndexOfSearchItem >= max) {
+    if($scope.selectedIndexOfSearchItem >= max)
+    {
       $scope.selectedIndexOfSearchItem = 0;
     }
-    console.log(">--->> index " + $scope.selectedIndexOfSearchItem + " = " + max);
+    console.log(">--->> index " + $scope.selectedIndexOfSearchItem + " = " + max)
 
-    var tmpList = angular.element(document.getElementById('serachResultList')).find('li');
-    $(tmpList).removeClass('activeList');
-    var t = tmpList[$scope.selectedIndexOfSearchItem];
-    $(t).addClass('activeList');
-    $scope.searchTxt = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem].title;
+    var tmpList = angular.element(document.getElementById('serachResultList')).find('li')
+    $(tmpList).removeClass('activeList')
+    var t = tmpList[$scope.selectedIndexOfSearchItem]
+    $(t).addClass('activeList')
+    $scope.searchTxt = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem].title
     SearchService.searchTxt = $scope.searchTxt;
 
-  };
-
-  $scope.searchOnclick = function (str) {
-    $scope.searchTxt = str;
-    SearchService.searchTxt = str;
-    $location.search('q', str);
   };
 
   var temp_Interval;
@@ -168,28 +179,66 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   };
 
   $scope.searchAll = function () {
-    if ($scope.selectedIndexOfSearchItem !== -1) {
-      var item = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem];
-      if (!item.entity_id && !item.lookIds) {
-        $location.search('q', item.title);
-        return;
+    if($scope.selectedIndexOfSearchItem !== -1)
+    {
+      var detailPage = '';
+      var item = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem]
+      //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
+      try{
+        switch (item.content_type_enum) {
+          case 'ENTERTAINMENT_VIDEO_MOVIE':
+          case 'ENTERTAINMENT_VIDEO_TVSHOW':
+            detailPage = 'detail';
+            break;
+          case 'PERSON':
+            detailPage = 'people';
+            break;
+          case 'PERSON_CELEBRITY':
+            detailPage = 'celebrity';
+            break;
+          case 'LOCAL_BUSINESS':
+            detailPage = 'place';
+            break;
+          default:
+            detailPage = '';
+            window.open(item.redirect_url,"_blank")
+            break;
+        }
+      }catch(err){
+        return false;
       }
 
-      $location.path('detail').search({
-        q: item.title,
-        cType: item.content_type_enum,
-        entity: item.lookIds[0],
-        cipher: item.entity_id,
-        img: item.image
-      });
+
+      if(detailPage != '') {
+        if (!item.entity_id && !item.lookIds) {
+          $location.search('q', item.title);
+          return;
+        }
+        $location.path(detailPage).search({
+          q: item.title,
+          cType: item.content_type_enum,
+          entity: item.lookIds[0],
+          cipher: item.entity_id,
+          img: item.image
+        });
+      }
 
       return;
     }
+    //$("#bigform").addClass("big-form-no-bdr-btm ");
+    //$scope.suggestedSearch = false;
+    //$scope.providedBy = false;
+   // $scope.search($scope.query)
 
     $scope.suggestedSearch = false;
     if (!$scope.searchTxt) return;
     $location.path('search').search({q: $scope.searchTxt});
     $rootScope.hideLoader = false;
+
+    //$scope.suggestedSearch = false;
+    //if (!$scope.searchTxt) return;
+    //$location.path('search').search({q: $scope.searchTxt});
+    //$rootScope.hideLoader = false;
     //$location.path('search').search({q: $scope.query});
     //$state.go('/search?q='+$scope.query)
 
@@ -199,19 +248,44 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   $scope.selectResult = function (item) {
 
     SearchService.searchTxt = item.title;
+    var detailPage = '';
     //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
-    if (!item.entity_id && !item.lookIds) {
-      $location.search('q', item.title);
-      return;
+    try{
+      switch (item.content_type_enum) {
+        case 'ENTERTAINMENT_VIDEO_MOVIE':
+        case 'ENTERTAINMENT_VIDEO_TVSHOW':
+          detailPage = 'detail';
+          break;
+        case 'PERSON':
+          detailPage = 'people';
+          break;
+        case 'PERSON_CELEBRITY':
+          detailPage = 'celebrity';
+          break;
+        case 'LOCAL_BUSINESS':
+          detailPage = 'place';
+          break;
+        default:
+          detailPage = '';
+          window.open(item.redirect_url,"_blank")
+          break;
+      }
+    }catch(err){
+      return false;
     }
-
-    $location.path('detail').search({
-      q: item.title,
-      cType: item.content_type_enum,
-      entity: item.lookIds[0],
-      cipher: item.entity_id,
-      img: item.image
-    });
+    if(detailPage != '') {
+      if (!item.entity_id && !item.lookIds) {
+        $location.search('q', item.title);
+        return;
+      }
+      $location.path(detailPage).search({
+        q: item.title,
+        cType: item.content_type_enum,
+        entity: item.lookIds[0],
+        cipher: item.entity_id,
+        img: item.image
+      });
+    }
   };
 
   /* DT: templateType is used to identify which edit template will load */
@@ -295,8 +369,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
   //end
 
-  $scope.selectedWatchIndex = -1;
-
+  $scope.selectedAction = {index:-1,type:'',title:'',app_id:'',link_id:''};
 
   $scope.hidePopover = function () {
     var popover = document.getElementsByClassName('popover');
@@ -304,69 +377,76 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   };
   //
 
-  $scope.editWatchLink = function () {
-    $scope.newData['newValue'] = $scope.EditData.watches[$scope.selectedWatchIndex].link_id;
-    var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
-    //}, function(error){
-    //    // error
-    //});
+  $scope.editAction = function (actiomItem) {
+    $scope.newData['newValue'] = actiomItem.link_id;
+    var tmpObj = angular.copy($scope.newData);
+    tmpObj.action = actiomItem.app_id;
+    var serviceName = '';
+    var newValue = tmpObj;
+    switch ($stateParams.cType) {
+      case 'ENTERTAINMENT_VIDEO_MOVIE':
+      case 'ENTERTAINMENT_VIDEO_TVSHOW':
+      case 'ENTERTAINMENT_AUDIO':
+        serviceName = 'entertainment';
+        break;
+      case 'PERSON':
+        serviceName = 'people';
+        break;
+      case 'PERSON_CELEBRITY':
+        serviceName = 'people';
+        break;
+      case 'CELEBRITY':
+        serviceName = 'people';
+        break;
+      case 'LOCAL_BUSINESS':
+        serviceName = 'places';
+        break;
+    }
+    EntityService.infoOverride({movieName: actiomItem.app_id,serviceName:serviceName},newValue, function(response,responseHeaders){
+        //console.log("**********************************  " + response)
+    }, function(error){
+        // error
+    });
     $scope.hidePopover()
   };
-
-  $scope.editAddressCatOpen = function () {
+  //
+  $scope.editAddress = function (servicename) {
     $scope.newData['newValue'] = $scope.EditData.display_address;
     var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
+    if(!servicename)
+    {
+      servicename = "place"
+    }
+    //EntityService.workTitleOverride({movieName: $scope.itemDetails.title,serviceName:servicename},newValue, function(response,responseHeaders){
+    //  //console.log("**********************************  " + response)
     //}, function(error){
-    //    // error
-    //});
-    $scope.newData['newValue'] = $scope.EditData.category;
-    var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
-    //}, function(error){
-    //    // error
-    //});
-    $scope.newData['newValue'] = $scope.EditData.openStatus;
-    var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
-    //}, function(error){
-    //    // error
-    //});
-    $scope.newData['newValue'] = $scope.EditData.priceRange;
-    var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
-    //}, function(error){
-    //    // error
-    //});
-    $scope.newData['newValue'] = $scope.EditData.placeDistance;
-    var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
-    //}, function(error){
-    //    // error
+    //  // error
     //});
     $scope.hidePopover()
   };
-  $scope.editMenuLink = function () {
+  //
+  $scope.editMenu = function (servicename) {
     $scope.newData['newValue'] = $scope.EditData.menuLink;
     var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
+    if(!servicename)
+    {
+      servicename = "place"
+    }
+    //EntityService.workTitleOverride({movieName: $scope.itemDetails.title,serviceName:servicename},newValue, function(response,responseHeaders){
+    //  //console.log("**********************************  " + response)
     //}, function(error){
-    //    // error
+    //  // error
     //});
     $scope.hidePopover()
   };
   //
-  $scope.editCall = function () {
+  $scope.editCall = function (servicename) {
     $scope.newData['newValue'] = $scope.EditData.call;
     var newValue = $scope.newData;
+    if(!servicename)
+    {
+      servicename = "place"
+    }
     //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'place'},newValue, function(response,responseHeaders){
     //    //console.log("**********************************  " + response)
     //}, function(error){
@@ -375,23 +455,34 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.hidePopover()
   };
   //
-  $scope.editWorkTitle = function () {
+  $scope.editWorkTitle = function (servicename) {
     $scope.newData['newValue'] = $scope.EditData.workTitle;
     var newValue = $scope.newData;
-    //EntityService.titleOverride({movieName: $scope.itemDetails.title,serviceName:'celebrity'},newValue, function(response,responseHeaders){
-    //    //console.log("**********************************  " + response)
-    //}, function(error){
-    //    // error
-    //});
+    if(!servicename)
+    {
+      servicename = "people"
+    }
+    EntityService.workTitleOverride({movieName: $scope.itemDetails.title,serviceName:servicename},newValue, function(response,responseHeaders){
+        //console.log("**********************************  " + response)
+    }, function(error){
+        // error
+    });
     $scope.hidePopover()
   };
   //
-  $scope.editTitle = function () {
+  $scope.editTitle = function (servicename) {
     $scope.newData['newValue'] = $scope.EditData.title;
     var newValue = $scope.newData;
+
+    if(!servicename)
+    {
+      servicename = "entertainment"
+    }
+
+
     EntityService.titleOverride({
       movieName: $scope.itemDetails.title,
-      serviceName: 'movies'
+      serviceName: servicename
     }, newValue, function (response, responseHeaders) {
     }, function (error) {
       // error
@@ -406,7 +497,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     var newValue = $scope.newData;
     EntityService.ratingOverride({
       movieName: $scope.itemDetails.title,
-      serviceName: 'movies'
+      serviceName: 'entertainment'
     }, newValue, function (response, responseHeaders) {
 
     }, function (error) {
@@ -421,7 +512,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     var newValue = $scope.newData;
     EntityService.yearOverride({
       movieName: $scope.itemDetails.title,
-      serviceName: 'movies'
+      serviceName: 'entertainment'
     }, newValue, function (response, responseHeaders) {
 
     }, function (error) {
@@ -436,7 +527,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     var newValue = $scope.newData;
     EntityService.lengthOverride({
       movieName: $scope.itemDetails.title,
-      serviceName: 'movies'
+      serviceName: 'entertainment'
     }, newValue, function (response, responseHeaders) {
 
     }, function (error) {
@@ -449,7 +540,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     var newValue = $scope.newData;
     EntityService.genresOverride({
       movieName: $scope.itemDetails.title,
-      serviceName: 'movies'
+      serviceName: 'entertainment'
     }, newValue, function (response, responseHeaders) {
     }, function (error) {
       // error
@@ -485,7 +576,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     var newValue = $scope.newData;
     EntityService.bgImageOverride({
       movieName: $scope.itemDetails.title,
-      serviceName: 'movies'
+      serviceName: 'entertainment'
     }, newValue, function (response, responseHeaders) {
     }, function (error) {
       // error
@@ -497,7 +588,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     var newValue = $scope.newData;
     EntityService.heroImageOverride({
       movieName: $scope.itemDetails.title,
-      serviceName: 'movies'
+      serviceName: 'entertainment'
     }, newValue, function (response, responseHeaders) {
     }, function (error) {
       // error

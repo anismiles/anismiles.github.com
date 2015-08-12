@@ -35,6 +35,17 @@ function EntityService($timeout, $q, $http,$resource) {
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/title',
                 responseType: 'json'
             },
+            workTitleOverride: {
+                method: 'POST',
+                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/known-for',
+                responseType: 'json'
+              },
+
+            infoOverride: {
+              method: 'POST',
+              url: 'http://nedit-w.relcy.com/:serviceName/:movieName/info',
+              responseType: 'json'
+            },
             ratingOverride: {
                 method: 'POST',
                 url: 'http://nedit-w.relcy.com/:serviceName/:movieName/rating',

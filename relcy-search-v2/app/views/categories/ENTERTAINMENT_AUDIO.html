@@ -1,6 +1,6 @@
 <ul class="resultList audio-result-list">
     <li id="{{::cat.key+$index}}" ng-repeat="result in cat.values | limitTo: cat.maxIndex">
-        <a class="pointer" ui-sref="detail({q:query, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, artist: result.performer })">
+        <a class="pointer" ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, artist: result.performer })">
 
         <div class="media">
             <div class="media-left thumb-common thumb-song">
