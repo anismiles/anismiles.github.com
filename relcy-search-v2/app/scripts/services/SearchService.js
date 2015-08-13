@@ -81,8 +81,67 @@ angular.module('relcyApp')
       if (response) {
         var searchResults = response.verticalResult;
         if (searchResults) {
-
           transformedData.hideRSLinks = false;
+          for (var i = 0; i < response.verticalResult.length; i++) {
+            if (response.verticalResult[i].content_type_enum === "WEB_IMAGES") {
+              /*Extracting image search results*/
+              try {
+                transformedData.imageResults = response.verticalResult[i].imageSearchResult.imageSearchResults;
+                transformedData.imageResults.maxIndex = 6;
+                transformedData.categories.push({key: 'details_images', keyTitle: 'Images'});
+              } catch (err) {
+                console.log('no image results found');
+              }
+            }
+            else if (response.verticalResult[i].content_type_enum === "WEB_VIDEOS") {
+              /*Extracting video search results*/
+              try {
+                transformedData.videoResults = response.verticalResult[i].videoSearchResult.videoSearchResults;
+                transformedData.videoResults.maxIndex = 3;
+                transformedData.categories.push({key: 'details_videos', keyTitle: 'Videos'});
+              } catch (err) {
+                console.log('no video results found');
+              }
+            }
+            else if (response.verticalResult[i].content_type_enum === "WEB") {
+              try {
+                transformedData.webResults = response.verticalResult[i].webSearchResult.searchResults;
+                transformedData.webResults.maxIndex = 4;
+                transformedData.categories.push({key: 'details_web', keyTitle: 'Web'});
+              } catch (err) {
+                console.log('no web results found');
+              }
+            }
+            else if (response.verticalResult[i].content_type_enum === "WEB_NEWS") {
+              try {
+                transformedData.newsResults = response.verticalResult[i].newsSearchResult.newsSearchResults;
+                transformedData.newsResults.maxIndex = 4;
+                transformedData.categories.push({key: 'details_news', keyTitle: 'News'});
+              } catch (err) {
+                console.log('no news results found');
+              }
+            }
+            else if (response.verticalResult[i].content_type_enum === "WEB_PLACES") {
+              /*Extracting places search results*/
+              try {
+                transformedData.placesResults = response.verticalResult[i].placesSearchResult.placesSearchResult;
+                transformedData.placesResults.maxIndex = 5;
+                transformedData.categories.push({key: 'details_places', keyTitle: 'Places'});
+              } catch (err) {
+                console.log('no places results found');
+              }
+            }
+            else if (response.verticalResult[i].content_type_enum === "RELATED_SEARCHES") {
+              /*Extracting places search results*/
+              try {
+                transformedData.relatedSearches = response.verticalResult[i].relatedSearchesResult.relatedSearchResults;
+                transformedData.relatedSearches.maxIndex = 5;
+                transformedData.relatedSearches.incrementBy = 5;
+              } catch (err) {
+                console.log('no RELATED_SEARCHES found');
+              }
+            }
+          }
           if (response.verticalResult[0].content_type_enum == "LOCAL_BUSINESS") {
 
             try {
@@ -98,7 +157,7 @@ angular.module('relcyApp')
               transformedData.socialActvity.maxIndex = 5;
               transformedData.socialActvity.incrementBy = 5;
               transformedData.categories.push({key: 'details_social', keyTitle: 'Social Activities'});
-            }catch (err) {
+            } catch (err) {
               console.log('socialActvity not available');
             }
             try {
@@ -108,7 +167,7 @@ angular.module('relcyApp')
 
               transformedData.categories.push({key: 'details_similar', keyTitle: 'Similar Places'});
 
-            }catch (err) {
+            } catch (err) {
               console.log('similarEntity not available');
             }
 
@@ -203,39 +262,34 @@ angular.module('relcyApp')
               // lowercaseRating(transformedData.displayRating);
               transformedData.categories.push({key: 'details_movies', keyTitle: keyTitle});
 
-              if (response.verticalResult[0].content_type_enum === "PERSON_CELEBRITY" || response.verticalResult[0].content_type_enum === "PERSON" || response.verticalResult[0].content_type_enum === "ENTERTAINMENT_VIDEO_MOVIE" ) {
+              if (response.verticalResult[0].content_type_enum === "PERSON_CELEBRITY" || response.verticalResult[0].content_type_enum === "PERSON" || response.verticalResult[0].content_type_enum === "ENTERTAINMENT_VIDEO_MOVIE") {
                 try {
                   transformedData.socialActvity = response.verticalResult[0].searchResultRelcy.results[0].social_result;
                   transformedData.socialActvity.maxIndex = 5;
                   transformedData.socialActvity.incrementBy = 5;
                   transformedData.categories.push({key: 'details_social', keyTitle: 'Social Activities'});
-                }catch (err) {
+                } catch (err) {
                   console.log('socialActvity not available');
                 }
                 try {
                   transformedData.similarEntity = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.similar_entity_set.display_sub_entity;
                   transformedData.similarEntity.maxIndex = 5;
                   transformedData.similarEntity.incrementBy = 5;
-                  if (response.verticalResult[0].content_type_enum === "PERSON_CELEBRITY")
-                  {
+                  if (response.verticalResult[0].content_type_enum === "PERSON_CELEBRITY") {
                     transformedData.categories.push({key: 'details_similar', keyTitle: 'Similar Celebrity'});
                   }
-                  else if (response.verticalResult[0].content_type_enum === "PERSON")
-                  {
+                  else if (response.verticalResult[0].content_type_enum === "PERSON") {
                     transformedData.categories.push({key: 'details_similar', keyTitle: 'Similar People'});
                   }
-                  else if (response.verticalResult[0].content_type_enum === "ENTERTAINMENT_VIDEO_MOVIE")
-                  {
+                  else if (response.verticalResult[0].content_type_enum === "ENTERTAINMENT_VIDEO_MOVIE") {
                     transformedData.categories.push({key: 'details_similar', keyTitle: 'Similar Movies'});
                   }
-                  else if (response.verticalResult[0].content_type_enum === "ENTERTAINMENT_VIDEO_TVSHOW")
-                  {
+                  else if (response.verticalResult[0].content_type_enum === "ENTERTAINMENT_VIDEO_TVSHOW") {
                     transformedData.categories.push({key: 'details_similar', keyTitle: 'Similar Tv Show'});
-                  }else if (response.verticalResult[0].content_type_enum === "ENTERTAINMENT_AUDIO")
-                  {
+                  } else if (response.verticalResult[0].content_type_enum === "ENTERTAINMENT_AUDIO") {
                     transformedData.categories.push({key: 'details_similar', keyTitle: 'Similar Audio'});
                   }
-                }catch (err) {
+                } catch (err) {
                   console.log('similarEntity not available');
                 }
               }
@@ -307,66 +361,7 @@ angular.module('relcyApp')
             }
           }
           /*Extracting web search results*/
-          for (var i = 0; i < response.verticalResult.length; i++) {
-            if (response.verticalResult[i].content_type_enum === "WEB") {
-              try {
-                transformedData.webResults = response.verticalResult[i].webSearchResult.searchResults;
-                transformedData.webResults.maxIndex = 4;
-                transformedData.categories.push({key: 'details_web', keyTitle: 'Web'});
-              } catch (err) {
-                console.log('no web results found');
-              }
-            }
-            else if (response.verticalResult[i].content_type_enum === "WEB_NEWS") {
-              try {
-                transformedData.newsResults = response.verticalResult[i].newsSearchResult.newsSearchResults;
-                transformedData.newsResults.maxIndex = 4;
-                transformedData.categories.push({key: 'details_news', keyTitle: 'News'});
-              } catch (err) {
-                console.log('no news results found');
-              }
-            }
-            else if (response.verticalResult[i].content_type_enum === "WEB_IMAGES") {
-              /*Extracting image search results*/
-              try {
-                transformedData.imageResults = response.verticalResult[i].imageSearchResult.imageSearchResults;
-                transformedData.imageResults.maxIndex = 6;
-                transformedData.categories.push({key: 'details_images', keyTitle: 'Images'});
-              } catch (err) {
-                console.log('no image results found');
-              }
-            }
-            else if (response.verticalResult[i].content_type_enum === "WEB_VIDEOS") {
-              /*Extracting video search results*/
-              try {
-                transformedData.videoResults = response.verticalResult[i].videoSearchResult.videoSearchResults;
-                transformedData.videoResults.maxIndex = 3;
-                transformedData.categories.push({key: 'details_videos', keyTitle: 'Videos'});
-              } catch (err) {
-                console.log('no video results found');
-              }
-            }
-            else if (response.verticalResult[i].content_type_enum === "WEB_PLACES") {
-              /*Extracting places search results*/
-              try {
-                transformedData.placesResults = response.verticalResult[i].placesSearchResult.placesSearchResult;
-                transformedData.placesResults.maxIndex = 5;
-                transformedData.categories.push({key: 'details_places', keyTitle: 'Places'});
-              } catch (err) {
-                console.log('no places results found');
-              }
-            }
-            else if (response.verticalResult[i].content_type_enum === "RELATED_SEARCHES") {
-              /*Extracting places search results*/
-              try {
-                transformedData.relatedSearches = response.verticalResult[i].relatedSearchesResult.relatedSearchResults;
-                transformedData.relatedSearches.maxIndex = 5;
-                transformedData.relatedSearches.incrementBy = 5;
-              } catch (err) {
-                console.log('no RELATED_SEARCHES found');
-              }
-            }
-          }
+
         }
 
 

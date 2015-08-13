@@ -277,8 +277,11 @@ p.search-icon {
   background-repeat: no-repeat;
   padding-left: 40px;
 }
-
+.media {
+  display: table;
+}
 .media-left, .media-right, .media-body {
+  display: table-cell;
   vertical-align: top;
   width: auto;
   word-wrap: break-word;
@@ -286,7 +289,8 @@ p.search-icon {
 }
 
 .media-body {
-  padding: 0
+  padding: 0;
+  vertical-align: middle;
 }
 
 .panel-body {
