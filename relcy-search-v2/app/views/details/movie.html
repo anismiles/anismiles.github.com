@@ -1032,15 +1032,15 @@
                               <li ng-repeat="social in itemDetails.socialActvity  | limitTo: itemDetails.socialActvity.maxIndex">
                                 <a href="{{social.url}}" target="_blank">
                                   <div class="media">
-                                    <div class="media-left thumb-common thumb-news" ng-if="social.result_data.image_url">
+                                    <div class="media-left thumb-common thumb-news">
                                       <img class="media-object image-thumb-news" src="{{social.result_data.image_url}}">
                                     </div>
                                     <div class="media-body">
-                                      <h4 class="media-heading" id="top-aligned-media">
+                                      <h4 class="media-heading inline" id="top-aligned-media">
                                         <img class="web-src-img" src='http://www.google.com/s2/favicons?domain={{social.url}}' /> {{social.result_data.title}}
                                       </h4>
                                       <!--<p>{{news.displayUrl}}</p>-->
-                                      <p class="timestamp"><span>{{social.result_data.annotation}}</span></p>
+                                      <p class="timestamp inline"><span>{{social.result_data.annotation}}</span></p>
                                       <p><span>{{social.result_data.sub_title}}</span></p>
                                     </div>
                                   </div>
