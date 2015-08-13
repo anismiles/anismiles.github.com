@@ -279,11 +279,12 @@ p.search-icon {
 }
 .media {
   display: table;
+  width:100%;
 }
 .media-left, .media-right, .media-body {
   display: table-cell;
   vertical-align: top;
-  width: auto;
+  /*width: auto;*/
   word-wrap: break-word;
   /*padding: 0;*/
 }
@@ -574,7 +575,7 @@ footer a {
 
 .topSection div.details div.detail_left p span img {
   vertical-align: top;
-  margin: 0 0 0 -3px;
+  margin: 0 4px 0 0;
 }
 
 .topSection .details p {
@@ -756,7 +757,7 @@ div.imdb span {
 }
 
 .detail_left {
-  display: inline-block;
+  display: block;
   /*float: left;*/
   margin: 0;
   vertical-align: top;
@@ -1180,6 +1181,7 @@ div.imdb span {
 .suggested-search .image-thumb-song,
 .suggested-search .image-thumb-news,
 .suggested-search .image-thumb-celebrity,
+.suggested-search .image-thumb-person,
 .suggested-search .image-thumb-video,
 .suggested-search .image-thumb-app {
   background-position: center center;
@@ -1268,7 +1270,7 @@ div.imdb span {
 }
 
 .suggested-search .thumb-person {
-  background-image: url("../img-no-min/default-icons/autocomplete_person_icon.png");
+  background-image: url("../img-no-min/default-icons/autocomplete_people_icon.png");
 }
 
 .suggested-search .thumb-coffee {
@@ -1292,7 +1294,9 @@ div.imdb span {
 .image-thumb-music,
 .image-thumb-song,
 .image-thumb-news,
-.image-thumb-celebrity {
+.image-thumb-celebrity,
+.image-thumb-person
+{
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1412,7 +1416,7 @@ div.imdb span {
 }
 
 .thumb-person {
-  background-image: url("../img-no-min/default-icons/autocomplete_person_icon@2x.png");
+  background-image: url("../img-no-min/default-icons/autocomplete_people_icon@2x.png");
 }
 
 .thumb-coffee {

@@ -18,169 +18,26 @@ function EntityService($timeout, $q, $http,$resource) {
 
 	 return $resource(
             "http://nedit-w.relcy.com/",
-            {movieName: "@movieName",serviceName:"@serviceName"},
+            {actionType:'@actionType',entityType:'@entityType',entityTitle:'@entityTitle'},
             {
-            bgImageOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/bg-image',
-                responseType: 'json'
-            },
-            heroImageOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/hero-image',
-                responseType: 'json'
-            },
-            titleOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/title',
-                responseType: 'json'
-            },
-            workTitleOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/known-for',
-                responseType: 'json'
-              },
-
-            infoOverride: {
+            entityEditor: {
               method: 'POST',
-              url: 'http://nedit-w.relcy.com/:serviceName/:movieName/info',
+              url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
               responseType: 'json'
             },
-            ratingOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/rating',
-                responseType: 'json'
+
+            actionOverride: {
+              method: 'POST',
+              url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
+              responseType: 'json'
             },
-            yearOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/year',
-                responseType: 'json'
-            },
-            lengthOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/length',
-                responseType: 'json'
-            },
-            genresOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/genre',
-                responseType: 'json'
-            },
-            storyOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/story',
-                responseType: 'json'
-            },
-            castOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/cast',
-                responseType: 'json'
-            },
-            trailerOverride: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/trailer',
-                responseType: 'json'
-            },
-            bgImageAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/bg-image',
-                responseType: 'json'
-            },
-            heroImageAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/hero-image',
-                responseType: 'json'
-            },
-            titleAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/title',
-                responseType: 'json'
-            },
-            ratingAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/rating',
-                responseType: 'json'
-            },
-            yearAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/year',
-                responseType: 'json'
-            },
-            lengthAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/length',
-                responseType: 'json'
-            },
-            genresAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/genres',
-                responseType: 'json'
-            },
-            storyAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/story',
-                responseType: 'json'
-            },
-            castAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/cast',
-                responseType: 'json'
-            },
-            trailerAdd: {
-                method: 'POST',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/trailer',
-                responseType: 'json'
-            },
-            bgImageDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/bg-image',
-                responseType: 'json'
-            },
-            heroImageDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/hero-image',
-                responseType: 'json'
-            },
-            titleDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/title',
-                responseType: 'json'
-            },
-            ratingDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/rating',
-                responseType: 'json'
-            },
-            yearDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/year',
-                responseType: 'json'
-            },
-            lengthDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/length',
-                responseType: 'json'
-            },
-            genresDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/genres',
-                responseType: 'json'
-            },
-            storyDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/story',
-                responseType: 'json'
-            },
-            castDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/cast',
-                responseType: 'json'
-            },
-            trailerDelete: {
-                method: 'DELETE',
-                url: 'http://nedit-w.relcy.com/:serviceName/:movieName/trailer',
-                responseType: 'json'
+            entityDelete: {
+              method: 'DELETE',
+              url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
+              responseType: 'json'
             }
+
+
         }
     );
 }

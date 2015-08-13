@@ -230,25 +230,26 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
             var item = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem]
             //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
             try{
-                switch (item.content_type_enum) {
-                    case 'ENTERTAINMENT_VIDEO_MOVIE':
-                    case 'ENTERTAINMENT_VIDEO_TVSHOW':
-                        detailPage = 'detail';
-                        break;
-                    case 'PERSON':
-                        detailPage = 'people';
-                        break;
-                    case 'PERSON_CELEBRITY':
-                        detailPage = 'celebrity';
-                        break;
-                    case 'LOCAL_BUSINESS':
-                        detailPage = 'place';
-                        break;
-                    default:
-                        detailPage = '';
-                        window.open(item.redirect_url,"_blank")
-                        break;
-                }
+               switch (item.content_type_enum) {
+					case 'ENTERTAINMENT_VIDEO_MOVIE':
+					case 'ENTERTAINMENT_VIDEO_TVSHOW':
+					case 'ENTERTAINMENT_AUDIO':
+					  detailPage = 'detail';
+					  break;
+					case 'PERSON':
+					  detailPage = 'people';
+					  break;
+					case 'PERSON_CELEBRITY':
+					  detailPage = 'celebrity';
+					  break;
+					case 'LOCAL_BUSINESS':
+					  detailPage = 'place';
+					  break;
+					default:
+					  detailPage = '';
+					 $location.path('search').search({q: item.title});
+					  break;
+				  }
             }catch(err){
                 return false;
             }

@@ -15,6 +15,9 @@
     .navbar-search {
         margin-top: 92px;
     }
+    .profileImage .pfImg {
+      background-size: cover;
+    }
 </style>
 <!--header-->
 <nav class="navbar navbar-default navbar-fixed-top navbar-logo">
@@ -198,17 +201,17 @@
                         <div class="detail_right">
 
                             <p>
-                                <span><a class="pointer"><img src="img-no-min/upload.png" title="Upload"></a></span>
+                                <span class="nobg"><a class="pointer"><img src="img-no-min/upload.png" title="Upload"></a></span>
 
                             </p>
 
                             <p>
-                                <span><a class="pointer"><img src="img-no-min/favorite.png" title="Favorite"></a></span>
+                                <span class="nobg"><a class="pointer"><img src="img-no-min/favorite.png" title="Favorite"></a></span>
 
                             </p>
 
                             <p>
-                                <span><a ng-href="{{itemDetails.menu[0].link_id}}" target="_blank" title="Menu">
+                                <span><a class="pointer" ng-href="{{itemDetails.menu[0].link_id}}" target="_blank" title="Menu">
                                     <img ng-src="{{ 'img-no-min/icons/Menu.png' || 'img-no-min/placeholder.png' }}"
                                          width="24" height="24" style="border-radius: 4px"/></a>
                                     </span>
@@ -219,7 +222,7 @@
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </button>
                             </p>
-                            <p><span><a class="pointer"
+                            <p><span class="nobg"><a class="pointer"
                                         ng-click="openCastLightbox(itemDetails.hours,'HOURS')" title="Hours">
                                 <img ng-src="{{ 'img-no-min/icons/Hours.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"/></a>
@@ -242,20 +245,20 @@
                         </div>
                         <div class="detail_left">
                             <p class="rating pull-left" style="margin: 10px 0 0 0;">
-                                <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;">
-                                <span ng-if="r.rating_style=='STAR'" style="margin: 0 5px 0 0;">
+                                <span ng-repeat="r in itemDetails.displayRating" style="background:none !important;" class="nobg">
+                                <span ng-if="r.rating_style=='STAR'" style="margin: 0 5px 0 0;" class="nobg">
                                 <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/5
                                 </span>
-                                <span ng-if="r.rating_style=='PERCENTAGE'">
+                                <span ng-if="r.rating_style=='PERCENTAGE'" class="nobg">
                                 <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/10
                                 </span>
-                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'">
+                                <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='100'" class="nobg">
                                 <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/100
                                 </span>
-                                     <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'">
+                                     <span ng-if="r.rating_style=='NUMBER' && r.max_rating=='10'" class="nobg">
                                 <img ng-src="{{ 'img-no-min/icons/' + (r.source | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"> {{::r.source}}: {{::r.rating}}/10
                                 </span>
@@ -269,7 +272,7 @@
                                 </button>
 
                             </p> <br>
-
+                          <div class="clearfix"></div>
                             <h2 class="topTitle">
                                 <span>{{itemDetails.title}}</span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
@@ -292,9 +295,9 @@
                               </button>
                                 <span ng-if="placeDistance" class="nobg">{{::placeDistance}} </span></p>
 
-                            <p class="genre" style="margin:0 0 5px"><span ng-if="itemDetails.category">{{::itemDetails.category}}</span>
-                                <span ng-if="itemDetails.priceRange">{{::itemDetails.priceRange}}</span> <span
-                                        ng-if="itemDetails.openStatus" style="color:#8cbe29">{{::itemDetails.openStatus}}</span>
+                            <p class="genre" style="margin:0 0 5px"><span ng-if="itemDetails.category" class="nobg">{{::itemDetails.category}}</span>
+                                <span ng-if="itemDetails.priceRange" class="nobg">{{::itemDetails.priceRange}}</span> <span
+                                        ng-if="itemDetails.openStatus" style="color:#8cbe29" class="nobg">{{::itemDetails.openStatus}}</span>
 
 
                             <button ng-if="showEdit" ng-hide="showEdit"
@@ -321,7 +324,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-if="!showEdit" ng-click="gotoLink(d.link_id)" ng-repeat="d in itemDetails.delivery"
+                                    <tr  ng-click="gotoLink(d.link_id)" ng-repeat="d in itemDetails.delivery"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (d.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -335,27 +338,27 @@
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
-                                    <tr ng-if="showEdit" ng-repeat="d in itemDetails.reserve"
-                                        class="pointer">
-                                      <td class="td-title" width="30px"><img
-                                        ng-src="{{ 'img-no-min/icons/' + (d.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                        title="">
-                                      </td>
-                                      <td class="td-title">
-                                        <span> {{::d.app_result.result_data.title}}</span>
-                                        <span class="td-detail td-lineheight">{{::d.app_result.result_data.sub_title}}</span>
-                                        <button  class="btn btn-sm btn-default btn-edit"
-                                                 style="margin:0; height:24px; font-size: 10px;"
-                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Delivery',title:d.app_result.result_data.title,app_id:d.app_result.app.app_id,link_id:d.link_id};"
-                                                 type="button" popover-elem
-                                                 popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                 popover-title="Blog">
-                                          <i class="glyphicon glyphicon-pencil"></i>
-                                        </button>
-                                      </td>
-                                      <td class="" width="30px"><span
-                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
-                                    </tr>
+                                    <!--<tr ng-if="showEdit" ng-repeat="d in itemDetails.delivery"-->
+                                        <!--class="pointer">-->
+                                      <!--<td class="td-title" width="30px"><img-->
+                                        <!--ng-src="{{ 'img-no-min/icons/' + (d.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                        <!--title="">-->
+                                      <!--</td>-->
+                                      <!--<td class="td-title">-->
+                                        <!--<span> {{::d.app_result.result_data.title}}</span>-->
+                                        <!--<span class="td-detail td-lineheight">{{::d.app_result.result_data.sub_title}}</span>-->
+                                        <!--<button  class="btn btn-sm btn-default btn-edit"-->
+                                                 <!--style="margin:0; height:24px; font-size: 10px;"-->
+                                                 <!--aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Delivery',title:d.app_result.result_data.title,app_id:d.app_result.app.app_id,link_id:d.link_id};"-->
+                                                 <!--type="button" popover-elem-->
+                                                 <!--popover-placement="right" popover-template="'movie-actionitem.html'"-->
+                                                 <!--popover-title="Blog">-->
+                                          <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                        <!--</button>-->
+                                      <!--</td>-->
+                                      <!--<td class="" width="30px"><span-->
+                                        <!--class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>-->
+                                    <!--</tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -368,7 +371,7 @@
                         <div class="panel-body pad_none">
                           <table class="table table-hover">
                             <tbody>
-                            <tr ng-if="!showEdit" ng-click="gotoLink(d.link_id)" ng-repeat="d in itemDetails.deals"
+                            <tr ng-click="gotoLink(d.link_id)" ng-repeat="d in itemDetails.deals"
                                 class="pointer">
                               <td class="td-title" width="30px"><img
                                 ng-src="{{ 'img-no-min/icons/' + (d.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -382,27 +385,27 @@
                               <td class="" width="30px"><span
                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                             </tr>
-                            <tr ng-if="showEdit" ng-repeat="d in itemDetails.reserve"
-                                class="pointer">
-                              <td class="td-title" width="30px"><img
-                                ng-src="{{ 'img-no-min/icons/' + (d.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                title="">
-                              </td>
-                              <td class="td-title">
-                                <span> {{::d.app_result.result_data.title}}</span>
-                                <span class="td-detail td-lineheight">{{::d.app_result.result_data.sub_title}}</span>
-                                <button  class="btn btn-sm btn-default btn-edit"
-                                         style="margin:0; height:24px; font-size: 10px;"
-                                         aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Deals',title:d.app_result.result_data.title,app_id:d.app_result.app.app_id,link_id:d.link_id};"
-                                         type="button" popover-elem
-                                         popover-placement="right" popover-template="'movie-actionitem.html'"
-                                         popover-title="Deals">
-                                  <i class="glyphicon glyphicon-pencil"></i>
-                                </button>
-                              </td>
-                              <td class="" width="30px"><span
-                                class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
-                            </tr>
+                            <!--<tr ng-if="showEdit" ng-repeat="d in itemDetails.deals"-->
+                                <!--class="pointer">-->
+                              <!--<td class="td-title" width="30px"><img-->
+                                <!--ng-src="{{ 'img-no-min/icons/' + (d.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                <!--title="">-->
+                              <!--</td>-->
+                              <!--<td class="td-title">-->
+                                <!--<span> {{::d.app_result.result_data.title}}</span>-->
+                                <!--<span class="td-detail td-lineheight">{{::d.app_result.result_data.sub_title}}</span>-->
+                                <!--<button  class="btn btn-sm btn-default btn-edit"-->
+                                         <!--style="margin:0; height:24px; font-size: 10px;"-->
+                                         <!--aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Deals',title:d.app_result.result_data.title,app_id:d.app_result.app.app_id,link_id:d.link_id};"-->
+                                         <!--type="button" popover-elem-->
+                                         <!--popover-placement="right" popover-template="'movie-actionitem.html'"-->
+                                         <!--popover-title="Deals">-->
+                                  <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                <!--</button>-->
+                              <!--</td>-->
+                              <!--<td class="" width="30px"><span-->
+                                <!--class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>-->
+                            <!--</tr>-->
                             </tbody>
                           </table>
                         </div>
@@ -416,7 +419,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-if="!showEdit" ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reserve"
+                                    <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reserve"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -430,27 +433,27 @@
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
-                                    <tr ng-if="showEdit" ng-repeat="r in itemDetails.reserve"
-                                        class="pointer">
-                                      <td class="td-title" width="30px"><img
-                                        ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                        title="">
-                                      </td>
-                                      <td class="td-title">
-                                        <span> {{::r.app_result.result_data.title}}</span>
-                                        <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
-                                        <button  class="btn btn-sm btn-default btn-edit"
-                                                 style="margin:0; height:24px; font-size: 10px;"
-                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Reserve',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
-                                                 type="button" popover-elem
-                                                 popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                 popover-title="Reserve">
-                                          <i class="glyphicon glyphicon-pencil"></i>
-                                        </button>
-                                      </td>
-                                      <td class="" width="30px"><span
-                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
-                                    </tr>
+                                    <!--<tr ng-if="showEdit" ng-repeat="r in itemDetails.reserve"-->
+                                        <!--class="pointer">-->
+                                      <!--<td class="td-title" width="30px"><img-->
+                                        <!--ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                        <!--title="">-->
+                                      <!--</td>-->
+                                      <!--<td class="td-title">-->
+                                        <!--<span> {{::r.app_result.result_data.title}}</span>-->
+                                        <!--<span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>-->
+                                        <!--<button  class="btn btn-sm btn-default btn-edit"-->
+                                                 <!--style="margin:0; height:24px; font-size: 10px;"-->
+                                                 <!--aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Reserve',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"-->
+                                                 <!--type="button" popover-elem-->
+                                                 <!--popover-placement="right" popover-template="'movie-actionitem.html'"-->
+                                                 <!--popover-title="Reserve">-->
+                                          <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                        <!--</button>-->
+                                      <!--</td>-->
+                                      <!--<td class="" width="30px"><span-->
+                                        <!--class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>-->
+                                    <!--</tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -489,7 +492,7 @@
                                         <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                                         <button  class="btn btn-sm btn-default btn-edit"
                                                  style="margin:0; height:24px; font-size: 10px;"
-                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Reviews and More',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
+                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'reviews',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
                                                  type="button" popover-elem
                                                  popover-placement="right" popover-template="'movie-actionitem.html'"
                                                  popover-title="Reviews and More">
@@ -513,10 +516,10 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-if="!showEdit" ng-click="gotoLink(w.link_id)" ng-repeat="w in itemDetails.map"
+                                    <tr  ng-click="gotoLink(w.link_id)" ng-repeat="w in itemDetails.map"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
-                                                ng-src="{{ 'img-no-min/placeholder.png' }}"
+                                                ng-src="{{ 'img-no-min/icons/maps.png' }}"
                                                 title="">
                                         </td>
                                         <td class="td-title">
@@ -527,27 +530,27 @@
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
-                                    <tr ng-if="showEdit" ng-repeat="w in itemDetails.map"
-                                        class="pointer">
-                                      <td class="td-title" width="30px"><img
-                                        ng-src="{{ 'img-no-min/placeholder.png' }}"
-                                        title="">
-                                      </td>
-                                      <td class="td-title">
-                                        <span> {{::w.app_result.result_data.title}}</span>
-                                        <span class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</span>
-                                        <button  class="btn btn-sm btn-default btn-edit"
-                                                 style="margin:0; height:24px; font-size: 10px;"
-                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Map',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
-                                                 type="button" popover-elem
-                                                 popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                 popover-title="Map">
-                                          <i class="glyphicon glyphicon-pencil"></i>
-                                        </button>
-                                      </td>
-                                      <td class="" width="30px"><span
-                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
-                                    </tr>
+                                    <!--<tr ng-if="showEdit" ng-repeat="w in itemDetails.map"-->
+                                        <!--class="pointer">-->
+                                      <!--<td class="td-title" width="30px"><img-->
+                                        <!--ng-src="{{ 'img-no-min/placeholder.png' }}"-->
+                                        <!--title="">-->
+                                      <!--</td>-->
+                                      <!--<td class="td-title">-->
+                                        <!--<span> {{::w.app_result.result_data.title}}</span>-->
+                                        <!--<span class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</span>-->
+                                        <!--<button  class="btn btn-sm btn-default btn-edit"-->
+                                                 <!--style="margin:0; height:24px; font-size: 10px;"-->
+                                                 <!--aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Map',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"-->
+                                                 <!--type="button" popover-elem-->
+                                                 <!--popover-placement="right" popover-template="'movie-actionitem.html'"-->
+                                                 <!--popover-title="Map">-->
+                                          <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                        <!--</button>-->
+                                      <!--</td>-->
+                                      <!--<td class="" width="30px"><span-->
+                                        <!--class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>-->
+                                    <!--</tr>-->
 
                                     </tbody>
                                 </table>
@@ -562,7 +565,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-if="!showEdit" ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviews"
+                                    <tr  ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.reviews"
                                         class="pointer">
                                       <td class="td-title" width="30px"><img
                                         ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -576,27 +579,27 @@
                                       <td class="" width="30px"><span
                                         class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
-                                    <tr ng-if="showEdit" ng-repeat="r in itemDetails.reserve"
-                                        class="pointer">
-                                        <td class="td-title" width="30px"><img
-                                                ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                                title="">
-                                        </td>
-                                        <td class="td-title">
-                                            <span> {{::r.app_result.result_data.title}}</span>
-                                            <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
-                                          <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Reviews & Info',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
-                                                   type="button" popover-elem
-                                                   popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Reviews & Info">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                          </button>
-                                        </td>
-                                        <td class="" width="30px"><span
-                                                class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
-                                    </tr>
+                                    <!--<tr ng-if="showEdit" ng-repeat="r in itemDetails.reviews"-->
+                                        <!--class="pointer">-->
+                                        <!--<td class="td-title" width="30px"><img-->
+                                                <!--ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                                <!--title="">-->
+                                        <!--</td>-->
+                                        <!--<td class="td-title">-->
+                                            <!--<span> {{::r.app_result.result_data.title}}</span>-->
+                                            <!--<span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>-->
+                                          <!--<button  class="btn btn-sm btn-default btn-edit"-->
+                                                   <!--style="margin:0; height:24px; font-size: 10px;"-->
+                                                   <!--aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Reviews & Info',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"-->
+                                                   <!--type="button" popover-elem-->
+                                                   <!--popover-placement="right" popover-template="'movie-actionitem.html'"-->
+                                                   <!--popover-title="Reviews & Info">-->
+                                            <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                          <!--</button>-->
+                                        <!--</td>-->
+                                        <!--<td class="" width="30px"><span-->
+                                                <!--class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>-->
+                                    <!--</tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -623,7 +626,7 @@
                                       <td class="" width="30px"><span
                                         class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
-                                    <tr ng-if="showEdit" ng-repeat="s in itemDetails.reserve"
+                                    <tr ng-if="showEdit" ng-repeat="s in itemDetails.social"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (s.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -634,7 +637,7 @@
                                             <span class="td-detail td-lineheight">{{::s.app_result.result_data.sub_title}}</span>
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Social',title:s.app_result.result_data.title,app_id:s.app_result.app.app_id,link_id:s.link_id};"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'social',title:s.app_result.result_data.title,app_id:s.app_result.app.app_id,link_id:s.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Social">
@@ -656,7 +659,7 @@
                             <div class="panel-body pad_none">
                                 <table class="table table-hover">
                                     <tbody>
-                                    <tr ng-if="!showEdit" ng-click="gotoLink(g.link_id)" ng-repeat="g in itemDetails.getThere"
+                                    <tr  ng-click="gotoLink(g.link_id)" ng-repeat="g in itemDetails.getThere"
                                         class="pointer">
                                         <td class="td-title" width="30px"><img
                                                 ng-src="{{ 'img-no-min/icons/' + (g.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
@@ -670,27 +673,27 @@
                                         <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                                     </tr>
-                                    <tr ng-if="showEdit" ng-repeat="g in itemDetails.reserve"
-                                        class="pointer">
-                                      <td class="td-title" width="30px"><img
-                                        ng-src="{{ 'img-no-min/icons/' + (g.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
-                                        title="">
-                                      </td>
-                                      <td class="td-title">
-                                        <span> {{::g.app_result.result_data.title}}</span>
-                                        <span class="td-detail td-lineheight">{{::g.app_result.result_data.sub_title}}</span>
-                                        <button  class="btn btn-sm btn-default btn-edit"
-                                                 style="margin:0; height:24px; font-size: 10px;"
-                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Get There',title:g.app_result.result_data.title,app_id:g.app_result.app.app_id,link_id:g.link_id};"
-                                                 type="button" popover-elem
-                                                 popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                 popover-title="Get There">
-                                          <i class="glyphicon glyphicon-pencil"></i>
-                                        </button>
-                                      </td>
-                                      <td class="" width="30px"><span
-                                        class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
-                                    </tr>
+                                    <!--<tr ng-if="showEdit" ng-repeat="g in itemDetails.getThere"-->
+                                        <!--class="pointer">-->
+                                      <!--<td class="td-title" width="30px"><img-->
+                                        <!--ng-src="{{ 'img-no-min/icons/' + (g.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"-->
+                                        <!--title="">-->
+                                      <!--</td>-->
+                                      <!--<td class="td-title">-->
+                                        <!--<span> {{::g.app_result.result_data.title}}</span>-->
+                                        <!--<span class="td-detail td-lineheight">{{::g.app_result.result_data.sub_title}}</span>-->
+                                        <!--<button  class="btn btn-sm btn-default btn-edit"-->
+                                                 <!--style="margin:0; height:24px; font-size: 10px;"-->
+                                                 <!--aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Get There',title:g.app_result.result_data.title,app_id:g.app_result.app.app_id,link_id:g.link_id};"-->
+                                                 <!--type="button" popover-elem-->
+                                                 <!--popover-placement="right" popover-template="'movie-actionitem.html'"-->
+                                                 <!--popover-title="Get There">-->
+                                          <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                        <!--</button>-->
+                                      <!--</td>-->
+                                      <!--<td class="" width="30px"><span-->
+                                        <!--class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>-->
+                                    <!--</tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -935,7 +938,7 @@
             <div class="form-group">
                 <input type="text" ng-model="EditData.title" required class="form-control" name="titleform.title">
             </div>
-            <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="editTitle('place')">Save
+            <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="entityEditor('local','name')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
@@ -947,7 +950,7 @@
       <div class="form-group">
         <input type="text" ng-model="EditData.display_address" required class="form-control" name="addressform.address">
       </div>
-      <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="editAddress('place')">Save
+      <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="entityEditor('local','address')">Save
       </button>
       <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
     </form>
@@ -962,7 +965,7 @@
                 <input type="text" ng-model="EditData.bannerUrl" required class="form-control"
                        name="bannerform.videoResults">
             </div>
-            <button type="submit" ng-disabled="bannerform.$invalid" class="btn btn-info" ng-click="editBanner()">Save
+            <button type="submit" ng-disabled="bannerform.$invalid" class="btn btn-info" ng-click="entityEditor('local','hero-image') ">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
@@ -976,7 +979,7 @@
                 <input type="text" ng-model="EditData.thumbnailUrl" required class="form-control"
                        name="thumbnailform.videoResults">
             </div>
-            <button type="submit" ng-disabled="thumbnailform.$invalid" class="btn btn-info" ng-click="editThumbnail()">
+            <button type="submit" ng-disabled="thumbnailform.$invalid" class="btn btn-info" ng-click="entityEditor('local','bg-image')">
                 Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
@@ -990,7 +993,7 @@
         <div class="form-group">
             <input type="text" ng-model="EditData.menuLink" class="form-control">
         </div>
-        <button type="submit" ng-disabled="menuLink.$invalid" class="btn btn-info" ng-click="editMenu()">
+        <button type="submit" ng-disabled="menuLink.$invalid" class="btn btn-info" ng-click="entityEditor('local','menu') ">
             Save
         </button>
         <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
@@ -1003,24 +1006,12 @@
         <div class="form-group">
             <input type="text" ng-model="EditData.call" class="form-control">
         </div>
-        <button type="submit" ng-disabled="call.$invalid" class="btn btn-info" ng-click="editCall()">
+        <button type="submit" ng-disabled="call.$invalid" class="btn btn-info" ng-click="entityEditor('local','phone') ">
             Save
         </button>
         <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
             </form>
     </div>
 </script>
-<script type="text/ng-template" id="address-cat-open.html">
-    <div>
-        <form novalidate name="address-cat-open">
-            <div class="form-group" ng-if="EditData.display_address">
-                <input type="text" ng-model="EditData.display_address" class="form-control">
-            </div>
-            <button type="submit" ng-disabled="address-cat-open.$invalid" class="btn btn-info" ng-click="editAddress()">
-                Save
-            </button>
-            <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
-        </form>
-    </div>
-</script>
+
 

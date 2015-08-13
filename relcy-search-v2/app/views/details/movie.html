@@ -305,7 +305,7 @@
                                 </button>
                             </p>
                             <br>
-
+                          <div class="clearfix"></div>
                             <h2 class="topTitle">
                                 <span>{{itemDetails.title}}</span>
                                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
@@ -492,7 +492,7 @@
                                         <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                                         <button  class="btn btn-sm btn-default btn-edit"
                                                  style="margin:0; height:24px; font-size: 10px;"
-                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Reviews and More',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
+                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'reviews',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
                                                  type="button" popover-elem
                                                  popover-placement="right" popover-template="'movie-actionitem.html'"
                                                  popover-title="Reviews and More">
@@ -512,6 +512,42 @@
                                 </table>
                             </div>
                         </div>
+                        
+                        <!-- Lyrics -->
+
+                        <div class="panel panel-default" ng-if="itemDetails.lyrics.length>0">
+                            <h4 class="topictitle" id="top-aligned-media">Lyrics</h4>
+
+                            <div class="panel-body pad_none">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr ng-click="gotoLink(r.link_id)" ng-repeat="r in itemDetails.lyrics"
+                                        class="pointer">
+                                        <td class="td-title" width="30px"><img
+                                                ng-src="{{ 'img-no-min/icons/' + (r.app_result.app.app_id | lowercase) +'.png' || 'img-no-min/placeholder.png' }}"
+                                                title="">
+                                        </td>
+                                        <td class="td-title">
+                                            <span> {{::r.app_result.result_data.title}}</span>
+                                            <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
+                                        </td>
+                                        <td class="" width="30px"><span
+                                                class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
+                                    </tr>
+
+
+                                    
+
+                                    <!--<tr class="pointer">-->
+                                    <!--<td class="td-title" width="30px">More</td>-->
+                                    <!--<td class="td-title"></td>-->
+                                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>-->
+                                    <!--</tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
 
                         <!--Tickets-->
 
@@ -546,7 +582,7 @@
                                             <span class="td-detail td-lineheight">{{::t.app_result.result_data.sub_title}}</span>
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Tickets',title:t.app_result.result_data.title,app_id:t.app_result.app.app_id,link_id:t.link_id};"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'tickets',title:t.app_result.result_data.title,app_id:t.app_result.app.app_id,link_id:t.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Tickets">
@@ -599,7 +635,7 @@
                                             <span class="td-detail td-lineheight">{{::s.app_result.result_data.sub_title}}</span>
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Social',title:s.app_result.result_data.title,app_id:s.app_result.app.app_id,link_id:s.link_id};"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'social',title:s.app_result.result_data.title,app_id:s.app_result.app.app_id,link_id:s.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Social">
@@ -651,7 +687,7 @@
                                             <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Rent',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'rent',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Rent">
@@ -704,7 +740,7 @@
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
                                                    aria-hidden="true"
-                                                   ng-click="selectedAction = {index:$index,type:'Profiles',title:p.app_result.result_data.title,app_id:p.app_result.app.app_id,link_id:p.link_id};"
+                                                   ng-click="selectedAction = {index:$index,type:'profiles',title:p.app_result.result_data.title,app_id:p.app_result.app.app_id,link_id:p.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Profile">
@@ -757,7 +793,7 @@
                                             <span class="td-detail td-lineheight">{{::p.app_result.result_data.sub_title}}</span>
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Play',title:p.app_result.result_data.title,app_id:p.app_result.app.app_id,link_id:p.link_id};"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'play',title:p.app_result.result_data.title,app_id:p.app_result.app.app_id,link_id:p.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Play">
@@ -810,7 +846,7 @@
                                             <span class="td-detail td-lineheight">{{::i.app_result.result_data.sub_title}}</span>
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Infos',title:i.app_result.result_data.title,app_id:i.app_result.app.app_id,link_id:i.link_id};"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'info',title:i.app_result.result_data.title,app_id:i.app_result.app.app_id,link_id:i.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Infos">
@@ -863,7 +899,7 @@
                                             <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                                           <button  class="btn btn-sm btn-default btn-edit"
                                                    style="margin:0; height:24px; font-size: 10px;"
-                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'Review',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
+                                                   aria-hidden="true" ng-click="selectedAction = {index:$index,type:'reviews',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
                                                    popover-title="Review">
@@ -1159,7 +1195,7 @@
             <div class="form-group">
                 <input type="text" ng-model="EditData.title" required class="form-control" name="titleform.title">
             </div>
-            <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="editTitle('entertainment')">Save
+            <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="entityEditor('entertainment','title')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
@@ -1174,7 +1210,7 @@
                        name="detailsform.parentalRating">
             </div>
             <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
-                    ng-click="editRating()">
+                    ng-click="entityEditor('entertainment','rating')">
                 Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
@@ -1189,7 +1225,7 @@
                name="detailsform.releaseYear">
       </div>
       <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
-              ng-click="editYear()">
+              ng-click="entityEditor('entertainment','year')">
         Save
       </button>
       <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
@@ -1204,7 +1240,7 @@
                name="detailsform.duration">
       </div>
       <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
-              ng-click="editLength()">
+              ng-click="entityEditor('entertainment','length')">
         Save
       </button>
       <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
@@ -1217,26 +1253,13 @@
             <div class="form-group">
                 <input type="text" ng-model="EditData.genre" required class="form-control" name="genreform.genre">
             </div>
-            <button type="submit" ng-disabled="genreform.$invalid" class="btn btn-info" ng-click="editGenres()">Save
+            <button type="submit" ng-disabled="genreform.$invalid" class="btn btn-info" ng-click="entityEditor('entertainment','genre')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
     </div>
 </script>
-<script type="text/ng-template" id="movie-rating.html">
-    <div>
-        <form novalidate name="ratingform">
-            <div class="form-group" ng-repeat="rating in EditData.displayRating">
-                {{rating.source}}
-                <input type="text" numbers-only ng-model="EditData.displayRating[$index].rating" required
-                       class="form-control"
-                       name="ratingform.{{rating.source}}">/{{rating.max_rating}}
-            </div>
-            <button type="submit" ng-disabled="ratingform.$invalid" class="btn btn-info">Save</button>
-            <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
-        </form>
-    </div>
-</script>
+
 <script type="text/ng-template" id="movie-story.html">
     <div>
         <form novalidate name="storyform">
@@ -1244,7 +1267,7 @@
         <textarea required rows="4" cols="28" ng-model="EditData.story" required class="form-control"
                   name="storyform.story"></textarea>
             </div>
-            <button type="submit" ng-disabled="storyform.$invalid" class="btn btn-info" ng-click="editStory('entertainment')">Save
+            <button type="submit" ng-disabled="storyform.$invalid" class="btn btn-info" ng-click="entityEditor('entertainment','story')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form>
@@ -1257,7 +1280,7 @@
                 <input type="text" ng-model="EditData.videoResults" required class="form-control"
                        name="trailerform.videoResults">
             </div>
-            <button type="submit" ng-disabled="trailerform.$invalid" class="btn btn-info" ng-click="editTrailer('entertainment')">Save
+            <button type="submit" ng-disabled="trailerform.$invalid" class="btn btn-info" ng-click="entityEditor('entertainment','trailer')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form> </div>
@@ -1270,7 +1293,7 @@
                 <input type="text" ng-model="EditData.bannerUrl" required class="form-control"
                        name="bannerform.videoResults">
             </div>
-            <button type="submit" ng-disabled="bannerform.$invalid" class="btn btn-info" ng-click="editBanner()">Save
+            <button type="submit" ng-disabled="bannerform.$invalid" class="btn btn-info" ng-click="entityEditor('entertainment','hero-image')">Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
 
@@ -1284,19 +1307,11 @@
                 <input type="text" ng-model="EditData.thumbnailUrl" required class="form-control"
                        name="thumbnailform.videoResults">
             </div>
-            <button type="submit" ng-disabled="thumbnailform.$invalid" class="btn btn-info" ng-click="editThumbnail()">
+            <button type="submit" ng-disabled="thumbnailform.$invalid" class="btn btn-info" ng-click="entityEditor('entertainment','bg-image')">
                 Save
             </button>
             <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
         </form> </div>
 
 </script>
-<script type="text/ng-template" id="movie-cast.html">
-    <div>
-        <div class="form-group">
-            <input type="text" ng-model="EditData.thumbnailUrl" class="form-control">
-        </div>
-        <button type="button" class="btn btn-info">Save</button>
-        <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
-    </div>
-</script>
+

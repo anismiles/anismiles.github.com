@@ -682,6 +682,8 @@ angular.module('relcyApp')
       transformedData.reviewsAndMore = [];
       transformedData.social = [];
       transformedData.rent = [];
+	  transformedData.lyrics = [];
+	  
 
       angular.forEach(links, function (l) {
         try {
@@ -717,6 +719,9 @@ angular.module('relcyApp')
             case 'rent':
               transformedData.rent.push(l);
               break;
+			case 'lyrics':
+		  		transformedData.lyrics.push(l);
+		  		break;
           }
         } catch (err) {
           console.log('invalid link');
