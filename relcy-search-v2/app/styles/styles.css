@@ -376,6 +376,9 @@ ul.resultList.app-result-list li:hover {
   margin: 0;
 }
 
+.inline { display:inline-block}
+.timestamp span  {margin-left:10px;}
+
 .resultList span {
   /*display: inline-block;*/
 }
