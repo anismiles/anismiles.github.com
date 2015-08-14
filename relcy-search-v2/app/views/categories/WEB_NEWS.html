@@ -1,20 +1,16 @@
 <ul class="resultList news-result-list">
-    <li ng-repeat="result in cat.values | limitTo: cat.maxIndex">
-        <a href="{{result.clickUrl}}" target="_blank">
-        <div class="media">
-            <div class="media-left thumb-common thumb-news" ng-if="result.imageContentUrl">
-               <img class="media-object image-thumb-news" src="{{result.imageContentUrl}}">
-              </div>
-            <div class="media-body">
-                <h4 class="media-heading" id="top-aligned-media">
-                    {{result.title}}
-                </h4>
-                <p>{{result.displayUrl}}</p>
-                <p class="timestamp"><span>{{result.publishedTime}}</span></p>
-                <p><span>{{result.description}}</span></p>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-            </a>
-    </li>
+  <li ng-repeat="result in cat.values | limitTo: cat.maxIndex"> <a href="{{result.clickUrl}}" target="_blank">
+    <div class="media">
+      <div class="media-left thumb-common thumb-news" ng-if="result.imageContentUrl">
+        <div class="media-object image-thumb-news" style="background-image:url('{{result.imageContentUrl}}')"></div>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading" id="top-aligned-media"> {{result.title}} </h4>
+        <p>{{result.displayUrl}}</p>
+        <p class="timestamp"><span>{{result.publishedTime}}</span></p>
+        <p><span>{{result.description}}</span></p>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    </a> </li>
 </ul>

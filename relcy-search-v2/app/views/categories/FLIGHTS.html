@@ -1,140 +1,104 @@
 <ul class="resultList flights-result-list">
-  <li id="{{::cat.key+$index}}" ng-repeat="result in cat.values | limitTo: cat.maxIndex" style="background: #fff !important;">
-    <a>
-
-      <div class="media">
-        <div class="media-left thumb-common thumb-flight">
-          <img class="media-object image-thumb-flight"
+  <li id="{{::cat.key+$index}}" ng-repeat="result in cat.values | limitTo: cat.maxIndex" style="background: #fff !important;"> <a>
+    <div class="media">
+      <div class="media-left thumb-common thumb-flight"> <img class="media-object image-thumb-flight"
                src="{{result.entity_data.live_data.flight_data[0].airline_image}}"
-               ng-if="result.entity_data.live_data.flight_data[0].airline_image">
+               ng-if="result.entity_data.live_data.flight_data[0].airline_image"> </div>
+      <div class="media-body">
+        <h4 class="media-heading" id="top-aligned-media"> {{result.entity_data.live_data.flight_data[0].airline_name}}<span> {{result.entity_data.live_data.flight_data[0].airline_code}} {{result.entity_data.live_data.flight_data[0].flight_number}}</span> </h4>
+        <p class="genre"> <span><span class="text-green">{{result.entity_data.live_data.flight_data[0].flight_status}}</span></span> </p>
+        <div class="flightStatus" ng-if="!result.entity_data.live_data.flight_data[0].flight_status == 'Landed' && !result.entity_data.live_data.flight_data[0].flight_status == 'Active'">
+          <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
+          <div class="flightOnTime"> <span class="flightPoint startPoint"></span> <img src="img-no-min/flights/flight_plane_icon_active2x.png" class="flight_plane_icon_active2x" title=""> <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="375"> </div>
+          <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
         </div>
-        <div class="media-body">
-          <h4 class="media-heading" id="top-aligned-media">
-            {{result.entity_data.live_data.flight_data[0].airline_name}}<span> {{result.entity_data.live_data.flight_data[0].airline_code}} {{result.entity_data.live_data.flight_data[0].flight_number}}</span>
-          </h4>
-
-          <p class="genre">
-            <span><span class="text-green">{{result.entity_data.live_data.flight_data[0].flight_status}}</span></span>
-          </p>
-
-          <div class="flightStatus" ng-if="!result.entity_data.live_data.flight_data[0].flight_status == 'Landed' && !result.entity_data.live_data.flight_data[0].flight_status == 'Active'">
-            <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
-            <div class="flightOnTime">
-              <span class="flightPoint startPoint"></span>
-              <img src="img-no-min/flights/flight_plane_icon_active2x.png" class="flight_plane_icon_active2x" title="">
-              <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="375">
-            </div>
-            <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
+        <div class="flightStatus" ng-if="result.entity_data.live_data.flight_data[0].flight_status == 'Active'">
+          <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
+          <div class="flightOnTime"> <span class="flightPoint startPoint"></span> <img src="img-no-min/flights/flight_plane_icon_active2x.png" class="flight_plane_icon_active2x" title=""> <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="375"> </div>
+          <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
+        </div>
+        <div class="flightStatus flightsDisable" ng-if="result.entity_data.live_data.flight_data[0].flight_status == 'Landed'">
+          <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
+          <div class="flightOnTime"> <span class="flightPointDisable endPoint"></span> <img src="img-no-min/flights/flight-on-time-disable.png" class="flight-on-time-half" title="" width="375"> </div>
+          <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
+        </div>
+        <p class="clearfix"> <span class="pull-left">{{result.entity_data.live_data.flight_data[0].source_city}}, {{result.entity_data.live_data.flight_data[0].source_scheduled_departure | date:'EEEE, MMMM d'}}</span> <span
+                class="pull-right">{{result.entity_data.live_data.flight_data[0].destination_city}}, {{result.entity_data.live_data.flight_data[0].destination_scheduled_arrival | date:'EEEE, MMMM d'}}</span> </p>
+        <div class="row flightsDetails">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 rowLeft">
+            <table>
+              <tr>
+                <td>Departed</td>
+                <td>{{result.entity_data.live_data.flight_data[0].source_actual_departure | date:'HH:mma'}}</td>
+              </tr>
+            </table>
           </div>
-          <div class="flightStatus" ng-if="result.entity_data.live_data.flight_data[0].flight_status == 'Active'">
-            <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
-            <div class="flightOnTime">
-              <span class="flightPoint startPoint"></span>
-              <img src="img-no-min/flights/flight_plane_icon_active2x.png" class="flight_plane_icon_active2x" title="">
-              <img src="img-no-min/flights/flight-on-time-half.png" class="flight-on-time-half" title="" width="375">
-            </div>
-            <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
-          </div>
-          <div class="flightStatus flightsDisable" ng-if="result.entity_data.live_data.flight_data[0].flight_status == 'Landed'">
-            <div>{{result.entity_data.live_data.flight_data[0].source_airport_code}}</div>
-            <div class="flightOnTime">
-              <span class="flightPointDisable endPoint"></span>
-              <img src="img-no-min/flights/flight-on-time-disable.png" class="flight-on-time-half" title="" width="375">
-            </div>
-            <div>{{result.entity_data.live_data.flight_data[0].destination_airport_code}}</div>
-            </div>
-            <p class="clearfix">
-              <span class="pull-left">{{result.entity_data.live_data.flight_data[0].source_city}}, {{result.entity_data.live_data.flight_data[0].source_scheduled_departure | date:'EEEE, MMMM d'}}</span>
-              <span
-                class="pull-right">{{result.entity_data.live_data.flight_data[0].destination_city}}, {{result.entity_data.live_data.flight_data[0].destination_scheduled_arrival | date:'EEEE, MMMM d'}}</span>
-            </p>
-
-            <div class="row flightsDetails">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 rowLeft">
-                <table>
-                  <tr>
-                    <td>Departed</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].source_actual_departure | date:'HH:mma'}}</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
-                <table>
-                  <tr>
-                    <td>Arrives</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].destination_actual_arrival | date:'HH:mma'}}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-            <hr>
-
-            <div class="row flightsDetails">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-
-                <table>
-                  <tr>
-                    <td>Scheduled</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].source_scheduled_departure | date:'HH:mma'}}</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
-                <table>
-                  <tr>
-                    <td>Scheduled</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].destination_scheduled_arrival | date:'HH:mma'}}
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-            <div class="row flightsDetails">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-
-                <table>
-                  <tr>
-                    <td>Terminal</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].source_terminal}}</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
-                <table>
-                  <tr>
-                    <td>Terminal</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].destination_terminal}}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-
-            <div class="row flightsDetails">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <table>
-                  <tr>
-                    <td>Gate</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].source_gate}}</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
-                <table>
-                  <tr>
-                    <td>Gate</td>
-                    <td>{{result.entity_data.live_data.flight_data[0].destination_gate}}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
+            <table>
+              <tr>
+                <td>Arrives</td>
+                <td>{{result.entity_data.live_data.flight_data[0].destination_actual_arrival | date:'HH:mma'}}</td>
+              </tr>
+            </table>
           </div>
         </div>
-        <div class="clearfix"></div>
-    </a>
-  </li>
-
+        <hr>
+        <div class="row flightsDetails">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <table>
+              <tr>
+                <td>Scheduled</td>
+                <td>{{result.entity_data.live_data.flight_data[0].source_scheduled_departure | date:'HH:mma'}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
+            <table>
+              <tr>
+                <td>Scheduled</td>
+                <td>{{result.entity_data.live_data.flight_data[0].destination_scheduled_arrival | date:'HH:mma'}} </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row flightsDetails">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <table>
+              <tr>
+                <td>Terminal</td>
+                <td>{{result.entity_data.live_data.flight_data[0].source_terminal}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
+            <table>
+              <tr>
+                <td>Terminal</td>
+                <td>{{result.entity_data.live_data.flight_data[0].destination_terminal}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row flightsDetails">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <table>
+              <tr>
+                <td>Gate</td>
+                <td>{{result.entity_data.live_data.flight_data[0].source_gate}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 rowRight">
+            <table>
+              <tr>
+                <td>Gate</td>
+                <td>{{result.entity_data.live_data.flight_data[0].destination_gate}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    </a> </li>
 </ul>
-

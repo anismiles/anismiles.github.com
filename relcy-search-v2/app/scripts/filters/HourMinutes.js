@@ -1,9 +1,3 @@
-/*
-*
-*@author - Devendra Singh
-* @email - devendra.rathore@loonyard.io
-* The file contains the filter for showing movie times
-*/
 angular.module('relcyApp')
 .filter('hourmins', function(){
     return function(time){
@@ -31,4 +25,4 @@ angular.module('relcyApp')
         }
         
     }
-})
+});

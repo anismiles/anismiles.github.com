@@ -15,7 +15,9 @@ input:focus {
 a:focus {
   outline: 0 dotted !important;
 }
-
+a{
+  cursor:pointer !important;
+}
 .navbar-default {
   background-color: transparent !important;
   border: none;
@@ -1601,7 +1603,7 @@ a.editable {
   height: 300px;
   width: 200px;
   background-position: top center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 

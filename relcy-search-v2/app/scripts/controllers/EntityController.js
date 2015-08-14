@@ -343,7 +343,11 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
     $scope.newData = {
       "newValue": "",
-      "cipherId": $stateParams.cipher,
+      "cipherId": $stateParams.cipher.replace(/%40/gi, '@').
+            replace(/%3A/gi, ':').
+            replace(/%24/g, '$').
+            replace(/%2C/gi, ',').
+            replace(/%2F/gi, '/'),
       "contentTypeEnum": $stateParams.cType
     };
 
