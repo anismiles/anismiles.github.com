@@ -1532,7 +1532,7 @@ a.editable {
   border-left: 2px solid #fff;
 }
 
-.show-edits .topSection .details h2 .btn-edit {
+.show-edits .topSection .details h2 .btn-edit{
   background-color: #efefef;
   border: 0 solid #fff;
   border-radius: 0;
@@ -1544,8 +1544,8 @@ a.editable {
   position: relative;
 }
 
-.show-edits .topSection .details p .btn-edit,
-.action-detail .btn-edit {
+.show-edits .topSection .details p .btn-edit, .action-detail .btn-edit, .action-detail .btn-del
+ {
   background-color: #efefef;
   border: 0 solid #fff;
   border-radius: 0;
@@ -1558,11 +1558,16 @@ a.editable {
   height: 26px;
 }
 
-.show-edits .topSection .details .btn:hover,
-.show-edits .topSection .details h2:hover .btn-edit,
-.action-detail .btn-edit:hover {
+.show-edits .topSection .details .btn:hover, 
+.show-edits .topSection .details h2:hover .btn-edit, 
+.action-detail .btn-edit:hover,
+.action-detail .btn-del:hover{
   background-color: #5bc0de;
   color: #fff
+}
+.action-detail .btn-edit,
+.action-detail .btn-del{
+  margin: 0 5px 0 0 !important;
 }
 
 .show-edits .topSection .details h2:hover span {

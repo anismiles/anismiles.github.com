@@ -16,6 +16,7 @@
 <!--header-->
 <nav class="navbar navbar-default navbar-fixed-top navbar-logo">
 
+
 <div ng-include="'views/header.html'"></div>
 </nav>
 <!--end--> 
@@ -29,9 +30,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr0 pd0">
           <form id="bigform" ng-click="setFocusOnSearch()">
             <p class="search-icon p-src">
-              <input pu-elastic-input  class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt"
-                                                            ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;" ng-change="searchOnRelcy()"
-                                                            ng-keypress="$event.which === 13 && searchAll()">
+              <input pu-elastic-input  class="text-left" type="text" placeholder="Type To Search"  id="searchInputText" ng-model="searchTxt" ng-keydown="keyDown($event.which)" style="min-width: 200px; max-width: 100%;" ng-change="searchOnRelcy()" ng-keypress="$event.which === 13 && searchAll()">
             </p>
             <div class="input-group-addon search-btn-circle"></div>
           </form>
@@ -134,7 +133,6 @@
             <div class="pf-bdr">
               <div class="profileBg">
                 <div class="pfImg" style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl}}'), url('{{thumbnailImgUrl}}');">
-                                     
                   <button ng-if="showEdit" class="edit-picture" aria-hidden="true"
                                             type="button"
                                             popover-elem
@@ -304,19 +302,24 @@
                                         title=""></td>
                       <td class="td-title"><span> {{::w.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::w.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                style="margin:0; height:24px; font-size: 10px;"
+                                                style="height:24px; font-size: 10px;"
                                                 aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
                                                 type="button" popover-elem
                                                 popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                popover-title="Watch"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                         class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -345,20 +348,25 @@
                                         title=""></td>
                       <td class="td-title"><span> {{::r.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                 style="margin:0; height:24px; font-size: 10px;"
+                                                 style="height:24px; font-size: 10px;"
                                                  aria-hidden="true" ng-click="selectedAction = {index:$index,type:'reviews',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
                                                  type="button" popover-elem
                                                  popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                 popover-title="Reviews and More"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                 popover-title="Reviews and More"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                         class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
                     
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -380,12 +388,6 @@
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
                   </tbody>
                 </table>
               </div>
@@ -414,19 +416,24 @@
                                                 title=""></td>
                       <td class="td-title"><span> {{::t.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::t.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   style="height:24px; font-size: 10px;"
                                                    aria-hidden="true" ng-click="selectedAction = {index:$index,type:'tickets',title:t.app_result.result_data.title,app_id:t.app_result.app.app_id,link_id:t.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Tickets"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                   popover-title="Tickets"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -455,19 +462,24 @@
                                                 title=""></td>
                       <td class="td-title"><span> {{::s.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::s.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   style="height:24px; font-size: 10px;"
                                                    aria-hidden="true" ng-click="selectedAction = {index:$index,type:'social',title:s.app_result.result_data.title,app_id:s.app_result.app.app_id,link_id:s.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Social"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                   popover-title="Social"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -495,19 +507,24 @@
                                                 title=""></td>
                       <td class="td-title"><span> {{::r.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   style="height:24px; font-size: 10px;"
                                                    aria-hidden="true" ng-click="selectedAction = {index:$index,type:'rent',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Rent"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                   popover-title="Rent"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -535,20 +552,25 @@
                                                 title=""></td>
                       <td class="td-title"><span> {{::p.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::p.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   style="height:24px; font-size: 10px;"
                                                    aria-hidden="true"
                                                    ng-click="selectedAction = {index:$index,type:'profiles',title:p.app_result.result_data.title,app_id:p.app_result.app.app_id,link_id:p.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Profile"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                   popover-title="Profile"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -577,19 +599,24 @@
                                                 title=""></td>
                       <td class="td-title"><span> {{::p.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::p.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   style="height:24px; font-size: 10px;"
                                                    aria-hidden="true" ng-click="selectedAction = {index:$index,type:'play',title:p.app_result.result_data.title,app_id:p.app_result.app.app_id,link_id:p.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Play"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                   popover-title="Play"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -618,19 +645,24 @@
                                                 title=""></td>
                       <td class="td-title"><span> {{::i.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::i.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   style="height:24px; font-size: 10px;"
                                                    aria-hidden="true" ng-click="selectedAction = {index:$index,type:'info',title:i.app_result.result_data.title,app_id:i.app_result.app.app_id,link_id:i.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Infos"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                   popover-title="Infos"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -659,19 +691,24 @@
                                                 title=""></td>
                       <td class="td-title"><span> {{::r.app_result.result_data.title}}</span> <span class="td-detail td-lineheight">{{::r.app_result.result_data.sub_title}}</span>
                         <button  class="btn btn-sm btn-default btn-edit"
-                                                   style="margin:0; height:24px; font-size: 10px;"
+                                                   style="height:24px; font-size: 10px;"
                                                    aria-hidden="true" ng-click="selectedAction = {index:$index,type:'reviews',title:r.app_result.result_data.title,app_id:r.app_result.app.app_id,link_id:r.link_id};"
                                                    type="button" popover-elem
                                                    popover-placement="right" popover-template="'movie-actionitem.html'"
-                                                   popover-title="Review"> <i class="glyphicon glyphicon-pencil"></i> </button></td>
+                                                   popover-title="Review"> <i class="glyphicon glyphicon-pencil"></i> </button><button  class="btn btn-sm btn-default btn-del"
+                                                style="height:24px; font-size: 10px;"
+                                                aria-hidden="true" ng-click="selectedAction = {index:$index,type:'watch',title:w.app_result.result_data.title,app_id:w.app_result.app.app_id,link_id:w.link_id};"
+                                                type="button" popover-elem
+                                                popover-placement="right" popover-template="'movie-actionitem-delete.html'"
+                                                popover-title="Watch"> <i class="glyphicon glyphicon-remove"></i> </button></td>
                       <td class="" width="30px"><span
                                                 class="glyphicon glyphicon-menu-right pull-right more-icon"></span></td>
                     </tr>
-                    <!--<tr class="pointer">--> 
-                    <!--<td class="td-title" width="30px">More</td>--> 
-                    <!--<td class="td-title"></td>--> 
-                    <!--<td class="" width="30px"><span class="glyphicon glyphicon-menu-right pull-right more-icon" style="top:5px;"></span>--> 
-                    <!--</tr>-->
+                    <tr  ng-if="showEdit"  class="pointer"> 
+                    <td ></td> 
+                    <td class="td-title text-left"> + Add</td> 
+                    <td></td> 
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -901,6 +938,20 @@
       <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
               ng-click="editAction(selectedAction)">
         Save
+      </button>
+      <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+    </form>
+  </div>
+</script> 
+<script type="text/ng-template" id="movie-actionitem-delete.html">
+  <div>
+    <form novalidate name="detailsform">
+      <div class="form-group">
+        Are you sure you want to delete?
+      </div>
+      <button type="submit" ng-disabled="detailsform.$invalid" class="btn btn-info"
+              ng-click="actionOverride(selectedAction)">
+        Delete
       </button>
       <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
     </form>
