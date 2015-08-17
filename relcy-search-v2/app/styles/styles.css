@@ -1729,6 +1729,7 @@ a.editable {
 	font-size:30px;
 	font-weight: 300;
 	display: table-cell;
+	width:110px;
 }
 .weather-result-list .media-heading sup{
 	font-size:14px;
@@ -1760,6 +1761,70 @@ a.editable {
 	height: 64px;
     width: 64px;
 }
+.image-thumb-weather {
+	height:55px; 
+	width:64px;
+	background-repeat:no-repeat;
+	background-position:top left;
+}
+/*************Weather Day Icons*/
+.w-01d { 
+	background-image:url(../img-no-min/weather/weather_sunny2x.png);
+}
+.w-02d { 
+	background-image:url(../img-no-min/weather/weather_part_sunny2x.png);
+}
+.w-03d { 
+	background-image:url(../img-no-min/weather/weather_cloudy_no_sun2x.png);
+}
+.w-04d { 
+	background-image:url(../img-no-min/weather/weather_very_cloudy2x.png);
+}
+.w-09d { 
+	background-image:url(../img-no-min/weather/weather_snow_sunny2x.png);
+}
+.w-10d { 
+	background-image:url(../img-no-min/weather/weather_sunny_rain2x.png);
+}
+.w-11d { 
+	background-image:url(../img-no-min/weather/weather_thunder_rain2x.png);
+}
+.w-13d { 
+	background-image:url(../img-no-min/weather/weather_snow2x.png);
+}
+.w-50d { 
+	background-image:url(../img-no-min/weather/weather_shit2x.png);
+}
+/*************Weather Night Icons*/
+.w-01n {
+	background-image:url(../img-no-min/weather/weather_full_moon_st2x.png);
+}
+
+.w-02n { 
+	background-image:url(../img-no-min/weather/weather_half_moon_cl_st2x.png);
+}
+.w-03n { 
+	background-image:url(../img-no-min/weather/weather_night_cl_st2x.png);
+}
+.w-04n { 
+	background-image:url(../img-no-min/weather/weather_night_very_cloudy_stars2x.png);
+}
+.w-09n { 
+	background-image:url(../img-no-min/weather/weather_half_moon_cl_st_thu_snow2x.png);
+}
+.w-10n { 
+	background-image:url(../img-no-min/weather/weather_full_mon_cl_st_rain2x.png);
+}
+.w-11n { 
+	background-image:url(../img-no-min/weather/weather_night_cl_st_thu_rain2x.png);
+}
+.w-13n { 
+	background-image:url(../img-no-min/weather/weather_night_cl_st_snow2x.png);
+}
+.w-50n { 
+	background-image:url(../img-no-min/weather/weatehr_shit_night2x.png);
+}
+
 
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
