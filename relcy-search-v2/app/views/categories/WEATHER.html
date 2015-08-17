@@ -6,14 +6,14 @@
                <img class="media-object image-thumb-weather" src="img-no-min/weather/weather_sunny2x.png">
            </div>
             <div class="media-body">
-             <h4 class="media-heading pointer">103 <sup>&deg;F</sup></h4>
+             <h4 class="media-heading pointer">{{result.temperature}}<sup>&deg; {{result.temperature_scale}}</sup></h4>
              <div class="weather-heading">
-             	<span>Tuesday 2:00 PM</span>
-                <span>Cupertino</span>
+             	<span>{{result.datetime | date:'EEEE, MMMM d, y'}}</span>
+                <span>{{result.city}}</span>
              </div>
 
                 <p>
-                    <span>Precipitation: 0%. Huminity: 49%. Wind: 13mph</span>
+                    <span>Precipitation: {{result.precipitation_mm}}mm . Humidity: {{result.humidity}} . Wind: {{result.wind_mph}}mph</span>
                 </p>
 
             </div>

@@ -82,7 +82,7 @@ angular.module('relcyApp')
         var searchResults = response.verticalResult;
         if (searchResults) {
           transformedData.hideRSLinks = false;
-          
+
           if (response.verticalResult[0].content_type_enum == "LOCAL_BUSINESS") {
 
             try {
@@ -186,10 +186,12 @@ angular.module('relcyApp')
               else if (response.verticalResult[0].content_type_enum == "PERSON") {
                 keyTitle = 'People';
               }
-              else if (response.verticalResult[0].content_type_enum == "LIVE_API") {
+              else if (response.verticalResult[0].content_type_enum == "LIVE_API"  && response.verticalResult[0].searchResultRelcy.results[0].entity_data.live_data.flight_data) {
                 keyTitle = 'Flights';
               }
-
+              else if (response.verticalResult[0].content_type_enum == "LIVE_API"  && response.verticalResult[0].searchResultRelcy.results[0].entity_data.live_data.weather_data) {
+                keyTitle = 'Weather';
+              }
               transformedData.moviesResult = response.verticalResult[0].content_type_enum;
               transformedData.displayRating = response.verticalResult[0].searchResultRelcy.results[0].entity_data.common_data.display_rating;
 
@@ -293,7 +295,7 @@ angular.module('relcyApp')
 
               try {
                 transformedData.genre = response.verticalResult[0].searchResultRelcy.results[0].entity_data.entertainment_data.common_data.genre.join();
-                transformedData.genre = transformedData.genre.replace(/&amp;/g, '&');
+                transformedData.genre = transformedData.genre.replace(/,/g, ', ');
               } catch (err) {
                 console.log('cast not found/unknown');
               }
@@ -391,10 +393,31 @@ for (var i = 0; i < response.verticalResult.length; i++) {
             }
             break;
           case 'LIVE_API':
-            if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length) {
-              values = data[index].searchResultRelcy.results;
+            if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length && data[index] && data[index].searchResultRelcy.results[0].entity_data.live_data.flight_data) {
+              values = data[index].searchResultRelcy.results.entity_data.live_data.flight_data;
               keyTitle = 'Flights';
               template = 'FLIGHTS';
+              maxIndex = 3;
+              incrementBy = 3;
+            }
+            else if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length && data[index] && data[index].searchResultRelcy.results[0].entity_data.live_data.weather_data) {
+              values = data[index].searchResultRelcy.results[0].entity_data.live_data.weather_data;
+              keyTitle = 'Weather';
+              template = 'WEATHER';
+              maxIndex = 3;
+              incrementBy = 3;
+            }
+            else if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length && data[index] && data[index].searchResultRelcy.results[0].entity_data.live_data.stock_data) {
+              values = data[index].searchResultRelcy.results;
+              keyTitle = 'Stocks';
+              template = 'STOCKS';
+              maxIndex = 3;
+              incrementBy = 3;
+            }
+            else if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length && data[index] && data[index].searchResultRelcy.results[0].entity_data.live_data.sports_data) {
+              values = data[index].searchResultRelcy.results;
+              keyTitle = 'Sports';
+              template = 'SPORTS';
               maxIndex = 3;
               incrementBy = 3;
             }
@@ -683,7 +706,7 @@ for (var i = 0; i < response.verticalResult.length; i++) {
       transformedData.social = [];
       transformedData.rent = [];
 	  transformedData.lyrics = [];
-	  
+
 
       angular.forEach(links, function (l) {
         try {
