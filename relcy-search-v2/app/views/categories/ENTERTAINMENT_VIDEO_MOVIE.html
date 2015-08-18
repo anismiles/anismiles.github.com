@@ -2,13 +2,22 @@
   <li ng-repeat="result in cat.values | limitTo: cat.maxIndex"> <a class="pointer" ui-sref="detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].mediaURL })">
     <div class="media">
       <div class="media-left thumb-common thumb-movie">
-        <div class="media-object image-thumb-movie" style="background-image:url('{{result.image_info[1].mediaURL}}'), url('{{result.image_info[0].mediaURL}}')"></div>
+        <div class="media-object image-thumb-movie" style="background-image:url('{{result.image_info[0].mediaURL || result.image_info[1].mediaURL}}')"></div>
       </div>
       <div class="media-body">
         <h4 class="media-heading pointer">{{result.entity_data.common_data.name}}</h4>
-        <p class="genre"> <span ng-if="result.entity_data.entertainment_data.common_data.parental_rating">{{result.entity_data.entertainment_data.common_data.parental_rating}}</span> <span ng-if="result.entity_data.entertainment_data.common_data.release_year">{{result.entity_data.entertainment_data.common_data.release_year}}</span> <span ng-if="result.entity_data.entertainment_data.movie_data.length">{{result.entity_data.entertainment_data.movie_data.length | hourmins}}</span> </p>
-        <p class="performer"> <span ng-repeat="performer in result.entity_data.entertainment_data.common_data.performer">{{performer.title}}</span> <span ng-repeat="genre in result.entertainment_data.common_data.genre">{{result.entity_data.entertainment_data.common_data.genre[0]}}</span> </p>
-        <p class="score"> <span ng-repeat="sa in result.scoreArray track by $index" class="full-star-list rating"></span> <span ng-if="result.showHalfRating" class="half-star-list rating"></span> <span ng-if="result.image_info[0].source"> - {{result.image_info[0].source}}</span> </p>
+        <p class="genre">
+          <span ng-if="result.entity_data.entertainment_data.common_data.parental_rating">{{result.entity_data.entertainment_data.common_data.parental_rating}}</span>
+          <span ng-if="result.entity_data.entertainment_data.common_data.release_year">{{result.entity_data.entertainment_data.common_data.release_year}}</span>
+          <span ng-if="result.entity_data.entertainment_data.movie_data.length">{{result.entity_data.entertainment_data.movie_data.length | hourmins}}</span>
+        </p>
+        <p class="performer">
+          <span ng-repeat="performer in result.entity_data.entertainment_data.common_data.performer">{{performer.title}}</span>
+          <span ng-repeat="result.entity_data.entertainment_data.common_data.genre">{{result.entity_data.entertainment_data.common_data.genre}}</span> </p>
+        <p class="score">
+          <span ng-repeat="sa in result.scoreArray track by $index" class="full-star-list rating"></span>
+          <span ng-if="result.showHalfRating" class="half-star-list rating"></span>
+          <span ng-if="result.image_info[0].source"> - {{result.image_info[0].source}}</span> </p>
       </div>
     </div>
     <div class="clearfix"></div>

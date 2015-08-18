@@ -394,7 +394,7 @@ for (var i = 0; i < response.verticalResult.length; i++) {
             break;
           case 'LIVE_API':
             if (data[index] && data[index].searchResultRelcy && data[index].searchResultRelcy.results && data[index].searchResultRelcy.results.length && data[index] && data[index].searchResultRelcy.results[0].entity_data.live_data.flight_data) {
-              values = data[index].searchResultRelcy.results.entity_data.live_data.flight_data;
+              values = data[index].searchResultRelcy.results[0].entity_data.live_data.flight_data;
               keyTitle = 'Flights';
               template = 'FLIGHTS';
               maxIndex = 3;

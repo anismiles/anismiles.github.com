@@ -3,7 +3,7 @@
   <li ng-repeat="result in cat.values | limitTo: cat.maxIndex"> <a href="#" ui-sref="celebrity({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].mediaURL })">
     <div class="media">
       <div class="media-left thumb-common thumb-celebrity">
-        <div class="media-object image-thumb-celebrity" style="background-image:url('{{result.image_info[1].mediaURL}}'),url('{{result.image_info[0].mediaURL}}')"></div>
+        <div class="media-object image-thumb-celebrity" style="background-image:url('{{result.image_info[0].mediaURL || result.image_info[1].mediaURL}}')"></div>
       </div>
       <div class="media-body">
         <h4 class="media-heading pointer">{{result.entity_data.common_data.name}}</h4>

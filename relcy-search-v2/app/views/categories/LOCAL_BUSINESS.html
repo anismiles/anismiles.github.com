@@ -3,7 +3,7 @@
     <div class="media">
       <div class="media-left thumb-common thumb-place pointer">
       <!--<img class="media-object image-thumb-place" src="{{result.image_info[0].mediaURL}}" ng-if="result.image_info[0].mediaURL">-->
-      <div class="media-object image-thumb-place" style="background-image:url('{{result.image_info[1].mediaURL}}'),url('{{result.image_info[0].mediaURL}}')"></div>
+      <div class="media-object image-thumb-place" style="background-image:url('{{result.image_info[0].mediaURL || result.image_info[1].mediaURL}}')"></div>
       </div>
       <div class="media-body">
         <h4 class="media-heading pointer">{{result.entity_data.common_data.name}}</h4>
