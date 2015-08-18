@@ -267,7 +267,7 @@ div.fake_form {
 div.popover-content form input[type=text] {
   background-color: transparent;
   font-size: 12px;
-  line-height: 0;
+  line-height: normal;
   min-width: 100% !important;
   width: auto;
   border: 1px solid #eee;
@@ -1558,8 +1558,8 @@ a.editable {
   height: 26px;
 }
 
-.show-edits .topSection .details .btn:hover, 
-.show-edits .topSection .details h2:hover .btn-edit, 
+.show-edits .topSection .details .btn:hover,
+.show-edits .topSection .details h2:hover .btn-edit,
 .action-detail .btn-edit:hover,
 .action-detail .btn-del:hover{
   background-color: #5bc0de;
@@ -1569,7 +1569,25 @@ a.editable {
 .action-detail .btn-del{
   margin: 0 5px 0 0 !important;
 }
-
+.action-detail .btn-add {
+  background-color: #fff;
+  border: none;
+  color: #333;
+  font-size: 14px;
+  margin: 0;
+  padding: 0 0 0 58px;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  font-weight: 700;
+}
+.action-detail .btn-add:hover,
+.action-detail .btn-add.active{
+  background: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 .show-edits .topSection .details h2:hover span {
   background-color: #a5dced;
   color: #000;
@@ -1762,37 +1780,37 @@ a.editable {
     width: 64px;
 }
 .image-thumb-weather {
-	height:55px; 
+	height:55px;
 	width:64px;
 	background-repeat:no-repeat;
 	background-position:top left;
 }
 /*************Weather Day Icons*/
-.w-01d { 
+.w-01d {
 	background-image:url(../img-no-min/weather/weather_sunny2x.png);
 }
-.w-02d { 
+.w-02d {
 	background-image:url(../img-no-min/weather/weather_part_sunny2x.png);
 }
-.w-03d { 
+.w-03d {
 	background-image:url(../img-no-min/weather/weather_cloudy_no_sun2x.png);
 }
-.w-04d { 
+.w-04d {
 	background-image:url(../img-no-min/weather/weather_very_cloudy2x.png);
 }
-.w-09d { 
+.w-09d {
 	background-image:url(../img-no-min/weather/weather_snow_sunny2x.png);
 }
-.w-10d { 
+.w-10d {
 	background-image:url(../img-no-min/weather/weather_sunny_rain2x.png);
 }
-.w-11d { 
+.w-11d {
 	background-image:url(../img-no-min/weather/weather_thunder_rain2x.png);
 }
-.w-13d { 
+.w-13d {
 	background-image:url(../img-no-min/weather/weather_snow2x.png);
 }
-.w-50d { 
+.w-50d {
 	background-image:url(../img-no-min/weather/weather_shit2x.png);
 }
 /*************Weather Night Icons*/
@@ -1800,28 +1818,28 @@ a.editable {
 	background-image:url(../img-no-min/weather/weather_full_moon_st2x.png);
 }
 
-.w-02n { 
+.w-02n {
 	background-image:url(../img-no-min/weather/weather_half_moon_cl_st2x.png);
 }
-.w-03n { 
+.w-03n {
 	background-image:url(../img-no-min/weather/weather_night_cl_st2x.png);
 }
-.w-04n { 
+.w-04n {
 	background-image:url(../img-no-min/weather/weather_night_very_cloudy_stars2x.png);
 }
-.w-09n { 
+.w-09n {
 	background-image:url(../img-no-min/weather/weather_half_moon_cl_st_thu_snow2x.png);
 }
-.w-10n { 
+.w-10n {
 	background-image:url(../img-no-min/weather/weather_full_mon_cl_st_rain2x.png);
 }
-.w-11n { 
+.w-11n {
 	background-image:url(../img-no-min/weather/weather_night_cl_st_thu_rain2x.png);
 }
-.w-13n { 
+.w-13n {
 	background-image:url(../img-no-min/weather/weather_night_cl_st_snow2x.png);
 }
-.w-50n { 
+.w-50n {
 	background-image:url(../img-no-min/weather/weatehr_shit_night2x.png);
 }
 

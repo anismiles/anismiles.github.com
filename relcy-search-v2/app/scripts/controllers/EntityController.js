@@ -16,7 +16,7 @@ angular.module('relcyApp')
     EntityController]);
 
 
-function EntityController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, EntityService,$state) {
+function EntityController($scope, $http, $rootScope, $location, $window, $timeout, $stateParams, SearchService, $filter, anchorSmoothScroll, Lightbox, EntityService, $state) {
   console.log('stateParams: ' + $stateParams.entity);
   console.log('stateParams: ' + $stateParams.cipher);
   console.log('stateParams: ' + $stateParams.cType);
@@ -36,13 +36,12 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   $scope.maxShowSerachRecord = {max: 100, increment: 100};
 
   if (SearchService.searchTxt) {
-    if(SearchService.searchTxt === $stateParams.q)
-    {
+    if (SearchService.searchTxt === $stateParams.q) {
       $scope.searchTxt = SearchService.searchTxt;
       $("#pageMiddle").css({'margin-top': '0%'});
       $("#container").addClass("body");
     }
-    else{
+    else {
       $scope.searchTxt = $stateParams.q;
       $("#pageMiddle").css({'margin-top': '0%'});
       $("#container").addClass("body");
@@ -82,13 +81,11 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   var intervalCounter = -1;
   $scope.selectedIndexOfSearchItem = -1;
   $scope.keyDown = function (val) {
-    console.log(val + " " )
-    if(!$scope.suggestedSearch)
-    {
+    console.log(val + " ")
+    if (!$scope.suggestedSearch) {
       return;
     }
-    if( !(val === 40 || val === 38) )
-    {
+    if (!(val === 40 || val === 38)) {
       //clearInterval(intervalCounter);
       //intervalCounter = setInterval(function(){
       //    clearInterval(intervalCounter);
@@ -96,14 +93,12 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
       //},100);
       return;
     }
-    if(val === 40)
-    {
+    if (val === 40) {
       $scope.selectedIndexOfSearchItem++;
       //down
       //console.log(">--->> Down " + val)
     }
-    else if(val === 38)
-    {
+    else if (val === 38) {
       $scope.selectedIndexOfSearchItem--;
       // up
       //console.log(">--->> Up " + val)
@@ -111,12 +106,10 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
     var max = $scope.maxShowSerachRecord.max <= $scope.searchResultsOfRelcy.length ? $scope.maxShowSerachRecord.max : $scope.searchResultsOfRelcy.length
 
-    if($scope.selectedIndexOfSearchItem <= -1)
-    {
-      $scope.selectedIndexOfSearchItem = max-1;
+    if ($scope.selectedIndexOfSearchItem <= -1) {
+      $scope.selectedIndexOfSearchItem = max - 1;
     }
-    if($scope.selectedIndexOfSearchItem >= max)
-    {
+    if ($scope.selectedIndexOfSearchItem >= max) {
       $scope.selectedIndexOfSearchItem = 0;
     }
     console.log(">--->> index " + $scope.selectedIndexOfSearchItem + " = " + max)
@@ -179,12 +172,11 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   };
 
   $scope.searchAll = function () {
-    if($scope.selectedIndexOfSearchItem !== -1)
-    {
+    if ($scope.selectedIndexOfSearchItem !== -1) {
       var detailPage = '';
       var item = $scope.searchResultsOfRelcy[$scope.selectedIndexOfSearchItem]
       //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
-      try{
+      try {
         switch (item.content_type_enum) {
           case 'ENTERTAINMENT_VIDEO_MOVIE':
           case 'ENTERTAINMENT_VIDEO_TVSHOW':
@@ -201,15 +193,15 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
             break;
           default:
             detailPage = '';
-            window.open(item.redirect_url,"_blank")
+            window.open(item.redirect_url, "_blank")
             break;
         }
-      }catch(err){
+      } catch (err) {
         return false;
       }
 
 
-      if(detailPage != '') {
+      if (detailPage != '') {
         if (!item.entity_id && !item.lookIds) {
           $location.search('q', item.title);
           return;
@@ -228,7 +220,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     //$("#bigform").addClass("big-form-no-bdr-btm ");
     //$scope.suggestedSearch = false;
     //$scope.providedBy = false;
-   // $scope.search($scope.query)
+    // $scope.search($scope.query)
 
     $scope.suggestedSearch = false;
     if (!$scope.searchTxt) return;
@@ -250,11 +242,11 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     SearchService.searchTxt = item.title;
     var detailPage = '';
     //detail({q:result.entity_data.common_data.name, cType:cat.key, entity: result.relcy_id.entity_id, cipher: result.relcy_id.cipher_id, img: result.image_info[0].thumbnail.mediaURL })
-    try{
+    try {
       switch (item.content_type_enum) {
         case 'ENTERTAINMENT_VIDEO_MOVIE':
         case 'ENTERTAINMENT_VIDEO_TVSHOW':
-		case 'ENTERTAINMENT_AUDIO':
+        case 'ENTERTAINMENT_AUDIO':
           detailPage = 'detail';
           break;
         case 'PERSON':
@@ -268,13 +260,13 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
           break;
         default:
           detailPage = '';
-         $location.path('search').search({q: item.title});
+          $location.path('search').search({q: item.title});
           break;
       }
-    }catch(err){
+    } catch (err) {
       return false;
     }
-    if(detailPage != '') {
+    if (detailPage != '') {
       if (!item.entity_id && !item.lookIds) {
         $location.search('q', item.title);
         return;
@@ -331,7 +323,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
       bannerUrl: $scope.bannerUrl === undefined ? '' : $scope.bannerUrl,
       workTitle: $scope.itemDetails.workTitle === undefined ? '' : $scope.itemDetails.workTitle,
       thumbnailUrl: thumbnailUrl === undefined ? '' : thumbnailUrl,
-      menuLink: $scope.itemDetails.menu === undefined ? '' :  ($scope.itemDetails.menu.length>0 ?$scope.itemDetails.menu[0].link_id : '' ) ,
+      menuLink: $scope.itemDetails.menu === undefined ? '' : ($scope.itemDetails.menu.length > 0 ? $scope.itemDetails.menu[0].link_id : '' ),
       call: $scope.itemDetails.call === undefined ? '' : $scope.itemDetails.call[0].number.value,
       display_address: $scope.itemDetails.mapinfo === undefined ? '' : $scope.itemDetails.mapinfo.address.display_address,
       category: $scope.itemDetails.category === undefined ? '' : $scope.itemDetails.category,
@@ -344,10 +336,10 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.newData = {
       "newValue": "",
       "cipherId": $stateParams.cipher.replace(/%40/gi, '@').
-            replace(/%3A/gi, ':').
-            replace(/%24/g, '$').
-            replace(/%2C/gi, ',').
-            replace(/%2F/gi, '/'),
+        replace(/%3A/gi, ':').
+        replace(/%24/g, '$').
+        replace(/%2C/gi, ',').
+        replace(/%2F/gi, '/'),
       "contentTypeEnum": $stateParams.cType
     };
 
@@ -374,7 +366,7 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
 
   //end
 
-  $scope.selectedAction = {index:-1,type:'',title:'',app_id:'',link_id:''};
+  $scope.selectedAction = {index: -1, type: '', title: '', app_id: '', link_id: ''};
 
   $scope.hidePopover = function () {
     var popover = document.getElementsByClassName('popover');
@@ -382,19 +374,18 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   };
   //
 
-  $scope.entityEditor = function (entityType,actionType) {
+  $scope.entityEditor = function (entityType, actionType) {
     $scope.newData['newValue'] = $scope.EditData.title;
     var newValue = $scope.newData;
 
-    if(!entityType)
-    {
+    if (!entityType) {
       entityType = "entertainment"
     }
 
 
     EntityService.entityEditor({
       entityTitle: $scope.itemDetails.title,
-      entityType: entityType,actionType:actionType
+      entityType: entityType, actionType: actionType
     }, newValue, function (response, responseHeaders) {
     }, function (error) {
       // error
@@ -402,7 +393,8 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     $scope.hidePopover()
   };
 
-  $scope.editAction = function (actiomItem) {
+  $scope.editAction = function (actiomItem, opt) {
+
     $scope.newData['newValue'] = actiomItem.link_id;
     var tmpObj = angular.copy($scope.newData);
     tmpObj.action = actiomItem.app_id;
@@ -427,11 +419,42 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
         entityType = 'local';
         break;
     }
-    EntityService.actionOverride({entityTitle: actiomItem.app_id,entityType:entityType,actionType:actiomItem.type},newValue, function(response,responseHeaders){
+    if (opt === 'DELETE') {
+      EntityService.entityDelete({
+        entityTitle: actiomItem.app_id,
+        entityType: entityType,
+        actionType: actiomItem.type
+      }, newValue, function (response, responseHeaders) {
         //console.log("**********************************  " + response)
-    }, function(error){
+      }, function (error) {
         // error
-    });
+      });
+    }
+    else if (opt === 'ADD') {
+      newValue.newValue  = actiomItem.newItemLink;
+      newValue.action  = actiomItem.newItemName;
+      EntityService.entityAdd({
+        entityTitle: actiomItem.newItemName,
+        entityType: entityType,
+        actionType: actiomItem.type
+      }, newValue, function (response, responseHeaders) {
+        //console.log("**********************************  " + response)
+      }, function (error) {
+        // error
+      });
+    }
+    else {
+      EntityService.actionOverride({
+        entityTitle: actiomItem.app_id,
+        entityType: entityType,
+        actionType: actiomItem.type
+      }, newValue, function (response, responseHeaders) {
+        //console.log("**********************************  " + response)
+      }, function (error) {
+        // error
+      });
+    }
+
     $scope.hidePopover()
   };
   //

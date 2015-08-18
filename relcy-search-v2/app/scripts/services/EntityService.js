@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('relcyApp')
-    .service("EntityService", ['$timeout', '$q', '$http','$resource', EntityService]);
+  .service("EntityService", ['$timeout', '$q', '$http', '$resource', EntityService]);
 
 /*Session to keep - session specific things*/
-function EntityService($timeout, $q, $http,$resource) {
+function EntityService($timeout, $q, $http, $resource) {
 
   //this.titleOverride =function(movieName,serviceName,value,header)
   //{
@@ -16,28 +16,31 @@ function EntityService($timeout, $q, $http,$resource) {
   //  return deferred.promise;
   //}
 
-	 return $resource(
-            "http://nedit-w.relcy.com/",
-            {actionType:'@actionType',entityType:'@entityType',entityTitle:'@entityTitle'},
-            {
-            entityEditor: {
-              method: 'POST',
-              url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
-              responseType: 'json'
-            },
+  return $resource(
+    "http://nedit-w.relcy.com/",
+    {actionType: '@actionType', entityType: '@entityType', entityTitle: '@entityTitle'},
+    {
+      entityEditor: {
+        method: 'POST',
+        url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
+        responseType: 'json'
+      },
 
-            actionOverride: {
-              method: 'POST',
-              url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
-              responseType: 'json'
-            },
-            entityDelete: {
-              method: 'DELETE',
-              url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
-              responseType: 'json'
-            }
-
-
-        }
-    );
+      actionOverride: {
+        method: 'POST',
+        url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
+        responseType: 'json'
+      },
+      entityDelete: {
+        method: 'DELETE',
+        url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
+        responseType: 'json'
+      },
+      entityAdd: {
+        method: 'POST',
+        url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
+        responseType: 'json'
+      }
+    }
+  );
 }
