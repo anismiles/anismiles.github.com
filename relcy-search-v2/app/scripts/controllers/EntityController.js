@@ -617,6 +617,39 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
       relcy_id: {entity_id: $stateParams.entity, cipher_id: cipher}
     });
   }
+  
+  //Time
+	$scope.mytime = new Date();
+
+	$scope.hstep = 1;
+	$scope.mstep = 15;
+  
+	$scope.options = {
+	  hstep: [1],
+	  mstep: [15]
+	};
+  
+	$scope.ismeridian = true;
+	$scope.toggleMode = function() {
+	  $scope.ismeridian = ! $scope.ismeridian;
+	};
+  
+	$scope.update = function() {
+	  var d = new Date();
+	  d.setHours( 0 );
+	  d.setMinutes( 0 );
+	  $scope.mytime = d;
+	};
+  
+	/*$scope.changed = function () {
+	  $log.log('Time changed to: ' + $scope.mytime);
+	};
+  */
+	$scope.clear = function() {
+	  $scope.mytime = null;
+	};
+  
+  
 }
 
 

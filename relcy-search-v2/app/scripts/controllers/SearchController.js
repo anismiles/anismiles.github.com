@@ -534,5 +534,6 @@ if(!loggedIn ){$state.go('login'); $cookies.remove('LoggedIn')
         $scope.searchResults[index].values = _.sortByOrder($scope.searchResults[index].values, 'entity_data.local_data.open_status', $scope.openAsc)
         $scope.openAsc = !$scope.openAsc
     }
+	
 }
 

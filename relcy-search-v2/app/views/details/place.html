@@ -163,7 +163,12 @@
               </p>
               <p><span class="nobg"><a class="pointer"
                                         ng-click="openCastLightbox(itemDetails.hours,'HOURS')" title="Hours"> <img ng-src="{{ 'img-no-min/icons/Hours.png' || 'img-no-min/placeholder.png' }}"
-                                     width="24" height="24" style="border-radius: 4px"/></a> </span> </p>
+                                     width="24" height="24" style="border-radius: 4px"/></a> </span> 
+                                     <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
+                                        type="button" popover-elem
+                                        popover-placement="right" popover-template="'hours.html'"
+                                        popover-title="Hours"> <i class="glyphicon glyphicon-pencil"></i> </button>
+              </p>
               <p><span><a class="pointer" ng-click="openCastLightbox(itemDetails.call,'CALL')" title="Call"> <img ng-src="{{ 'img-no-min/icons/Call.png' || 'img-no-min/placeholder.png' }}"
                                      width="24" height="24" style="border-radius: 4px"/></a> </span>
                 <button ng-if="showEdit" class="btn btn-sm btn-default btn-edit" aria-hidden="true"
@@ -783,7 +788,22 @@
   <div>
     <form novalidate name="addressform">
       <div class="form-group">
-        <input type="text" ng-model="EditData.display_address" required class="form-control" name="addressform.address">
+        <input type="text" ng-model="EditData.display_streatadd" required class="form-control" name="addressform.streatadd" placeholder="Streat Address">
+      </div>
+	  <div class="form-group">
+        <input type="text" ng-model="EditData.display_city" required class="form-control" name="addressform.cits" placeholder="City">
+      </div>
+	  <div class="form-group">
+        <input type="text" ng-model="EditData.display_state" required class="form-control" name="addressform.state" placeholder="State">
+      </div>
+	  <div class="form-group">
+        <input type="text" ng-model="EditData.display_country" required class="form-control" name="addressform.country" placeholder="Country">
+      </div>
+	  <div class="form-group">
+        <input type="text" ng-model="EditData.display_postal_code" required class="form-control" name="addressform.postalcode" placeholder="Postal Code">
+      </div>
+	  <div class="form-group">
+        <input type="text" ng-model="EditData.display_po_box" required class="form-control" name="addressform.pobox" placeholder="Po Box">
       </div>
       <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="entityEditor('local','address')">Save
       </button>
@@ -846,3 +866,24 @@
             </form>
     </div>
 </script> 
+
+<script type="text/ng-template" id="hours.html">
+    <div class="timePicker">
+        <timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+		<timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+		<div class="btn-group day-btn-group">
+		  <label class="btn btn-default" ng-model="checkModel.mon" btn-checkbox>Mon</label>
+		  <label class="btn btn-default" ng-model="checkModel.tue" btn-checkbox>Tue</label>
+		  <label class="btn btn-default" ng-model="checkModel.wed" btn-checkbox>Wed</label>
+		  <label class="btn btn-default" ng-model="checkModel.thu" btn-checkbox>Thu</label>
+		  <label class="btn btn-default" ng-model="checkModel.fri" btn-checkbox>Fri</label>
+		  <label class="btn btn-default" ng-model="checkModel.sat" btn-checkbox>Sat</label>
+		  <label class="btn btn-default" ng-model="checkModel.sun" btn-checkbox>Sun</label>
+	  </div>
+
+  <hr>
+  <button type="button" class="btn btn-link" ng-click="clear()">Clear</button>
+  <button type="button" class="btn btn-info" ng-click="save()">Save</button>
+  <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+    </div>
+</script>

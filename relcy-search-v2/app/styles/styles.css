@@ -1844,6 +1844,57 @@ a.editable {
 }
 
 
+/*************Time Picker**/
+.day-btn-group .btn {
+    font-size: 11px;
+    padding: 4px 6px;
+}
+.day-btn-group .btn-default:active, .day-btn-group .btn-default.active, 
+.day-btn-group .open > .dropdown-toggle.btn-default {
+	background-color: #31b0d5;
+    border-color: #269abc;
+    color: #ffffff;
+	}
+.timePicker .btn-link span {
+	font-size:12px!important; 
+	background-color:transparent!important;
+	line-height: 20px!important;
+}
+.timePicker table tr td {
+	padding:0px 2px;
+}
+.timePicker table tr td .form-control {
+	font-size: 14px;
+	border-radius: 0;
+	height: 26px;
+	padding: 6px;
+	width: 40px!important;
+}
+.timePicker table tr td .btn {
+	border-radius: 0;
+	padding: 2px 5px;
+}
+.timePicker table tr td .btn:hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+.details  .detail_right .popover .popover-inner .popover-content .timePicker .day-btn-group .btn:hover {
+	background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333333;
+	}
+.details  .detail_right .popover .popover-inner .popover-content .timePicker table tr td .btn-default:hover,
+.details  .detail_right .popover .popover-inner .popover-content .timePicker .btn-link {
+	background-color:transparent;
+	color:#333;
+	}
+
+.details  .detail_right .popover .popover-inner .popover-content .timePicker .btn-default:hover {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333333;
+}
+
+
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
 /* --------------------------------------------------------- */
