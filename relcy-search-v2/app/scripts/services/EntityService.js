@@ -40,7 +40,8 @@ function EntityService($timeout, $q, $http, $resource) {
         method: 'POST',
         url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
         responseType: 'json'
-      }
+      },
+
     }
   );
 }

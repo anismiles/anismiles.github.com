@@ -788,24 +788,24 @@
   <div>
     <form novalidate name="addressform">
       <div class="form-group">
-        <input type="text" ng-model="EditData.display_streatadd" required class="form-control" name="addressform.streatadd" placeholder="Streat Address">
+        <input type="text" ng-model="placeAddress.streatadd" required class="form-control" name="addressform.streatadd" placeholder="Streat Address">
       </div>
 	  <div class="form-group">
-        <input type="text" ng-model="EditData.display_city" required class="form-control" name="addressform.cits" placeholder="City">
+        <input type="text" ng-model="placeAddress.city" required class="form-control" name="addressform.city" placeholder="City">
       </div>
 	  <div class="form-group">
-        <input type="text" ng-model="EditData.display_state" required class="form-control" name="addressform.state" placeholder="State">
+        <input type="text" ng-model="placeAddress.state" required class="form-control" name="addressform.state" placeholder="State">
       </div>
 	  <div class="form-group">
-        <input type="text" ng-model="EditData.display_country" required class="form-control" name="addressform.country" placeholder="Country">
+        <input type="text" ng-model="placeAddress.country" required class="form-control" name="addressform.country" placeholder="Country">
       </div>
 	  <div class="form-group">
-        <input type="text" ng-model="EditData.display_postal_code" required class="form-control" name="addressform.postalcode" placeholder="Postal Code">
+        <input type="text" ng-model="placeAddress.postalCode" required class="form-control" name="addressform.postalCode" placeholder="Postal Code">
       </div>
 	  <div class="form-group">
-        <input type="text" ng-model="EditData.display_po_box" required class="form-control" name="addressform.pobox" placeholder="Po Box">
+        <input type="text" ng-model="placeAddress.pobox" required class="form-control" name="addressform.pobox" placeholder="Po Box">
       </div>
-      <button type="submit" ng-disabled="titleform.$invalid" class="btn btn-info" ng-click="entityEditor('local','address')">Save
+      <button type="submit" ng-disabled="addressform.$invalid" class="btn btn-info" ng-click="savePlaceAddress(placeAddress,'local','address')">Save
       </button>
       <button type="button" class="btn btn-default" ng-click="hidePopover()">Cancel</button>
     </form>
