@@ -5,7 +5,7 @@ angular.module('relcyApp')
 
 /*Session to keep - session specific things*/
 function EntityService($timeout, $q, $http, $resource) {
-
+  $http.defaults.headers.common = "{'Content-Type':'application/json'}";
   //this.titleOverride =function(movieName,serviceName,value,header)
   //{
   //  var deferred = $q.defer();
@@ -21,27 +21,26 @@ function EntityService($timeout, $q, $http, $resource) {
     {actionType: '@actionType', entityType: '@entityType', entityTitle: '@entityTitle'},
     {
       entityEditor: {
-        method: 'POST',
+        method: 'PUT',
         url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
         responseType: 'json'
       },
-
       actionOverride: {
-        method: 'POST',
+        method: 'PUT',
         url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
         responseType: 'json'
       },
       entityDelete: {
         method: 'DELETE',
         url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
-        responseType: 'json'
+        //responseType: 'json',
+        headers:{'Content-Type':'application/json'}
       },
       entityAdd: {
         method: 'POST',
         url: 'http://nedit-w.relcy.com/:entityType/:entityTitle/:actionType',
         responseType: 'json'
-      },
-
+      }
     }
   );
 }

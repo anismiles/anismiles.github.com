@@ -134,7 +134,7 @@
             <div class="pf-bdr">
               <div class="profileBg">
                 <div class="pfImg"
-                                     style="background-image:url('{{itemDetails.imageResults[0].thumbnailUrl || thumbnailImgUrl}}');">
+                                     style="background-image:url('{{thumbnailImgUrl || itemDetails.imageResults[0].thumbnailUrl}}');">
                   <button ng-if="showEdit" class="edit-picture" aria-hidden="true"
                                             type="button"
                                             popover-elem
