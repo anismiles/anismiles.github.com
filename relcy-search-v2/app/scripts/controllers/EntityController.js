@@ -310,6 +310,10 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
     } catch (er) {
       thumbnailUrl = $scope.thumbnailImgUrl;
     }
+
+    $scope.placeAddress = {}
+
+
     // template start //
     $scope.EditData = {
       title: $scope.itemDetails.title === undefined ? '' : $scope.itemDetails.title,
@@ -367,12 +371,35 @@ function EntityController($scope, $http, $rootScope, $location, $window, $timeou
   //end
 
   $scope.selectedAction = {index: -1, type: '', title: '', app_id: '', link_id: ''};
+  $scope.selectedActionForDelete = {index: -1, type: '', title: '', app_id: '', link_id: ''};
+
 
   $scope.hidePopover = function () {
     var popover = document.getElementsByClassName('popover');
     $(popover).remove()
   };
   //
+
+  $scope.savePlaceAddress = function (placeAddress, entityType, actionType) {
+
+    var tmpObj = {
+      "street_address" : placeAddress.streatadd,
+      "city" : placeAddress.city,
+      "state" : placeAddress.state,
+      "country" : placeAddress.country,
+      "postal_code" : placeAddress.postalCode,
+      "po_box" : placeAddress.pobox
+    }
+
+    EntityService.entityAdd({
+      entityTitle: $scope.itemDetails.title,
+      entityType: entityType, actionType: actionType
+    }, tmpObj, function (response, responseHeaders) {
+    }, function (error) {
+      // error
+    });
+    $scope.hidePopover()
+  };
 
   $scope.entityEditor = function (entityType, actionType) {
     $scope.newData['newValue'] = $scope.EditData.title;

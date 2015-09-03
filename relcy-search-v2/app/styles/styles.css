@@ -1894,6 +1894,16 @@ a.editable {
     color: #333333;
 }
 
+.topSection .details .tm-inline {display: block; font-size:11px;}
+.topSection .details .tm-inline .tm-inline-title {display:inline-block; width:30%; text-align:left;}
+.topSection .details .tm-inline .tm-inline-frm {display:inline-block; width:65%; text-align:left;}
+.topSection .details .tm-inline .tm-inline-frm i { font-style:normal;}
+.topSection .details .tm-inline .tm-inline-title input[type="checkbox"] {vertical-align:top; margin:1px 0px;}
+.topSection .details .tm-inline p {margin:5px 0 5px;}
+.topSection .details .tm-inline p select {width:100%;}
+.topSection .details .tm-inline .tm-inline-frm input[type="text"] {display:inline-block; width:30px; height:20px; padding:4px; line-height:25px; font-size:11px;}
+.topSection .details .tm-inline p.tm-inline-frm .btn {display:inline-block; width:28px; height:25px; padding:4px; font-size:10px; color:#06F;}
+.topSection .details .tm-inline .tm-inline-frm a {display:inline-block; font-size:18px; margin-left:5px; position:absolute;}
 
 /* --------------------------------------------------------- */
 /* APPLE MACBOOK PRO RETINA ETC. --------------------------- */
