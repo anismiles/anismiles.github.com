@@ -13,7 +13,7 @@
         </p>
         <p class="performer">
           <span ng-repeat="performer in result.entity_data.entertainment_data.common_data.performer">{{performer.title}}</span>
-          <span ng-repeat="result.entity_data.entertainment_data.common_data.genre">{{result.entity_data.entertainment_data.common_data.genre}}</span> </p>
+          <span ng-repeat="genre in result.entity_data.entertainment_data.common_data.genre">{{genre.genre}}</span> </p>
         <p class="score">
           <span ng-repeat="sa in result.scoreArray track by $index" class="full-star-list rating"></span>
           <span ng-if="result.showHalfRating" class="half-star-list rating"></span>
