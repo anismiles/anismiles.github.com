@@ -122,7 +122,7 @@ var openPage = function(pdfFile, pageNumber) {
 };
 
 PDFJS.disableStream = true;
-PDFJS.getDocument('/files/tizenfordummies.pdf').then(function(pdf) {
+PDFJS.getDocument('files/tizenfordummies.pdf').then(function(pdf) {
   pdfFile = pdf;
 
   openPage(pdf, currPageNumber, 1);
