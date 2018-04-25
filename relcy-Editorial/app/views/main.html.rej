@@ -1,8 +1,0 @@
-diff a/source/editorial/app/views/main.html b/source/editorial/app/views/main.html	(rejected hunks)
-@@ -120,6 +120,4 @@
-                   <td data-title="'NAME'" sortable="'user.name'">{{user.user.name}}</td>
-                   <td data-title="'PHONE#'" >{{user.user.phone_number}}</td>
-                   <td data-title="'EMAIL'" >{{user.user.email_address}}</td>
--                  <td data-title="'PHONE#'"><a target="_blank" ng-href="https://search5.truecaller.com/v2/search?client_id=1&countryCode=us&locAddr=&myNumber=6e11998b73f24ca4b599ae4c5c028e63&pageId=&registerId=160678624&type=4&q={{user.user.phone_number}}">{{user.user.phone_number}}</a></td>
--                  <td data-title="'EMAIL'" ><a target="_blank" ng-href="https://api.fullcontact.com/v2/person.json?apiKey=8e1e474220dec669&email={{user.user.email_address}}">{{user.user.email_address}}</a></td>
-                   <td data-title="'FACEBOOK VERIFIED'" >
