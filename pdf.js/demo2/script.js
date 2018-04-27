@@ -1,14 +1,14 @@
 // If absolute URL from the remote server is provided, configure the CORS
 // header on that server.
 var url = '//cdn.mozilla.net/pdfjs/tracemonkey.pdf';
-url = 'http://animesh.org/pdf.js/demo/files/merged-200-bat30dj33t2000c1f0cg.pdf';
+url = 'http://animesh.org/pdf.js/demo/files/merged-200-bat30dj33t2000c1f0cg.pdf?one=true';
 
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
 // The workerSrc property shall be specified.
 pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-
+pdfjsLib.disableAutoFetch​ = true
 
 var pdfDoc = null,
   pageNum = 1,
