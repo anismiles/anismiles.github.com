@@ -5,7 +5,7 @@
     <title>Animesh Kumar: Co-Founder & CTO, The Modern Data Company</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -13,21 +13,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
     <style>
         body {
-            font-family: "Montserrat", serif;
+            font-family: "Open Sans", serif;
             font-optical-sizing: auto;
             font-style: normal;
+            height: 100%;
+            background: #fff;
+            overflow: hidden auto;
+            font-size: 16px;
         }
 
         .fullpage {
-            min-height: 100vh;
+            height: 100%;
+            background: #fff;
         }
 
         .page50 {
-            min-height: 50vh;
+            min-height: 50%;
+            background: #fff;
         }
 
         .container-fluid.timeline.d-flex.align-items-center::before {
@@ -35,7 +41,7 @@
             background: #f8f9fa;
             position: absolute;
             height: 340px;
-            width: calc(100% - 24px);
+            width: calc(100% - 0.75rem);
             top: 0px;
         }
 
@@ -47,9 +53,31 @@
         }
 
         .lead {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: normal;
+            line-height: 1.6rem;
         }
+
+        h5 {
+            font-size: 14px;
+        }
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (min--moz-device-pixel-ratio: 2),
+        only screen and (-o-min-device-pixel-ratio: 2/1),
+        only screen and (min-device-pixel-ratio: 2),
+        only screen and (min-resolution: 192dpi),
+        only screen and (min-resolution: 2dppx) {
+            .hero-section {
+                height: 100vh;
+            }
+        }
+
+        /* @media only screen and (min-device-width: 1200px) and (max-device-width: 1920px) and (-webkit-min-device-pixel-ratio: 1) {
+            .hero-section {
+                height: 100vh;
+            }
+        } */
     </style>
 
     <script>
@@ -104,19 +132,19 @@
 
     </header>
     <main>
-        <div class="container-fluid d-flex align-items-center fullpage py-5">
-            <div class="container py-5">
+        <div class="container-fluid d-flex align-items-center fullpage py-5 my-5 hero-section">
+            <div class="container" style="padding: 4% 0;">
                 <div class="row g-5 m-auto g-5 d-flex align-items-center" style="max-width: 1280px;">
                     <div class="col-12 col-sm-6">
-                        <img src="assets/Animesh_Kumar.png" class="d-block mx-auto img-fluid rounded-circle"
-                            alt="Animesh Kumar" width="350" loading="lazy">
+                        <img src="assets/Animesh_Kumar.jpg" class="d-block mx-auto img-fluid rounded-circle"
+                            alt="Animesh Kumar" width="300" loading="lazy">
                         <h5 class="text-center mt-3 text-uppercase d-block mx-lg-auto"><span
                                 class="fw-normal">Meet</span>
                             Animesh Kumar</h5>
                     </div>
                     <div class="col-lg-6">
                         <h5 class="fw-normal mb-3 text-uppercase">Co-Founder & CTO, The Modern Data Company</h5>
-                        <h2 class=" fw-bold mb-3">Serving Better Data Platforms & Products Everyday.</h2>
+                        <h1 class="mb-3">Serving Better <br /> Data Platforms & <br /> Products Everyday.</h1>
                         <p class="lead">From Day 1, our vision has been to revolutionize the way organizations perceive
                             and
                             use data as a business strategy instead of another back-office asset. By building
@@ -131,7 +159,7 @@
             <div class="container pt-5">
                 <div class="row g-5 flex-lg-row-reverse m-auto align-items-start" style="max-width: 1280px;">
                     <div class="col-lg-12">
-                        <h2 class="mb-0 text-uppercase"><span class="fw-normal">about</span> Animesh</h2>
+                        <h2 class="mb-0 text-uppercase"><span class="fw-normal">about</span> <span class="fw-bold">Animesh</span></h2>
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="d-flex flex-column">
@@ -196,21 +224,22 @@
             </div>
         </div>
 
-        <div class="container-fluid d-flex align-items-center fullpage">
+        <div class="container-fluid my-5 py-5 d-flex align-items-center fullpage">
             <div class="container">
                 <div class="row g-5 m-auto g-5 d-flex align-items-start" style="max-width: 1280px;">
                     <div class="col-12 col-sm-6">
                         <img src="assets/feedback.png" class="d-block mx-auto img-fluid" alt="feedback" loading="lazy">
                     </div>
                     <div class="col-lg-6">
-                        <h2 class=" fw-bold  mb-4 text-uppercase"><span class="fw-normal">Current Stop:</span> The
+                        <h2 class=" fw-bold mb-4 text-uppercase mt-5 pt-4"><span class="fw-normal">Current Stop:</span>
+                            The
                             modern data company</h2>
                         <p class="lead mb-4">At Modern, Animesh, along with his Co-founder Srujan Akula and the Modern
                             Team,
                             built and democratised DataOS, an enterprise-scale Unified Data Platform. Think of it as
                             your data product factory, turning complex data operations into a streamlined production
                             line.</p>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4 pt-4">
                             <a href="https://themoderndatacompany.com/" class="btn btn-dark btn-lg px-4 me-md-2"
                                 target="_blank">
                                 Learn more</a>
@@ -220,7 +249,7 @@
             </div>
         </div>
 
-        <div class="container-fluid d-flex align-items-center fullpage">
+        <div class="container-fluid my-5 py-5 d-flex align-items-center fullpage">
             <div class="container">
                 <div class="row g-5 m-auto flex-lg-row-reverse g-5 d-flex align-items-start" style="max-width: 1280px;">
                     <div class="col-12 col-sm-6">
@@ -250,7 +279,7 @@
 
                     </div>
                     <div class="col-lg-6">
-                        <h2 class=" fw-bold  mb-4 text-uppercase">Community Contributions
+                        <h2 class=" fw-bold  mb-4 "><span class="text-uppercase">Community Contributions</span> <br />
                             <span class="fw-normal">Along His Journey to Productise Data</span>
                         </h2>
                         <p class="lead mb-4">Animesh's passion for sharing knowledge and building with the people made
@@ -269,15 +298,15 @@
                                 target="_blank">
                                 <i class="bi bi-substack"></i>
                             </a>
-                            <a href="https://www.linkedin.com/company/themoderndatacompany/"
+                            <a href="https://www.linkedin.com/company/modern-data-101"
                                 class="btn btn-dark btn-lg me-md-2" target="_blank">
                                 <i class="bi bi-linkedin"></i></a>
-                            <a href="https://x.com/TheModernDataCo" class="btn btn-dark btn-lg me-md-2" target="_blank">
+                            <a href="https://x.com/ModernData101" class="btn btn-dark btn-lg me-md-2" target="_blank">
                                 <i class="bi bi-twitter-x"></i></a>
                             <a href="https://medium.com/@community_md101" class="btn btn-dark btn-lg me-md-2"
                                 target="_blank">
                                 <i class="bi bi-medium"></i></a>
-                            <a href="https://www.themoderndatacompany.com/" class="btn btn-dark btn-lg me-md-2"
+                            <a href="https://www.moderndata101.com/" class="btn btn-dark btn-lg me-md-2"
                                 target="_blank">
                                 <i class="bi bi-globe2"></i></a>
                         </div>
@@ -291,12 +320,15 @@
             </div>
         </div>
 
-        <div class="container-fluid d-flex align-items-center fullpage my-5 py-5">
+        <div class="container-fluid my-5 py-5 d-flex align-items-center fullpage">
             <div class="container">
                 <div class="row g-5 m-auto g-5 d-flex align-items-start" style="max-width: 1280px;">
                     <div class="col-12">
-                        <img src="assets/datadeveloperplatform.png" class="d-block img-fluid " width="400"
-                            alt="datadeveloperplatform" loading="lazy">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="assets/ddp-logo.svg" width="48" alt="datadeveloperplatform"
+                            loading="lazy">
+                        <h2 class="fw-bold mb-0 text-uppercase">Data Developer Platform</h2>
+                        </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <img src="assets/datadeveloperplatform-specification.png" class="d-block img-fluid mb-5"
@@ -323,7 +355,7 @@
                             initiative with
                             practitioners implementing platforms after DDP, customising as necessary, and publishing
                             their work and ideas.</p>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4 pt-4">
                             <a href="https://datadeveloperplatform.org" class="btn btn-dark btn-lg px-4 me-md-2"
                                 target="_blank">
                                 Learn more</a>
@@ -335,11 +367,17 @@
                             alt="platform developers" loading="lazy">
                     </div>
                 </div>
-                <div class="row g-5 m-auto g-5 d-flex mt-5 pt-5" style="max-width: 1280px;">
+
+            </div>
+        </div>
+
+        <div class="container-fluid my-5 py-5 d-flex align-items-center fullpage">
+            <div class="container">
+                <div class="row g-5 m-auto g-5 d-flex" style="max-width: 1280px;">
                     <div class="col-lg-6">
                         <h2 class=" fw-bold  mb-4 text-uppercase">Notable Former ADVentures
                         </h2>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4 pt-4">
                             <a href="https://www.linkedin.com/in/anismiles/" class="btn btn-dark btn-lg px-4 me-md-2"
                                 target="_blank">
                                 Learn more</a>
@@ -361,7 +399,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row g-5 row-cols-1 row-cols-md-3 g-4">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
                             <div class="col">
                                 <div class="card h-100 rounded-4 p-1 bg-light">
                                     <div class="card-body">
@@ -418,11 +456,12 @@
         </div>
 
     </main>
-    <footer class="footer mt-auto py-3 bg-dark">
+    <footer class="footer py-5 mt-auto bg-dark">
         <div class="container" style="max-width: 1280px;">
             <div class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
                 <div class="col-md-4 d-flex align-items-center">
                     <span class="mb-3 mb-md-0 text-light">© 2025 animesh.org</span>
+
                 </div>
             </div>
         </div>
@@ -435,6 +474,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
 </body>
 
 </html>
