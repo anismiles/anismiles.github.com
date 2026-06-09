@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Argus: The Knowledge System (SKOS Layer in Depth)</title>
+<style>
+:root{
+  --bg:#0f1117; --surface:#161922; --surface2:#1c2030;
+  --text:#e6e8ee; --muted:#9aa3b2; --border:#2a2f3e;
+  --accent:#7aa2f7; --accent2:#9d7cd8; --amber:#e0af68; --green:#9ece6a; --code:#f7768e;
+  --maxw:820px; --sidew:280px;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#ffffff; --surface:#f7f8fa; --surface2:#eef1f6;
+    --text:#1a1d24; --muted:#5b6472; --border:#dce0e8;
+    --accent:#2d5bd7; --accent2:#7c3aed; --amber:#b7791f; --green:#2f855a; --code:#c026625;
+  }
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:18px; line-height:1.7;
+}
+.layout{display:flex; max-width:calc(var(--maxw) + var(--sidew) + 80px); margin:0 auto; gap:40px; padding:0 24px;}
+.sidebar{
+  width:var(--sidew); flex:0 0 var(--sidew); position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto; padding:28px 8px 40px 0; border-right:1px solid var(--border);
+}
+.sidebar-title{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:12px; font-weight:700;}
+.sidebar ul{list-style:none; margin:0; padding:0;}
+.sidebar li{margin:0;}
+.sidebar a{display:block; color:var(--muted); text-decoration:none; padding:4px 10px; border-radius:6px; font-size:14.5px; line-height:1.4;}
+.sidebar a:hover{background:var(--surface2); color:var(--text);}
+.sidebar .toc-l3 a{padding-left:24px; font-size:13.5px;}
+.sidebar a.active{color:var(--accent); background:var(--surface2); font-weight:600;}
+.content{flex:1 1 auto; min-width:0; max-width:var(--maxw); padding:36px 0 120px;}
+
+h1{font-size:2.2rem; line-height:1.2; margin:.2em 0 .6em; letter-spacing:-.01em;}
+h2{font-size:1.55rem; line-height:1.25; margin:2em 0 .6em; padding-top:.5em; border-top:1px solid var(--border);}
+h3{font-size:1.25rem; line-height:1.3; margin:1.6em 0 .5em;}
+h4{font-size:1.08rem; margin:1.4em 0 .4em;}
+h1,h2,h3,h4{scroll-margin-top:20px; font-weight:700;}
+p{margin:0 0 1.1em;}
+a{color:var(--accent);}
+strong{color:var(--text); font-weight:700;}
+em{color:var(--text);}
+ul,ol{margin:0 0 1.1em; padding-left:1.4em;}
+li{margin:.3em 0;}
+
+code{
+  font-family:"SF Mono",ui-monospace,Menlo,Monaco,"Cascadia Code","Roboto Mono",monospace;
+  font-size:.86em; background:var(--surface2); color:var(--code);
+  padding:.12em .4em; border-radius:5px; word-break:break-word;
+}
+pre{
+  background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent2);
+  border-radius:10px; padding:16px 18px; overflow-x:auto; margin:0 0 1.3em; font-size:.82rem; line-height:1.55;
+}
+pre code{background:none; color:var(--text); padding:0; font-size:inherit; word-break:normal;}
+
+blockquote{
+  background:color-mix(in srgb, var(--amber) 12%, transparent);
+  border-left:4px solid var(--amber); margin:0 0 1.3em; padding:12px 18px; border-radius:0 8px 8px 0;
+}
+blockquote p{margin:0 0 .5em;} blockquote p:last-child{margin:0;}
+
+table{border-collapse:collapse; width:100%; margin:0 0 1.4em; font-size:.84rem; line-height:1.45; display:block; overflow-x:auto;}
+th,td{border:1px solid var(--border); padding:8px 11px; text-align:left; vertical-align:top;}
+th{background:var(--surface2); font-weight:700;}
+tr:nth-child(even) td{background:var(--surface);}
+
+hr{border:none; border-top:1px solid var(--border); margin:2.2em 0;}
+
+.mermaid-wrap{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:18px; margin:0 0 1.5em; overflow-x:auto; text-align:center;
+}
+.mermaid{display:flex; justify-content:center;}
+.mermaid svg{max-width:100%; height:auto;}
+
+/* mobile */
+.menu-toggle{display:none;}
+@media (max-width: 920px){
+  body{font-size:17px;}
+  .layout{display:block; padding:0 18px;}
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:82%; max-width:320px; z-index:50;
+    background:var(--surface); border-right:1px solid var(--border); height:100vh;
+    transform:translateX(-105%); transition:transform .25s ease; padding:64px 14px 40px 18px;
+    box-shadow:0 0 40px rgba(0,0,0,.4);
+  }
+  .sidebar.open{transform:translateX(0);}
+  .content{max-width:none; padding:64px 0 100px;}
+  .menu-toggle{
+    display:flex; align-items:center; gap:8px; position:fixed; top:12px; left:12px; z-index:60;
+    background:var(--surface2); color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:8px 12px; font-size:14px; cursor:pointer; font-weight:600;
+  }
+  .scrim{display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:40;}
+  .scrim.open{display:block;}
+  h1{font-size:1.7rem;} h2{font-size:1.35rem;} h3{font-size:1.15rem;}
+}
+</style>
+</head>
+<body>
+<button class="menu-toggle" id="menuToggle">☰ Contents</button>
+<div class="scrim" id="scrim"></div>
+<div class="layout">
+<nav class="sidebar" id="sidebar"><div class="sidebar-title">Contents</div><ul>
+<li class="toc-l2"><a href="#argus-system-architecture">Argus System Architecture</a></li>
+<li class="toc-l2"><a href="#1-history-and-brief">1. History and Brief</a></li>
+<li class="toc-l2"><a href="#2-skos-in-depth">2. SKOS in Depth</a></li>
+<li class="toc-l3"><a href="#21-the-data-model-at-a-glance">2.1 The data model at a
+glance</a></li>
+<li class="toc-l3"><a href="#22-concepts">2.2 Concepts</a></li>
+<li class="toc-l3"><a href="#23-concept-schemes">2.3 Concept schemes</a></li>
+<li class="toc-l3"><a href="#24-lexical-labels">2.4 Lexical labels</a></li>
+<li class="toc-l3"><a href="#25-notations">2.5 Notations</a></li>
+<li class="toc-l3"><a href="#26-documentation-properties">2.6 Documentation properties</a></li>
+<li class="toc-l3"><a href="#27-semantic-relations-the-core-idea">2.7 Semantic relations: the
+core idea</a></li>
+<li class="toc-l3"><a href="#28-cycles-reflexivity-and-polyhierarchy">2.8 Cycles,
+reflexivity, and polyhierarchy</a></li>
+<li class="toc-l3"><a href="#29-extending-semantic-relations">2.9 Extending semantic
+relations</a></li>
+<li class="toc-l3"><a href="#210-the-argus-custom-relations">2.10 The Argus custom
+relations</a></li>
+<li class="toc-l3"><a href="#211-concept-collections">2.11 Concept collections</a></li>
+<li class="toc-l3"><a href="#212-mapping-properties">2.12 Mapping properties</a></li>
+<li class="toc-l3"><a href="#213-integrity-conditions-consolidated-checklist">2.13 Integrity
+conditions: consolidated checklist</a></li>
+<li class="toc-l2"><a href="#3-labels-as-glossary-terms-and-term-resolution">3. Labels as
+Glossary Terms, and Term Resolution</a></li>
+<li class="toc-l2"><a href="#4-concept-schemes-as-business-domains">4. Concept Schemes as
+Business Domains</a></li>
+<li class="toc-l2"><a href="#5-the-grounding-layer">5. The Grounding Layer</a></li>
+<li class="toc-l3"><a href="#51-asset-attachment-bindings">5.1 Asset attachment
+(bindings)</a></li>
+<li class="toc-l3"><a href="#52-binding-kinds">5.2 Binding kinds</a></li>
+<li class="toc-l3"><a href="#53-dependson-vs-derivedfrom-the-endpoint-type-rule">5.3
+dependsOn vs derivedFrom: the endpoint-type rule</a></li>
+<li class="toc-l3"><a href="#54-term-mapping-and-the-resolver">5.4 Term mapping and the
+resolver</a></li>
+<li class="toc-l3"><a href="#55-workflow-and-governance">5.5 Workflow and governance</a></li>
+<li class="toc-l2"><a href="#6-the-harvest-subsystem">6. The Harvest Subsystem</a></li>
+<li class="toc-l3"><a href="#61-what-harvest-is">6.1 What Harvest is</a></li>
+<li class="toc-l3"><a href="#62-the-harvested-picture">6.2 The harvested picture</a></li>
+<li class="toc-l3"><a href="#63-two-kinds-of-lineage">6.3 Two kinds of lineage</a></li>
+<li class="toc-l3"><a href="#64-discovery">6.4 Discovery</a></li>
+<li class="toc-l3"><a href="#65-seams-to-the-knowledge-layers">6.5 Seams to the knowledge
+layers</a></li>
+</ul></nav>
+<main class="content">
+<h1 id="argus-the-knowledge-system-skos-layer-in-depth">Argus: The
+Knowledge System (SKOS Layer in Depth)</h1>
+<blockquote>
+<p>Internal codenames: <strong>Vulcan</strong> (a per-product project,
+also called a <strong>data product</strong>, containing physical models,
+a semantic <em>model</em>, metrics, and perspectives),
+<strong>Argus</strong> (the cross-product knowledge system that harvests
+the data products and acts as an org-wide semantic <em>layer</em>, built
+bottom-up). "Data product" and "Vulcan project" are the same thing.
+External brand: DataOS.</p>
+<p>Argus is a two-layer knowledge system fed by a sensory subsystem. The
+inner layer is a SKOS knowledge model (<strong>meaning</strong>); the
+outer layer grounds that meaning in real data: asset attachment, term
+mapping, and governance workflow (the <strong>grounding layer</strong>).
+Beneath both sits <strong>Harvest</strong>, the subsystem that
+automatically pulls metadata from every data product and makes the
+organization's data searchable and lineage-connected; it feeds the
+knowledge layers but is not itself a curated layer. All of it is Argus,
+built in-house, not outsourced to a third-party store. This document
+specifies the <strong>two knowledge layers and the Harvest
+subsystem</strong>. Sections 1 and 2 cover SKOS as the W3C standard
+defines it, with enough detail that you should not need to consult the
+spec separately. Sections 3 and 4 are where Argus shapes SKOS to its
+needs: term-to-concept resolution, and the mapping of concept schemes
+onto business domains. Section 5 specifies the grounding layer:
+bindings, binding kinds, the resolver, and governance workflow. Section
+6 specifies Harvest. The architecture overview below frames how the
+pieces relate before the detail begins.</p>
+</blockquote>
+<hr />
+<hr />
+<h2 id="argus-system-architecture">Argus System Architecture</h2>
+<p>Argus is the whole system: two curated knowledge layers fed by an
+automated sensory subsystem. All three parts are owned and implemented
+by Argus.</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    subgraph AGENTS[&quot;Primary consumer&quot;]
+        AG[&quot;AI agents reasoning over org data&lt;br/&gt;(via tools)&quot;]
+        HU[&quot;Humans authoring &amp;amp; approving&lt;br/&gt;(at the edges)&quot;]
+    end
+
+    subgraph ARGUS[&quot;ARGUS&quot;]
+        direction TB
+        subgraph KNOW[&quot;Knowledge layers (curated, governed)&quot;]
+            direction TB
+            subgraph L2[&quot;Grounding layer&quot;]
+                BIND[&quot;Asset attachment&lt;br/&gt;concept → asset&lt;br/&gt;(asserted fact, no confidence)&quot;]
+                MAP[&quot;Term mapping&lt;br/&gt;term → concept label&lt;br/&gt;(resolver proposes + confidence,&lt;br/&gt;human approves; confidence ephemeral)&quot;]
+                WF[&quot;Workflow / governance&lt;br/&gt;lifecycle, stewards, approval gates,&lt;br/&gt;mutual-exclusivity, canonical-flag&quot;]
+            end
+            subgraph L1[&quot;Meaning layer (SKOS)&quot;]
+                SK[&quot;Concepts · label trio · schemes-as-domains&lt;br/&gt;semantic relations + custom relations&lt;br/&gt;mapping properties · historyNote/changeNote&quot;]
+            end
+            L2 --&gt;|references, never modifies| L1
+        end
+        subgraph HARVEST[&quot;Harvest subsystem (automated, ungoverned)&quot;]
+            HV[&quot;Harvested data products · models · columns/measures&lt;br/&gt;physical &amp;amp; cross-product lineage · discovery/search&quot;]
+        end
+        HARVEST --&gt;|&quot;feeds: terms, lineage, asset targets&quot;| KNOW
+    end
+
+    AG --&gt;|tools| ARGUS
+    HU --&gt;|author / approve| ARGUS
+    HARVEST -.-&gt;|pulls metadata from| DATA[&quot;Data products (Vulcan projects)&lt;br/&gt;models · columns · measures · perspectives&quot;]
+
+    classDef agents fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe;
+    classDef l2 fill:#422006,stroke:#f59e0b,color:#fef3c7;
+    classDef l1 fill:#14532d,stroke:#22c55e,color:#dcfce7;
+    classDef harvest fill:#3f1d38,stroke:#a855f7,color:#f3e8ff;
+    classDef data fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    class AG,HU agents;
+    class BIND,MAP,WF l2;
+    class SK l1;
+    class HV harvest;
+    class DATA data;</pre></div>
+<p><strong>Layer 1, Meaning layer (SKOS).</strong> The
+knowledge-organization core specified in this document: concepts with
+stable opaque identity, the label trio, concept schemes as business
+domains, the semantic-relation tree with the Argus custom relations
+(<code>extendsFrom</code>,
+<code>hasMany</code>/<code>hasOne</code>/<code>belongsTo</code>,
+<code>dependsOn</code>/<code>feedsInto</code>), mapping properties for
+cross-scheme alignment, and
+<code>historyNote</code>/<code>changeNote</code> for the change record.
+This layer is <em>about concepts relating to concepts</em>. It never
+references a physical table. Argus implements it natively rather than
+stretching it to do things it was not designed for.</p>
+<p><strong>Layer 2, Grounding layer.</strong> Where meaning is grounded
+in real data. Three concerns live here, and none of them are SKOS
+vocabulary; they reference SKOS concepts but never add to the SKOS
+model:</p>
+<ul>
+<li><strong>Asset attachment</strong>: binding a concept to a physical
+asset (a model, column, or measure in a data product). A plain asserted
+fact relating the concept to where it lives in data, qualified by a
+binding <em>kind</em> (<code>implements</code>,
+<code>derivedFrom</code>, <code>tagged</code>; see section 5.2). No
+confidence score; it is either bound or not.</li>
+<li><strong>Term mapping</strong>: resolving a free-style term to a
+concept label. The resolver computes a confidence score shown <em>to a
+human to decide</em> whether to attach the label. The confidence is
+ephemeral decision-scaffolding for curation; once the human approves,
+the label is just a label and the score is gone. AI proposes, human
+approves.</li>
+<li><strong>Workflow / governance</strong>: lifecycle (Draft / Active /
+Deprecated), stewards, approval gates, mutual-exclusivity,
+canonical-flag: the machinery governing how concepts and bindings move
+through their lives.</li>
+</ul>
+<p><strong>The Harvest subsystem.</strong> Beneath the two knowledge
+layers, Harvest automatically pulls structural metadata from every
+registered data product (Vulcan project) and stitches it into one
+searchable, lineage-connected picture (section 6). It is the <em>sensory
+apparatus</em>, the hundred eyes, and it differs from the knowledge
+layers in kind: it is automated, ungoverned, and reflects whatever the
+data products emit, where the knowledge layers are curated and
+human-approved. Harvest is not a curated layer; it <em>feeds</em> the
+knowledge layers, supplying the raw terms the resolver maps, the
+physical lineage that corroborates conceptual dependency, and the assets
+that bindings point at.</p>
+<p><strong>The dividing principle.</strong> Facts about <em>meaning</em>
+live in the meaning layer (Layer 1). Facts about <em>meaning grounded in
+data</em>, and the <em>process of curating and governing it</em>, live
+in the grounding layer (Layer 2). Observed structural facts about what
+physically exists across data products live in Harvest, ungoverned.
+Binding is grounding, so it is Layer 2. Lifecycle is process, so it is
+Layer 2. Confidence is curation-scaffolding, so it is Layer 2 and
+ephemeral. Concepts, labels, and relations are meaning, so they are
+Layer 1, untouched. What a data product actually contains is
+observation, so it is Harvest.</p>
+<p><strong>Operating model and consumer.</strong> The primary consumer
+is AI agents reasoning about the organization's data through tools;
+humans author and approve at the edges. The flow is decentralized
+generation, centralized convergence: each product team builds its own
+Vulcan semantic <em>model</em> locally, where the domain expertise
+lives; Argus collects those models and converges them (AI inferring and
+proposing alignments and mappings, humans approving) into a single
+org-wide semantic <em>layer</em> across the organization, built
+bottom-up. The semantic-model-versus-semantic-layer distinction is
+deliberate and load-bearing: a Vulcan model is local and per-product;
+the Argus semantic layer is the cross-product integration tier above the
+collection of them. The result is a reasoning surface no single-product
+model could offer.</p>
+<p>The remainder of this document specifies all three parts: the meaning
+layer in sections 1–4, the grounding layer in section 5, and the Harvest
+subsystem in section 6.</p>
+<hr />
+<h2 id="1-history-and-brief">1. History and Brief</h2>
+<p>SKOS (Simple Knowledge Organization System) became a W3C
+Recommendation on 18 August 2009, produced by the Semantic Web
+Deployment Working Group. It did not appear from nothing. It is the
+formalization of decades of prior work in the library and information
+sciences on representing thesauri, taxonomies, classification schemes,
+and subject heading systems. The direct lineage runs through the ISO
+thesaurus standards (ISO 2788 for monolingual thesauri, ISO 5964 for
+multilingual) and their British equivalents (BS 8723), through the
+SWAD-Europe project and the early SKOS Core work in the first half of
+the 2000s.</p>
+<p>The motivation was specific. Many knowledge organization systems
+share a common shape: a set of concepts, labeled in natural language,
+arranged into broader/narrower hierarchies and association networks, and
+grouped into schemes. Before SKOS there was no widely deployed standard
+for exchanging these structures between systems as data. Each thesaurus
+or taxonomy lived in its own format, in its own tool, behind its own
+export quirks.</p>
+<p>The design decision that matters most for us is what SKOS
+deliberately is <em>not</em>. It is not a formal knowledge
+representation language. A formal ontology (OWL) asserts axioms and
+facts about the world: a logical model from which a reasoner derives new
+truths and detects contradictions. A thesaurus asserts nothing of the
+kind. It identifies and informally describes a set of meanings, and
+arranges them into a convenient map of a subject domain. SKOS models
+that map as-is, without forcing the costly re-engineering into formal
+axioms that OWL would demand.</p>
+<p>Technically, SKOS is defined as an OWL Full ontology, and SKOS data
+are RDF triples. But the concepts in a SKOS vocabulary are modeled as
+<em>individuals</em>, not as classes. This is the crux of why SKOS is
+lightweight where OWL is heavy: SKOS records facts about the vocabulary
+itself ("concept X has preferred label Y and lives in scheme Z"), never
+facts about how the world is arranged. That distinction is what makes it
+the right reference model for Argus. We want stable concept identity,
+hierarchical and associative links, and clean cross-scheme mapping. We
+do not want the cost and rigidity of a full logical ontology. SKOS gives
+the former without imposing the latter.</p>
+<p>A consequence worth internalizing early: SKOS inherits RDF's
+<strong>open-world assumption</strong>. Missing data is never a
+contradiction. Removing a statement never makes the remaining data
+inconsistent. Almost nothing in SKOS is an integrity violation. The
+handful of genuine integrity conditions are enumerated in section 2.13.
+Everything else the spec defines is a license to <em>infer</em>, not a
+constraint to <em>enforce</em>. Where we want stricter behavior (no
+cycles, irreflexive hierarchy), that is our application convention to
+impose, not something SKOS gives us for free.</p>
+<hr />
+<h2 id="2-skos-in-depth">2. SKOS in Depth</h2>
+<h3 id="21-the-data-model-at-a-glance">2.1 The data model at a
+glance</h3>
+<p>SKOS is four classes and twenty-five properties. The namespace is
+<code>http://www.w3.org/2004/02/skos/core#</code>, conventionally
+abbreviated <code>skos:</code>.</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    CS[skos:ConceptScheme] --&gt;|hasTopConcept| C[skos:Concept]
+    C --&gt;|inScheme| CS
+    C --&gt;|prefLabel / altLabel / hiddenLabel| L[&quot;Lexical Labels&lt;br/&gt;(plain literals)&quot;]
+    C --&gt;|notation| N[&quot;Notation&lt;br/&gt;(typed literal)&quot;]
+    C --&gt;|note + 6 subtypes| D[&quot;Documentation&quot;]
+    C --&gt;|broader / narrower / related| C2[skos:Concept]
+    C --&gt;|&quot;broad/narrow/close/exact/relatedMatch&quot;| C3[&quot;skos:Concept&lt;br/&gt;(other scheme)&quot;]
+    COL[skos:Collection] --&gt;|member| C
+    OC[skos:OrderedCollection] --&gt;|memberList| C
+
+    classDef cls fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    classDef prop fill:#0f172a,stroke:#475569,color:#cbd5e1;
+    class CS,C,C2,C3,COL,OC cls;
+    class L,N,D prop;</pre></div>
+<p>The full vocabulary:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>URIs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Classes</td>
+<td><code>skos:Concept</code>, <code>skos:ConceptScheme</code>,
+<code>skos:Collection</code>, <code>skos:OrderedCollection</code></td>
+</tr>
+<tr class="even">
+<td>Scheme membership</td>
+<td><code>skos:inScheme</code>, <code>skos:hasTopConcept</code>,
+<code>skos:topConceptOf</code></td>
+</tr>
+<tr class="odd">
+<td>Lexical labels</td>
+<td><code>skos:prefLabel</code>, <code>skos:altLabel</code>,
+<code>skos:hiddenLabel</code></td>
+</tr>
+<tr class="even">
+<td>Notation</td>
+<td><code>skos:notation</code></td>
+</tr>
+<tr class="odd">
+<td>Documentation</td>
+<td><code>skos:note</code>, <code>skos:definition</code>,
+<code>skos:scopeNote</code>, <code>skos:example</code>,
+<code>skos:historyNote</code>, <code>skos:editorialNote</code>,
+<code>skos:changeNote</code></td>
+</tr>
+<tr class="even">
+<td>Semantic relations</td>
+<td><code>skos:semanticRelation</code>, <code>skos:broader</code>,
+<code>skos:narrower</code>, <code>skos:related</code>,
+<code>skos:broaderTransitive</code>,
+<code>skos:narrowerTransitive</code></td>
+</tr>
+<tr class="odd">
+<td>Collections</td>
+<td><code>skos:member</code>, <code>skos:memberList</code></td>
+</tr>
+<tr class="even">
+<td>Mapping</td>
+<td><code>skos:mappingRelation</code>, <code>skos:closeMatch</code>,
+<code>skos:exactMatch</code>, <code>skos:broadMatch</code>,
+<code>skos:narrowMatch</code>, <code>skos:relatedMatch</code></td>
+</tr>
+</tbody>
+</table>
+<p>All Turtle examples below assume these prefixes:</p>
+<pre class="turtle"><code>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .
+@prefix rdf:  &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix owl:  &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix ex:   &lt;http://example.org/ns/&gt; .</code></pre>
+<h3 id="22-concepts">2.2 Concepts</h3>
+<p><code>skos:Concept</code> is the class of concepts. A concept is a
+unit of thought, a meaning, an idea, deliberately suggestive rather than
+restrictive. The single most important property of a concept is its
+<strong>identity</strong>: a concept is identified by a URI, and that
+URI is the stable anchor. Everything else about a concept (its labels,
+its notes, its place in the hierarchy) is mutable metadata hung off that
+stable identity.</p>
+<pre class="turtle"><code>ex:c-arr rdf:type skos:Concept ;
+    skos:prefLabel &quot;Annual Recurring Revenue&quot;@en .</code></pre>
+<p>Three things follow, and they are the foundation of the whole
+model:</p>
+<p><strong>A concept is not its label.</strong> The string "Annual
+Recurring Revenue" is metadata. If the business renames it to
+"Annualized Recurring Revenue," you change the <code>prefLabel</code>
+and nothing else breaks, because every link, every binding, every
+reference points at <code>ex:c-arr</code>, not at the string. This is
+the failure mode SKOS exists to prevent: treating the term as the
+concept, so that renaming shatters every reference.</p>
+<p><strong>A concept is an individual, not a class.</strong>
+<code>skos:Concept</code> is itself an <code>owl:Class</code>, but
+<code>ex:c-arr</code> is an instance of it, an individual. SKOS asserts
+facts <em>about</em> <code>ex:c-arr</code> (it has this label, it lives
+in that scheme), never axioms about the world. This is why a SKOS
+hierarchy carries no logical entailments about membership or subsumption
+the way an OWL class hierarchy would.</p>
+<p><strong>URIs should be opaque.</strong> This is convention, not a
+spec rule, but it is non-negotiable for us. Never encode the human label
+into the URI. <code>ex:c-arr</code> or <code>ex:C4092</code>, never
+<code>ex:AnnualRecurringRevenue</code>. The label is allowed to change;
+the identifier must not. Let <code>prefLabel</code> hold the words and
+let the URI be a silent, permanent anchor.</p>
+<h3 id="23-concept-schemes">2.3 Concept schemes</h3>
+<p>A <code>skos:ConceptScheme</code> is an aggregation of concepts: the
+SKOS modeling of "a thesaurus" or "a taxonomy" or, for us, "a business
+domain." Concepts declare membership with <code>skos:inScheme</code>. A
+scheme can name its entry points with <code>skos:hasTopConcept</code>,
+and the concept can point back with <code>skos:topConceptOf</code> (the
+two are inverses; assert either).</p>
+<pre class="turtle"><code>ex:revenue-domain rdf:type skos:ConceptScheme ;
+    skos:prefLabel &quot;Revenue&quot;@en ;
+    skos:hasTopConcept ex:c-arr .
+
+ex:c-arr skos:topConceptOf ex:revenue-domain ;
+    skos:inScheme ex:revenue-domain .</code></pre>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    S[ex:revenue-domain&lt;br/&gt;ConceptScheme]
+    S --&gt;|hasTopConcept| T[ex:c-arr&lt;br/&gt;top concept]
+    T --&gt;|topConceptOf| S
+    T --&gt;|broader| T2[ex:c-revenue]
+    T3[ex:c-mrr] --&gt;|inScheme| S
+    T3 --&gt;|broader| T
+
+    classDef s fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe;
+    classDef c fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    class S s;
+    class T,T2,T3 c;</pre></div>
+<p>Two properties of schemes shape how we use them:</p>
+<p><strong>Schemes are open, not closed.</strong> You can say concepts
+X, Y, Z are <code>inScheme</code> A. You cannot say <em>only</em> X, Y,
+Z are in A. SKOS gives no way to seal a scheme's boundary. So SKOS lets
+you <em>describe</em> a scheme but never fully <em>define</em> one. For
+Argus this is liberating rather than limiting: domains accrete concepts
+over time, and we never want to declare a domain "complete."</p>
+<p><strong>A concept can live in more than one scheme.</strong>
+Membership is many-to-many. A concept can belong to zero, one, or
+several schemes. This is consistent with the data model and is exactly
+what we need when a concept is genuinely shared across domains rather
+than owned by one. (<code>skos:ConceptScheme</code> is disjoint from
+<code>skos:Concept</code>; one resource cannot be both. That is
+integrity condition S9.)</p>
+<p><strong>A semantic link does not drag concepts into the same
+scheme.</strong> If <code>A inScheme MyScheme</code> and
+<code>A narrower B</code>, that does <em>not</em> entail
+<code>B inScheme MyScheme</code>. Links cross scheme boundaries freely.
+Membership is asserted explicitly, never inferred from
+relationships.</p>
+<h3 id="24-lexical-labels">2.4 Lexical labels</h3>
+<p>Every concept can carry labels in three registers, in any number of
+languages:</p>
+<ul>
+<li><strong><code>skos:prefLabel</code></strong>: the one preferred
+label per language. At most one per language tag (integrity condition
+S14).</li>
+<li><strong><code>skos:altLabel</code></strong>: synonyms, acronyms,
+alternative forms. Any number.</li>
+<li><strong><code>skos:hiddenLabel</code></strong>: labels that should
+match in text search but never display. The canonical use is
+misspellings and deprecated terms: a user who types "anual recuring
+revenue" still finds the concept, but the typo is never shown back and
+so is not reinforced.</li>
+</ul>
+<pre class="turtle"><code>ex:c-arr
+    skos:prefLabel   &quot;Annual Recurring Revenue&quot;@en ;
+    skos:altLabel    &quot;ARR&quot;@en , &quot;Annualized Recurring Revenue&quot;@en ;
+    skos:hiddenLabel &quot;anual recurring revenue&quot;@en .</code></pre>
+<div class="mermaid-wrap"><pre class="mermaid">graph LR
+    C[ex:c-arr] --&gt;|prefLabel| P[&quot;&#x27;Annual Recurring Revenue&#x27;@en&lt;br/&gt;(displayed, one per language)&quot;]
+    C --&gt;|altLabel| A[&quot;&#x27;ARR&#x27;, &#x27;Annualized…&#x27;@en&lt;br/&gt;(synonyms, searchable + displayed)&quot;]
+    C --&gt;|hiddenLabel| H[&quot;&#x27;anual recurring revenue&#x27;@en&lt;br/&gt;(searchable, never displayed)&quot;]
+
+    classDef c fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    classDef pref fill:#14532d,stroke:#22c55e,color:#dcfce7;
+    classDef alt fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe;
+    classDef hid fill:#3f1d38,stroke:#a855f7,color:#f3e8ff;
+    class C c;
+    class P pref;
+    class A alt;
+    class H hid;</pre></div>
+<p>The three are <strong>pairwise disjoint</strong> (integrity condition
+S13): the same string cannot be both a pref and an alt label on one
+concept, nor alt and hidden, nor pref and hidden. The labeling
+properties are sub-properties of <code>rdfs:label</code> and their
+values are plain literals (a string plus an optional language tag, never
+a datatype).</p>
+<p>A detail that becomes the hook for section 3: <strong>no domain is
+stated</strong> for the label properties. You can attach
+<code>prefLabel</code>/<code>altLabel</code>/<code>hiddenLabel</code> to
+any resource at all, not just a <code>skos:Concept</code>. SKOS leaves
+this open deliberately, and it is the clean extension point for using
+labels as free-floating glossary terms that resolve to concepts.</p>
+<h3 id="25-notations">2.5 Notations</h3>
+<p>A <code>skos:notation</code> is a code ("303.4833", "T58.5", "K" for
+potassium) used to identify a concept within a scheme. It differs from a
+label in kind, not just in use: a notation is a <strong>typed
+literal</strong> (it carries a datatype URI naming the notation system,
+and no language tag), whereas a label is a <strong>plain
+literal</strong> (language tag, no datatype). The two never overlap as
+literal types.</p>
+<pre class="turtle"><code>ex:c-arr skos:notation &quot;REV-001&quot;^^ex:MetricCode .</code></pre>
+<p>By convention no two concepts in a scheme share a notation (otherwise
+it could not identify uniquely), and a concept may carry several
+notations from different systems. For Argus, notation is where a stable
+internal metric code lives, distinct from the human label and distinct
+again from the opaque URI. Three identifiers, three jobs: URI for
+machine identity, notation for the catalog code, prefLabel for the human
+word.</p>
+<h3 id="26-documentation-properties">2.6 Documentation properties</h3>
+<p>Seven note properties, all sub-properties of
+<code>skos:note</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Property</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>skos:definition</code></td>
+<td>The formal meaning of the concept</td>
+</tr>
+<tr class="even">
+<td><code>skos:scopeNote</code></td>
+<td>What the concept does and does not cover; boundary
+clarification</td>
+</tr>
+<tr class="odd">
+<td><code>skos:example</code></td>
+<td>An illustrative instance</td>
+</tr>
+<tr class="even">
+<td><code>skos:historyNote</code></td>
+<td>How the concept's meaning has changed over time</td>
+</tr>
+<tr class="odd">
+<td><code>skos:changeNote</code></td>
+<td>A specific edit, with provenance</td>
+</tr>
+<tr class="even">
+<td><code>skos:editorialNote</code></td>
+<td>A note to stewards/maintainers, not end users</td>
+</tr>
+<tr class="odd">
+<td><code>skos:note</code></td>
+<td>The generic catch-all parent</td>
+</tr>
+</tbody>
+</table>
+<pre class="turtle"><code>ex:c-arr
+    skos:definition &quot;Annualized value of recurring subscription revenue
+                     under contract as of a point in time.&quot;@en ;
+    skos:scopeNote  &quot;Excludes one-time fees and usage overages.&quot;@en ;
+    skos:historyNote &quot;Redefined 2025-Q3 to include multi-year prepay.&quot;@en ;
+    skos:changeNote  &quot;2026-01-14: scope narrowed to contracted ARR (steward: Devendra).&quot;@en .</code></pre>
+<p>These are not decoration. <code>historyNote</code> and
+<code>changeNote</code> together are the audit trail that supports the
+deprecation-path requirement: when a concept's meaning shifts, the
+record of what changed and when lives here. Like the labels, the
+documentation properties have no stated domain (they can annotate any
+resource), and the set is explicitly meant to be <em>extended</em> by
+third parties where a more specific note type is needed.</p>
+<h3 id="27-semantic-relations-the-core-idea">2.7 Semantic relations: the
+core idea</h3>
+<p>This is the heart of SKOS, and the place where the design is most
+easily misread. SKOS distinguishes two basic kinds of link between
+concepts: <strong>hierarchical</strong> (one concept is more general
+than another) and <strong>associative</strong> (two concepts are
+connected, but neither is more general). And within the hierarchical
+kind, it makes a second distinction that is the key to the whole model:
+between the <em>fact you assert</em> and the <em>inference you
+draw</em>.</p>
+<p>The property hierarchy:</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    SR[skos:semanticRelation]
+    SR --&gt; REL[skos:related&lt;br/&gt;symmetric, NOT transitive]
+    SR --&gt; BT[skos:broaderTransitive&lt;br/&gt;TRANSITIVE]
+    SR --&gt; NT[skos:narrowerTransitive&lt;br/&gt;TRANSITIVE]
+    BT --&gt; B[skos:broader&lt;br/&gt;direct link only]
+    NT --&gt; N[skos:narrower&lt;br/&gt;direct link only]
+
+    classDef root fill:#3f1d38,stroke:#a855f7,color:#f3e8ff;
+    classDef trans fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe;
+    classDef direct fill:#14532d,stroke:#22c55e,color:#dcfce7;
+    classDef assoc fill:#422006,stroke:#f59e0b,color:#fef3c7;
+    class SR root;
+    class BT,NT trans;
+    class B,N direct;
+    class REL assoc;</pre></div>
+<p><strong><code>broader</code> and <code>narrower</code> are direct
+links.</strong> <code>A skos:broader B</code> means B is the
+<em>immediate</em> parent of A: one step up, nothing skipped. Read the
+direction carefully: in <code>A broader B</code>, the object B is the
+broader (more general) concept. "A has-broader-concept B." So
+<code>ex:c-mrr broader ex:c-arr</code> reads "MRR's immediate parent is
+ARR." The two are inverses (S25): assert <code>A narrower B</code> and
+<code>B broader A</code> follows automatically, so you only ever state
+one direction.</p>
+<p><strong><code>broader</code> is deliberately NOT transitive.</strong>
+This is the part that surprises people. If
+<code>ex:cat broader ex:mammal</code> and
+<code>ex:mammal broader ex:animal</code>, SKOS does <em>not</em> let you
+infer <code>ex:cat broader ex:animal</code>. That is intentional. SKOS
+wants <code>broader</code> to mean <em>exactly</em> "direct parent,"
+with no ambiguity, so that an application asking "what are the immediate
+children of mammal?" gets back exactly one level, not the entire subtree
+at every depth. If <code>broader</code> were transitive you could no
+longer reconstruct the actual tree shape, which you need for rendering,
+navigation, and "show me one level down."</p>
+<p><strong><code>broaderTransitive</code> and
+<code>narrowerTransitive</code> are the ancestor/descendant
+relations</strong>, and these <em>are</em> transitive (S24).
+<code>A broaderTransitive B</code> means B is an ancestor of A at
+<em>any</em> depth. The elegant part: <code>broader</code> is a
+sub-property of <code>broaderTransitive</code> (S22). So every direct
+link you assert is automatically also a transitive link, and the
+transitive closure then fills in all the indirect ancestors for
+free.</p>
+<p>From two asserted facts:</p>
+<pre class="turtle"><code>ex:cat    skos:broader ex:mammal .
+ex:mammal skos:broader ex:animal .</code></pre>
+<p>a reasoner infers:</p>
+<pre class="turtle"><code>ex:cat    skos:broaderTransitive ex:mammal .   # from sub-property (S22)
+ex:mammal skos:broaderTransitive ex:animal .   # from sub-property (S22)
+ex:cat    skos:broaderTransitive ex:animal .   # from transitivity (S24)</code></pre>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    cat[ex:cat] --&gt;|broader| mammal[ex:mammal]
+    mammal --&gt;|broader| animal[ex:animal]
+    cat -.-&gt;|broaderTransitive INFERRED| animal
+
+    classDef c fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    classDef inf fill:#0f172a,stroke:#a855f7,color:#f3e8ff,stroke-dasharray: 5 5;
+    class cat,mammal,animal c;</pre></div>
+<p>Solid arrows are asserted; the dashed arrow is inferred.</p>
+<p><strong>The convention that makes this work: you only ever
+<em>assert</em> <code>broader</code>/<code>narrower</code>, and you only
+ever <em>query</em>
+<code>broaderTransitive</code>/<code>narrowerTransitive</code>.</strong>
+The transitive properties are an inference surface, not an authoring
+surface. Authors write the direct skeleton; the system computes the
+ancestry. The intuition the spec uses: <em>father</em> (and <em>adoptive
+father</em>) are direct and non-transitive; <em>ancestor</em> is the
+transitive closure over them.</p>
+<p>Why this matters in practice is query expansion. A user searches
+"animal" and you want to return everything filed under cat, dog,
+sparrow, and so on, then walk <code>narrowerTransitive</code> from
+animal and pull the whole subtree in one step. But when you
+<em>render</em> the taxonomy tree, walk <code>narrower</code> (direct
+only) so each node shows exactly its immediate children. Same asserted
+data, two relations, two jobs.</p>
+<p><strong><code>related</code> is the associative link</strong>: "these
+two concepts are connected, but neither is more general." It is
+symmetric (S23): <code>A related B</code> entails
+<code>B related A</code>. It is <strong>not</strong> transitive (S32):
+<code>A related B</code> and <code>B related C</code> do <em>not</em>
+give <code>A related C</code>; relatedness does not chain. And it is
+<strong>not</strong> asserted reflexive or irreflexive:
+<code>A related A</code> is consistent with the model, though most
+applications will want to screen it out.</p>
+<p><strong>The integrity condition that keeps the two kinds clean
+(S27):</strong> <code>related</code> is disjoint from
+<code>broaderTransitive</code>. Two concepts cannot be both
+hierarchically connected (even indirectly, even through the transitive
+closure) and associatively linked. The model treats "is an ancestor of"
+and "is merely related to" as mutually exclusive. That disjointness is
+what stops the two link types from collapsing into a vague "connected
+somehow."</p>
+<pre class="turtle"><code># Consistent: a hierarchical link and an associative link to different concepts
+ex:a skos:broader ex:b ;
+     skos:related ex:c .
+
+# NOT consistent: b is both broader-than and related-to a
+ex:a skos:broader ex:b ;
+     skos:related ex:b .</code></pre>
+<h3 id="28-cycles-reflexivity-and-polyhierarchy">2.8 Cycles,
+reflexivity, and polyhierarchy</h3>
+<p>These three behaviors are where SKOS's open-world stance shows, and
+where we must decide our own conventions because SKOS will not decide
+for us.</p>
+<p><strong>Cycles are consistent.</strong>
+<code>ex:a broader ex:b</code> and <code>ex:b broader ex:a</code>
+together are valid SKOS: there is no condition requiring
+<code>broaderTransitive</code> to be irreflexive. SKOS will not reject a
+cycle. If we want to forbid cycles (we do), the strategy is to compute
+the transitive closure and look for any
+<code>X broaderTransitive X</code>; finding one means a cycle exists.
+Detecting and rejecting it is <em>our</em> job, an application
+convention, not a spec violation.</p>
+<p><strong>Reflexivity is unspecified.</strong>
+<code>ex:a broader ex:a</code> is neither required nor forbidden. Same
+screening approach applies if we want to treat it as an error.</p>
+<p><strong>Polyhierarchy is native.</strong> A concept having two
+broader parents is explicitly consistent: there is no condition
+requiring a single path between two nodes. This arises naturally and
+SKOS supports it directly. We do not need any junction-table workaround
+at the model level; multiple <code>broader</code> edges on one concept
+simply <em>are</em> polyhierarchy.</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    a[ex:a] --&gt;|broader| b[ex:b]
+    a --&gt;|broader| c[ex:c]
+    b --&gt;|broader| d[ex:d]
+    c --&gt;|broader| d
+
+    classDef cls fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    class a,b,c,d cls;</pre></div>
+<p>Two valid paths from <code>a</code> to <code>d</code>: consistent
+SKOS, native polyhierarchy.</p>
+<h3 id="29-extending-semantic-relations">2.9 Extending semantic
+relations</h3>
+<p>SKOS sanctions exactly one extension mechanism, and it is clean:
+<strong>declare a custom property as an <code>rdfs:subPropertyOf</code>
+an existing SKOS property.</strong> The spec proves this works (Example
+31): custom <code>cause</code>/<code>effect</code> properties declared
+as sub-properties of <code>skos:related</code>, where the sub-properties
+may be symmetric, asymmetric, or antisymmetric independently of the
+parent.</p>
+<p>The reason this is the <em>right</em> extension path, and not
+inventing parallel vocabulary, is the <strong>dumb-down
+guarantee</strong>. A downstream consumer that understands only core
+SKOS still reads your custom edge correctly through its parent: an
+<code>extendsFrom</code> edge reads as <code>broader</code>, a
+<code>belongsTo</code> edge reads as <code>related</code>. A richer
+consumer reads the specific predicate. The specificity is purely
+additive; nothing breaks for the simple reader. That dual-read property
+is the entire argument for extending by sub-property.</p>
+<p>The choice of parent is not cosmetic; it determines which inferences
+and integrity conditions your relation inherits:</p>
+<ul>
+<li>Parent under <strong><code>broader</code></strong> → inherits
+transitive-closure behavior (your chains become queryable ancestry)
+<em>and</em> the disjointness-with-<code>related</code> constraint. Use
+only for genuinely hierarchical, is-a relations.</li>
+<li>Parent under <strong><code>related</code></strong> → associative,
+symmetric parent (though the child need not be symmetric), inherits the
+disjointness-from-hierarchy. Use for same-level structural
+associations.</li>
+<li>Parent under <strong><code>semanticRelation</code></strong> directly
+→ a free-standing typed concept-to-concept edge with
+<code>Concept</code> domain/range, but <em>outside</em> both the
+hierarchical inference and the hierarchical/associative disjointness.
+Use when you need behavior (like transitivity) that the
+<code>related</code> branch forbids.</li>
+</ul>
+<h3 id="210-the-argus-custom-relations">2.10 The Argus custom
+relations</h3>
+<p>Argus extends SKOS with five custom relations. Three parenting
+strategies, each chosen for the reasons above.</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    SR[skos:semanticRelation]
+    SR --&gt; REL[skos:related&lt;br/&gt;symmetric, non-transitive]
+    SR --&gt; BT[skos:broaderTransitive&lt;br/&gt;transitive]
+    SR --&gt; NT[skos:narrowerTransitive]
+    SR --&gt; DEP[dependsOn&lt;br/&gt;TRANSITIVE · inverseOf feedsInto]
+
+    REL --&gt; HM[hasMany&lt;br/&gt;inverseOf belongsTo]
+    REL --&gt; HO[hasOne&lt;br/&gt;inverseOf hasOne]
+    REL --&gt; BEL[belongsTo&lt;br/&gt;inverseOf hasMany]
+
+    BT --&gt; B[skos:broader]
+    B --&gt; EXT[extendsFrom&lt;br/&gt;is-a / subclass]
+
+    NT --&gt; N[skos:narrower]
+
+    classDef root fill:#3f1d38,stroke:#a855f7,color:#f3e8ff;
+    classDef trans fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe;
+    classDef direct fill:#14532d,stroke:#22c55e,color:#dcfce7;
+    classDef assoc fill:#422006,stroke:#f59e0b,color:#fef3c7;
+    classDef custom fill:#7c2d12,stroke:#fb923c,color:#ffedd5;
+    class SR root;
+    class BT,NT trans;
+    class B,N direct;
+    class REL assoc;
+    class HM,HO,BEL,EXT,DEP custom;</pre></div>
+<p><strong><code>extendsFrom</code> → sub-property of
+<code>skos:broader</code>.</strong> Genuinely hierarchical and is-a.
+<code>ex:b2b-customer extendsFrom ex:customer</code> is exactly a
+narrower/broader relationship. Parenting under <code>broader</code>
+means the subclass chains become queryable ancestry via
+<code>broaderTransitive</code>, and inherits the
+disjointness-with-<code>related</code>. This is the only one of the five
+that belongs in the hierarchy.</p>
+<p><strong>The three structural relations → sub-properties of
+<code>skos:related</code>.</strong> These are associative, not
+hierarchical. They are kept as three distinct properties rather than one
+relation with a cardinality flag, because their inverse structures
+differ:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Relation</th>
+<th>Cardinality</th>
+<th>Inverse</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>hasMany</code></td>
+<td>one-to-many</td>
+<td><code>belongsTo</code></td>
+</tr>
+<tr class="even">
+<td><code>hasOne</code></td>
+<td>one-to-one</td>
+<td><code>hasOne</code> (its own inverse class)</td>
+</tr>
+<tr class="odd">
+<td><code>belongsTo</code></td>
+<td>many-to-one</td>
+<td><code>hasMany</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>hasOne</code> is its own inverse (if
+<code>ex:user hasOne ex:profile</code> then
+<code>ex:profile hasOne ex:user</code>, same cardinality both
+directions). <code>hasMany</code> and <code>belongsTo</code> are
+inverses of each other (cardinality flips: each item on the "many" side
+<code>belongsTo</code> exactly one). <code>belongsTo</code> is
+specifically the inverse of <code>hasMany</code>, not a generic inverse
+of all three, which is precisely why folding them into a single
+<code>has</code> predicate would lose information: a lone
+<code>has</code> could not tell a reasoner whether the back-link is
+<code>belongsTo</code> or another <code>hasOne</code>.</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph LR
+    Customer[ex:customer] --&gt;|hasMany| Order[ex:order]
+    Order -.-&gt;|belongsTo| Customer
+    User[ex:user] --&gt;|hasOne| Profile[ex:profile]
+    Profile -.-&gt;|hasOne| User
+
+    classDef cls fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    class Customer,Order,User,Profile cls;</pre></div>
+<p>Because <code>related</code> is symmetric, the dumbed-down view still
+entails a symmetric, undirected <code>related</code> link; a core-SKOS
+consumer just sees "order and customer are related." The direction and
+cardinality live entirely in the sub-properties. The symmetry of the
+parent does not force symmetry on the children (spec §8.6.3). All three
+inherit the S27 disjointness, which is correct: an
+<code>order belongsTo customer</code> association must never also be a
+hierarchical ancestry claim.</p>
+<pre class="turtle"><code>ex:hasMany   rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf skos:related ;
+    owl:inverseOf ex:belongsTo .
+
+ex:hasOne    rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf skos:related ;
+    owl:inverseOf ex:hasOne .
+
+ex:belongsTo rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf skos:related ;
+    owl:inverseOf ex:hasMany .
+
+ex:extendsFrom rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf skos:broader .</code></pre>
+<p><strong><code>dependsOn</code> → direct sub-property of
+<code>skos:semanticRelation</code>, declared transitive, inverse
+<code>feedsInto</code>.</strong> This is the deliberate departure.
+<code>dependsOn</code> is a provenance/lineage relation
+(<code>ex:cac-payback dependsOn ex:marketing-spend</code>), and lineage
+needs to <em>chain</em>: if a metric depends on another that depends on
+a third, the dependency carries through. But you cannot make a
+sub-property of <code>related</code> transitive, because
+<code>related</code> is non-transitive and the resulting closure would
+collide with the S27 disjointness. So <code>dependsOn</code> sits
+<em>beside</em> the hierarchical and associative branches, parented
+directly on <code>semanticRelation</code>. That placement frees it from
+both the non-transitivity and the disjointness, while keeping the
+<code>Concept</code> domain/range and a clean dumb-down to a generic
+semantic edge.</p>
+<pre class="turtle"><code>ex:dependsOn rdf:type owl:ObjectProperty , owl:TransitiveProperty ;
+    rdfs:subPropertyOf skos:semanticRelation ;
+    owl:inverseOf ex:feedsInto .</code></pre>
+<p>Being disjointness-exempt is the point: a derived metric can
+legitimately both <code>dependsOn</code> and be <code>related</code> to
+its source, which the disjointness would otherwise forbid. The
+transitive closure answers the two questions that justify the relation's
+existence: <em>upstream</em> ("what breaks if this source changes?",
+walk <code>dependsOn</code>) and <em>downstream</em> ("what is affected
+by this?", walk <code>feedsInto</code>).</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph LR
+    CAC[ex:cac-payback] --&gt;|dependsOn| MS[ex:marketing-spend]
+    MS --&gt;|dependsOn| AX[ex:ad-platform-export]
+    CAC -.-&gt;|dependsOn INFERRED| AX
+
+    classDef cls fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    classDef inf fill:#0f172a,stroke:#fb923c,color:#ffedd5,stroke-dasharray: 5 5;
+    class CAC,MS,AX cls;</pre></div>
+<p>Every one of the five dumbs down losslessly: a core-SKOS consumer
+reads <code>extendsFrom</code> as <code>broader</code>, the three
+structural relations as <code>related</code>, and <code>dependsOn</code>
+as a bare <code>semanticRelation</code> edge.</p>
+<h3 id="211-concept-collections">2.11 Concept collections</h3>
+<p>A <code>skos:Collection</code> is a labeled, unordered group of
+concepts; a <code>skos:OrderedCollection</code> adds meaningful
+sequence. Members are stated with <code>skos:member</code> (range is the
+union of <code>Concept</code> and <code>Collection</code>, so
+collections nest) and, for ordered collections,
+<code>skos:memberList</code> pointing at an RDF list.</p>
+<pre class="turtle"><code>ex:eco-vehicles rdf:type skos:Collection ;
+    skos:prefLabel &quot;Eco-Friendly Vehicles&quot;@en ;
+    skos:member ex:electric-sedan , ex:hybrid-suv .
+
+ex:job-levels rdf:type skos:OrderedCollection ;
+    skos:memberList ( ex:junior ex:mid ex:senior ) .</code></pre>
+<p>The critical rule: <strong>a Collection is not a Concept</strong>:
+they are disjoint classes (integrity condition S37). You therefore
+<em>cannot</em> use
+<code>broader</code>/<code>narrower</code>/<code>related</code> to link
+to or from a collection; the domain and range of the semantic relations
+is <code>skos:Concept</code>, so such a link is inconsistent.
+Collections are for grouping concepts under a shared label
+<em>without</em> creating a hierarchical relationship, the
+"eco-friendly" facet that crosses the real hierarchy without becoming
+part of it. Use a collection for faceting and node labels; never reach
+for it as a substitute for hierarchy.</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    COL[ex:eco-vehicles&lt;br/&gt;Collection&lt;br/&gt;NOT a Concept]
+    COL --&gt;|member| S[ex:electric-sedan]
+    COL --&gt;|member| H[ex:hybrid-suv]
+    S --&gt;|broader| V[ex:vehicle]
+    H --&gt;|broader| V
+
+    classDef col fill:#422006,stroke:#f59e0b,color:#fef3c7;
+    classDef cls fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    class COL col;
+    class S,H,V cls;</pre></div>
+<p>The sedan and SUV sit under <code>vehicle</code> in the real
+hierarchy (via <code>broader</code>); the collection groups them by a
+cross-cutting characteristic (via <code>member</code>) without touching
+that hierarchy.</p>
+<h3 id="212-mapping-properties">2.12 Mapping properties</h3>
+<p>Mapping properties link concepts across <em>different</em> schemes:
+the alignment layer. There are five, plus their parent
+<code>skos:mappingRelation</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Property</th>
+<th>Meaning</th>
+<th>Formal character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>skos:exactMatch</code></td>
+<td>interchangeable across a wide range of applications</td>
+<td>symmetric <strong>and transitive</strong> (S44, S45); sub-property
+of <code>closeMatch</code></td>
+</tr>
+<tr class="even">
+<td><code>skos:closeMatch</code></td>
+<td>interchangeable in <em>some</em> applications</td>
+<td>symmetric, <strong>not transitive</strong> (deliberately)</td>
+</tr>
+<tr class="odd">
+<td><code>skos:broadMatch</code></td>
+<td>target is broader (cross-scheme)</td>
+<td>sub-property of <code>broader</code></td>
+</tr>
+<tr class="even">
+<td><code>skos:narrowMatch</code></td>
+<td>target is narrower (cross-scheme)</td>
+<td>sub-property of <code>narrower</code>; inverse of
+<code>broadMatch</code></td>
+</tr>
+<tr class="odd">
+<td><code>skos:relatedMatch</code></td>
+<td>associative (cross-scheme)</td>
+<td>sub-property of <code>related</code>; symmetric</td>
+</tr>
+</tbody>
+</table>
+<p>The full extended tree, mapping properties slotted under their
+semantic-relation parents:</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    SR[skos:semanticRelation]
+    SR --&gt; REL[skos:related]
+    SR --&gt; BT[skos:broaderTransitive]
+    SR --&gt; NT[skos:narrowerTransitive]
+    SR --&gt; MR[skos:mappingRelation]
+
+    REL --&gt; RM[skos:relatedMatch]
+    BT --&gt; B[skos:broader]
+    B --&gt; BM[skos:broadMatch]
+    NT --&gt; N[skos:narrower]
+    N --&gt; NM[skos:narrowMatch]
+
+    MR --&gt; CM[skos:closeMatch]
+    CM --&gt; EM[skos:exactMatch]
+    MR --&gt; RM
+    MR --&gt; BM
+    MR --&gt; NM
+
+    classDef root fill:#3f1d38,stroke:#a855f7,color:#f3e8ff;
+    classDef mid fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe;
+    classDef leaf fill:#14532d,stroke:#22c55e,color:#dcfce7;
+    class SR,MR root;
+    class REL,BT,NT,B,N,CM mid;
+    class RM,BM,NM,EM leaf;</pre></div>
+<p>The distinction to hold onto, and the one most often gotten wrong:
+<strong><code>exactMatch</code> is transitive; <code>closeMatch</code>
+is not.</strong> The spec asserts <code>exactMatch</code> as an
+<code>owl:TransitiveProperty</code> (S45). <code>closeMatch</code> is
+deliberately <em>not</em> transitive, specifically to avoid "compound
+errors" when chaining mappings across three or more schemes. So the
+discipline is this: the spec gives you a transitive
+<code>exactMatch</code>, and that very transitivity is why you chain it
+carefully: three <code>exactMatch</code> links across four schemes will
+be inferred into a complete equivalence web, and one sloppy assertion
+propagates everywhere. Use <code>exactMatch</code> only for genuine,
+confident interchangeability; reach for <code>closeMatch</code> the
+moment there is doubt, precisely because it does not propagate.</p>
+<p>Integrity condition S46: <code>exactMatch</code> is disjoint from
+<code>broadMatch</code> and <code>relatedMatch</code> (and, by
+inference, <code>narrowMatch</code>). A pair of concepts cannot be both
+exactly equivalent and hierarchically or associatively mapped.</p>
+<p>One more note that matters for Argus: SKOS deliberately does
+<strong>not</strong> equate <code>exactMatch</code> with
+<code>owl:sameAs</code>. <code>exactMatch</code> says "interchangeable
+for retrieval purposes," not "the same individual." We keep that
+separation: two concepts can be <code>exactMatch</code> without being
+asserted identical, which is exactly the looseness we want for
+cross-domain alignment that stops short of merging identities.</p>
+<p>By convention, mapping properties link concepts in <em>different</em>
+schemes; using the plain semantic relations across schemes is also
+consistent. The mapping properties are a convenience that lets you tell
+at a glance which links are internal to a scheme and which are
+cross-scheme alignments.</p>
+<h3 id="213-integrity-conditions-consolidated-checklist">2.13 Integrity
+conditions: consolidated checklist</h3>
+<p>The complete set of genuine integrity conditions: the only things
+that make SKOS data <em>inconsistent</em>. Everything else in the model
+licenses inference rather than enforcing a constraint. This is the
+validation checklist.</p>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S9</td>
+<td><code>skos:ConceptScheme</code> is disjoint with
+<code>skos:Concept</code>.</td>
+</tr>
+<tr class="even">
+<td>S13</td>
+<td><code>prefLabel</code>, <code>altLabel</code>,
+<code>hiddenLabel</code> are pairwise disjoint.</td>
+</tr>
+<tr class="odd">
+<td>S14</td>
+<td>A resource has at most one <code>prefLabel</code> per language
+tag.</td>
+</tr>
+<tr class="even">
+<td>S27</td>
+<td><code>skos:related</code> is disjoint with
+<code>skos:broaderTransitive</code> (and therefore with
+<code>narrowerTransitive</code>).</td>
+</tr>
+<tr class="odd">
+<td>S37</td>
+<td><code>skos:Collection</code> is disjoint with each of
+<code>skos:Concept</code> and <code>skos:ConceptScheme</code>.</td>
+</tr>
+<tr class="even">
+<td>S46</td>
+<td><code>skos:exactMatch</code> is disjoint with
+<code>broadMatch</code> and <code>relatedMatch</code> (and therefore
+<code>narrowMatch</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>Things that are <strong>consistent</strong> and therefore
+<em>not</em> caught by SKOS validation, must be screened by application
+convention if you want them rejected: cycles in the hierarchy; reflexive
+links (<code>A broader A</code>, <code>A related A</code>); a concept in
+zero or many schemes; alternate paths / polyhierarchy (these we
+<em>keep</em>); a scheme with no top concept.</p>
+<hr />
+<h2 id="3-labels-as-glossary-terms-and-term-resolution">3. Labels as
+Glossary Terms, and Term Resolution</h2>
+<p>This is where Argus applies SKOS rather than restates it. SKOS
+supplies the target; Argus supplies the resolver.</p>
+<blockquote>
+<p><strong>Layer note.</strong> This section sits at the boundary
+between the two knowledge layers. The <em>target</em> of resolution
+(concepts and their labels) is the meaning layer (Layer 1) and is what
+this section explains. The <em>resolver</em> itself, and the confidence
+score it produces, belong to the grounding layer (Layer 2): the score is
+ephemeral decision-scaffolding shown to a human to approve a
+term-to-label match, not a durable property of any SKOS edge. This
+section introduces resolution because its target is SKOS; the resolver's
+full mechanics, the three proposal jobs, and the
+term-acceptance-to-binding flow are specified in section 5.4, which is
+authoritative.</p>
+</blockquote>
+<p>The model from section 2.4 does the structural work: a concept holds
+its <code>prefLabel</code>, its <code>altLabel</code> synonyms, and its
+<code>hiddenLabel</code> misspellings/deprecated forms, while the
+concept's <em>identity</em> is the opaque URI. A glossary term, in this
+framing, is just a label, and because the SKOS labeling properties have
+no stated domain, a free-floating term can exist as a label before it is
+ever attached to a settled concept.</p>
+<p>The resolution problem is: given a free-style string a user or an
+agent typed (<code>"arr_total"</code>,
+<code>"annualised rec rev"</code>, <code>"net new ARR"</code>), find the
+concept it means, and attach a confidence to that judgment. The string
+will not, in general, be an exact label match. SKOS gives the resolution
+<em>target</em> (a concept URI). Argus computes the resolution.</p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    Q[&quot;Free-style term&lt;br/&gt;&#x27;arr_total&#x27;&quot;] --&gt; R{Argus resolver}
+    R --&gt;|exact label hit| E[&quot;prefLabel / altLabel /&lt;br/&gt;hiddenLabel match&lt;br/&gt;→ high confidence&quot;]
+    R --&gt;|no exact hit| EMB[&quot;Embedding similarity&lt;br/&gt;term vs concept&lt;br/&gt;definition + labels&quot;]
+    R --&gt;|structural signals| ST[&quot;Namespace, metric type,&lt;br/&gt;co-occurrence in scheme&quot;]
+    E --&gt; SC[Confidence score]
+    EMB --&gt; SC
+    ST --&gt; SC
+    HU[&quot;Steward assertion&lt;br/&gt;(optional)&quot;] --&gt;|overrides| SC
+    SC --&gt; OUT[&quot;Resolved concept URI&lt;br/&gt;+ confidence + provenance&quot;]
+
+    classDef q fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    classDef r fill:#3f1d38,stroke:#a855f7,color:#f3e8ff;
+    classDef sig fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe;
+    classDef out fill:#14532d,stroke:#22c55e,color:#dcfce7;
+    class Q q;
+    class R r;
+    class E,EMB,ST,HU sig;
+    class SC,OUT out;</pre></div>
+<p>The confidence score is a <strong>computed</strong> property, never a
+declared one. Three input signals, combined:</p>
+<ol type="1">
+<li><p><strong>Lexical match.</strong> Does the term match a
+<code>prefLabel</code>, <code>altLabel</code>, or
+<code>hiddenLabel</code> exactly or near-exactly (after normalization)?
+An exact <code>prefLabel</code> hit is the strongest lexical signal; an
+<code>altLabel</code> hit slightly less; a <code>hiddenLabel</code> hit
+(it matched a known misspelling) lower still but still positive. This is
+the cheapest check and resolves the majority of well-behaved terms
+outright.</p></li>
+<li><p><strong>Semantic similarity.</strong> Embed the free-style term
+(and any surrounding context) and compare against the embedding of each
+candidate concept's definition plus labels. The embedding distance is
+the signal that catches paraphrase and novel phrasing:
+<code>"annualised rec rev"</code> never appears as a label but sits
+close to the ARR concept's definition vector. This is what lets the
+resolver handle terms it has never literally seen.</p></li>
+<li><p><strong>Structural alignment.</strong> Does the term's namespace,
+its declared metric type, or its co-occurrence with other
+already-resolved terms in the same scheme point toward a particular
+concept? A term appearing in a revenue-domain context resolves toward
+revenue-domain concepts. Structural context disambiguates between two
+concepts that are lexically and semantically close.</p></li>
+</ol>
+<p>These combine into a single confidence. Above a high threshold, the
+resolver binds automatically and records the binding with its
+provenance. In a middle band, it proposes the binding and surfaces it
+for steward review. Below a floor, it declines to bind and flags the
+term as unresolved: a candidate for a <em>new</em> concept that does not
+yet exist.</p>
+<p>A <strong>steward assertion overrides everything.</strong> When a
+human confirms "this term means this concept," that assertion outweighs
+the computed signals and the confidence is pinned. But (and this is the
+governance principle that makes the model tractable) human assertion is
+never <em>required</em>. The system computes confidence continuously and
+cheaply; humans intervene only at the margins and only when they choose
+to. This keeps the governance burden where it belongs: humans
+<em>approve concepts</em> (high-cost, low-frequency), humans
+<em>optionally assert bindings</em> (medium-cost, medium-frequency), and
+the system <em>computes confidence</em> (low-cost, high-frequency).</p>
+<p>The same machinery handles drift. When a resolved term's underlying
+implementation changes, its structural and semantic signals shift, the
+computed confidence drops, and the resolver surfaces the decay rather
+than silently tolerating a now-wrong binding or silently breaking it.
+The bottom-up emergence path follows from the unresolved-term case:
+terms that repeatedly fail to resolve, but cluster together
+semantically, are the signal that a new concept wants to exist, and that
+proposal goes to a steward to approve, never to author from scratch.</p>
+<hr />
+<h2 id="4-concept-schemes-as-business-domains">4. Concept Schemes as
+Business Domains</h2>
+<p>The cleanest mapping in the whole exercise, and the one that resolves
+a standing design question: <strong>each business domain is a
+<code>skos:ConceptScheme</code>.</strong></p>
+<div class="mermaid-wrap"><pre class="mermaid">graph TD
+    subgraph Revenue[&quot;ex:revenue-domain (ConceptScheme)&quot;]
+        ARR[ex:c-arr]
+        MRR[ex:c-mrr]
+        ARR --&gt;|broader| REV[ex:c-revenue]
+        MRR --&gt;|broader| ARR
+    end
+    subgraph Finance[&quot;ex:finance-domain (ConceptScheme)&quot;]
+        FARR[ex:c-fin-arr]
+    end
+    subgraph Customer[&quot;ex:customer-domain (ConceptScheme)&quot;]
+        AU[ex:c-active-users]
+    end
+
+    ARR -.-&gt;|exactMatch| FARR
+
+    classDef scheme fill:#1e293b,stroke:#64748b,color:#e2e8f0;
+    class ARR,MRR,REV,FARR,AU scheme;</pre></div>
+<p>The standing question was whether the <code>glossary.*</code>
+namespace and the domain namespaces (<code>revenue.*</code>,
+<code>finance.*</code>, <code>customer.*</code>) represented an
+intentional dual registry or accumulated inconsistency. SKOS answers it
+directly: they are not two registries. <code>revenue.*</code> and
+<code>finance.*</code> are concepts <code>inScheme</code> two different
+domain ConceptSchemes. There is no separate "glossary namespace"; the
+glossary is the <em>human-readable projection across all the domain
+schemes</em>, not a registry of its own. The appearance of a distinct
+<code>glossary.*</code> namespace is the symptom of having treated the
+glossary as a flat global registry instead of as the union of per-domain
+schemes.</p>
+<p>So the resolution is: <strong>accumulated inconsistency, and here is
+the model that removes it.</strong> A concept's home is its scheme.
+There is exactly one place a concept lives, and the glossary is a view
+over all of them, not a parallel store.</p>
+<p>This buys three things directly from the SKOS model:</p>
+<p><strong>Domain ownership maps to scheme membership.</strong> The
+revenue team owns <code>ex:revenue-domain</code>; concepts in that
+scheme are theirs to steward. <code>inScheme</code> <em>is</em> the
+ownership boundary. And because schemes are open (section 2.3), a domain
+is never "finished"; it accretes concepts over time without anyone
+having to declare it complete.</p>
+<p><strong>Shared concepts are handled honestly.</strong> A concept
+genuinely used by two domains can be <code>inScheme</code> both:
+membership is many-to-many. No duplication, no forced single owner. When
+two domains have <em>similar but distinct</em> concepts (revenue's ARR
+and finance's ARR, defined slightly differently), they stay as separate
+concepts in their respective schemes, linked by <code>exactMatch</code>
+or <code>closeMatch</code> rather than collapsed into one. The
+cross-domain alignment is explicit and auditable, and per section 2.12
+<code>closeMatch</code> is the safe default the moment the two
+definitions are not provably interchangeable, because it does not
+propagate the way <code>exactMatch</code> does.</p>
+<p><strong>Cross-domain links use mapping properties.</strong> Within a
+domain scheme, concepts link with the plain semantic relations
+(<code>broader</code>, <code>related</code>, and the Argus extensions).
+Across domain schemes, they link with the mapping properties
+(<code>exactMatch</code>, <code>closeMatch</code>,
+<code>relatedMatch</code>). The choice of property tells you at a glance
+whether a link is internal to a domain or a cross-domain alignment,
+which is exactly the provenance distinction Argus needs when it
+converges the per-product Vulcan semantic models into a single org-wide
+semantic layer.</p>
+<p>Within the meaning layer, then, each domain scheme tends its own
+concepts, and the mapping properties are what cross between them, so no
+single scheme is asked to hold everything.</p>
+<hr />
+<h2 id="5-the-grounding-layer">5. The Grounding Layer</h2>
+<p>The meaning layer (sections 1–4) organizes meaning: concepts relating
+to concepts. This layer grounds that meaning in real data. It references
+SKOS concepts by their opaque URIs and never adds to the SKOS
+vocabulary. Three concerns live here: asset attachment, term mapping,
+and workflow.</p>
+<h3 id="51-asset-attachment-bindings">5.1 Asset attachment
+(bindings)</h3>
+<p>A <strong>binding</strong> is an asserted edge from a SKOS concept to
+a physical asset in a data product: a model, column, or measure. It
+states a fact: <em>this physical thing realizes this concept</em>.</p>
+<p>A binding is <strong>not</strong> a SKOS construct. SKOS concepts
+bind only to other concepts; a concept-to-table edge has no home in the
+SKOS vocabulary by design, because SKOS is about meaning, not about
+where meaning is realized. So bindings live in Layer 2, referencing the
+concept but never modifying it.</p>
+<p>A binding carries <strong>no confidence score</strong>. It is an
+assertion, not an inference: either someone (or a deploy-time process)
+declared that this asset realizes this concept, or they did not. This is
+the clean separation from term mapping (section 5.4), where confidence
+does appear. Binding is a fact about reality; term mapping is an
+inference proposed for human approval.</p>
+<p>Bindings are many-to-many: one concept can be realized by several
+assets across products (the same metric built in three data products),
+and one asset can realize several concepts. A concept's bindings
+<em>are</em> the set of places it is realized across the organization:
+this is what makes Argus a cross-product semantic layer rather than a
+single-product model.</p>
+<p>Each binding stores a structural fingerprint of its asset at bind
+time, so that later divergence can be detected as drift (section
+5.5).</p>
+<h3 id="52-binding-kinds">5.2 Binding kinds</h3>
+<p>The binding kind describes the nature of the concept-to-asset edge.
+It is a <strong>closed, system-defined enum</strong>, owned by Argus and
+not user-extensible. Ship set:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Kind</th>
+<th>Meaning</th>
+<th>Agent reasoning it enables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>implements</code></td>
+<td>The asset <em>is</em> the computation/realization of the concept
+(the authoritative "ARR is this measure").</td>
+<td>"To get ARR, query this." The primary executable edge; the one an
+agent trusts to run.</td>
+</tr>
+<tr class="even">
+<td><code>derivedFrom</code></td>
+<td>The asset is an <em>input</em> to the concept's computation, not the
+concept itself.</td>
+<td>Physical lineage: "this concept's realization reads from that
+asset."</td>
+</tr>
+<tr class="odd">
+<td><code>tagged</code></td>
+<td>The asset is topically <em>about</em> the concept but does not
+realize it.</td>
+<td>Discovery and recall, without claiming the asset computes the
+concept.</td>
+</tr>
+</tbody>
+</table>
+<p>The strength gradient is the point: <code>tagged</code> is the loose,
+high-recall edge anyone may assert; <code>implements</code> is the
+authoritative edge an agent relies on to actually run. Candidate kinds
+(<code>constrains</code>/<code>validates</code>, <code>sampleOf</code>)
+are held back until a concrete agent question demands them.</p>
+<blockquote>
+<p><strong>PS: why binding kinds are an enum, not concepts.</strong> A
+tempting refactor is to model each binding kind as a SKOS concept in a
+meta-scheme, so that "everything is a concept." We deliberately rejected
+this. Binding kinds are a small, closed, slow-moving set with <em>fixed
+operational semantics that an agent must understand natively</em>: an
+agent has to already know what <code>implements</code> means to reason
+correctly; it cannot derive that behaviour from a definition string at
+runtime. Making kinds into concepts adds indirection that buys nothing,
+invites teams to mint new kinds (which would break the guarantee that an
+agent can rely on what a kind means), and blurs the Layer-1/Layer-2
+boundary by putting an operational Layer-2 vocabulary into the SKOS
+meaning graph. The kind vocabulary is owned by Argus and changes only by
+deliberate engineering decision. If you are reading this because you
+want to add a kind: add it to the enum and document its operational
+semantics here. Do not turn kinds into concepts.</p>
+</blockquote>
+<h3 id="53-dependson-vs-derivedfrom-the-endpoint-type-rule">5.3
+dependsOn vs derivedFrom: the endpoint-type rule</h3>
+<p><code>dependsOn</code> (Layer 1) and <code>derivedFrom</code> (Layer
+2) look like the same idea and are routinely confused. They are not the
+same edge. The difference is <strong>what sits at the other
+end</strong>:</p>
+<ul>
+<li><strong>concept → concept</strong> is <code>dependsOn</code> (Layer
+1, a semantic relation): <em>what meaning does this meaning rest
+on?</em> "ARR depends on Revenue" is true at the level of definitions,
+survives even with zero implementations built, and is cross-product and
+stable.</li>
+<li><strong>concept → asset</strong> is a <code>derivedFrom</code>
+binding (Layer 2): <em>what physical asset feeds this concept's
+computation?</em> "ARR is derived from
+<code>warehouse.fct_revenue</code>" exists only once something is built,
+points at a specific table in a specific Vulcan model, and churns as
+implementations change.</li>
+</ul>
+<p>The rule removes the judgment call entirely:</p>
+<blockquote>
+<p><strong>If the other end is a concept, it is a Layer-1
+<code>dependsOn</code>. If the other end is an asset, it is a Layer-2
+<code>derivedFrom</code> binding. The endpoint type is the
+layer.</strong> You never choose between them; the thing you point at
+decides.</p>
+</blockquote>
+<p>Why keep them separate: ARR <code>dependsOn</code> Revenue is
+<strong>one</strong> edge (concept to concept), but ARR may be
+<code>derivedFrom</code> <strong>three</strong> different tables that
+each realize Revenue differently. The conceptual dependency is single
+and stable; the physical derivations are many and volatile. Collapsing
+them loses the ability to say "the <em>meaning</em> is stable but the
+<em>plumbing</em> moved", which is exactly the drift signal of section
+5.5 (the binding fingerprint changes; the <code>dependsOn</code> does
+not).</p>
+<p>The two layers can corroborate each other: when ARR is
+<code>derivedFrom</code> table T and T <code>implements</code> Revenue,
+ARR's conceptual <code>dependsOn</code> Revenue is <em>confirmed by
+physical evidence</em>. Argus can flag stated conceptual dependencies
+that are <strong>not</strong> backed by actual lineage, and lineage that
+implies an <strong>unstated</strong> conceptual dependency. That
+cross-layer check is a capability, not a reason to merge the edges.</p>
+<h3 id="54-term-mapping-and-the-resolver">5.4 Term mapping and the
+resolver</h3>
+<p>Term mapping resolves a free-style string (<code>arr_total</code>, a
+column name, a query fragment) to a concept and proposes attaching it as
+a <strong>label</strong> (<code>altLabel</code>,
+<code>hiddenLabel</code>, or candidate <code>prefLabel</code>). The
+resolver computes a <strong>confidence score</strong> shown <em>to a
+human to decide</em>.</p>
+<p>Confidence is <strong>ephemeral and Layer-2</strong>: it is a
+property of the <em>proposal event</em>, not of any durable edge. Once a
+human approves, the label is attached as a plain SKOS label and the
+score is gone. An agent never thresholds on a stored label-confidence,
+because none exists; approved labels are simply true.</p>
+<p>The resolver combines three signals, <strong>lexical</strong> (match
+against existing labels), <strong>semantic</strong> (embedding distance
+to candidate concepts' definitions and labels), and
+<strong>structural</strong> (namespace, metric type, co-occurrence with
+already-resolved terms). It runs three named proposal jobs, all feeding
+a steward approval queue, never writing to the graph directly:</p>
+<ol type="1">
+<li><strong>Map to existing concept</strong>: "this term maps to concept
+X, confidence 0.88." High-frequency, low-ceremony. Most terms map to
+something that already exists.</li>
+<li><strong>Suggest a new concept</strong>: when a term, or better a
+<em>cluster</em> of terms across products, resolves to nothing with
+confidence, propose a draft concept (prefLabel, definition, scheme) for
+the steward to create. One unresolved term is noise; five across three
+products that cluster semantically are a concept the org has been using
+without naming. This is bottom-up emergence.</li>
+<li><strong>Suggest alignment</strong>: notice two existing concepts in
+different schemes that look like the same or related meaning, and
+propose a mapping property
+(<code>closeMatch</code>/<code>exactMatch</code>) plus optionally a
+canonical flag. This is cross-product convergence proper.</li>
+</ol>
+<p>The unifying principle: <strong>AI proposes, with confidence and
+supporting evidence; the steward gives a yes / no / edit on a
+well-formed proposal, never authoring from a blank page.</strong> The
+same three-signal machinery serves all three jobs; only the target
+differs.</p>
+<p><strong>Term acceptance triggers a binding proposal, not an automatic
+binding.</strong> When an accepted term originates from an asset (a
+column or measure name), confirming the term-to-concept resolution is
+strong evidence the asset realizes the concept, but not proof of
+<em>which kind</em> (<code>implements</code> vs <code>tagged</code>),
+nor that this asset is the authoritative one. So acceptance feeds a
+binding <em>proposal</em> with a suggested kind and confidence; a human
+or threshold approves; the resulting binding is then an asserted,
+confidence-free fact (section 5.1). Term acceptance is evidence feeding
+a proposal, never a binding in itself.</p>
+<h3 id="55-workflow-and-governance">5.5 Workflow and governance</h3>
+<p>Workflow governs how concepts and bindings move through their lives.
+It operates <em>on</em> the SKOS layer and records change using SKOS's
+native <code>historyNote</code>/<code>changeNote</code>, but the
+machinery itself is Layer 2.</p>
+<p><strong>Concept lifecycle:</strong>
+<code>proposed → active → deprecated → superseded</code>. Proposed
+concepts are visible but agents exclude them from authoritative
+reasoning. Deprecation never deletes: a deprecated concept points via
+<code>supersedes</code> to its replacement, so bindings degrade
+gracefully and an agent following a dead concept is routed to the live
+one.</p>
+<p><strong>Governance is approving, not authoring.</strong> Stewards do
+not write concepts top-down; they approve what emerges bottom-up
+(section 5.4). The cost gradient: creating a <em>concept</em> is
+high-cost, low-frequency, gated; asserting a <em>binding</em> is
+medium-cost, medium-frequency, optionally reviewed; computing
+<em>confidence</em> is zero-cost, high-frequency, automated. The burden
+sits where it is cheap. AI never writes to the graph directly; it only
+populates the proposal queue.</p>
+<p><strong>Approval gates</strong> apply to a small number of
+transitions: promoting a proposed concept to active, deprecating or
+superseding a concept, and optionally (per scheme) confirming a binding.
+Everything else flows ungated.</p>
+<p><strong>Mutual exclusivity:</strong> a <code>ConceptScheme</code> may
+be flagged mutually exclusive, meaning an asset may bind to at most one
+concept from that scheme (an asset is <code>PII-Sensitive</code>
+<em>or</em> <code>PII-NonSensitive</code>, never both). The validator
+enforces this at bind time. No SKOS construct covers this; it is a
+Layer-2 constraint on bindings.</p>
+<p><strong>Canonical flag:</strong> when two domains hold
+legitimately-distinct-but-aligned concepts (revenue's ARR and finance's
+ARR, linked by <code>closeMatch</code>), one may be flagged
+enterprise-canonical. The variants coexist in their schemes, the mapping
+property records their relationship, and the flag tells an agent which
+to prefer when several aligned concepts match. A Layer-2 annotation, not
+a SKOS property.</p>
+<p><strong>Drift detection:</strong> each binding's stored fingerprint
+(section 5.1) is compared against the asset over time. On divergence,
+the workflow surfaces one of three cases for human judgement: the
+implementation drifted (re-confirm or demote the binding), the concept's
+meaning changed (propose a new version), or the asset now realizes a
+<em>different</em> concept (propose a new binding). The system detects
+and surfaces; humans judge. "AI proposes, human approves" applied to
+evolution, not just creation.</p>
+<hr />
+<h2 id="6-the-harvest-subsystem">6. The Harvest Subsystem</h2>
+<p>Argus Panoptes was the hundred-eyed giant, Hera's all-seeing
+guardian, whose eyes never all slept at once, so nothing across his
+domain escaped notice. Harvest is those eyes. Where the knowledge layers
+<em>curate</em> meaning, Harvest <em>observes</em> reality: it
+automatically pulls structural metadata from every registered data
+product and stitches it into one searchable, lineage-connected picture
+that no single data product can see on its own.</p>
+<h3 id="61-what-harvest-is">6.1 What Harvest is</h3>
+<p>Individual data products (Vulcan projects) run in isolation. Each
+knows only its own models, its own lineage, its own runs. Harvest sits
+above all of them and asks the question no single product can: <em>what
+does all our data look like, and how does it connect?</em> It pulls each
+product's metadata on a schedule, detects what has changed, and
+maintains a unified view across the whole estate.</p>
+<p>Harvest differs from the knowledge layers in kind, and the difference
+is the reason it is a subsystem rather than a third curated layer:</p>
+<ul>
+<li>It is <strong>automated</strong>: metadata is pulled and processed
+without human involvement.</li>
+<li>It is <strong>ungoverned</strong>: it reflects whatever the data
+products emit. There are no stewards, no approval gates, no lifecycle.
+If a product publishes a model, Harvest records it; if the product
+removes it, Harvest drops it. Truth here is "what the products say," not
+"what has been approved."</li>
+<li>It is <strong>structural, not semantic</strong>: it captures the
+shape of data (models, columns, measures, physical tables, lineage, run
+health), not the meaning of it. Meaning is the knowledge layers' job,
+curated from what Harvest observes.</li>
+</ul>
+<p>This separation is deliberate. Folding Harvest into the grounding
+layer would hide that the harvester has no governance while everything
+beside it does. Keeping it a distinct subsystem keeps that boundary
+honest: Harvest is the raw, high-volume, always-current sensory feed;
+the knowledge layers are the considered, low-volume, human-approved
+understanding built on top of it.</p>
+<h3 id="62-the-harvested-picture">6.2 The harvested picture</h3>
+<p>Harvest models the estate at three conceptual levels, each named here
+without committing to storage (the implementation is specified
+separately):</p>
+<ul>
+<li><strong>Data product</strong>: a registered Vulcan project,
+identified by its tenant, name, and environment. It carries
+product-level descriptors: domain, alignment (source- or
+consumer-aligned), version, discoverability, and a health/active status.
+A product can be marked inactive, in which case it is excluded from
+discovery and lineage results by default.</li>
+<li><strong>Model</strong>: a unit within a data product: a physical SQL
+or seed table, an external reference to another product's table, a
+semantic model, a metric, or a perspective (a published consumption
+artifact). The <em>kind</em> and <em>source type</em> of a model are
+what let Harvest tell a physical table apart from a semantic definition
+apart from a published output.</li>
+<li><strong>Column / measure / dimension / segment</strong>: the fields
+within a model. Measures carry a measure type (sum, count, ratio, and so
+on); dimensions and segments describe the analytical structure; physical
+columns describe the raw shape.</li>
+</ul>
+<p>Every level carries free-form <strong>tags</strong> and
+<strong>terms</strong>, and those term streams are the seam to the
+knowledge layers (section 6.5).</p>
+<h3 id="63-two-kinds-of-lineage">6.3 Two kinds of lineage</h3>
+<p>Harvest tracks lineage at the model and column level, and it is
+essential not to confuse this with the meaning layer's
+<code>dependsOn</code>. They are different in nature:</p>
+<ul>
+<li><strong>Intra-product lineage</strong> is <em>declared</em>: a model
+states what it depends on, and Harvest records those edges
+directly.</li>
+<li><strong>Cross-product lineage</strong> is <em>resolved, not
+declared</em>. When a model in product B references the same physical
+table (same gateway, same table name) as a model in product A, B depends
+on A, and Harvest discovers this by matching physical table references,
+with no annotation required. The dependency falls out of the shared
+physical location. This is the connection no single product can see:
+product B only knows it reads "some external table"; only Harvest,
+seeing both products, knows that table is produced by product A.</li>
+</ul>
+<p>This is <strong>data-flow lineage</strong>, which physical output
+feeds which physical input. It is distinct from the meaning layer's
+<code>dependsOn</code>, which is <strong>semantic dependency</strong>,
+which concept's meaning rests on which. The endpoint-type rule of
+section 5.3 is the bridge: a concept-to-concept dependency is
+<code>dependsOn</code> (meaning layer); a concept-to-asset derivation is
+a <code>derivedFrom</code> binding (grounding layer); and the
+asset-to-asset flow Harvest computes is what lets Argus check whether
+the two agree (section 6.5).</p>
+<h3 id="64-discovery">6.4 Discovery</h3>
+<p>Because Harvest holds the whole estate in one place, it can answer
+questions no single product can: find a measure by tag across every
+product, search models and columns by name or description, surface
+similar entities by meaning, and browse the estate by facet (kind,
+source type, tag, term, domain). Discovery spans structured filtering,
+full-text search, and similarity search, always scoped to active
+products by default. This is the capability that turns a scattered set
+of isolated products into a single searchable body of organizational
+data knowledge.</p>
+<h3 id="65-seams-to-the-knowledge-layers">6.5 Seams to the knowledge
+layers</h3>
+<p>Harvest is the sensory feed; the knowledge layers reason over it.
+Four seams connect them, and together they are what make Argus one
+system rather than two.</p>
+<ol type="1">
+<li><p><strong>Terms → resolver queue.</strong> Every tag and term
+Harvest pulls from a data product is a free-style string. As products
+are synced, newly discovered terms enter the resolver queue (section
+5.4): the resolver proposes a mapping to an existing concept, a
+brand-new concept, or an alignment between concepts, and a steward
+approves. This is the discover-then-converge loop in motion: <em>term
+appears in sync → enters resolver queue → proposal → steward</em>.
+Harvest supplies the raw vocabulary; the grounding layer converges it
+onto meaning.</p></li>
+<li><p><strong>Cross-product lineage → <code>dependsOn</code>
+corroboration.</strong> The asset-to-asset data-flow lineage Harvest
+resolves is the physical evidence that confirms or contradicts the
+meaning layer's conceptual <code>dependsOn</code>. When a concept is
+<code>derivedFrom</code> an asset and that asset feeds another via
+Harvest lineage, a stated conceptual dependency is corroborated; when
+the lineage and the concept graph disagree, Argus can surface the
+discrepancy (a claimed dependency with no physical basis, or physical
+flow implying an unstated dependency).</p></li>
+<li><p><strong>Harvested assets → binding targets.</strong> The models,
+columns, and measures Harvest catalogs are the very things the grounding
+layer's bindings point at (section 5.1). Without Harvest, a binding
+would have nothing concrete to attach to; Harvest is what makes the
+binding target real and current.</p></li>
+<li><p><strong>Discovery → workflow triggers.</strong> Beyond terms,
+structural changes Harvest detects can trigger knowledge-layer
+workflows: a new measure appearing across several products may signal an
+emerging concept; a model going stale or failing may flag bindings that
+now rest on unhealthy data; a removed model may orphan a binding and
+prompt review. Harvest observes the change; the workflow decides what it
+means.</p></li>
+</ol>
+<p>The throughline: Harvest is automated breadth, the knowledge layers
+are curated depth, and the seams are where breadth becomes depth:
+observed reality flowing upward into approved meaning, one proposal at a
+time.</p>
+
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({
+  startOnLoad:true,
+  theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'neutral',
+  themeVariables:{ fontSize:'15px' },
+  flowchart:{ useMaxWidth:true, htmlLabels:true }
+});
+// mobile menu
+const sb=document.getElementById('sidebar');
+const scrim=document.getElementById('scrim');
+function toggle(){ sb.classList.toggle('open'); scrim.classList.toggle('open'); }
+document.getElementById('menuToggle').addEventListener('click',toggle);
+scrim.addEventListener('click',toggle);
+sb.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ if(sb.classList.contains('open')) toggle(); }));
+// scroll-spy
+const links=[...sb.querySelectorAll('a')];
+const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+const heads=[...document.querySelectorAll('h2[id],h3[id]')];
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.remove('active')); const a=map.get(e.target.id); if(a)a.classList.add('active'); }});
+},{rootMargin:'-10% 0px -80% 0px',threshold:0});
+heads.forEach(h=>obs.observe(h));
+</script>
+</body>
+</html>
