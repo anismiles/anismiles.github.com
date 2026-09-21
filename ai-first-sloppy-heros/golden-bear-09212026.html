@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Bear Cannabis Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#FFFFFF; --ink:#171A20; --ink-soft:#4A4F5A; --dataos:#23407C; --dataos-tint:#EFF3FA;
+        --amber:#B7791F; --amber-tint:#FDF6E3; --line:#E3E4E0; --engine-tint:#F2F3F5; --toc-w:248px; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; scroll-padding-top:24px; }
+body { background:var(--paper); color:var(--ink); font-family:'IBM Plex Sans',sans-serif; font-size:16px; line-height:1.6; }
+
+.layout { display:grid; grid-template-columns:var(--toc-w) minmax(0,760px); gap:40px; max-width:1200px; margin:0 auto; padding:48px 24px 96px; }
+main { min-width:0; }
+
+/* ---- ToC ---- */
+.sidebar { position:relative; }
+.toc { position:sticky; top:24px; font-size:13.5px; }
+.toc .toc-title { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
+.toc a { display:block; color:var(--ink-soft); text-decoration:none; padding:4px 10px; border-left:2px solid var(--line); line-height:1.4; }
+.toc a:hover { color:var(--dataos); }
+.toc a.active { color:var(--dataos); border-left-color:var(--dataos); font-weight:600; }
+.toc a.sub { padding-left:22px; font-size:12.5px; }
+
+.eyebrow { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; }
+h1 { font-size:clamp(26px,4.5vw,38px); font-weight:700; line-height:1.15; letter-spacing:-.02em; margin-bottom:14px; }
+h1 .accent { color:var(--dataos); }
+.subtitle { font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--ink-soft); margin:-6px 0 14px; }
+.standfirst { font-size:18px; color:var(--ink-soft); margin-bottom:8px; }
+h2 { font-size:22px; font-weight:700; color:var(--dataos); margin:44px 0 4px; }
+h3 { font-size:17px; font-weight:700; margin:0 0 6px; }
+.gap h3 { font-size:18px; padding-top:18px; border-top:1px solid var(--line); }
+main h3:not(.gap h3) { margin-top:26px; }
+.kicker { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); margin-bottom:14px; }
+p { margin-bottom:10px; }
+
+table { width:100%; border-collapse:collapse; font-size:14.5px; margin:14px 0; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+th { font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; text-align:left; padding:9px 13px; border-bottom:1.5px solid var(--ink); }
+td { padding:9px 13px; border-bottom:1px solid var(--line); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+.inv td p { margin-bottom:8px; } .inv td p:last-child { margin-bottom:0; }
+.inv td:first-child { font-weight:700; width:20%; white-space:nowrap; }
+code { font-family:'IBM Plex Mono',monospace; font-size:.88em; background:var(--engine-tint); padding:0 4px; border-radius:3px; }
+
+
+figure.diag { margin:18px 0; }
+figure.diag svg { width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:10px; background:#fff; }
+figure.diag figcaption { font-size:13px; color:var(--ink-soft); margin-top:6px; }
+figure.diag text { font-family:'IBM Plex Sans',sans-serif; }
+figure.diag .mono { font-family:'IBM Plex Mono',monospace; }
+.gap { margin:34px 0 40px; }
+.lbl { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dataos); }
+.anatomy p { margin-bottom:8px; }
+
+h4.albl { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dataos); font-weight:600; margin:14px 0 4px; }
+.anatomy h4.albl:first-child { margin-top:2px; }
+.anatomy p { margin-bottom:6px; }
+.seam { font-size:14.5px; color:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 2px; margin:22px 0; }
+
+pre.code { font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.55; background:#F6F6F3; border:1px solid var(--line); border-radius:8px; padding:14px 16px; overflow-x:auto; margin:12px 0; white-space:pre; }
+.say { border-left:3px solid var(--amber); background:var(--amber-tint); padding:9px 13px; margin:12px 0 18px; font-size:14.5px; border-radius:0 6px 6px 0; }
+.say .lbl { color:var(--amber); margin-right:6px; }
+.hook { border-left:3px solid var(--amber); background:var(--amber-tint); padding:9px 13px; margin-top:10px; font-size:14.5px; border-radius:0 6px 6px 0; }
+.hook .lbl { color:var(--amber); }
+.hook p { margin:6px 0 0; } .hook p:first-of-type { margin-top:4px; } .hook em { font-style:normal; font-weight:600; color:var(--amber); }
+
+a { color:var(--dataos); text-decoration:none; border-bottom:1px solid #C4D0E8; }
+a:hover { border-bottom-color:var(--dataos); }
+.toc a { border-bottom:none; }
+a[target="_blank"]::after { content:"\2197"; font-size:.78em; vertical-align:.12em;
+  margin-left:2px; opacity:.5; }
+.ref { font-size:13.5px; color:var(--ink-soft); line-height:1.9; }
+strong { font-weight:600; }
+
+/* ---- responsive ---- */
+@media (max-width:900px) {
+  .layout { display:block; padding:28px 18px 72px; }
+  .sidebar { margin-bottom:24px; }
+  .toc { position:static; border:1px solid var(--line); border-radius:8px; padding:12px 14px; }
+  .toc .toc-title { margin-bottom:8px; }
+  .toc a { padding:4px 10px; font-size:13.5px; }
+  .toc a.sub { padding-left:22px; font-size:12.5px; }
+  .inv, .inv tbody, .inv tr, .inv td { display:block; width:100%; }
+  .inv td:first-child { white-space:normal; width:100%; border-bottom:none; padding-bottom:2px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dataos); }
+  .inv td { border-bottom:none; }
+  .inv tr { border-bottom:1px solid var(--line); padding:6px 0; }
+  .inv tr:last-child { border-bottom:none; }
+  h2 { margin-top:34px; }
+}
+@media (max-width:520px) {
+  body { font-size:15px; }
+
+  table:not(.inv) { display:block; overflow-x:auto; }
+}
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+/* ---- document-specific, expressed in the same tokens ---- */
+:root { --muted:var(--ink-soft); --rule:var(--line); --hair:var(--line); --wash:var(--engine-tint);
+        --f1:#F2F3F5; --f2:#D6D9DE; --f3:#8E949E;
+        --sans:'IBM Plex Sans',sans-serif; --mono:'IBM Plex Mono',monospace; --serif:'IBM Plex Sans',sans-serif; }
+
+section { scroll-margin-top:24px; }
+main > .eyebrow + h1 { margin-bottom:10px; }
+h2 + .kicker { margin-top:6px; }
+
+ul, ol.body { margin:0 0 12px; padding-left:20px; }
+li { margin-bottom:5px; }
+
+.num { font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap; text-align:right; }
+th.num { text-align:right; }
+.scroll { overflow-x:auto; margin:14px 0; }
+.scroll table { margin:0; min-width:520px; }
+
+/* the fictional-company disclaimer, in the callout idiom */
+.note { border-left:3px solid var(--amber); background:var(--amber-tint); padding:11px 14px;
+        margin:14px 0 18px; font-size:14.5px; border-radius:0 6px 6px 0; }
+.note p { margin:0 0 6px; } .note p:last-child { margin-bottom:0; }
+.note strong { color:var(--amber); font-weight:600; }
+
+/* at-a-glance figures */
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:16px 0 18px; padding:0; }
+.stat { border:1px solid var(--line); border-radius:8px; background:#fff; padding:11px 13px; }
+.stat dt { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dataos); margin-bottom:5px; }
+.stat dd { margin:0; font-family:var(--mono); font-size:19px; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+.stat dd small { display:block; font-family:'IBM Plex Sans',sans-serif; font-size:11.5px; color:var(--ink-soft); letter-spacing:0; margin-top:3px; }
+
+/* question sets */
+.q { margin:14px 0 18px; }
+.q dt { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dataos); font-weight:600; margin:16px 0 6px; }
+.q dt:first-child { margin-top:0; }
+.q dd { margin:0 0 10px; }
+.q ul { margin:0; padding-left:19px; }
+.q li { margin-bottom:5px; font-size:15px; }
+
+/* glossary */
+.gloss dt { font-weight:700; font-size:15px; margin-top:12px; }
+.gloss dd { margin:2px 0 0; font-size:14.5px; color:var(--ink-soft); }
+
+/* diagram text, scoped so it does not inherit the prose label styles */
+figure.diag svg text { font-family:'IBM Plex Sans',sans-serif; fill:var(--ink); }
+figure.diag svg .mono { font-family:'IBM Plex Mono',monospace; }
+figure.diag svg { padding:14px 4px; }
+figure.diag figcaption b { color:var(--ink); font-weight:700; }
+
+footer { border-top:1px solid var(--ink); margin-top:44px; padding-top:14px; display:flex;
+         justify-content:space-between; gap:16px; flex-wrap:wrap;
+         font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); }
+
+@media (max-width:900px) { .stats { grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); } }
+@media print { .sidebar { display:none } .layout { display:block; max-width:none }
+               figure.diag, table { break-inside:avoid } h2 { break-after:avoid } }
+:focus-visible { outline:2px solid var(--dataos); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar"><nav class="toc" id="toc">
+<div class="toc-title">Contents</div>
+<a href="#s1">1 &middot; About this document</a>
+<a href="#s2">2 &middot; At a glance</a>
+<a href="#s3">3 &middot; Legal standing and ownership</a>
+<a href="#s4">4 &middot; Licences</a>
+<a href="#s5">5 &middot; Footprint</a>
+<a href="#s6">6 &middot; What the company does</a>
+<a href="#s7">7 &middot; How product moves</a>
+<a href="#s8">8 &middot; How money moves</a>
+<a href="#s9">9 &middot; The customer</a>
+<a href="#s10">10 &middot; Marketing</a>
+<a href="#s11">11 &middot; People and organisation</a>
+<a href="#s12">12 &middot; Systems of record</a>
+<a href="#s13">13 &middot; The data estate</a>
+<a href="#s14">14 &middot; Questions the business needs answered</a>
+<a href="#s15">15 &middot; Why some answers are hard</a>
+<a href="#s16">16 &middot; Risks and constraints</a>
+<a href="#s17">17 &middot; Glossary</a>
+<a href="#s18">18 &middot; Appendix — figures</a>
+</nav></aside>
+<main>
+
+<div class="eyebrow">Business brief &middot; Confidential &middot; Illustrative</div>
+<h1>Golden Bear <span class="accent">Cannabis Co.</span></h1>
+<p class="subtitle">A vertically integrated cannabis operator in California</p>
+
+<p class="standfirst">What the business does, how product and money move through it, what it
+records along the way, and the questions it needs answered in order to run.</p>
+
+<section id="s1">
+<h2>1 &middot; About this document</h2>
+<div class="note">
+<p><strong>Golden Bear Cannabis Co. is a fictional company.</strong> It was constructed
+to exercise a realistic set of commercial, operational and regulatory problems. The
+names, registration details, ownership and people are invented.</p>
+<p>The <em>figures</em> are not arbitrary: every number here is computed from a single
+coherent three-year dataset, so the totals reconcile with one another. Treat them as a
+worked example, not as the record of a real business.</p>
+</div>
+<p>This brief describes the company as it operates. It covers what the business does,
+how product and money move through it, what it records along the way, and which questions
+it needs to answer in order to run. It deliberately says nothing about how any of that is
+implemented.</p>
+<p>It is written for someone joining the business, advising it, or evaluating it — the
+kind of thing you would want to have read before your first meeting.</p>
+</section>
+
+<section id="s2">
+<h2>2 &middot; At a glance</h2>
+<p>Three years of trading, from 1 October 2023 to 20 September 2026.</p>
+<dl class="stats">
+  <div class="stat"><dt>Retail revenue</dt><dd>$71.8M<small>net of discount, pre-tax</small></dd></div>
+  <div class="stat"><dt>Wholesale revenue</dt><dd>$59.9M<small>closed purchase orders</small></dd></div>
+  <div class="stat"><dt>Merchandise</dt><dd>$3.68M<small>62,000 online orders</small></dd></div>
+  <div class="stat"><dt>Retail tickets</dt><dd>416,795<small>1,066,635 lines</small></dd></div>
+  <div class="stat"><dt>Loyalty members</dt><dd>120,000</dd></div>
+  <div class="stat"><dt>Wholesale accounts</dt><dd>180<small>third-party dispensaries</small></dd></div>
+  <div class="stat"><dt>Plants grown</dt><dd>68,875<small>across 420 harvest batches</small></dd></div>
+  <div class="stat"><dt>Catalogue</dt><dd>102 SKUs<small>12 cultivars</small></dd></div>
+</dl>
+<p>Retail is the largest and most heavily regulated stream. Wholesale is comparable in
+headline value but earns at a lower margin and collects slowly. Merchandise is small but
+is the only part of the business that behaves like ordinary e-commerce.</p>
+<h4>Retail revenue by category</h4>
+<table>
+<thead><tr><th>Category</th><th class="num">Revenue</th><th class="num">Share</th></tr></thead>
+<tbody>
+<tr><td>Flower</td><td class="num">$26,389,596</td><td class="num">36.8%</td></tr>
+<tr><td>Vape</td><td class="num">$22,131,688</td><td class="num">30.8%</td></tr>
+<tr><td>Concentrate</td><td class="num">$10,391,858</td><td class="num">14.5%</td></tr>
+<tr><td>Preroll</td><td class="num">$9,653,169</td><td class="num">13.4%</td></tr>
+<tr><td>Edible</td><td class="num">$3,236,631</td><td class="num">4.5%</td></tr>
+</tbody></table>
+<h4>Retail channel mix</h4>
+<table>
+<thead><tr><th>Channel</th><th class="num">Tickets</th><th class="num">Share</th></tr></thead>
+<tbody>
+<tr><td>In store</td><td class="num">258,351</td><td class="num">62.0%</td></tr>
+<tr><td>Delivery</td><td class="num">87,736</td><td class="num">21.0%</td></tr>
+<tr><td>Pickup</td><td class="num">70,708</td><td class="num">17.0%</td></tr>
+</tbody></table>
+</section>
+
+<section id="s3">
+<h2>3 &middot; Legal standing and ownership</h2>
+<table>
+<tbody>
+<tr><td style="width:36%">Legal name</td><td>Golden Bear Cannabis Co., LLC</td></tr>
+<tr><td>Entity type</td><td>California limited liability company</td></tr>
+<tr><td>Registered</td><td>California Secretary of State, filing 202136510042</td></tr>
+<tr><td>Formed</td><td>12 March 2019</td></tr>
+<tr><td>Principal office</td><td>1400 Embarcadero West, Oakland, Alameda County, CA</td></tr>
+<tr><td>Regulator</td><td>Department of Cannabis Control (DCC)</td></tr>
+<tr><td>Headcount</td><td>185 (46 retail floor staff, 38 cultivation, 22 production)</td></tr>
+</tbody></table>
+<h3>Ownership</h3>
+<p>Closely held. No public market, no obligation to publish accounts, and — because of
+federal banking constraints described in <a href="#s16">section&nbsp;16</a> — a limited pool of willing investors.</p>
+<table>
+<thead><tr><th>Holder</th><th>Role</th><th class="num">Interest</th></tr></thead>
+<tbody>
+<tr><td>Marisol Vega</td><td>Co-founder, Chief Executive</td><td class="num">34%</td></tr>
+<tr><td>Daniel Okonkwo</td><td>Co-founder, Chief Operating Officer</td><td class="num">26%</td></tr>
+<tr><td>Bay Fifteen Capital, LLC</td><td>Outside investor (2021 round)</td><td class="num">24%</td></tr>
+<tr><td>Employee option pool</td><td>—</td><td class="num">10%</td></tr>
+<tr><td>Priya Raghunathan</td><td>Chief Financial Officer</td><td class="num">6%</td></tr>
+</tbody></table>
+<p>The board holds five seats: both founders, one nominated by Bay Fifteen, and two
+independents — a former dispensary group operator and a tax specialist retained
+specifically for the federal position.</p>
+</section>
+
+<section id="s4">
+<h2>4 &middot; Licences</h2>
+<p>The company holds eight state licences. Each authorises one activity at one site, and
+the boundaries between them are legal, not organisational: a licence is not a department,
+and holding several does not let you shortcut between them.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Licence</th><th>Class</th><th>Site</th><th>County</th><th class="num">Expires</th></tr></thead>
+<tbody>
+<tr><td>Cultivation</td><td>Type 3, mixed-light</td><td>Salinas</td><td>Monterey</td><td class="num">2027-06-30</td></tr>
+<tr><td>Manufacturing</td><td>Type 6, non-volatile</td><td>Oakland</td><td>Alameda</td><td class="num">2027-03-31</td></tr>
+<tr><td>Distribution</td><td>Type 11</td><td>Oakland</td><td>Alameda</td><td class="num">2027-01-31</td></tr>
+<tr><td>Retail storefront</td><td>Type 10</td><td>Oakland</td><td>Alameda</td><td class="num">2027-02-28</td></tr>
+<tr><td>Retail storefront</td><td>Type 10</td><td>San Francisco</td><td>San Francisco</td><td class="num">2027-02-28</td></tr>
+<tr><td>Retail storefront</td><td>Type 10</td><td>Sacramento</td><td>Sacramento</td><td class="num">2027-04-30</td></tr>
+<tr><td>Retail storefront</td><td>Type 10</td><td>Los Angeles</td><td>Los Angeles</td><td class="num">2027-05-31</td></tr>
+<tr><td>Retail, non-storefront</td><td>Type 9</td><td>Oakland</td><td>Alameda</td><td class="num">2027-02-28</td></tr>
+</tbody></table>
+</div>
+
+<figure class="diag">
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Licence topology: cultivation and manufacturing both route through the distribution licence, which is the only one permitted to move product to retail or to third-party dispensaries.">
+  <defs><marker id="m1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#4A4F5A"/></marker></defs>
+  <text x="24" y="30" font-size="12" fill="#4A4F5A" class="mono" font-weight="600" letter-spacing="1.2">EIGHT LICENCES &#183; ONE CHOKEPOINT</text>
+
+  <rect x="24" y="136" width="164" height="64" rx="7" fill="#EAF4F2" stroke="#4E8C85"/>
+  <text x="106" y="164" font-size="13.5" font-weight="600" fill="#2F5F5A" text-anchor="middle">Cultivation</text>
+  <text x="106" y="183" font-size="12" fill="#4A4F5A" text-anchor="middle">Salinas &#183; Type 3</text>
+
+  <rect x="268" y="56" width="176" height="222" rx="9" fill="#EFF3FA" stroke="#23407C" stroke-width="1.6"/>
+  <text x="356" y="150" font-size="14" font-weight="600" fill="#23407C" text-anchor="middle">Distribution</text>
+  <text x="356" y="169" font-size="12" fill="#4A4F5A" text-anchor="middle">Oakland &#183; Type 11</text>
+  <line x1="292" y1="185" x2="420" y2="185" stroke="#C4D0E8"/>
+  <text x="356" y="206" font-size="12" fill="#23407C" text-anchor="middle">the only licence that</text>
+  <text x="356" y="222" font-size="12" fill="#23407C" text-anchor="middle">may move product</text>
+
+  <rect x="524" y="56" width="172" height="64" rx="7" fill="#F3F0FA" stroke="#7D6BAE"/>
+  <text x="610" y="84" font-size="13.5" font-weight="600" fill="#4C3A78" text-anchor="middle">Manufacturing</text>
+  <text x="610" y="103" font-size="12" fill="#4A4F5A" text-anchor="middle">Oakland &#183; Type 6</text>
+
+  <rect x="524" y="136" width="172" height="64" rx="7" fill="#F2F8F2" stroke="#5B8C5A"/>
+  <text x="610" y="164" font-size="13.5" font-weight="600" fill="#3A5F39" text-anchor="middle">Own retail</text>
+  <text x="610" y="183" font-size="12" fill="#4A4F5A" text-anchor="middle">4 storefronts + delivery</text>
+
+  <rect x="524" y="214" width="172" height="64" rx="7" fill="#FDFDFC" stroke="#E3E4E0" stroke-dasharray="4 3"/>
+  <text x="610" y="242" font-size="13" font-weight="600" fill="#4A4F5A" text-anchor="middle">Third-party dispensaries</text>
+  <text x="610" y="261" font-size="12" fill="#4A4F5A" text-anchor="middle">180 accounts</text>
+
+  <g stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m1)">
+    <line x1="188" y1="168" x2="262" y2="168"/>
+    <line x1="444" y1="78" x2="518" y2="78"/>
+    <line x1="444" y1="168" x2="518" y2="168"/>
+    <line x1="444" y1="246" x2="518" y2="246" stroke-dasharray="5 3"/>
+  </g>
+  <line x1="518" y1="102" x2="444" y2="102" stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m1)"/>
+  <g font-size="11" fill="#4A4F5A" text-anchor="middle">
+    <text x="225" y="160" font-size="11.5">dried flower</text>
+    <text x="481" y="70">inputs</text>
+    <text x="481" y="118">finished goods</text>
+    <text x="481" y="160">manifest</text>
+    <text x="481" y="238">manifest</text>
+  </g>
+  <text x="24" y="304" font-size="12" fill="#4A4F5A">Nothing reaches a shelf without a manifest issued under the distribution licence.</text>
+</svg>
+<figcaption><b>Everything routes through distribution.</b> Flower cannot go from the farm
+to a shop, and a finished vape cannot go from the factory to a shelf, without passing
+through the distribution licence and onto a manifest. That single constraint shapes the
+company's logistics, its lead times, and the completeness of its records.</figcaption>
+</figure>
+</section>
+
+<section id="s5">
+<h2>5 &middot; Footprint</h2>
+<p>Five operating sites across four counties. The retail estate is deliberately spread —
+partly for market reach, partly because local cannabis taxes and permitting differ so much
+between cities that concentration in one is a risk.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Site</th><th>City</th><th>Opened</th><th>Function</th></tr></thead>
+<tbody>
+<tr><td>Salinas farm</td><td>Salinas</td><td class="num">2019</td><td>Mixed-light cultivation, 6 rooms</td></tr>
+<tr><td>Embarcadero West</td><td>Oakland</td><td class="num">2019</td><td>Manufacturing, distribution, head office</td></tr>
+<tr><td>Golden Bear Oakland</td><td>Oakland</td><td class="num">2019</td><td>Storefront + delivery hub</td></tr>
+<tr><td>Golden Bear Mission</td><td>San Francisco</td><td class="num">2020</td><td>Storefront</td></tr>
+<tr><td>Golden Bear Midtown</td><td>Sacramento</td><td class="num">2022</td><td>Storefront</td></tr>
+<tr><td>Golden Bear DTLA</td><td>Los Angeles</td><td class="num">2023</td><td>Storefront + delivery hub</td></tr>
+</tbody></table>
+</div>
+<p>Delivery is run out of the Oakland and Los Angeles stores rather than from separate
+premises. Commercially it is a channel, not a location — which matters, because a delivery
+order and a walk-in are recorded against the same shop.</p>
+</section>
+
+<section id="s6">
+<h2>6 &middot; What the company does</h2>
+<p>Vertical integration means the company owns the product from seed to sale. In practice
+that is six distinct businesses that happen to share a balance sheet.</p>
+
+<h3>Cultivation</h3>
+<p>Six mixed-light rooms in Salinas, running continuous staggered cycles rather than a
+single seasonal harvest. A room is planted, vegetated, flowered and cut as a unit, and the
+cut becomes a <em>harvest batch</em> — a single cultivar, typically around 164 plants,
+tracked from then on as one lot. Roughly 420 batches over three years.</p>
+
+<h3>Manufacturing</h3>
+<p>Dried flower is turned into vapes, edibles, prerolls and concentrates. A production run
+draws material from <strong>several harvest batches at once</strong> — four on average — because
+extraction yields and terpene profiles are blended to hit a consistent product spec. This is
+ordinary practice and commercially sensible. It is also the single most consequential fact
+in this document, for reasons set out in <a href="#s7">section&nbsp;7</a>.</p>
+
+<h3>Distribution</h3>
+<p>The legal chokepoint. Every movement between sites, and every delivery to a third-party
+dispensary, travels on a manifest issued under the distribution licence. Nothing moves
+without one.</p>
+
+<h3>Retail</h3>
+<p>Four dispensaries and a delivery operation. 416,795 tickets over three years, averaging
+2.6 lines each. Adult-use dominates; a small medical cohort carries different tax treatment.
+Staff — budtenders — advise, sell, and apply discounts, which makes them a meaningful
+driver of margin as well as of revenue.</p>
+
+<h3>Wholesale</h3>
+<p>The company's own brand sold into about 180 independent dispensaries. Account managers
+hold territories, work against a published price book, and raise purchase orders. Around
+4,600 orders over three years, of which roughly three-quarters close.</p>
+
+<h3>Merchandise</h3>
+<p>Hoodies, hats, grinders, glass, rolling trays. It never touches the plant, which means
+it can be sold online, shipped anywhere, and paid for by card — none of which is true of
+the rest of the business.</p>
+</section>
+
+<section id="s7">
+<h2>7 &middot; How product moves</h2>
+<p>Every plant and every package carries a state-issued tag, and every movement is
+manifested. In principle that gives complete traceability from a sold gram back to the
+plants it grew on. In practice the chain survives intact for one product family and breaks
+for the other.</p>
+
+<figure class="diag">
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two production paths. Flower runs from plants through a single harvest batch to a package, keeping one cultivar. Manufactured goods run from four harvest batches through a production run to a package, losing single-cultivar identity.">
+  <defs><marker id="m2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#4A4F5A"/></marker></defs>
+  <text x="24" y="30" font-size="12" fill="#3A5F39" class="mono" font-weight="600" letter-spacing="1.2">FLOWER AND PREROLL</text>
+  <g text-anchor="middle">
+    <rect x="24" y="44" width="116" height="56" rx="7" fill="#EAF4F2" stroke="#4E8C85"/>
+    <text x="82" y="70" font-size="13" font-weight="600" fill="#2F5F5A">Plants</text>
+    <text x="82" y="88" font-size="11.5" fill="#4A4F5A" class="mono">~164</text>
+
+    <rect x="168" y="44" width="136" height="56" rx="7" fill="#EAF4F2" stroke="#4E8C85"/>
+    <text x="236" y="70" font-size="13" font-weight="600" fill="#2F5F5A">Harvest batch</text>
+    <text x="236" y="88" font-size="11.5" fill="#4A4F5A">one cultivar</text>
+
+    <rect x="332" y="44" width="116" height="56" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="390" y="70" font-size="13" font-weight="600">Package</text>
+    <text x="390" y="88" font-size="11.5" fill="#4A4F5A">tagged</text>
+
+    <rect x="476" y="44" width="116" height="56" rx="7" fill="#F2F8F2" stroke="#5B8C5A"/>
+    <text x="534" y="78" font-size="13" font-weight="600" fill="#3A5F39">Shelf</text>
+  </g>
+  <g stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m2)">
+    <line x1="140" y1="72" x2="162" y2="72"/><line x1="304" y1="72" x2="326" y2="72"/><line x1="448" y1="72" x2="470" y2="72"/>
+  </g>
+  <text x="608" y="68" font-size="11.5" fill="#3A5F39" class="mono" font-weight="600">CULTIVAR</text>
+  <text x="608" y="84" font-size="11.5" fill="#3A5F39" class="mono" font-weight="600">PRESERVED</text>
+
+  <line x1="24" y1="130" x2="696" y2="130" stroke="#E3E4E0" stroke-width="1.4"/>
+
+  <text x="24" y="162" font-size="12" fill="#4C3A78" class="mono" font-weight="600" letter-spacing="1.2">VAPE, EDIBLE AND CONCENTRATE</text>
+  <g text-anchor="middle" font-size="11.5" fill="#4C3A78">
+    <rect x="24" y="176" width="116" height="28" rx="5" fill="#F3F0FA" stroke="#C3B8DE"/><text x="82" y="195">Blue Dream</text>
+    <rect x="24" y="210" width="116" height="28" rx="5" fill="#F3F0FA" stroke="#C3B8DE"/><text x="82" y="229">OG Kush</text>
+    <rect x="24" y="244" width="116" height="28" rx="5" fill="#F3F0FA" stroke="#C3B8DE"/><text x="82" y="263">Runtz</text>
+    <rect x="24" y="278" width="116" height="28" rx="5" fill="#F3F0FA" stroke="#C3B8DE"/><text x="82" y="297">Gelato</text>
+  </g>
+  <g stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m2)">
+    <line x1="140" y1="190" x2="162" y2="222"/><line x1="140" y1="224" x2="162" y2="234"/>
+    <line x1="140" y1="258" x2="162" y2="246"/><line x1="140" y1="292" x2="162" y2="258"/>
+  </g>
+  <rect x="168" y="209" width="136" height="64" rx="7" fill="#F3F0FA" stroke="#7D6BAE" stroke-width="1.6"/>
+  <text x="236" y="235" font-size="13" font-weight="600" fill="#4C3A78" text-anchor="middle">Production run</text>
+  <text x="236" y="254" font-size="11.5" fill="#4A4F5A" text-anchor="middle">blends 2&#8211;6 batches</text>
+
+  <line x1="304" y1="241" x2="326" y2="241" stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m2)"/>
+  <rect x="332" y="213" width="116" height="56" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+  <text x="390" y="239" font-size="13" font-weight="600" text-anchor="middle">Package</text>
+  <text x="390" y="257" font-size="11.5" fill="#4A4F5A" text-anchor="middle">tagged</text>
+
+  <line x1="448" y1="241" x2="470" y2="241" stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m2)"/>
+  <rect x="476" y="213" width="116" height="56" rx="7" fill="#FCF0F1" stroke="#C98A92"/>
+  <text x="534" y="247" font-size="13" font-weight="600" fill="#7C3A42" text-anchor="middle">Shelf</text>
+
+  <text x="608" y="237" font-size="11.5" fill="#7C3A42" class="mono" font-weight="600">CULTIVAR</text>
+  <text x="608" y="253" font-size="11.5" fill="#7C3A42" class="mono" font-weight="600">LOST</text>
+  <text x="24" y="338" font-size="12" fill="#4A4F5A">The tracking is complete either way. The attribution is not.</text>
+</svg>
+<figcaption><b>Flower keeps its identity; manufactured goods do not.</b> A bag of flower
+traces back to one harvest batch and therefore one cultivar. A vape cartridge is produced
+from four batches at once, often spanning four cultivars — and once blended, no record
+recovers a single one. The tracking is complete; the attribution is not.</figcaption>
+</figure>
+
+<p>The consequence is commercial, not clerical. <em>"Which cultivars earn us the most?"</em>
+is a straightforward question for flower and prerolls — 50% of retail revenue — and an
+<strong>unanswerable</strong> one for vapes, edibles and concentrates, which are the other
+half. It becomes answerable only once the business decides how to apportion a blended
+product's revenue across its inputs: by input weight, by input cost, or by potency
+contribution. That is a commercial judgement, and it has to be made deliberately rather
+than assumed by whoever writes the report.</p>
+
+<p>A second complication: packages are split. A bulk package is broken down for different
+stores, and those children are sometimes split again — 2,041 of 13,381 packages are
+children of another. Tracing a sale to its origin means walking back up a chain of
+unknown depth.</p>
+
+<h4>Typical lead time, cut to shelf</h4>
+<table>
+<tbody>
+<tr><td style="width:46%">Plant to harvest</td><td class="num">80–130 days</td></tr>
+<tr><td>Cure</td><td class="num">7–21 days</td></tr>
+<tr><td>Laboratory testing</td><td class="num">5–10 days</td></tr>
+<tr><td>Packaging and manifest</td><td class="num">3–7 days</td></tr>
+</tbody></table>
+<p>Compliance testing gates everything: a batch cannot be sold until a certificate of
+analysis passes. The current pass rate is <strong>96.2%</strong>. A failure means
+remediation or destruction, and it lands after the cultivation cost has already been
+incurred.</p>
+</section>
+
+<section id="s8">
+<h2>8 &middot; How money moves</h2>
+<p>A single retail sale carries four separate tax layers, levied by three different
+authorities, at rates that differ by city. What the customer pays and what the company
+keeps are separated by a stack that has to be understood before any revenue figure means
+anything.</p>
+
+<figure class="diag">
+<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Waterfall from 79.2 million dollars list price down to 71.8 million net after discount, then up through excise, city cannabis tax and sales tax to 95.8 million dollars paid at the till.">
+  <line x1="24" y1="72" x2="696" y2="72" stroke="#E3E4E0" stroke-dasharray="3 4"/>
+  <line x1="24" y1="272" x2="696" y2="272" stroke="#4A4F5A" stroke-width="1.4"/>
+
+  <rect x="24"  y="107" width="72" height="165" rx="4" fill="#F2F3F5" stroke="#E3E4E0"/>
+  <rect x="124" y="107" width="72" height="16"  rx="4" fill="#FCF0F1" stroke="#C98A92"/>
+  <rect x="224" y="122" width="72" height="150" rx="4" fill="#EFF3FA" stroke="#23407C" stroke-width="1.6"/>
+  <rect x="324" y="97"  width="72" height="25"  rx="4" fill="#FDF6E3" stroke="#B7791F"/>
+  <rect x="424" y="89"  width="72" height="8"   rx="3" fill="#FDF6E3" stroke="#B7791F"/>
+  <rect x="524" y="72"  width="72" height="17"  rx="4" fill="#FDF6E3" stroke="#B7791F"/>
+  <rect x="624" y="72"  width="72" height="200" rx="4" fill="#FAF5EC" stroke="#B7791F" stroke-width="1.6"/>
+
+  <g font-size="12.5" class="mono" text-anchor="middle">
+    <text x="60"  y="99"  fill="#171A20">79.2</text>
+    <text x="160" y="99"  fill="#7C3A42">&#8722;7.4</text>
+    <text x="260" y="114" fill="#23407C" font-weight="600">71.8</text>
+    <text x="360" y="89"  fill="#8A5A13">+12.0</text>
+    <text x="460" y="81"  fill="#8A5A13">+3.8</text>
+    <text x="560" y="64"  fill="#8A5A13">+8.2</text>
+    <text x="660" y="64"  fill="#8A5A13" font-weight="600">95.8</text>
+  </g>
+  <g font-size="12" fill="#4A4F5A" text-anchor="middle">
+    <text x="60"  y="292">List</text>
+    <text x="160" y="292">Discount</text>
+    <text x="260" y="292" fill="#23407C" font-weight="600">Net</text>
+    <text x="360" y="292">Excise</text>
+    <text x="460" y="292">City</text>
+    <text x="560" y="292">Sales tax</text>
+    <text x="660" y="292" fill="#8A5A13" font-weight="600">Out the door</text>
+  </g>
+  <text x="24" y="322" font-size="12" fill="#4A4F5A">$ millions, three years of retail</text>
+  <text x="696" y="322" font-size="12" fill="#4A4F5A" text-anchor="end">what the customer hands over</text>
+</svg>
+<figcaption><b>Six defensible answers to "what was revenue?"</b> List price, net of discount,
+the pre-tax subtotal on the ticket, and the out-the-door total are all in daily use — by
+merchandising, by the P&amp;L, by the shop floor and by cash reconciliation respectively.
+Wholesale and merchandise add two more. Each is correct for somebody.</figcaption>
+</figure>
+
+<p>Local cannabis tax is the most variable element. Los Angeles levies 10%, Oakland 5%,
+Sacramento 4%, San Francisco 2.5% — so the same basket costs measurably different amounts
+in four shops belonging to the same company, and store-to-store comparisons of anything
+tax-inclusive are meaningless without adjustment.</p>
+<p>Rates also change by statute, mid-year. A step in an effective tax rate is usually a
+change in the law rather than an error in the books, and the two have to be
+distinguishable.</p>
+
+<figure class="diag">
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three revenue streams drawn to the same scale. Counter sales carry four tax layers adding 33 percent, wholesale carries none, merchandise carries one adding 9 percent.">
+  <text x="24" y="30" font-size="12" fill="#4A4F5A" class="mono" font-weight="600" letter-spacing="1.2">INDEXED TO NET = 100 &#183; SAME SCALE</text>
+  <line x1="24" y1="266" x2="696" y2="266" stroke="#4A4F5A" stroke-width="1.4"/>
+
+  <rect x="24"  y="146" width="140" height="120" rx="4" fill="#EFF3FA" stroke="#23407C" stroke-width="1.5"/>
+  <text x="94" y="212" font-size="12" fill="#23407C" text-anchor="middle" class="mono">net 100</text>
+  <rect x="24" y="126" width="140" height="20" rx="3" fill="#FDF6E3" stroke="#B7791F"/>
+  <rect x="24" y="119" width="140" height="7"  rx="2" fill="#FDF6E3" stroke="#B7791F"/>
+  <rect x="24" y="105" width="140" height="14" rx="3" fill="#FDF6E3" stroke="#B7791F"/>
+  <text x="94" y="96" font-size="13" class="mono" font-weight="600" fill="#8A5A13" text-anchor="middle">133</text>
+  <g font-size="11.5" fill="#8A5A13"><text x="174" y="140">excise 16.7</text><text x="174" y="116">city 5.3 &#183; sales 11.4</text></g>
+
+  <rect x="290" y="146" width="140" height="120" rx="4" fill="#EFF3FA" stroke="#23407C" stroke-width="1.5"/>
+  <text x="360" y="212" font-size="12" fill="#23407C" text-anchor="middle" class="mono">net 100</text>
+  <text x="360" y="138" font-size="13" class="mono" font-weight="600" fill="#23407C" text-anchor="middle">100</text>
+  <text x="440" y="168" font-size="11.5" fill="#4A4F5A">no tax at this hop</text>
+
+  <rect x="556" y="146" width="140" height="120" rx="4" fill="#EFF3FA" stroke="#23407C" stroke-width="1.5"/>
+  <text x="626" y="212" font-size="12" fill="#23407C" text-anchor="middle" class="mono">net 100</text>
+  <rect x="556" y="135" width="140" height="11" rx="3" fill="#FDF6E3" stroke="#B7791F"/>
+  <text x="626" y="126" font-size="13" class="mono" font-weight="600" fill="#8A5A13" text-anchor="middle">109</text>
+  <text x="626" y="110" font-size="11.5" fill="#8A5A13" text-anchor="middle">sales tax only</text>
+
+  <g text-anchor="middle">
+    <text x="94"  y="290" font-size="13.5" font-weight="600">Counter</text>
+    <text x="94"  y="308" font-size="11.5" fill="#4A4F5A" class="mono">$71.8M net</text>
+    <text x="360" y="290" font-size="13.5" font-weight="600">Wholesale</text>
+    <text x="360" y="308" font-size="11.5" fill="#4A4F5A" class="mono">$59.9M net</text>
+    <text x="626" y="290" font-size="13.5" font-weight="600">Merchandise</text>
+    <text x="626" y="308" font-size="11.5" fill="#4A4F5A" class="mono">$3.68M net</text>
+  </g>
+</svg>
+<figcaption><b>The three streams are not comparable, and adding them up is the most common
+mistake in the business.</b> Counter revenue is quoted tax-inclusive by the shop floor and
+tax-exclusive by finance. Wholesale carries no tax at this hop — the dispensary that
+eventually sells to a consumer collects it. Merchandise carries ordinary sales tax and
+nothing else.</figcaption>
+</figure>
+
+<h4>Cash and collection</h4>
+<p>Retail is largely cash, with the handling and security costs that implies. Wholesale is
+invoiced on terms and paid, on average, <strong>59 days</strong> after invoice — well past
+the stated terms of 14 to 60 days. Collections are therefore a standing management concern
+rather than a back-office task, and the gap between recognised wholesale revenue and
+received wholesale cash is material.</p>
+</section>
+
+<section id="s9">
+<h2>9 &middot; The customer</h2>
+<p>The same person appears differently depending on where they touch the business, and the
+company's ability to recognise them varies sharply by channel.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Where</th><th>System</th><th>Identified by</th><th>Completeness</th></tr></thead>
+<tbody>
+<tr><td>Dispensary counter</td><td>Treez</td><td>Loyalty account, always a phone number</td><td>Email present ~58% of the time</td></tr>
+<tr><td>Online merchandise store</td><td>Shopify</td><td>Email address, always</td><td>Phone sometimes</td></tr>
+<tr><td>Marketing list</td><td>HubSpot</td><td>Email address</td><td>Consent recorded</td></tr>
+<tr><td>Social following</td><td>Instagram</td><td>Not identified at all</td><td>—</td></tr>
+</tbody></table>
+</div>
+
+<figure class="diag">
+<svg viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Of 120,000 loyalty members, 43,384 resolve by exact email, 7,321 by probabilistic phone and postcode match, and 69,295 cannot be linked to any other record.">
+  <defs><pattern id="idhatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="7" height="7" fill="#FCF0F1"/><line x1="0" y1="0" x2="0" y2="7" stroke="#E4C3C7" stroke-width="2"/></pattern></defs>
+  <text x="24" y="30" font-size="12" fill="#4A4F5A" class="mono" font-weight="600" letter-spacing="1.2">120,000 LOYALTY MEMBERS</text>
+
+  <rect x="24"  y="64" width="243" height="62" rx="5" fill="#EFF3FA" stroke="#23407C" stroke-width="1.5"/>
+  <rect x="267" y="64" width="41"  height="62"      fill="#FDF6E3" stroke="#B7791F"/>
+  <rect x="308" y="64" width="388" height="62" rx="5" fill="url(#idhatch)" stroke="#C98A92"/>
+
+  <g class="mono" font-size="13" font-weight="600" text-anchor="middle">
+    <text x="145" y="56" fill="#23407C">43,384</text>
+    <text x="288" y="56" fill="#8A5A13">7,321</text>
+    <text x="502" y="56" fill="#7C3A42">69,295</text>
+  </g>
+  <g font-size="12" text-anchor="middle">
+    <text x="145" y="148" fill="#23407C" font-weight="600">Certain &#8212; shared email</text>
+    <text x="145" y="165" fill="#4A4F5A">36.2%</text>
+    <text x="502" y="148" fill="#7C3A42" font-weight="600">Cannot be linked to anything else</text>
+    <text x="502" y="165" fill="#4A4F5A">57.7%</text>
+  </g>
+  <line x1="288" y1="126" x2="288" y2="176" stroke="#B7791F" stroke-dasharray="3 3"/>
+  <text x="288" y="192" font-size="12" fill="#8A5A13" font-weight="600" text-anchor="middle">Probable &#8212; phone + postcode</text>
+  <text x="288" y="208" font-size="12" fill="#4A4F5A" text-anchor="middle">6.1%</text>
+
+  <path d="M24,228 l0,8 l284,0 l0,-8" fill="none" stroke="#23407C" stroke-width="1.4"/>
+  <rect x="96" y="242" width="140" height="22" rx="5" fill="#EFF3FA" stroke="#23407C"/>
+  <text x="166" y="257" font-size="11.5" class="mono" font-weight="600" fill="#23407C" text-anchor="middle">42.3% RESOLVABLE</text>
+  <text x="696" y="257" font-size="12" fill="#4A4F5A" text-anchor="end">the honest ceiling on any cross-channel statement</text>
+</svg>
+<figcaption><b>Identity has a ceiling, and it is 42%.</b> Where two records share an email
+address the match is certain; where they share only a phone number and a postcode it is a
+strong guess. Most counter customers cannot be linked to anything else at all. Any
+statement about behaviour across channels is a statement about the resolvable 42% —
+which is worth saying out loud rather than quietly generalising.</figcaption>
+</figure>
+
+<p>This is not a defect to be engineered away. A dispensary customer is not obliged to give
+an email address, and many deliberately do not. The honest position is to report the
+coverage alongside the finding.</p>
+</section>
+
+<section id="s10">
+<h2>10 &middot; Marketing</h2>
+<p>Cannabis advertising in California is tightly restricted. Paid search and paid social
+are effectively unavailable to a plant-touching brand, and any placement must be able to
+demonstrate that at least 71.6% of its audience is over 21. The practical result is that
+the company's marketing runs on channels that carry no reliable link to a sale.</p>
+<table>
+<thead><tr><th>Channel</th><th>Volume</th><th>Link to revenue</th></tr></thead>
+<tbody>
+<tr><td>Organic social</td><td class="num">1,540 posts</td><td>None, except via a link in profile</td></tr>
+<tr><td>Email</td><td class="num">90,000 contacts</td><td>Click, then only if the person shops online</td></tr>
+<tr><td>Campaigns</td><td class="num">16 over three years</td><td>Promotional code, if the customer mentions it</td></tr>
+<tr><td>Creator collaborations</td><td class="num">64 agreements</td><td>None</td></tr>
+</tbody></table>
+
+<figure class="diag">
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Of 71.8 million dollars of counter revenue, 3.9 percent can be linked to a campaign. Of 3.68 million dollars of merchandise revenue, 15.3 percent can be linked.">
+  <text x="24" y="32" font-size="12" fill="#4A4F5A" class="mono" font-weight="600" letter-spacing="1.2">COUNTER &#183; $71.8M</text>
+  <rect x="24" y="44" width="672" height="50" rx="6" fill="#FCF0F1" stroke="#C98A92"/>
+  <rect x="24" y="44" width="26"  height="50" rx="6" fill="#EFF3FA" stroke="#23407C" stroke-width="1.5"/>
+  <text x="62"  y="74" font-size="13" class="mono" font-weight="600" fill="#23407C">3.9%</text>
+  <text x="118" y="74" font-size="12.5" fill="#7C3A42">$2.77M linked to a campaign &#183; $69.0M unattributable</text>
+
+  <text x="24" y="146" font-size="12" fill="#4A4F5A" class="mono" font-weight="600" letter-spacing="1.2">MERCHANDISE &#183; $3.68M</text>
+  <rect x="24" y="158" width="672" height="50" rx="6" fill="#FCF0F1" stroke="#C98A92"/>
+  <rect x="24" y="158" width="103" height="50" rx="6" fill="#EFF3FA" stroke="#23407C" stroke-width="1.5"/>
+  <text x="139" y="188" font-size="13" class="mono" font-weight="600" fill="#23407C">15.3%</text>
+  <text x="200" y="188" font-size="12.5" fill="#7C3A42">$0.56M carries a campaign tag</text>
+
+  <text x="24" y="240" font-size="12" fill="#4A4F5A">Each bar is that channel&#8217;s own revenue, not a shared scale. The tinted remainder is genuinely unattributable.</text>
+</svg>
+<figcaption><b>96% of counter revenue cannot be attributed to any marketing activity.</b>
+Only about 8% of tickets carry a promotional code, and a walk-in carries nothing at all.
+The online store, by contrast, knows exactly which campaign sent an order. So the honest
+answer to "did the campaign work?" is never one number — it is what was measured, what
+could not be, and the share in each.</figcaption>
+</figure>
+</section>
+
+<section id="s11">
+<h2>11 &middot; People and organisation</h2>
+<p>185 people. The organisation splits along licence lines more than functional ones,
+because the licences impose genuinely different operating disciplines.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Team</th><th>Size</th><th>Accountable for</th></tr></thead>
+<tbody>
+<tr><td>Cultivation</td><td class="num">38</td><td>Yield per plant, cycle time, pest and mould loss, room scheduling</td></tr>
+<tr><td>Production</td><td class="num">22</td><td>Extraction yield, cost per gram, product consistency, run planning</td></tr>
+<tr><td>Distribution &amp; logistics</td><td class="num">14</td><td>Manifests, transfer accuracy, delivery fleet</td></tr>
+<tr><td>Retail operations</td><td class="num">62</td><td>Store revenue, basket size, discount discipline, staffing to demand</td></tr>
+<tr><td>Wholesale</td><td class="num">11</td><td>Door count, reorder rate, price realisation, collections</td></tr>
+<tr><td>Marketing</td><td class="num">7</td><td>Brand reach, loyalty sign-ups, campaign calendar</td></tr>
+<tr><td>Finance</td><td class="num">9</td><td>Tax position, margin by product, cash, the federal question</td></tr>
+<tr><td>Compliance</td><td class="num">6</td><td>Licence renewals, tag reconciliation, test failures, recalls</td></tr>
+<tr><td>Executive &amp; admin</td><td class="num">26</td><td>—</td></tr>
+</tbody></table>
+</div>
+<p>Compliance sits outside the operating lines and reports to the CEO. This is deliberate:
+a compliance failure is existential in a way that a bad quarter is not.</p>
+</section>
+
+<section id="s12">
+<h2>12 &middot; Systems of record</h2>
+<p>Seven systems hold the company's operational record. Each was bought by a different
+function, at a different time, to solve a local problem, and none was chosen with the
+others in mind. Two were not chosen at all: the state mandates one, and the other is
+simply where the audience already is.</p>
+
+<h3>The seven</h3>
+<div class="scroll">
+<table>
+<thead><tr><th>System</th><th>What it is</th><th>Holds</th><th>Owned by</th></tr></thead>
+<tbody>
+<tr><td><b><a href="https://www.treez.io/" target="_blank" rel="noopener noreferrer">Treez</a></b></td><td>Cannabis retail point of sale, certified to report into the state track-and-trace system</td><td>Every ticket and line, taxes as charged, staff member, store, channel, promotional code, loyalty account</td><td>Retail operations</td></tr>
+<tr><td><b><a href="https://www.shopify.com/" target="_blank" rel="noopener noreferrer">Shopify</a></b></td><td>Hosted store for merchandise, on the open internet</td><td>Merchandise orders and customers, campaign tags, discount codes, referring site</td><td>E-commerce</td></tr>
+<tr><td><b><a href="https://www.salesforce.com/sales/" target="_blank" rel="noopener noreferrer">Salesforce Sales&nbsp;Cloud</a></b></td><td>CRM for the wholesale business</td><td>Accounts, contacts, purchase orders, the price book, rep visits, invoices, payments</td><td>Wholesale</td></tr>
+<tr><td><b><a href="https://www.hubspot.com/products/marketing" target="_blank" rel="noopener noreferrer">HubSpot Marketing&nbsp;Hub</a></b></td><td>Marketing automation and the contact database</td><td>Contacts, consent, lists, email sends and engagement, sign-up forms</td><td>Marketing</td></tr>
+<tr><td><b><a href="https://business.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></b><br><small>via Meta Business Suite</small></td><td>The only social channel that matters, and the only one a plant-touching brand can really use</td><td>Posts, reach, engagement, follower counts, creator agreements</td><td>Marketing</td></tr>
+<tr><td><b><a href="https://www.metrc.com/" target="_blank" rel="noopener noreferrer">METRC</a></b></td><td>California's mandated seed-to-sale track-and-trace system, run by the state's contractor. Not optional and not the company's own</td><td>Plants, harvests, production runs, packages, laboratory results, transfer manifests</td><td>Compliance</td></tr>
+<tr><td><b><a href="https://workspace.google.com/products/sheets/" target="_blank" rel="noopener noreferrer">Google Sheets</a></b></td><td>Reference data maintained by hand, because no system owns it</td><td>Product catalogue, store list, licence register, tax rates by jurisdiction, campaign calendar</td><td>Finance, operations</td></tr>
+</tbody></table>
+</div>
+
+<h3>Supporting systems</h3>
+<p>These hold money, people and movement rather than commercial record. They matter because
+questions routinely cross into them, and because none of them agrees with the others on what
+a day is.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>System</th><th>Role</th><th>Why it comes up</th></tr></thead>
+<tbody>
+<tr><td><b><a href="https://quickbooks.intuit.com/" target="_blank" rel="noopener noreferrer">QuickBooks Online</a></b></td><td>Accounting</td><td>Where the official numbers eventually land, on a different calendar from the shop floor</td></tr>
+<tr><td><b>Cashless-ATM / PIN-debit processor</b></td><td>Card acceptance at the counter</td><td>Settles separately from the ticket, so takings and sales reconcile only approximately</td></tr>
+<tr><td><b><a href="https://onfleet.com/" target="_blank" rel="noopener noreferrer">Onfleet</a></b></td><td>Delivery dispatch and driver tracking</td><td>Knows the route and the delivery time; knows nothing about what was in the bag</td></tr>
+<tr><td><b><a href="https://www.deputy.com/" target="_blank" rel="noopener noreferrer">Deputy</a></b></td><td>Rostering and time and attendance</td><td>Who was actually on shift, which the point of sale only partly records</td></tr>
+<tr><td><b>Laboratory portals</b></td><td>Certificates of analysis from licensed testing labs</td><td>PDFs keyed to a package tag; potency and pass/fail live here first</td></tr>
+<tr><td><b>A state-chartered credit union</b></td><td>Banking</td><td>One of the few institutions that will hold the account; statements by export only</td></tr>
+</tbody></table>
+</div>
+
+<h3>How the record actually gets out</h3>
+<p>Every one of the seven can be read programmatically except the last, and no two behave
+alike. This is the practical shape of the estate, and it constrains what any reporting can
+promise.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>System</th><th>Access</th><th>Realistic cadence</th><th>The catch</th></tr></thead>
+<tbody>
+<tr><td>Treez</td><td>REST API, a token per store</td><td>Daily</td><td>Rate limited; history beyond two years comes out as a file, not an endpoint</td></tr>
+<tr><td>Shopify</td><td><a href="https://shopify.dev/docs/api/admin" target="_blank" rel="noopener noreferrer">Admin API</a> and webhooks</td><td>Near real time</td><td>The cleanest of the seven, and the smallest part of the business</td></tr>
+<tr><td>Salesforce</td><td><a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/" target="_blank" rel="noopener noreferrer">REST and Bulk API</a></td><td>Hourly</td><td>Fields carry local naming and custom suffixes; two admins have edited the schema</td></tr>
+<tr><td>HubSpot</td><td><a href="https://developers.hubspot.com/docs/api/overview" target="_blank" rel="noopener noreferrer">REST API</a>, private app token</td><td>Hourly</td><td>Contacts can be merged, and a merge changes the identifier a downstream reader was relying on</td></tr>
+<tr><td>Instagram</td><td><a href="https://developers.facebook.com/docs/graph-api/" target="_blank" rel="noopener noreferrer">Meta Graph API</a></td><td>Daily</td><td>Aggregate only, never person-level, and older metrics stop being available</td></tr>
+<tr><td>METRC</td><td><a href="https://api-ca.metrc.com/Documentation" target="_blank" rel="noopener noreferrer">State REST API</a>, one key per licence</td><td>Daily</td><td>Eight keys for eight licences, strict limits, no bulk history — and the state, not the company, decides when it changes</td></tr>
+<tr><td>Google Sheets</td><td>Somebody sends the file</td><td>When somebody remembers</td><td>No version, no schema, no owner of record — and it sets tax rates</td></tr>
+</tbody></table>
+</div>
+
+<h3>Where the systems meet</h3>
+<p>Two identifiers travel reliably across this estate and one does not. Product is solved:
+a SKU in the catalogue is the same SKU in the point of sale, the merchandise store and the
+price book. Compliance is solved: a package tag issued by the state is quoted by the point
+of sale when the package is sold and by the CRM when it is shipped, which is what makes
+traceability real.</p>
+<p><b>The person is not solved.</b> The counter knows a phone number, the merchandise store
+knows an email address, the marketing platform knows an email address, and the social
+channel knows nothing at all. There is no customer identifier that spans them, and there is
+no system whose job it is to hold one.</p>
+
+<figure class="diag">
+<svg viewBox="0 0 720 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three join keys across the estate. The product SKU issued by the reference catalogue reaches Treez, Shopify and Salesforce. The package tag issued by METRC reaches Treez and Salesforce. There is no customer key: Treez holds a phone number, Shopify and HubSpot hold email addresses, and Instagram holds no identifier at all.">
+  <defs><marker id="m8" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#4A4F5A"/></marker>
+        <marker id="m8w" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#B7791F"/></marker></defs>
+
+  <text x="24" y="30" font-size="12" fill="#6B5636" class="mono" font-weight="600" letter-spacing="1.2">PRODUCT &#183; ONE KEY, ISSUED ONCE</text>
+  <rect x="24" y="44" width="180" height="112" rx="8" fill="#FAF5EC" stroke="#C9AE7E"/>
+  <text x="114" y="88" font-size="13.5" font-weight="600" fill="#6B5636" text-anchor="middle">Product catalogue</text>
+  <text x="114" y="108" font-size="11.5" fill="#4A4F5A" text-anchor="middle" class="mono">102 SKUs</text>
+  <text x="114" y="128" font-size="11.5" fill="#4A4F5A" text-anchor="middle">Google Sheets</text>
+  <g font-size="12.5">
+    <rect x="380" y="44" width="316" height="32" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/><text x="400" y="65">Treez &#183; what was sold</text>
+    <rect x="380" y="84" width="316" height="32" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/><text x="400" y="105">Shopify &#183; what was ordered</text>
+    <rect x="380" y="124" width="316" height="32" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/><text x="400" y="145">Salesforce &#183; what was priced</text>
+  </g>
+  <g stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m8)">
+    <line x1="204" y1="96" x2="374" y2="61"/><line x1="204" y1="100" x2="374" y2="100"/><line x1="204" y1="104" x2="374" y2="139"/>
+  </g>
+  <rect x="264" y="86" width="56" height="20" rx="4" fill="#FFFFFF" stroke="#C9AE7E"/>
+  <text x="292" y="100" font-size="11" class="mono" font-weight="600" fill="#6B5636" text-anchor="middle">sku</text>
+
+  <line x1="24" y1="180" x2="696" y2="180" stroke="#E3E4E0" stroke-width="1.4"/>
+
+  <text x="24" y="210" font-size="12" fill="#23407C" class="mono" font-weight="600" letter-spacing="1.2">PACKAGE &#183; ONE KEY, ISSUED BY THE STATE</text>
+  <rect x="24" y="224" width="180" height="92" rx="8" fill="#EFF3FA" stroke="#23407C" stroke-width="1.6"/>
+  <text x="114" y="258" font-size="13.5" font-weight="600" fill="#23407C" text-anchor="middle">METRC</text>
+  <text x="114" y="278" font-size="11.5" fill="#4A4F5A" text-anchor="middle">state track-and-trace</text>
+  <text x="114" y="297" font-size="11.5" fill="#4A4F5A" text-anchor="middle" class="mono">13,381 packages</text>
+  <g font-size="12.5">
+    <rect x="380" y="232" width="316" height="32" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/><text x="400" y="253">Treez &#183; quoted at the till</text>
+    <rect x="380" y="276" width="316" height="32" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/><text x="400" y="297">Salesforce &#183; quoted on the manifest</text>
+  </g>
+  <g stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m8)">
+    <line x1="204" y1="266" x2="374" y2="249"/><line x1="204" y1="274" x2="374" y2="291"/>
+  </g>
+  <rect x="252" y="258" width="88" height="20" rx="4" fill="#FFFFFF" stroke="#23407C"/>
+  <text x="296" y="272" font-size="11" class="mono" font-weight="600" fill="#23407C" text-anchor="middle">package tag</text>
+
+  <line x1="24" y1="340" x2="696" y2="340" stroke="#E3E4E0" stroke-width="1.4"/>
+
+  <text x="24" y="370" font-size="12" fill="#7C3A42" class="mono" font-weight="600" letter-spacing="1.2">PERSON &#183; NO KEY, AND NO SYSTEM THAT OWNS ONE</text>
+  <g text-anchor="middle">
+    <rect x="24" y="384" width="156" height="58" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="102" y="408" font-size="12.5" font-weight="600">Treez</text>
+    <text x="102" y="428" font-size="11.5" fill="#4A4F5A">phone number</text>
+
+    <rect x="196" y="384" width="156" height="58" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="274" y="408" font-size="12.5" font-weight="600">Shopify</text>
+    <text x="274" y="428" font-size="11.5" fill="#4A4F5A">email address</text>
+
+    <rect x="368" y="384" width="156" height="58" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="446" y="408" font-size="12.5" font-weight="600">HubSpot</text>
+    <text x="446" y="428" font-size="11.5" fill="#4A4F5A">email address</text>
+
+    <rect x="540" y="384" width="156" height="58" rx="7" fill="#FCF0F1" stroke="#C98A92"/>
+    <text x="618" y="408" font-size="12.5" font-weight="600" fill="#7C3A42">Instagram</text>
+    <text x="618" y="428" font-size="11.5" fill="#7C3A42">nothing at all</text>
+  </g>
+  <g stroke-width="1.5" fill="none">
+    <path d="M274,452 l0,10 l172,0 l0,-10" stroke="#5B8C5A"/>
+    <path d="M102,452 l0,40 l344,0 l0,-40" stroke="#B7791F" stroke-dasharray="5 3"/>
+  </g>
+  <rect x="316" y="453" width="88" height="18" rx="4" fill="#FFFFFF" stroke="#5B8C5A"/>
+  <text x="360" y="466" font-size="10.5" class="mono" font-weight="600" fill="#3A5F39" text-anchor="middle">email &#183; certain</text>
+  <rect x="80" y="483" width="166" height="18" rx="4" fill="#FFFFFF" stroke="#B7791F"/>
+  <text x="163" y="496" font-size="10.5" class="mono" font-weight="600" fill="#8A5A13" text-anchor="middle">email &#183; 58% of counters</text>
+  <text x="540" y="476" font-size="11.5" fill="#7C3A42">no link to anything</text>
+</svg>
+<figcaption><b>Two keys hold the estate together; the third does not exist.</b> Product and
+package are genuine shared identifiers, issued once and quoted everywhere they matter. The
+customer is not: each system recognises the person by whatever it happened to collect, and
+the links between them range from certain, through partial, to a guess. Every cross-channel
+question in section&nbsp;14 depends on that third key, which is why those answers carry a
+coverage figure rather than a single number.</figcaption>
+</figure>
+
+<p>The track-and-trace record is the most complete and the least commercially legible: it
+knows the weight of every gram and the price of nothing. The point of sale is the reverse.
+Neither knows anything about the other beyond a package tag — which turns out to be enough
+for compliance, and not nearly enough for a question about strains and margin.</p>
+</section>
+
+<section id="s13">
+<h2>13 &middot; The data estate</h2>
+<p>What exists, and at what level of detail. The <em>grain</em> — what one row represents —
+matters more than the volume, and is the source of most reporting errors.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Record</th><th>One row is</th><th>From</th><th class="num">Count</th></tr></thead>
+<tbody>
+<tr><td>Retail line</td><td>One product on one ticket</td><td>Treez</td><td class="num">1,066,635</td></tr>
+<tr><td>Retail ticket</td><td>One sale</td><td>Treez</td><td class="num">416,795</td></tr>
+<tr><td>Loyalty member</td><td>One account</td><td>Treez</td><td class="num">120,000</td></tr>
+<tr><td>Marketing contact</td><td>One email address</td><td>HubSpot</td><td class="num">90,000</td></tr>
+<tr><td>Plant</td><td>One tagged plant</td><td>METRC</td><td class="num">68,875</td></tr>
+<tr><td>Merchandise order</td><td>One online order</td><td>Shopify</td><td class="num">62,000</td></tr>
+<tr><td>Package</td><td>One tagged saleable unit</td><td>METRC</td><td class="num">13,381</td></tr>
+<tr><td>Purchase order</td><td>One wholesale order</td><td>Salesforce</td><td class="num">4,600</td></tr>
+<tr><td>Social post</td><td>One post</td><td>Instagram</td><td class="num">1,540</td></tr>
+<tr><td>Production run</td><td>One manufacturing batch</td><td>METRC</td><td class="num">900</td></tr>
+<tr><td>Harvest batch</td><td>One cut, one cultivar</td><td>METRC</td><td class="num">420</td></tr>
+<tr><td>Wholesale account</td><td>One dispensary</td><td>Salesforce</td><td class="num">180</td></tr>
+<tr><td>Product</td><td>One SKU</td><td>Sheets</td><td class="num">102</td></tr>
+</tbody></table>
+</div>
+<p>History runs to three years. Stock levels are recorded weekly per store per product;
+social reach is recorded daily per post; everything else is recorded as it happens.</p>
+</section>
+
+<section id="s14">
+<h2>14 &middot; Questions the business needs answered</h2>
+<p>Grouped by who asks them. Most are routine. A few, marked, do not have a single honest
+answer — see <a href="#s15">section&nbsp;15</a>.</p>
+
+<dl class="q">
+<dt>Chief Executive and board</dt>
+<dd><ul>
+<li>What is total revenue this quarter, split retail, wholesale and merchandise — and is that number comparable to last quarter? <em>(<a href="#r-meaning">contested</a>)</em></li>
+<li>Which of the three streams is actually earning, after tax and cost of goods?</li>
+<li>How much of the company's revenue depends on the four largest wholesale accounts?</li>
+<li>Are we carrying too much inventory, and where?</li>
+<li>Which stores are outperforming their market, as opposed to their city's tax rate?</li>
+</ul></dd>
+
+<dt>Chief Financial Officer</dt>
+<dd><ul>
+<li>What is the effective tax rate by store and by month, and did any change come from the law rather than from us?</li>
+<li>What is margin by product after all taxes — and does that ranking change when quoted tax-inclusive? <em>(<a href="#r-meaning">contested</a>)</em></li>
+<li>What is the cost per gram produced, by batch, landed?</li>
+<li>What is outstanding wholesale receivable, aged, by account?</li>
+<li>How much cash is tied up in stock that has not moved in 90 days?</li>
+</ul></dd>
+
+<dt>Head of retail</dt>
+<dd><ul>
+<li>Revenue and basket size per store per day; which days and hours need staffing?</li>
+<li>Which budtenders discount hardest, and does it earn anything back in basket size?</li>
+<li>What is the category mix by store, and where is it drifting?</li>
+<li>How do delivery, pickup and walk-in compare once fulfilment cost is counted?</li>
+<li>What share of customers return within 30, 60 and 90 days? <em>(<a href="#s9">contested</a>)</em></li>
+</ul></dd>
+
+<dt>Head of wholesale</dt>
+<dd><ul>
+<li>How many accounts ordered in the last 90 days, and which have gone quiet?</li>
+<li>What is the reorder rate and the typical gap between orders, by account tier?</li>
+<li>How far below the price book are we actually selling, by representative?</li>
+<li>Which accounts are slow payers, and what is the exposure?</li>
+<li>How many visits does an order take, and is that improving?</li>
+</ul></dd>
+
+<dt>Head of cultivation and production</dt>
+<dd><ul>
+<li>Yield per plant and per square foot, by cultivar and by room.</li>
+<li>Which cultivars fail testing most often, and what does a failure cost?</li>
+<li>What is the spread of potency within a cultivar, and is it tightening?</li>
+<li>How long from cut to shelf, and where is the time going?</li>
+<li>Which cultivars are worth the room they occupy? <em>(<a href="#r-blend">contested</a>)</em></li>
+</ul></dd>
+
+<dt>Marketing</dt>
+<dd><ul>
+<li>Did a given campaign move revenue — and how much of the answer is measurable? <em>(<a href="#r-attribution">contested</a>)</em></li>
+<li>What does a loyalty sign-up cost, by source?</li>
+<li>How many merchandise buyers also shop in the dispensaries? <em>(<a href="#s9">contested</a>)</em></li>
+<li>Which posts actually drive profile visits and sign-ups, as opposed to reach?</li>
+<li>Are creator collaborations returning anything traceable?</li>
+</ul></dd>
+
+<dt>Compliance</dt>
+<dd><ul>
+<li>Does tagged inventory reconcile against physical stock, by site?</li>
+<li>Which packages failed testing, and where did every unit of that batch end up?</li>
+<li>Which licences renew in the next 120 days?</li>
+<li>Are any manifests outstanding or unreceived?</li>
+</ul></dd>
+</dl>
+</section>
+
+<section id="s15">
+<h2>15 &middot; Why some answers are hard</h2>
+<p>Five structural features of this business make certain questions resistant. None is a
+failure of record-keeping — the records are unusually complete. They are properties of the
+trade itself.</p>
+
+<h3 id="r-meaning">One word, six meanings</h3>
+<p>"Revenue" can mean list price before discount, the figure after discount, the pre-tax
+subtotal on the ticket, what the customer handed over, the value of a wholesale purchase
+order, or merchandise takings. Four of those are in daily use inside the retail business
+alone. Two people can report the same week correctly and differ by 33%.</p>
+
+<h3 id="r-grain">Facts are recorded at different sizes</h3>
+<p>A ticket is one size. A line on that ticket is another. A package is another. A harvest
+batch is another. A plant is another again. Counting something recorded at one size while
+grouping by something recorded at another is the easiest way in this business to produce
+a confident, plausible and badly wrong number.</p>
+
+<figure class="diag">
+<svg viewBox="0 0 720 316" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chain of record levels: 1,066,635 retail lines, 13,381 packages, 420 harvest batches, and 68,875 plants — where the plant count is larger than the package and batch counts it sits between.">
+  <defs><marker id="m7" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#4A4F5A"/></marker></defs>
+  <text x="24" y="30" font-size="12" fill="#4A4F5A" class="mono" font-weight="600" letter-spacing="1.2">WALKING FROM A SALE BACK TO THE PLANT</text>
+
+  <g text-anchor="middle">
+    <rect x="24"  y="60" width="132" height="62" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="90"  y="85" font-size="13" font-weight="600">Retail line</text>
+    <text x="90"  y="106" font-size="12.5" class="mono" fill="#4A4F5A">1,066,635</text>
+
+    <rect x="204" y="60" width="132" height="62" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="270" y="85" font-size="13" font-weight="600">Package</text>
+    <text x="270" y="106" font-size="12.5" class="mono" fill="#4A4F5A">13,381</text>
+
+    <rect x="384" y="60" width="132" height="62" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="450" y="85" font-size="13" font-weight="600">Harvest batch</text>
+    <text x="450" y="106" font-size="12.5" class="mono" fill="#4A4F5A">420</text>
+
+    <rect x="564" y="60" width="132" height="62" rx="7" fill="#FDF6E3" stroke="#B7791F" stroke-width="1.6"/>
+    <text x="630" y="85" font-size="13" font-weight="600" fill="#8A5A13">Plant</text>
+    <text x="630" y="106" font-size="12.5" class="mono" fill="#8A5A13">68,875</text>
+  </g>
+  <g stroke="#4A4F5A" stroke-width="1.5" marker-end="url(#m7)">
+    <line x1="156" y1="91" x2="198" y2="91"/><line x1="336" y1="91" x2="378" y2="91"/><line x1="516" y1="91" x2="558" y2="91"/>
+  </g>
+  <text x="537" y="80" font-size="11.5" class="mono" fill="#8A5A13" text-anchor="middle">&#215;164</text>
+
+  <path d="M450,130 l0,28 l180,0 l0,-28" fill="none" stroke="#B7791F" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <rect x="424" y="172" width="232" height="26" rx="5" fill="#FDF6E3" stroke="#B7791F"/>
+  <text x="540" y="189" font-size="11.5" class="mono" font-weight="600" fill="#8A5A13" text-anchor="middle">THE COUNT GOES UP HERE</text>
+  <text x="540" y="217" font-size="12" fill="#4A4F5A" text-anchor="middle">420 batches hold 68,875 plants</text>
+
+  <rect x="24" y="242" width="672" height="56" rx="7" fill="#FCF0F1" stroke="#C98A92"/>
+  <text x="44" y="264" font-size="12.5" fill="#7C3A42">Join a sale to a plant-level fact and each sale is multiplied by the 164 plants in its batch.</text>
+  <text x="44" y="283" font-size="12.5" fill="#7C3A42">The result is wrong by two orders of magnitude &#8212; and entirely plausible.</text>
+</svg>
+<figcaption><b>Counts do not simply shrink as you walk up the chain.</b> Ask for revenue by
+cultivation room — a plant-level fact — against sales, and a naive join multiplies each
+sale by the 164 plants in its source batch. The resulting figure is wrong by roughly two
+orders of magnitude and looks entirely plausible.</figcaption>
+</figure>
+
+<h3 id="r-attribution">Most revenue cannot be attributed to marketing</h3>
+<p>3.9% of counter revenue carries any link to a campaign. The rest is genuinely
+unattributable, and no amount of analysis recovers it. Reporting a single campaign return
+figure would mean silently treating the 96% as though it did not exist.</p>
+
+<h3 id="r-stock">Stock is a reading, not a total</h3>
+<p>Units on hand at a store is a measurement taken at a moment. Thirteen weekly readings
+added together count the same box thirteen times. Stock can be averaged, or taken at a
+point, but it cannot be summed across time — and it can be summed across stores, which
+makes the mistake easy to make.</p>
+
+<h3 id="r-blend">Blended products have no single cultivar</h3>
+<p>As set out in <a href="#s7">section&nbsp;7</a>. Half of retail revenue comes from products whose cultivar
+attribution requires a commercial decision that has not yet been made.</p>
+</section>
+
+<section id="s16">
+<h2>16 &middot; Risks and constraints</h2>
+
+<h3>Federal position</h3>
+<p>Cannabis remains federally controlled. The practical consequence for a profitable
+operator is section 280E of the federal tax code, which disallows ordinary business
+deductions and permits only cost of goods sold. The effective federal rate on a cannabis
+business is therefore far above the statutory one, and the classification of a cost as
+production rather than overhead has real money attached to it. The company retains a tax
+specialist on the board for this reason alone.</p>
+
+<h3>Banking</h3>
+<p>Access to conventional banking is limited and expensive, and can be withdrawn. The
+business is substantially cash-handling, with the security, insurance and reconciliation
+burden that follows. It also narrows the investor pool and raises the cost of capital.</p>
+
+<h3>Advertising</h3>
+<p>The restrictions described in <a href="#s10">section&nbsp;10</a> are not a marketing preference but a legal
+constraint, and they will not relax on any timetable the company controls.</p>
+
+<h3>Licence renewal</h3>
+<p>All eight licences renew within an 18-month window beginning January 2027. Renewal is
+routine but not automatic, and a lapse at the distribution licence would halt every
+product movement in the company — including between its own sites.</p>
+
+<h3>Recall exposure</h3>
+<p>A failed test after distribution triggers a recall traced by package tag. Split packages
+make the affected set larger and slower to establish than the original batch would suggest.</p>
+
+<h3>Concentration</h3>
+<p>180 wholesale accounts sounds diversified, but order value is heavily skewed toward the
+key tier, and the 59-day average collection period means a single large account failing
+would be felt in cash before it was felt in revenue.</p>
+</section>
+
+<section id="s17">
+<h2>17 &middot; Glossary</h2>
+<dl class="gloss">
+<dt>Adult-use / medical</dt><dd>The two customer categories. They carry different tax treatment and different purchase limits.</dd>
+<dt>Batch</dt><dd>A harvest lot: one cut, one cultivar, tracked as a unit from the moment it comes down.</dd>
+<dt>Budtender</dt><dd>Retail floor staff. Advises, sells, and applies discretionary discount.</dd>
+<dt>Certificate of analysis</dt><dd>The laboratory report that gates a batch for sale. Records potency, terpenes and contaminant screens.</dd>
+<dt>Cultivar</dt><dd>A named strain — Blue Dream, OG Kush. Drives both price and customer preference.</dd>
+<dt>Distributor</dt><dd>The licence class permitted to move product between licensed premises. A legal role, not a logistics contractor.</dd>
+<dt>Excise tax</dt><dd>The state cannabis tax, levied at retail and collected from the consumer.</dd>
+<dt>Manifest</dt><dd>The document accompanying every movement of product between premises. No manifest, no movement.</dd>
+<dt>Out-the-door price</dt><dd>What the customer actually pays, all taxes included. What the shop floor quotes.</dd>
+<dt>Package</dt><dd>A tagged, saleable unit. May be split into child packages, which inherit the lineage.</dd>
+<dt>Production run</dt><dd>One manufacturing operation, typically drawing on several harvest batches at once.</dd>
+<dt>Section 280E</dt><dd>The federal provision disallowing ordinary deductions for businesses trafficking in controlled substances.</dd>
+<dt>Storefront / non-storefront</dt><dd>Retail with premises, versus delivery-only retail. Separate licence classes.</dd>
+<dt>Track and trace</dt><dd>The state-mandated system tagging every plant and package from propagation to sale.</dd>
+</dl>
+</section>
+
+<section id="s18">
+<h2>18 &middot; Appendix — figures</h2>
+<h4>Revenue, three years to 20 September 2026</h4>
+<table>
+<tbody>
+<tr><td style="width:56%">Retail, list price</td><td class="num">$79,212,808</td></tr>
+<tr><td>Retail, discount given</td><td class="num">−$7,409,865</td></tr>
+<tr><td>Retail, net of discount</td><td class="num">$71,802,942</td></tr>
+<tr><td>Excise tax collected</td><td class="num">$11,962,995</td></tr>
+<tr><td>City cannabis tax collected</td><td class="num">$3,797,519</td></tr>
+<tr><td>Sales and district tax collected</td><td class="num">$8,201,917</td></tr>
+<tr><td>Retail, out the door</td><td class="num">$95,765,374</td></tr>
+<tr><td>Retail cost of goods</td><td class="num">$34,057,783</td></tr>
+<tr><td>Wholesale, closed orders</td><td class="num">$59,931,847</td></tr>
+<tr><td>Merchandise, net</td><td class="num">$3,682,601</td></tr>
+</tbody></table>
+<h4>Operations</h4>
+<table>
+<tbody>
+<tr><td style="width:56%">Plants grown</td><td class="num">68,875</td></tr>
+<tr><td>Harvest batches</td><td class="num">420</td></tr>
+<tr><td>Average plants per batch</td><td class="num">164</td></tr>
+<tr><td>Production runs</td><td class="num">900</td></tr>
+<tr><td>Average batches consumed per run</td><td class="num">4.0</td></tr>
+<tr><td>Packages created</td><td class="num">13,381</td></tr>
+<tr><td>— of which split from a parent</td><td class="num">2,041</td></tr>
+<tr><td>Laboratory pass rate</td><td class="num">96.2%</td></tr>
+<tr><td>Average wholesale collection</td><td class="num">59 days</td></tr>
+</tbody></table>
+<h4>Customers and marketing</h4>
+<table>
+<tbody>
+<tr><td style="width:56%">Loyalty members</td><td class="num">120,000</td></tr>
+<tr><td>— resolvable to another record</td><td class="num">42.3%</td></tr>
+<tr><td>Marketing contacts</td><td class="num">90,000</td></tr>
+<tr><td>Merchandise customers</td><td class="num">38,000</td></tr>
+<tr><td>Campaigns run</td><td class="num">16</td></tr>
+<tr><td>Counter revenue linked to a campaign</td><td class="num">3.9%</td></tr>
+<tr><td>Merchandise revenue linked to a campaign</td><td class="num">15.3%</td></tr>
+</tbody></table>
+</section>
+
+
+<footer>
+  <span>Golden Bear Cannabis Co. &middot; Business brief</span>
+  <span>Fictional company &middot; figures from a single synthetic three-year dataset</span>
+</footer>
+
+</main>
+</div>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var targets=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function onScroll(){
+    var idx=0;
+    for(var i=0;i<targets.length;i++){
+      if(targets[i] && targets[i].getBoundingClientRect().top<=90) idx=i;
+    }
+    links.forEach(function(a,i){a.classList.toggle('active',i===idx);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
