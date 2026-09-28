@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI-Native Semantic Layer: Lattice, a grammar with a memory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#FFFFFF; --ink:#171A20; --ink-soft:#4A4F5A; --brand:#23407C; --brand-tint:#EFF3FA;
+        --brand-line:#C4D0E8; --amber:#B7791F; --amber-tint:#FDF6E3; --line:#E3E4E0;
+        --code-tint:#F2F3F5; --toc-w:248px; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; scroll-padding-top:24px; }
+body { background:var(--paper); color:var(--ink); font-family:'IBM Plex Sans',system-ui,sans-serif; font-size:16px; line-height:1.6; }
+
+.layout { display:grid; grid-template-columns:var(--toc-w) minmax(0,760px); gap:40px; max-width:1200px; margin:0 auto; padding:48px 24px 96px; }
+main { min-width:0; }
+
+/* ---- ToC ---- */
+.sidebar { position:relative; }
+.toc { position:sticky; top:24px; font-size:13.5px; }
+.toc .toc-title { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
+.toc a { display:block; color:var(--ink-soft); text-decoration:none; padding:4px 10px; border-left:2px solid var(--line); line-height:1.4; }
+.toc a:hover { color:var(--brand); }
+.toc a.active { color:var(--brand); border-left-color:var(--brand); font-weight:600; }
+.toc a.sub { padding-left:22px; font-size:12.5px; }
+
+.eyebrow { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; }
+h1 { font-size:clamp(26px,4.5vw,38px); font-weight:700; line-height:1.15; letter-spacing:-.02em; margin-bottom:14px; }
+h1 .accent { color:var(--brand); }
+.subtitle { font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--ink-soft); margin:-6px 0 14px; }
+.standfirst { font-size:18px; color:var(--ink-soft); margin-bottom:8px; }
+h2 { font-size:22px; font-weight:700; color:var(--brand); margin:44px 0 4px; }
+h3 { font-size:17px; font-weight:700; margin:0 0 6px; }
+.gap h3 { font-size:18px; padding-top:18px; border-top:1px solid var(--line); }
+main h3:not(.gap h3) { margin-top:26px; }
+.kicker { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); margin-bottom:14px; }
+p { margin-bottom:10px; }
+
+table { width:100%; border-collapse:collapse; font-size:14.5px; margin:14px 0; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+th { font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; text-align:left; padding:9px 13px; border-bottom:1.5px solid var(--ink); }
+td { padding:9px 13px; border-bottom:1px solid var(--line); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+.inv td p { margin-bottom:8px; } .inv td p:last-child { margin-bottom:0; }
+.inv td:first-child { font-weight:700; width:20%; white-space:nowrap; }
+code { font-family:'IBM Plex Mono',monospace; font-size:.88em; background:var(--code-tint); padding:0 4px; border-radius:3px; overflow-wrap:break-word; }
+
+figure.diag { margin:18px 0; }
+figure.diag svg { width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:10px; background:#fff; }
+figure.diag figcaption { font-size:13px; color:var(--ink-soft); margin-top:6px; }
+figure.diag text { font-family:'IBM Plex Sans',system-ui,sans-serif; }
+figure.diag .mono { font-family:'IBM Plex Mono',monospace; }
+.gap { margin:34px 0 40px; }
+.lbl { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); }
+div.lbl { margin:22px 0 -4px; }
+pre.code .said { color:var(--ink); font-weight:600; }
+p.elided { font-size:12.5px; color:var(--ink-soft); margin:-4px 0 18px; font-family:'IBM Plex Mono',monospace; }
+
+h4.albl { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); font-weight:600; margin:14px 0 4px; }
+.seam { font-size:14.5px; color:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 2px; margin:22px 0; }
+blockquote { border-left:3px solid var(--brand); background:var(--brand-tint); padding:12px 16px; margin:18px 0; border-radius:0 6px 6px 0; font-size:16.5px; line-height:1.55; }
+blockquote p { margin-bottom:8px; } blockquote p:last-child { margin-bottom:0; }
+
+pre.code { font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.55; background:#F6F6F3; border:1px solid var(--line); border-radius:8px; padding:14px 16px; overflow-x:auto; margin:12px 0; white-space:pre; }
+.say { border-left:3px solid var(--amber); background:var(--amber-tint); padding:9px 13px; margin:12px 0 18px; font-size:14.5px; border-radius:0 6px 6px 0; }
+.say .lbl { color:var(--amber); margin-right:6px; }
+.say p { margin:6px 0 0; } .say p:first-of-type { margin-top:4px; } .say p:last-child { margin-bottom:0; }
+
+a { color:var(--brand); text-decoration:none; border-bottom:1px solid var(--brand-line); }
+a:hover { border-bottom-color:var(--brand); }
+.toc a { border-bottom:none; }
+strong { font-weight:600; }
+ul { margin:10px 0 12px 20px; } li { margin-bottom:6px; }
+
+/* ---- responsive ---- */
+@media (max-width:900px) {
+  .layout { display:block; padding:28px 18px 72px; }
+  .sidebar { margin-bottom:24px; }
+  .toc { position:static; border:1px solid var(--line); border-radius:8px; padding:12px 14px; }
+  .toc .toc-title { margin-bottom:8px; }
+  .toc a { padding:4px 10px; font-size:13.5px; }
+  .toc a.sub { padding-left:22px; font-size:12.5px; }
+  .inv, .inv tbody, .inv tr, .inv td { display:block; width:100%; }
+  .inv td:first-child { white-space:normal; width:100%; border-bottom:none; padding-bottom:2px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); }
+  .inv td { border-bottom:none; }
+  .inv tr { border-bottom:1px solid var(--line); padding:6px 0; }
+  .inv tr:last-child { border-bottom:none; }
+  h2 { margin-top:34px; }
+}
+@media (max-width:520px) {
+  body { font-size:15px; }
+  table:not(.inv) { display:block; overflow-x:auto; }
+  figure.diag { overflow-x:auto; }
+  figure.diag svg { min-width:520px; }
+}
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<div class="layout">
+<aside class="sidebar"><nav class="toc" id="toc">
+<div class="toc-title">Contents</div>
+<a href="#part1">1 · The arithmetic nobody sees go wrong</a>
+<a href="#part2">2 · What everyone built</a>
+<a class="sub" href="#gap-closed">2.1 The declared set is the answerable set</a>
+<a class="sub" href="#gap-joins">2.2 Joins: solved, for declared metrics</a>
+<a class="sub" href="#gap-binary">2.3 Composition is binary</a>
+<a class="sub" href="#gap-learn">2.4 Knowledge sits beside the model</a>
+<a href="#part3">3 · Columns, not measures</a>
+<a href="#part4">4 · Prune the lattice</a>
+<a href="#part5">5 · Let the layer find the path</a>
+<a href="#part6">6 · Memory that belongs to the concept</a>
+<a href="#part7">7 · What compounds</a>
+</nav></aside>
+<main>
+
+<div class="eyebrow">Whitepaper · Semantic Layer for Agents · September 2026</div>
+<h1>The <span class="accent">AI-Native</span> Semantic Layer</h1>
+<p class="subtitle">Lattice: a grammar with a memory</p>
+
+<p class="standfirst">Semantic layers were built so that a finite set of questions would get consistent answers. Agents don't ask a finite set of questions. This paper argues that the catalogue of pre-declared metrics — the thing every semantic layer is organised around — is the assumption that breaks, and sets out what replaces it.</p>
+
+<h2 id="part1">1 · The arithmetic that nobody sees go wrong</h2>
+<div class="kicker">why this problem is old, and why agents make it new again</div>
+
+<p>Ask an agent how much you sold last quarter and it will tell you. That's the problem.</p>
+
+<p>The number comes back formatted, confident, and backed by a query you can read. There's a decent chance it's wrong by a factor — not because the model is careless, but because SQL over a normalised schema has a trap that doesn't announce itself.</p>
+
+<p>Here's the whole thing in two tables.</p>
+
+<figure class="diag"><svg viewBox="0 0 720 344" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An orders table with two rows joins to an order items table with five rows. In the joined relation each order total repeats once per item, so summing the total gives 400 instead of the true 150.">
+  <text x="24" y="32" font-size="11" fill="#4A4F5A" class="mono" letter-spacing="1.4">ORDERS</text>
+  <rect x="24" y="44" width="148" height="90" rx="7" fill="#fff" stroke="#E3E4E0"/>
+  <path d="M24 51 a7 7 0 0 1 7 -7 h134 a7 7 0 0 1 7 7 v23 h-148 z" fill="#F2F3F5"/>
+  <line x1="24" y1="74" x2="172" y2="74" stroke="#E3E4E0"/>
+  <line x1="24" y1="104" x2="172" y2="104" stroke="#E3E4E0"/>
+  <text x="38" y="64" font-size="11.5" fill="#4A4F5A" class="mono">id</text>
+  <text x="104" y="64" font-size="11.5" fill="#4A4F5A" class="mono">total</text>
+  <text x="38" y="94" font-size="13" fill="#171A20">1</text>
+  <text x="104" y="94" font-size="13" fill="#171A20">100</text>
+  <text x="38" y="124" font-size="13" fill="#171A20">2</text>
+  <text x="104" y="124" font-size="13" fill="#171A20">50</text>
+
+  <text x="186" y="94" font-size="17" fill="#4A4F5A">⋈</text>
+
+  <text x="210" y="32" font-size="11" fill="#4A4F5A" class="mono" letter-spacing="1.4">ORDER_ITEMS</text>
+  <rect x="210" y="44" width="162" height="180" rx="7" fill="#fff" stroke="#E3E4E0"/>
+  <path d="M210 51 a7 7 0 0 1 7 -7 h148 a7 7 0 0 1 7 7 v23 h-162 z" fill="#F2F3F5"/>
+  <g stroke="#E3E4E0">
+    <line x1="210" y1="74" x2="372" y2="74"/><line x1="210" y1="104" x2="372" y2="104"/>
+    <line x1="210" y1="134" x2="372" y2="134"/><line x1="210" y1="164" x2="372" y2="164"/>
+    <line x1="210" y1="194" x2="372" y2="194"/>
+  </g>
+  <text x="224" y="64" font-size="11.5" fill="#4A4F5A" class="mono">order_id</text>
+  <text x="318" y="64" font-size="11.5" fill="#4A4F5A" class="mono">sku</text>
+  <g font-size="13" fill="#171A20">
+    <text x="224" y="94">1</text><text x="318" y="94">A</text>
+    <text x="224" y="124">1</text><text x="318" y="124">B</text>
+    <text x="224" y="154">1</text><text x="318" y="154">C</text>
+    <text x="224" y="184">2</text><text x="318" y="184">D</text>
+    <text x="224" y="214">2</text><text x="318" y="214">E</text>
+  </g>
+
+  <line x1="390" y1="134" x2="420" y2="134" stroke="#4A4F5A" stroke-width="1.5"/>
+  <path d="M426 134 l-9 -5 v10 z" fill="#4A4F5A"/>
+
+  <text x="440" y="32" font-size="11" fill="#B7791F" class="mono" letter-spacing="1.4">JOINED RELATION</text>
+  <rect x="440" y="44" width="256" height="180" rx="7" fill="#FDF6E3" stroke="#B7791F" stroke-width="1.4"/>
+  <line x1="440" y1="74" x2="696" y2="74" stroke="#EBD9AE"/>
+  <g stroke="#EBD9AE">
+    <line x1="440" y1="104" x2="696" y2="104"/><line x1="440" y1="134" x2="696" y2="134"/>
+    <line x1="440" y1="164" x2="696" y2="164"/><line x1="440" y1="194" x2="696" y2="194"/>
+  </g>
+  <text x="456" y="64" font-size="11.5" fill="#8A6516" class="mono">id</text>
+  <text x="540" y="64" font-size="11.5" fill="#8A6516" class="mono">total</text>
+  <text x="628" y="64" font-size="11.5" fill="#8A6516" class="mono">sku</text>
+  <g font-size="13" fill="#171A20">
+    <text x="456" y="94">1</text><text x="540" y="94">100</text><text x="628" y="94">A</text>
+    <text x="456" y="124">1</text><text x="540" y="124">100</text><text x="628" y="124">B</text>
+    <text x="456" y="154">1</text><text x="540" y="154">100</text><text x="628" y="154">C</text>
+    <text x="456" y="184">2</text><text x="540" y="184">50</text><text x="628" y="184">D</text>
+    <text x="456" y="214">2</text><text x="540" y="214">50</text><text x="628" y="214">E</text>
+  </g>
+
+  <line x1="24" y1="256" x2="696" y2="256" stroke="#E3E4E0"/>
+  <text x="24" y="282" font-size="13" fill="#B7791F" class="mono">SUM(total) over the join  =  100+100+100+50+50  =  400</text>
+  <text x="24" y="306" font-size="13" fill="#171A20" class="mono">SUM(total) over orders    =  100+50             =  150</text>
+  <text x="24" y="330" font-size="11.5" fill="#4A4F5A">The SQL is valid. The syntax is fine. Nothing in the result says which one you got.</text>
+</svg>
+<figcaption><strong>Fig. 1 — Fan-out.</strong> A join to a to-many table changes the multiset an aggregate runs over. The error scales with the average child count, so it is large, silent, and directionally consistent — which is precisely what makes it look plausible.</figcaption>
+</figure>
+
+<p>Written out, for a join on key <code>k</code> and a measure <code>m</code> defined over <code>R</code>:</p>
+
+<pre class="code">SUM over (R ⋈ S) of m  =  Σ  m(r) · |{ s ∈ S : s.k = r.k }|
+                          r∈R</pre>
+
+<p>That equals <code>SUM over R of m</code> only when every one of those counts is exactly 1. One-to-one joins are safe. Every to-many edge in the schema is a place where a correct-looking query returns a figure inflated by the average fan-out, and neither the database nor the result will mention it.</p>
+
+<p>We solved this a long time ago, and the solution was a person. Someone modelled the warehouse, built the dashboard, checked the total against the finance close, and the dashboard stayed built. A semantic layer is the artifact of that checking — a place to write down, once, which joins are safe and what "revenue" means, so the next dashboard inherits the work.</p>
+
+<p>It worked because the question set was finite. Dashboards are finite. You can enumerate them, and you can enumerate the measures they need, because the measures and the dashboards were designed together, by the same people, in the same quarter.</p>
+
+<div class="seam">Agents break the enumeration, not the arithmetic.</div>
+
+<p>An agent doesn't pick from a menu. It decomposes a vague question into six specific ones, half of which nobody anticipated, then composes the answers. Question volume is unbounded and question shape is unpredictable. And the thing that used to catch the fan-out — a person looking at a chart that seemed too big — isn't in the loop. The number is absorbed into a paragraph of prose and acted on.</p>
+
+<blockquote><p>So agents need a semantic layer more than dashboards ever did. The awkward part is that the semantic layers we have were built for the other job, and they carry an assumption from it that doesn't survive the move.</p></blockquote>
+
+<h2 id="part2">2 · What everyone built, and what follows from it</h2>
+<div class="kicker">four serious systems, one shared architectural commitment</div>
+
+<p>Cube, dbt, Snowflake and Databricks arrived independently at the same core decision: <strong>a metric is a named object you declare ahead of time.</strong></p>
+
+<table class="inv">
+<tr><td>Cube</td><td>
+<p><a href="https://docs.cube.dev/docs/data-modeling/overview">Cubes</a> organise tables and the connections between them. Each carries measures with a fixed <code>type</code> — <code>count</code>, <code>sum</code>, <code>number</code> — and dimensions to slice them by. A measure must exist in the model file before a query can name it.</p>
+</td></tr>
+<tr><td>dbt</td><td>
+<p><a href="https://docs.getdbt.com/docs/build/semantic-models">Semantic models</a> declare entities, dimensions and simple metrics against a dbt model. A simple metric binds one column to one aggregation — <code>agg: sum</code> — so a second aggregation over the same column is a second metric.</p>
+</td></tr>
+<tr><td>Snowflake</td><td>
+<p><a href="https://docs.snowflake.com/en/sql-reference/sql/create-semantic-view">Semantic views</a> are DDL with a required clause order: tables, relationships, facts, dimensions, then metrics last. Facts capture "how much" at the grain; metrics aggregate facts with SUM, AVG, COUNT.</p>
+</td></tr>
+<tr><td>Databricks</td><td>
+<p><a href="https://docs.databricks.com/aws/en/uc-semantics/metric-views/">Metric views</a> are YAML objects in Unity Catalog that separate measures from the fields you group and filter them by, with composable and window measures layered on top.</p>
+</td></tr>
+</table>
+
+<p>Different syntax, same shape — and it's a good shape. Declaring a metric is how you get one number that means one thing across forty reports, and that was the actual job. Cube describes the value as <a href="https://cube.dev/blog/unleashing-agentic-analytics-with-cube-d3">pre-approved metric definitions</a>, which is an honest account of the bargain: pre-approval is what makes the answer trustworthy.</p>
+
+<p>Four consequences follow. None of them were mistakes when the customer was a dashboard.</p>
+
+<div class="gap">
+<h3 id="gap-closed">2.1 The declared set is the answerable set</h3>
+<p>If nobody declared <em>net revenue per active customer, excluding returns, for cohorts that joined after March</em>, an agent has two options. Decline. Or leave the semantic layer and write SQL against the physical tables — at which point every guarantee the layer existed to provide evaporates, including the one from Figure 1.</p>
+<p>dbt makes the binding most explicit of the four. A simple metric is one column plus one fixed <code>agg:</code>, declared together. Want the average of a column you declared as a sum? That's a second metric, a second name, a second review. The catalogue isn't a convenience layer over the data — it <em>is</em> the interface, and its edges are exactly where the system stops.</p>
+
+<p>It's a fence with a single gate, and the gate is marked <em>give up</em>.</p>
+<p>You can watch each vendor solving this the same way: put a language model in front of the semantic model and let it generate SQL, with the model as context. Cortex Analyst does this, Genie does this, Cube D3 does this. It's a reasonable response and it genuinely helps — Cortex Analyst generates against the semantic model's <em>logical</em> tables and columns rather than raw physical ones, which is meaningfully safer than nothing at all.</p>
+<blockquote><p>But notice where correctness now lives. It moved out of the execution path and into the generation step. The semantic model became <em>guidance</em>, and guidance is soft. A generated join is a generated join, whatever informed it.</p></blockquote>
+
+<h3 id="gap-joins">2.2 Joins: solved, for declared metrics</h3>
+<p>This is the gap somebody has properly closed, and it's worth being exact about it. <a href="https://docs.getdbt.com/docs/build/join-logic">MetricFlow</a> builds a join graph out of entity types — primary, foreign, unique, natural — and resolves paths across semantic models at query time, deliberately avoiding fan-out and chasm joins rather than leaving them to the caller. Databricks goes a long way in the same direction: define the metric once, group by any available field, and the engine works out the computation.</p>
+<blockquote><p>So the honest version of this gap is narrower than it first appears, and it turns on a single qualifier. MetricFlow protects a measure that was <em>declared</em> — written down, reviewed, compiled. The protection is real, and it is bounded by that word.</p></blockquote>
+<p>Two smaller differences survive. Inferring the graph from key types is elegant, but it makes an edge's cardinality a property of the keys rather than something stated per edge — and where two edges span the same pair of models, a billing address and a shipping address both pointing at one <code>addresses</code> model, you need separate semantic models or separate entity names to tell them apart. And where a path is genuinely ambiguous, a layer can guess or it can refuse. Only one of those shows up in a log.</p>
+
+<h3 id="gap-binary">2.3 Composition is binary</h3>
+<p>You get a declared measure, which is safe and inexpressive. Or you get generated SQL, which is expressive and unchecked. There's nothing in between — no way to say <em>this agent may compose freely, within these operations, over these columns</em>. Authority is all or nothing, and because "nothing" makes the product useless, in practice it's all.</p>
+
+<h3 id="gap-learn">2.4 What the system learns sits beside the model, not in it</h3>
+<p>To their credit, everyone noticed this one. Snowflake has a <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst/verified-query-repository">Verified Query Repository</a> — question-and-SQL pairs the generator draws on, plus custom instructions for steering it. Databricks has <a href="https://docs.databricks.com/aws/en/genie/trusted-assets">trusted assets</a>: parameterised example queries and SQL functions that mark a response as verified.</p>
+<p>These work. But look at what they are. A data team writes them in advance, from knowledge it already has, scoped to a specific space or model, as material to steer a language model's generation. They're a <em>curation</em> surface.</p>
+<blockquote><p>Which leaves the interesting question open: where does knowledge go when it's <em>discovered</em> — at three in the morning, by an agent nobody is watching?</p></blockquote>
+</div>
+
+<h2 id="part3">3 · Columns, not measures</h2>
+<div class="kicker">the measure space is generated, not enumerated</div>
+
+<p>The name is borrowed, and precisely. In 1996, Harinarayan, Rajaraman and Ullman described the space of all possible aggregations over a dataset as a <a href="https://dl.acm.org/doi/10.1145/233269.233333">lattice of cuboids</a> — every group-by a node, every edge a refinement, the whole thing partially ordered. It's a real mathematical object with real structure.</p>
+
+<p>A cube is one point in that lattice. The systems above ask you, at modelling time, to name the points you'll want later.</p>
+
+<p>Lattice doesn't declare measures. It declares <strong>columns</strong>, and a column is a row-level expression that hasn't been aggregated by anything:</p>
+
+<pre class="code">columns:
+  - name: net_revenue
+    sql: subtotal - discount
+    type: DOUBLE</pre>
+
+<p>Aggregation is chosen in the query, spelled with a colon:</p>
+
+<pre class="code">net_revenue:sum
+net_revenue:avg
+net_revenue:sum(window='90d')          # trailing 90 days, per bucket
+net_revenue:sum(partition_by=region)   # region total, on every finer row
+price:weighted_avg(weight=quantity)
+customers.score:avg                    # across a join</pre>
+
+<p>Nobody declared any of those. They are the column crossed with the aggregation grammar, and they exist the moment the column does.</p>
+
+<figure class="diag"><svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="On the left, four declared measures in a list. On the right, a grid of columns crossed with aggregations, where every intersection is reachable, one is saved under a name, and a primary key row is pruned so it cannot be summed or averaged.">
+  <text x="24" y="32" font-size="11" fill="#4A4F5A" class="mono" letter-spacing="1.4">DECLARED CATALOGUE</text>
+  <g font-size="13" fill="#171A20">
+    <rect x="24" y="46" width="206" height="34" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="40" y="68" class="mono" font-size="12">revenue_total</text>
+    <rect x="24" y="88" width="206" height="34" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="40" y="110" class="mono" font-size="12">revenue_avg</text>
+    <rect x="24" y="130" width="206" height="34" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="40" y="152" class="mono" font-size="12">order_count</text>
+    <rect x="24" y="172" width="206" height="34" rx="6" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="40" y="194" class="mono" font-size="12">discount_total</text>
+  </g>
+  <text x="24" y="232" font-size="13" fill="#171A20">n = 4</text>
+  <text x="24" y="252" font-size="12" fill="#4A4F5A">Need a fifth?</text>
+  <text x="24" y="270" font-size="12" fill="#4A4F5A">Edit the model. Redeploy.</text>
+
+  <line x1="266" y1="18" x2="266" y2="300" stroke="#E3E4E0"/>
+
+  <text x="300" y="32" font-size="11" fill="#23407C" class="mono" letter-spacing="1.4">THE LATTICE</text>
+
+  <g font-size="11" fill="#4A4F5A" class="mono" text-anchor="middle">
+    <text x="470" y="68">sum</text><text x="525" y="68">avg</text><text x="580" y="68">min</text>
+    <text x="635" y="68">max</text><text x="688" y="68">std</text>
+  </g>
+  <g font-size="12" fill="#171A20" class="mono" text-anchor="end">
+    <text x="434" y="102">subtotal</text>
+    <text x="434" y="138">discount</text>
+    <text x="434" y="174">net_revenue</text>
+    <text x="434" y="210">quantity</text>
+  </g>
+  <text x="434" y="246" font-size="12" fill="#4A4F5A" class="mono" text-anchor="end">order_id · pk</text>
+
+  <g fill="#23407C">
+    <circle cx="470" cy="98" r="4.5"/><circle cx="525" cy="98" r="4.5"/><circle cx="580" cy="98" r="4.5"/><circle cx="635" cy="98" r="4.5"/><circle cx="688" cy="98" r="4.5"/>
+    <circle cx="470" cy="134" r="4.5"/><circle cx="525" cy="134" r="4.5"/><circle cx="580" cy="134" r="4.5"/><circle cx="635" cy="134" r="4.5"/><circle cx="688" cy="134" r="4.5"/>
+    <circle cx="525" cy="170" r="4.5"/><circle cx="580" cy="170" r="4.5"/><circle cx="635" cy="170" r="4.5"/><circle cx="688" cy="170" r="4.5"/>
+    <circle cx="470" cy="206" r="4.5"/><circle cx="525" cy="206" r="4.5"/><circle cx="580" cy="206" r="4.5"/><circle cx="635" cy="206" r="4.5"/><circle cx="688" cy="206" r="4.5"/>
+  </g>
+  <circle cx="470" cy="170" r="9" fill="#EFF3FA" stroke="#23407C" stroke-width="1.4"/>
+  <circle cx="470" cy="170" r="4.5" fill="#23407C"/>
+
+  <g stroke="#B7791F" stroke-width="1.5">
+    <path d="M465 237 l10 10 M475 237 l-10 10"/><path d="M520 237 l10 10 M530 237 l-10 10"/>
+    <path d="M575 237 l10 10 M585 237 l-10 10"/><path d="M630 237 l10 10 M640 237 l-10 10"/>
+    <path d="M683 237 l10 10 M693 237 l-10 10"/>
+  </g>
+
+  <text x="300" y="284" font-size="12" fill="#4A4F5A">Every dot is reachable without anyone declaring it.</text>
+  <text x="300" y="302" font-size="12" fill="#B7791F">✕ pruned by the column's allowed_aggregations</text>
+
+  <line x1="24" y1="322" x2="696" y2="322" stroke="#E3E4E0"/>
+  <text x="24" y="346" font-size="13" fill="#171A20">4 columns × 5 aggregations = 20 base measures</text>
+  <text x="24" y="366" font-size="12" fill="#4A4F5A">× windows, partitions, weights — and arithmetic between any of them</text>
+</svg>
+<figcaption><strong>Fig. 2 — A catalogue is a list; a lattice is a structure.</strong> The ringed dot is <code>net_revenue:sum</code>, saved under a name. Saving promotes a point that was already reachable; it doesn't create one. The crossed row is a primary key, which the type system refuses to sum or average.</figcaption>
+</figure>
+
+<p>Count it. A model with C aggregatable columns and A aggregations exposes C×A base measures before you touch windows, partitions or weights, and before any arithmetic between them. Forty columns is a few hundred measures that nobody had to anticipate, spell, name or review.</p>
+
+<p>Which sounds like giving up exactly what declared metrics bought you. It isn't, because of the next part.</p>
+
+<h3>A saved measure is the same expression, saved</h3>
+
+<pre class="code">measures:
+  - name: aov
+    formula: net_revenue:sum / *:count
+    label: Average Order Value
+  - name: aov_mom
+    formula: change_pct(aov)</pre>
+
+<p>That's the same language the query uses. <code>net_revenue:sum / *:count</code> is something an agent can write inline this afternoon, and something you can save under a name this evening — and the saved version isn't a different kind of object. It's the same string, promoted.</p>
+
+<p>One expression language, two levels of permanence. An agent composes something useful; a human blesses it by naming it; nobody translates between formalisms. And because <code>aov_mom</code> is defined in terms of <code>aov</code>, the vocabulary stacks.</p>
+
+<p>Semantics that must never be forgotten stay on the column, where forgetting isn't possible:</p>
+
+<pre class="code">- name: completed_revenue
+  sql: subtotal
+  filter: status = 'completed'</pre>
+
+<p>That desugars to <code>CASE WHEN status='completed' THEN subtotal END</code> in every position it appears — as a measure, inside a filter, in an order clause, nested in a larger expression. An agent can't forget the condition, because applying it was never the agent's job.</p>
+
+<div class="say">
+<span class="lbl">The obvious objection</span>
+<p>Column-first sounds lower-level. If the model just exposes columns, haven't you handed the agent SQL with extra steps?</p>
+<p>No, and the distinction is the whole design. What a column means, which aggregations it admits, what it's masked to, how it joins — all still declared, all still reviewed, all still in the model. The only thing that moved to query time is <em>which aggregation to apply</em>. That is precisely the decision nobody could know in advance, which is why enumerating it was always going to fail.</p>
+</div>
+
+<h2 id="part4">4 · Prune the lattice, don't fence the question</h2>
+<div class="kicker">generative and governed are not a trade</div>
+
+<p>They aren't a trade as long as the constraint goes in the right place — on the grammar, not on the question.</p>
+
+<p>Every column can name the operations it admits:</p>
+
+<pre class="code">- name: account_balance
+  sql: balance
+  allowed_aggregations: [min, max, avg]   # semi-additive: never sum</pre>
+
+<p>That's checked when the model is <strong>saved</strong>, not when a query arrives. The list must be a subset of what the column's type supports, and a primary key is restricted further to the handful of aggregations that mean anything on an identifier. Opaque types can't be aggregated at all. A balance that must never be summed across time is a balance no query can sum — not by convention, not by a reviewer catching it, structurally.</p>
+
+<div class="lbl">Session · catalogue value</div>
+<pre class="code"><span class="said">   "What's the total value of our catalogue, by category?"</span>
+
+→  { "source_model": "order_items",
+     "dimensions": ["products.category"],
+     "measures":   ["products.unit_price:sum"] }
+
+←  AggregationNotAllowedError: Aggregation 'sum' is not allowed on
+   column 'unit_price'.
+     reason: column 'unit_price' restricts allowed_aggregations to
+     ['avg', 'max', 'min']; got 'sum'.
+
+→  { "source_model": "order_items",
+     "dimensions": ["products.category"],
+     "measures":   ["products.unit_price:avg", "*:count"] }
+
+←  products.category   unit_price_avg   _count
+   coffee                       4.112      939
+   merch                       21.244      935
+   pastry                       3.924      888
+   sandwich                     9.916      982
+
+<span class="said">   "There's no stock quantity to total against, so 'catalogue value'
+    isn't computable as asked — here's average price and SKU count
+    per category instead."</span></pre>
+<p class="elided">Real output; response envelopes and SQL elided.</p>
+
+<p>Summing list prices is a reasonable first move and a wrong one. Note what the refusal costs: one round trip, and the agent recovers by composing a different measure — <code>unit_price:avg</code>, which nobody declared either. The person ends up being told their question was malformed, which is the outcome §1 said was missing.</p>
+
+<p>The modeller can also extend the grammar itself:</p>
+
+<pre class="code">aggregations:
+  - name: trimmed_sum
+    formula: SUM(CASE WHEN {value} BETWEEN {low} AND {high} THEN {value} END)
+    params: {low: 0, high: 1000000}</pre>
+
+<p>Now <code>revenue:trimmed_sum</code> is a legal move for every agent, everywhere, with the outlier policy baked in. The modeller adds a verb; the agent conjugates it. That's the graded authority that's missing when the only options are "declared measure" and "raw SQL".</p>
+
+<div class="seam">A declared metric list constrains the set of answers. A pruned lattice constrains the set of legal operations — and the answers it admits are enormously more numerous while being no less checked.</div>
+
+<p>Enforcement is structural rather than advisory. Queries compile through an abstract syntax tree into dialect-specific SQL, so there's no string concatenation and therefore no seam where a generated fragment could be spliced in. The agent never produces SQL at all. It produces a request in a grammar, and the model defined the grammar.</p>
+
+<p>When a question can't be answered honestly, the layer says so rather than approximating. Ambiguous references fail with the scope they searched attached. A model whose underlying table has drifted refuses to run against a schema it no longer describes. And where the engine has to alter the intent of a request — normalising an expression, or dropping a filter that couldn't reach inside a subquery — the response carries a machine-readable warning with a kind discriminator, so the agent can branch on it.</p>
+
+<p>That last point is small and load-bearing. A string of SQL has nowhere to put a caveat. A structured response does.</p>
+
+<h2 id="part5">5 · Let the layer find the path</h2>
+<div class="kicker">grain selection as a computed property, not a caller skill</div>
+
+<p>Joins are declared once, on the model, with their cardinality:</p>
+
+<pre class="code">joins:
+  - target_model: customers
+    join_pairs: [{customer_id: id}]
+    cardinality: many_to_one</pre>
+
+<p>After that, nobody names a path again. An agent asks for <code>customers.regions.name</code> and the engine works out how to get there. Traversal runs in both directions. Where two edges span the same pair of models — a shipping address and a billing address both pointing at <code>addresses</code> — named edges disambiguate, and where nothing disambiguates, the query fails rather than guessing.</p>
+
+<p>Then the move that matters most for agents: <strong>you can leave the model out entirely.</strong></p>
+
+<figure class="diag"><svg viewBox="0 0 720 296" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A query naming only a dimension and a measure, with no source model. The engine selects orders as the population because it is the smallest model that determines every requested field, and reports that it inferred the choice.">
+  <text x="186" y="26" font-size="11" fill="#4A4F5A" class="mono" letter-spacing="1.4">QUERY — NO SOURCE MODEL</text>
+  <rect x="186" y="36" width="352" height="66" rx="8" fill="#F2F3F5" stroke="#E3E4E0"/>
+  <text x="204" y="62" font-size="11.5" fill="#4A4F5A" class="mono">dimensions:</text>
+  <text x="298" y="62" font-size="12.5" fill="#171A20" class="mono">regions.name</text>
+  <text x="204" y="86" font-size="11.5" fill="#4A4F5A" class="mono">measures:</text>
+  <text x="298" y="86" font-size="12.5" fill="#171A20" class="mono">net_revenue:sum</text>
+
+  <path d="M300 102 L268 156" stroke="#4A4F5A" stroke-dasharray="3 3" fill="none"/>
+  <path d="M430 102 L586 156" stroke="#4A4F5A" stroke-dasharray="3 3" fill="none"/>
+
+  <g font-size="13.5" text-anchor="middle">
+    <rect x="24" y="160" width="140" height="46" rx="7" fill="#fff" stroke="#E3E4E0"/>
+    <text x="94" y="188" fill="#171A20">order_items</text>
+    <rect x="204" y="160" width="120" height="46" rx="7" fill="#EFF3FA" stroke="#23407C" stroke-width="1.6"/>
+    <text x="264" y="188" fill="#23407C" font-weight="600">orders</text>
+    <rect x="384" y="160" width="130" height="46" rx="7" fill="#fff" stroke="#E3E4E0"/>
+    <text x="449" y="188" fill="#171A20">customers</text>
+    <rect x="556" y="160" width="120" height="46" rx="7" fill="#fff" stroke="#E3E4E0"/>
+    <text x="616" y="188" fill="#171A20">regions</text>
+  </g>
+
+  <g stroke="#4A4F5A" stroke-width="1.3">
+    <line x1="164" y1="183" x2="204" y2="183"/>
+    <line x1="324" y1="183" x2="384" y2="183"/>
+    <line x1="514" y1="183" x2="556" y2="183"/>
+  </g>
+  <g font-size="10.5" fill="#4A4F5A" class="mono" text-anchor="middle">
+    <text x="184" y="176">n:1</text><text x="354" y="176">n:1</text><text x="535" y="176">n:1</text>
+  </g>
+
+  <line x1="24" y1="236" x2="696" y2="236" stroke="#E3E4E0"/>
+  <text x="24" y="262" font-size="12.5" fill="#23407C" class="mono">population: orders   ·   population_inferred: true</text>
+  <text x="24" y="284" font-size="12" fill="#4A4F5A">The smallest model determining every requested field — and the engine reports that it chose.</text>
+</svg>
+<figcaption><strong>Fig. 3 — The agent describes what it wants; the layer decides where the question lives.</strong> Grain selection stops being a modelling skill the caller needs and becomes a property the engine computes — and reports, so it's auditable rather than magic.</figcaption>
+</figure>
+
+<p>This is what makes join discovery genuinely agentic rather than merely convenient. An agent doesn't have to know your schema to ask a correct question about it. It names fields. The engine finds the smallest model that determines all of them, runs there, and states in the response which grain it picked and that it picked rather than being told.</p>
+
+<h3>And the fan-out from Figure 1?</h3>
+
+<p>Because every edge carries its cardinality, the engine knows when an aggregate would cross a to-many boundary. That isn't a lint rule — it changes the generated SQL. A measure whose natural grain is coarser than the query's gets computed in its own isolated subquery at its own grain, then joined back to the result. The multiset the aggregate runs over is correct by construction.</p>
+
+<p>Where the right answer is genuinely ambiguous rather than merely tricky, it becomes a declared policy on the query: broadcast the coarse value down, associate it once, or refuse. And <em>refuse</em> is a default you're allowed to choose.</p>
+
+<p>None of which is novel on its own, and it shouldn't be. MetricFlow has been resolving fan-out from entity types for years, and a semantic layer that doesn't do this in 2026 is simply behind. The harder version of the problem is the one column-first creates for itself. Guaranteeing correct grain for a measure somebody declared, reviewed and compiled is comparatively tractable — you know every measure in advance, so you can check them all. Guaranteeing it for a measure an agent composed thirty seconds ago, out of a column and an aggregation that had never been paired before, is a different claim. That's why cardinality is declared on the edge rather than inferred from key types, and why the ambiguous case resolves to a policy you set rather than a heuristic you inherit: an open measure space has no test suite you can write in advance.</p>
+
+<div class="seam">The bug in Figure 1 isn't something Lattice warns you about. It's something the query shape makes unrepresentable.</div>
+
+<h2 id="part6">6 · Memory that belongs to the concept</h2>
+<div class="kicker">semantic memory, not agent memory</div>
+
+<p>First, what this isn't. It isn't conversation history. It isn't a scratchpad an agent keeps between turns, or a vector store of past sessions, or anything that belongs to an agent at all. Call that agent memory — it's a different problem, and a reasonably well-served one.</p>
+
+<p>This is memory attached to the <strong>semantic graph</strong>. A record looks like this:</p>
+
+<pre class="code">learning: >
+  "Active customer" here means an order in the trailing 90 days,
+  not a non-null account. Finance reports the 90-day definition;
+  the account-status column lags cancellations by a billing cycle.
+entities:
+  - shop.customers
+  - shop.customers.status
+query: { ...a complete, runnable query object... }</pre>
+
+<p>Three properties carry the weight.</p>
+
+<h4 class="albl">Addressed to entities, not sessions</h4>
+<p>Those <code>entities</code> are canonical references into the model graph — a model, a column, a measure. The memory hangs off the concept, not off whoever happened to find it.</p>
+
+<h4 class="albl">Delivered at the point of contact</h4>
+<p>When an agent inspects <code>customers</code>, the learnings attached to <code>customers</code> render inside the model card, alongside the columns and the joins. There's no retrieval step to tune and no similarity threshold to get wrong. The knowledge is simply there, in the thing the agent was already reading.</p>
+
+<h4 class="albl">Executable, not merely descriptive</h4>
+<p>A memory can carry a full query object rather than a SQL string, so precedent doesn't get described — it runs. Those surface as example queries during search. Memories also reference one another, with cascade on delete, so what accumulates is a graph laid over the semantic graph: definitions pointing at the caveats that qualify them.</p>
+
+<figure class="diag"><svg viewBox="0 0 720 286" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="On the left, three session lanes each holding knowledge that does not carry to the next. On the right, learnings attached to a model entity, written by one agent in March and read by a different agent in September.">
+  <text x="24" y="32" font-size="11" fill="#4A4F5A" class="mono" letter-spacing="1.4">SESSION-SCOPED</text>
+  <g font-size="12" fill="#4A4F5A">
+    <rect x="24" y="46" width="272" height="42" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="40" y="72">session 1 — learns something</text>
+    <rect x="24" y="106" width="272" height="42" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="40" y="132">session 2 — learns it again</text>
+    <rect x="24" y="166" width="272" height="42" rx="7" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="40" y="192">session 3 — learns it again</text>
+  </g>
+  <g stroke="#B7791F" stroke-width="1.4">
+    <path d="M153 93 l14 8 M167 93 l-14 8"/>
+    <path d="M153 153 l14 8 M167 153 l-14 8"/>
+  </g>
+  <text x="24" y="250" font-size="12" fill="#4A4F5A">Knowledge ends where the session does.</text>
+
+  <line x1="332" y1="18" x2="332" y2="264" stroke="#E3E4E0"/>
+
+  <text x="366" y="32" font-size="11" fill="#23407C" class="mono" letter-spacing="1.4">ENTITY-SCOPED</text>
+
+  <rect x="452" y="104" width="130" height="46" rx="7" fill="#EFF3FA" stroke="#23407C" stroke-width="1.6"/>
+  <text x="517" y="132" font-size="13.5" fill="#23407C" font-weight="600" text-anchor="middle">customers</text>
+
+  <g stroke="#C4D0E8">
+    <line x1="582" y1="122" x2="620" y2="72"/>
+    <line x1="582" y1="127" x2="620" y2="127"/>
+    <line x1="582" y1="133" x2="620" y2="182"/>
+  </g>
+  <g font-size="10.5" fill="#4A4F5A" class="mono" text-anchor="middle">
+    <rect x="620" y="58" width="76" height="28" rx="5" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="658" y="76">learning</text>
+    <rect x="620" y="113" width="76" height="28" rx="5" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="658" y="131">learning</text>
+    <rect x="620" y="168" width="76" height="28" rx="5" fill="#F2F3F5" stroke="#E3E4E0"/>
+    <text x="658" y="186">+ query</text>
+  </g>
+
+  <text x="366" y="74" font-size="12" fill="#171A20">agent A</text>
+  <text x="366" y="90" font-size="11" fill="#4A4F5A">writes, March</text>
+  <line x1="366" y1="100" x2="440" y2="116" stroke="#4A4F5A" stroke-width="1.3"/>
+  <path d="M448 118 l-10 -4 v9 z" fill="#4A4F5A"/>
+
+  <line x1="366" y1="156" x2="440" y2="138" stroke="#4A4F5A" stroke-width="1.3"/>
+  <path d="M448 136 l-10 8 v-9 z" fill="#4A4F5A"/>
+  <text x="366" y="180" font-size="12" fill="#171A20">agent B</text>
+  <text x="366" y="196" font-size="11" fill="#4A4F5A">reads, September</text>
+
+  <text x="366" y="250" font-size="12" fill="#4A4F5A">Knowledge outlives whoever found it.</text>
+</svg>
+<figcaption><strong>Fig. 4 — Semantic memory, not agent memory.</strong> Agent A and agent B may be different products, built by different teams, on different model vendors. They share no session, no prompt and no runtime. They share a definition of <code>customers</code>.</figcaption>
+</figure>
+
+<p>So how is this different from a verified query repository? Precisely — and it's worth being precise, because the surfaces look superficially alike.</p>
+
+<p>A VQR and a set of trusted assets are <strong>curation</strong>: written ahead of time, by humans, from knowledge they already have, scoped to the assistant that will consume them, as material for a generation step. That's useful, and any serious system wants it.</p>
+
+<p>What Lattice adds is a <strong>learning</strong> surface. It's written at the moment of discovery, by whoever discovers it — a modeller, an analyst, or an agent mid-task that has just worked out why two revenue figures disagreed. It's addressed to the concept rather than to the assistant, so it outlives the session, the agent, and the product the agent was part of. And the next reader doesn't have to go looking, because it arrives attached to the thing it's about.</p>
+
+<p>The loop is unremarkable in operation, which is the point.</p>
+
+<div class="lbl">Session · March → September</div>
+<pre class="code">── March · an agent reconciling two reports ──────────────────────
+
+→  POST /memories
+   { "learning": "\"Active customer\" here means a completed order in
+                  the trailing 90 days, not a non-null signup_date.
+                  Finance reports the 90-day definition.",
+     "linked_entities": ["shop.customers"] }
+
+←  { "memory_id": "3", "resolved_entities": ["shop.customers"] }
+
+── September · a different agent, a different product ────────────
+
+<span class="said">   "How many active customers do we have in each region?"</span>
+
+→  inspect(reference="customers", entity_type="model")
+
+←  # Model: `customers`
+   ## Columns (6 — names only)
+   `id`, `name`, `email`, `region_id`, `signed_up_at`, `loyalty_tier`
+   ## Joins (2 — names only)
+   `regions`, `orders`
+   ## Learnings (1)
+   - **M3** (`shop.customers`): "Active customer" here means a
+     completed order in the trailing 90 days, not a non-null
+     signup_date. Finance reports the 90-day definition.</pre>
+<p class="elided">Real output; sampled values and data profile elided.</p>
+
+<p>The September agent reached for <code>customers</code>, saw <code>signed_up_at</code>, and would have used it. The learning intercepts that before a query is written — and it arrives because the agent opened the model, not because it went looking for advice. There is no retrieval call in that transcript, no similarity threshold, no memory tool.</p>
+
+<p>Hand the layer a query instead of a list of entities and it works out the concepts itself:</p>
+
+<pre class="code">→  "linked_entities": { "source_model": "customers",
+                        "dimensions": ["region_id"],
+                        "measures": ["orders.net_revenue:sum(window='90d')"] }
+
+←  { "memory_id": "2",
+     "resolved_entities": [ "shop.customers",
+                            "shop.customers.region_id",
+                            "shop.orders.net_revenue" ] }</pre>
+
+<p>Nothing was tagged. The memory is addressed to three entities because the query touched three entities, and it carries that query with it — so the precedent doesn't have to be described, it runs.</p>
+
+<p>Nobody wrote a data dictionary. Nobody maintained a wiki that went stale within a quarter. The definition lives where the thing it defines lives, which is the only place anyone reliably looks.</p>
+
+<div class="seam">Agent memory makes one agent better over time. Semantic memory makes the organisation's model of itself better over time.</div>
+
+<p>Worth saying plainly: this is the only part of the system that improves without anyone planning for it to. Columns are designed. Joins are designed. Memory accrues as a side effect of use — and it's the part that captures the things that were never in the schema to begin with.</p>
+
+<h2 id="part7">7 · What compounds</h2>
+<div class="kicker">the argument in three sentences</div>
+
+<p>Columns bound what's expressible. Joins bound what's connectable. Memory records what turned out to be meaningful.</p>
+
+<p>The first two you decide once, carefully, the way you'd decide a schema. The third grows every time somebody uses the thing — which, with agents, is constantly and mostly unattended.</p>
+
+<p>The received wisdom right now is that a semantic layer for AI is a metrics catalogue with a language model bolted to the front. That gets the shape wrong. The catalogue was never the valuable part. It was a compression of a finite question set, and the question set stopped being finite.</p>
+
+<p>What agents need is a grammar they can compose in, bounded by the operations the data actually supports — and somewhere durable to put what they learn, addressed to the concepts rather than to themselves.</p>
+
+<p>A grammar with a memory. That's the whole argument.</p>
+
+
+</main>
+</div>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var targets=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function onScroll(){
+    var idx=0;
+    for(var i=0;i<targets.length;i++){
+      if(targets[i] && targets[i].getBoundingClientRect().top<=90) idx=i;
+    }
+    links.forEach(function(a,i){a.classList.toggle('active',i===idx);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
