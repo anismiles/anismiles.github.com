@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Freespan: how it looks from outside, and the team it needs next</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:#FFFFFF; --ink:#171A20; --ink-soft:#4A4F5A;
+  --accent:#23407C; --accent-tint:#EFF3FA; --accent-line:#C4D0E8;
+  --amber:#B7791F; --amber-tint:#FDF6E3; --amber-ink:#8A5A13;
+  --green:#5B8C5A; --green-tint:#F2F8F2; --green-ink:#3A5F39;
+  --line:#E3E4E0; --engine-tint:#F2F3F5; --code-bg:#F6F6F3; --svg-bg:#FFFFFF; --sub:#FAFAF8;
+  --toc-w:248px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#14161B; --ink:#E7E9EE; --ink-soft:#A3A9B5;
+    --accent:#8FB0EE; --accent-tint:#1B2539; --accent-line:#34466B;
+    --amber:#E0A54A; --amber-tint:#2A2215; --amber-ink:#EBC07F;
+    --green:#7FB37E; --green-tint:#18241A; --green-ink:#A6D3A5;
+    --line:#2C3038; --engine-tint:#1D2027; --code-bg:#1A1C22; --svg-bg:#171A20; --sub:#181B21;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#14161B; --ink:#E7E9EE; --ink-soft:#A3A9B5;
+  --accent:#8FB0EE; --accent-tint:#1B2539; --accent-line:#34466B;
+  --amber:#E0A54A; --amber-tint:#2A2215; --amber-ink:#EBC07F;
+  --green:#7FB37E; --green-tint:#18241A; --green-ink:#A6D3A5;
+  --line:#2C3038; --engine-tint:#1D2027; --code-bg:#1A1C22; --svg-bg:#171A20; --sub:#181B21;
+}
+:root { box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+*, *::before, *::after { box-sizing:inherit; margin:0; padding:0; }
+html { scroll-behavior:smooth; scroll-padding-top:calc(24px + env(safe-area-inset-top,0px)); background:var(--paper); }
+body { background:var(--paper); color:var(--ink); font-family:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif; font-size:16px; line-height:1.6; }
+
+.layout { display:grid; grid-template-columns:var(--toc-w) minmax(0,760px); gap:40px; max-width:1200px; margin:0 auto; padding:48px 24px 96px; }
+main { min-width:0; }
+
+.sidebar { position:relative; }
+.toc { position:sticky; top:calc(24px + env(safe-area-inset-top,0px)); font-size:13.5px; }
+.toc .toc-title { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
+.toc a { display:block; color:var(--ink-soft); text-decoration:none; padding:4px 10px; border-left:2px solid var(--line); line-height:1.4; border-bottom:none; }
+.toc a:hover { color:var(--accent); }
+.toc a.active { color:var(--accent); border-left-color:var(--accent); font-weight:600; }
+.toc a.sub { padding-left:22px; font-size:12.5px; }
+
+.eyebrow { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; }
+h1 { font-size:clamp(26px,4.5vw,38px); font-weight:700; line-height:1.15; letter-spacing:-.02em; margin-bottom:14px; }
+.subtitle { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:14px; color:var(--ink-soft); margin:-6px 0 14px; }
+.standfirst { font-size:18px; color:var(--ink-soft); margin-bottom:8px; }
+h2 { font-size:22px; font-weight:700; color:var(--accent); margin:44px 0 4px; }
+h3 { font-size:17px; font-weight:700; margin:26px 0 6px; }
+.meaning h3 { font-size:18px; padding-top:18px; border-top:1px solid var(--line); margin-top:0; }
+.kicker { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--ink-soft); margin-bottom:14px; }
+p { margin-bottom:10px; }
+ul.plain, ol.plain { margin:6px 0 12px 20px; }
+ul.plain li, ol.plain li { margin-bottom:6px; }
+
+.tbl { overflow-x:auto; margin:14px 0; border:1px solid var(--line); border-radius:8px; }
+table { width:100%; border-collapse:collapse; font-size:14.5px; background:var(--svg-bg); }
+th { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; text-align:left; padding:9px 13px; border-bottom:1.5px solid var(--ink); }
+td { padding:9px 13px; border-bottom:1px solid var(--line); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+td:first-child { font-weight:600; }
+code { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:.88em; background:var(--engine-tint); padding:0 4px; border-radius:3px; }
+
+figure.diag { margin:18px 0; }
+.diag-scroll { overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--svg-bg); }
+figure.diag svg { width:100%; min-width:600px; height:auto; display:block; }
+figure.diag figcaption { font-size:13px; color:var(--ink-soft); margin-top:6px; }
+figure.diag text { font-family:'IBM Plex Sans',system-ui,sans-serif; fill:var(--ink); }
+figure.diag text.mono { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; }
+figure.diag .t-s { fill:var(--ink-soft); }
+figure.diag .t-a { fill:var(--accent); }
+figure.diag .t-am { fill:var(--amber-ink); }
+figure.diag .t-g { fill:var(--green-ink); }
+.bx-n { fill:var(--engine-tint); stroke:var(--line); }
+.bx-a { fill:var(--accent-tint); stroke:var(--accent); stroke-width:1.5; }
+.bx-w { fill:var(--svg-bg); stroke:var(--accent-line); }
+.bx-am { fill:var(--amber-tint); stroke:var(--amber); }
+.bx-g { fill:var(--green-tint); stroke:var(--green); }
+.bx-s { fill:var(--sub); stroke:var(--line); }
+.ln { stroke:var(--ink-soft); stroke-width:1.5; fill:none; }
+.ln-am { stroke:var(--amber); stroke-width:1.5; fill:none; stroke-dasharray:5 5; }
+.dash-am { fill:none; stroke:var(--amber); stroke-width:1.8; stroke-dasharray:9 7; }
+.grid { stroke:var(--line); stroke-width:1; stroke-dasharray:4 5; }
+.axis { stroke:var(--ink-soft); stroke-width:1.2; }
+.arrowhead { fill:var(--ink-soft); stroke:none; }
+
+/* map dots */
+.dot { cursor:pointer; outline:none; }
+.dot .ring { stroke:transparent; stroke-width:3; fill:none; }
+.dot .solid { fill:var(--accent); }
+.dot .hollow { fill:var(--paper); stroke:var(--amber); stroke-width:2.2; }
+.dot .num { font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:10px; font-weight:600; text-anchor:middle; }
+.dot .solid + .num { fill:var(--paper); }
+.dot .hollow + .num { fill:var(--amber-ink); }
+.dot:hover .ring, .dot:focus-visible .ring, .dot.sel .ring { stroke:var(--accent); }
+.dot text.lab { font-size:12.5px; }
+.panel { border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:12px 14px; margin-top:10px; background:var(--accent-tint); min-height:92px; }
+.panel .lbl { display:block; margin-bottom:4px; }
+.panel p { margin-bottom:6px; font-size:14.5px; }
+.panel p:last-child { margin-bottom:0; }
+.legend { display:flex; flex-wrap:wrap; gap:18px; font-size:13px; color:var(--ink-soft); margin-top:8px; }
+.legend span::before { content:""; display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:6px; vertical-align:-1px; }
+.legend .l-solid::before { background:var(--accent); }
+.legend .l-hollow::before { border:2px solid var(--amber); background:var(--paper); }
+
+.meaning { margin:30px 0 34px; }
+.lbl { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+h4.albl { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:600; margin:14px 0 4px; }
+.anatomy h4.albl:first-child { margin-top:2px; }
+.anatomy p { margin-bottom:6px; }
+.verdict { display:inline-block; font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:1px 7px; border-radius:4px; margin-right:6px; }
+.v-sig { background:var(--green-tint); color:var(--green-ink); border:1px solid var(--green); }
+.v-mix { background:var(--accent-tint); color:var(--accent); border:1px solid var(--accent-line); }
+.v-mkt { background:var(--amber-tint); color:var(--amber-ink); border:1px solid var(--amber); }
+.seam { font-size:14.5px; color:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 2px; margin:22px 0; }
+.ask { border-left:3px solid var(--amber); background:var(--amber-tint); padding:9px 13px; margin:10px 0 4px; font-size:14.5px; border-radius:0 6px 6px 0; }
+.ask .lbl { color:var(--amber-ink); margin-right:6px; }
+.hook { border-left:3px solid var(--accent); background:var(--accent-tint); padding:12px 14px; margin-top:14px; font-size:15px; border-radius:0 6px 6px 0; }
+.hook p:last-child { margin-bottom:0; }
+
+a { color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-line); }
+a:hover { border-bottom-color:var(--accent); }
+a:focus-visible, .dot:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.ref { font-size:13.5px; color:var(--ink-soft); line-height:1.9; }
+.ref li { margin-left:18px; }
+strong { font-weight:600; }
+.updated { font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; color:var(--ink-soft); margin-top:40px; border-top:1px solid var(--line); padding-top:12px; }
+
+.hint { font-style:italic; font-size:14.5px; color:var(--ink-soft); margin:18px 0 -8px; display:flex; align-items:center; gap:8px; }
+.hint-mark { width:12px; height:12px; border-radius:50%; border:2px solid var(--accent); flex:none; }
+.glance { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--ink-soft); margin:0 0 12px; }
+.glance span { color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:.08em; font-size:11px; margin-right:5px; }
+.glance { display:flex; flex-wrap:wrap; column-gap:18px; row-gap:2px; }
+.glance i { font-style:normal; }
+.tag { font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:10.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--amber-ink); background:var(--amber-tint); border:1px solid var(--amber); border-radius:4px; padding:1px 6px; vertical-align:3px; margin-left:6px; }
+.meaning p { max-width:72ch; }
+figure.spot { margin:14px 0 18px; }
+figure.spot .diag-scroll { background:var(--sub); }
+figure.spot svg { min-width:560px; }
+figure.spot figcaption { font-size:12.5px; }
+.ln-a { stroke:var(--accent); stroke-width:2.5; fill:none; }
+.band-am { fill:var(--amber-tint); }
+.faded { opacity:.45; }
+.seam + .seam { margin-top:-22px; border-top:none; }
+@media (max-width:900px) {
+  .layout { display:block; padding:28px 18px 72px; }
+  .sidebar { margin-bottom:24px; }
+  .toc { position:static; border:1px solid var(--line); border-radius:8px; padding:12px 14px; }
+  h2 { margin-top:34px; }
+}
+@media (max-width:520px) { body { font-size:15px; } }
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+.toc-toggle { display:none; }
+@media (max-width:900px) {
+  html { scroll-padding-top:calc(64px + env(safe-area-inset-top,0px)); }
+  .sidebar { position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--paper); margin:-28px -18px 24px; padding:0 18px; border-bottom:1px solid var(--line); }
+  .toc-toggle { display:flex; align-items:center; gap:10px; width:100%; background:none; border:none; color:var(--ink); font:inherit; font-size:14px; padding:12px 0; cursor:pointer; text-align:left; }
+  .toc-toggle:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .toc-toggle-label { font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+  .toc-current { margin-left:auto; font-size:13px; color:var(--accent); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:55%; }
+  .burger { position:relative; width:20px; height:14px; flex:none; }
+  .burger span { position:absolute; left:0; width:20px; height:2px; background:var(--ink); border-radius:1px; transition:transform .2s ease, opacity .2s ease; }
+  .burger span:nth-child(1) { top:0; } .burger span:nth-child(2) { top:6px; } .burger span:nth-child(3) { top:12px; }
+  .sidebar.open .burger span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+  .sidebar.open .burger span:nth-child(2) { opacity:0; }
+  .sidebar.open .burger span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+  .sidebar .toc { display:none; border:none; padding:0 0 14px; max-height:calc(70vh - env(safe-area-inset-top,0px)); overflow-y:auto; }
+  .sidebar .toc .toc-title { display:none; }
+  .sidebar.open .toc { display:block; }
+}
+@media (prefers-reduced-motion:reduce) { .burger span { transition:none; } }
+.brief td:first-child { width:9.5em; white-space:nowrap; }
+@media (max-width:520px) { .brief td:first-child { width:auto; white-space:normal; } }
+.split th, .split td { width:50%; }
+.split td:first-child { font-weight:400; }
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc">
+    <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="toc-toggle-label">Contents</span>
+    <span class="toc-current" id="tocCurrent"></span>
+  </button>
+  <nav class="toc" id="toc" aria-label="Contents">
+    <div class="toc-title">Contents</div>
+    <a href="#s1">1 · How Freespan looks from outside</a>
+    <a href="#s2">2 · Claims and evidence</a>
+    <a href="#s3">3 · Kick-start team</a>
+    <a class="sub" href="#m31">3.1 Until the CTO or technical co-founder joins</a>
+    <a class="sub" href="#m32">3.2 How to know it's working</a>
+    <a href="#s4">4 · Who to hire</a>
+    <a class="sub" href="#m41">4.1 Retail data modeler</a>
+    <a class="sub" href="#m42">4.2 FDE, finance</a>
+    <a class="sub" href="#m43">4.3 FDE, merchandising</a>
+    <a class="sub" href="#m44">4.4 Senior AI engineer</a>
+    <a class="sub" href="#m45">4.5 CTO or technical co-founder</a>
+    <a href="#s5">5 · When the CTO joins</a>
+    <a href="#sources">Sources</a>
+  </nav>
+</aside>
+
+<main>
+<div class="eyebrow">Briefing · September 2026 · Srujan</div>
+<h1>Freespan: how it looks from outside, and the team it needs next</h1>
+<p class="subtitle">A read of Freespan's public website, and a plan for its first engineering and FDE team</p>
+<p class="standfirst">Retailers, job candidates and investors will look at Freespan's website before they meet anyone. This page shows what they will see, which claims they will check first, and what team Freespan needs to back those claims up.</p>
+
+<div class="seam"><strong>A note on bias:</strong> the author co-founded a data platform company that works close to the semantic layer market Freespan describes. So the author has a view on this market and may overlap with Freespan. This page names none of that company's products and supports no vendor.</div>
+<div class="seam"><strong>Who this is for:</strong> Narayan Iyengar, Freespan's founder. <a href="#s1">Sections 1</a> and <a href="#s2">2</a> show how outsiders see the company. <a href="#s3">Sections 3</a> and <a href="#s4">4</a> cover the team, how to measure it and who to hire. <a href="#s5">Section 5</a> covers the handover to the CTO. The page uses public pages only. It is not a formal investor review.</div>
+
+<h2 id="s1">1 · How Freespan looks from outside</h2>
+<div class="kicker">what a first-time visitor learns</div>
+<p>The <a href="https://www.freespan.ai/" target="_blank" rel="noopener noreferrer">home page</a> tells a clear story. Freespan builds AI for retail only. It sells results, not software licences. It picks one problem with the retailer that can be measured in money. It sends its own people to work inside the retailer. It stays until the retailer's finance team confirms the savings.</p>
+<p>Freespan says it brings three things. The first is a retail semantic layer. This is a shared model of what retail terms mean and how they connect, so every AI agent reads a product code or a store group the same way. The second is a library of AI agents for retail tasks. The third is forward deployed engineers (FDEs). These are engineers who work on site with the client and build the system around the client's real process. Freespan runs its software inside the retailer's own cloud account.</p>
+<p>Visitors also notice what is missing. The <a href="https://www.freespan.ai/team.html" target="_blank" rel="noopener noreferrer">team page</a> names one person. Every open job is a founding role. The site shows no customers, no investors and no product screens. This is normal for a young company. But it means the founder's retail career carries the whole story for now. The diagram below shows the parts the site describes. Read it from top to bottom.</p>
+
+<figure class="diag" id="fig-stack">
+<div class="diag-scroll">
+<svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Freespan's reusable platform sits above an integration line, and everything specific to one retailer lives below it, in the retailer's own cloud">
+  <text x="24" y="34" font-size="12" class="mono t-s" letter-spacing="1.5">WHAT THE RETAILER BUYS · FIRST WORKLOADS</text>
+  <g font-size="13.5" font-weight="600" text-anchor="middle">
+    <rect x="24" y="46" width="212" height="44" rx="7" class="bx-n"/><text x="130" y="73">Deduction recovery</text>
+    <rect x="254" y="46" width="212" height="44" rx="7" class="bx-n"/><text x="360" y="73">Merchandising analyst loop</text>
+    <rect x="484" y="46" width="212" height="44" rx="7" class="bx-n"/><text x="590" y="73">Vendor and lease audits</text>
+  </g>
+  <g><line class="ln" x1="130" y1="90" x2="130" y2="116"/><line class="ln" x1="360" y1="90" x2="360" y2="116"/><line class="ln" x1="590" y1="90" x2="590" y2="116"/></g>
+  <rect x="24" y="118" width="672" height="116" rx="9" class="bx-a"/>
+  <text x="42" y="146" font-size="13" class="mono t-a" font-weight="600" letter-spacing="1.2">FREESPAN PLATFORM · REUSED ACROSS CLIENTS</text>
+  <g font-size="13.5" text-anchor="middle">
+    <rect x="42" y="160" width="148" height="56" rx="6" class="bx-w"/><text x="116" y="184" font-weight="600">Semantic layer</text><text x="116" y="202" font-size="11.5" class="t-am">claimed, not shown</text>
+    <rect x="204" y="160" width="148" height="56" rx="6" class="bx-w"/><text x="278" y="184" font-weight="600">Agent library</text><text x="278" y="202" font-size="11.5" class="t-s">merch, ops, finance</text>
+    <rect x="366" y="160" width="148" height="56" rx="6" class="bx-w"/><text x="440" y="184" font-weight="600">Tests and evals</text><text x="440" y="202" font-size="11.5" class="t-s">safe before live</text>
+    <rect x="528" y="160" width="150" height="56" rx="6" class="bx-w"/><text x="603" y="184" font-weight="600">Value capture</text><text x="603" y="202" font-size="11.5" class="t-s">retail operators</text>
+  </g>
+  <line class="dash-am" x1="24" y1="262" x2="696" y2="262" style="stroke-width:2.5"/>
+  <rect x="150" y="248" width="420" height="28" rx="5" class="bx-am"/>
+  <text x="360" y="267" font-size="12" class="mono t-am" font-weight="600" text-anchor="middle" letter-spacing="1.1">INTEGRATION LAYER · ALL CLIENT-SPECIFIC WORK</text>
+  <rect x="24" y="296" width="672" height="150" rx="9" class="bx-s"/>
+  <text x="42" y="324" font-size="13" class="mono t-s" font-weight="600" letter-spacing="1.2">RETAILER SYSTEMS · IN THE RETAILER'S OWN CLOUD</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="42" y="340" width="200" height="40" rx="6" class="bx-n"/><text x="142" y="365">SAP tables</text>
+    <rect x="256" y="340" width="200" height="40" rx="6" class="bx-n"/><text x="356" y="365">Oracle Retail tables</text>
+    <rect x="470" y="340" width="208" height="40" rx="6" class="bx-n"/><text x="574" y="365">EDI and GDSN feeds</text>
+    <rect x="42" y="392" width="200" height="40" rx="6" class="bx-n"/><text x="142" y="417">Point of sale</text>
+    <rect x="256" y="392" width="200" height="40" rx="6" class="bx-n"/><text x="356" y="417">Product records (PIM)</text>
+    <rect x="470" y="392" width="208" height="40" rx="6" class="bx-n"/><text x="574" y="417">Flat files</text>
+  </g>
+</svg>
+
+</div>
+<figcaption>Freespan builds everything above the amber line once and reuses it. Everything below the line is different at each retailer.</figcaption>
+</figure>
+
+<p>Two points stand out. First, the semantic layer is the only part that makes each new client cheaper. It is also the part the site explains least. Second, the hardest engineering sits on the amber line. Freespan's job posts put SAP tables, EDI feeds (standard files that retailers and suppliers exchange) and flat files in one team. This keeps each client's odd cases out of the shared platform. <a href="#s3">Section 3</a> explains how to keep this work easy to reuse.</p>
+
+<h2 id="s2">2 · Claims and evidence</h2>
+<div class="kicker">the claims people will test first</div>
+<p>Freespan's pitch starts with one point. Most retail work uses several computer systems at once. So a tool that works inside one system cannot automate that work. The site names three groups that fall short. AI assistants from software vendors only see their own vendor's data. Custom AI shops give each retailer a different data model, which is hard to control later. Consultants have no ready-made retail platform.</p>
+<p>The founder's essays on the <a href="https://www.freespan.ai/perspectives.html" target="_blank" rel="noopener noreferrer">perspectives page</a> make the same case. <a href="https://www.freespan.ai/essays/why-vertical-ai-beats-horizontal-part-1-2.html" target="_blank" rel="noopener noreferrer">The August 2026 essay</a> says companies focused on one industry will win, even though they use the same AI models as everyone else. <a href="https://www.freespan.ai/essays/your-ai-pilot-didnt-fail-you-chartered.html" target="_blank" rel="noopener noreferrer">A July essay</a> says most AI pilots fail because of how companies set them up, not because of the models.</p>
+<p>The site lists three first projects. Each has a clear measure.</p>
+<div class="tbl"><table>
+<tr><th>Project</th><th>What it does</th><th>Measured by</th></tr>
+<tr><td>Trade funds and deduction recovery</td><td>Checks each supplier agreement against what was billed, earned and collected. This covers shared ad costs, markdown money, shelf fees, penalty charges and cost-file errors.</td><td>Dollars recovered, shown on a bank statement</td></tr>
+<tr><td>Merchandising analyst work</td><td>Produces margin reports, competitor checks, product gaps, promotion and price-cut ideas, and the category review pack, every night</td><td>Hours saved for each buyer, per category, per week</td></tr>
+<tr><td>Supplier and lease audits</td><td>Reviews each major supplier agreement and lease every month to find the exact amount owed or due back</td><td>Dollars saved</td></tr>
+</table></div>
+<p>Buyers and investors will check the claims below first. The verdicts use only what the public pages show.</p>
+<div class="tbl"><table>
+<tr><th>Claim</th><th>Verdict</th><th>What they will ask for</th></tr>
+<tr><td>Retail work uses many systems</td><td><span class="verdict v-sig">Solid</span></td><td>Very little. Anyone who has combined sales, supplier cost and promotion data agrees. This is the strongest part of the pitch.</td></tr>
+<tr><td>Deduction recovery as the first sale</td><td><span class="verdict v-sig">Solid</span></td><td>A direct test against the retailer's current outside auditor. The site already offers this.</td></tr>
+<tr><td>The second client costs much less than the first</td><td><span class="verdict v-mix">Good idea, no proof yet</span></td><td>Proof that the semantic layer works for more than one retailer.</td></tr>
+<tr><td>A team of retail and AI experts</td><td><span class="verdict v-mix">Real founder, team not hired yet</span></td><td>Names beyond the founder, especially a technical leader.</td></tr>
+<tr><td>The first agentic fabric for retail <span class="tag">Label</span></td><td><span class="verdict v-mkt">Mostly marketing</span></td><td>What it is, beyond the three parts in <a href="#fig-stack">the first diagram</a>.</td></tr>
+</table></div>
+<p><strong>Sourcing the statistics would help.</strong> The home page cites a McKinsey survey of 114 buyers. It says they spend 40% of their time combining data, and 71% see little effect from AI buying tools. The page also cites MIT's Project NANDA: AI projects led by vendors reach real use 67% of the time, against 33% for internal builds. This page could not find the original studies. Linking them on the site would remove an easy question.</p>
+<p><strong>Showing one piece of the semantic layer would help.</strong> One worked example could show how a deduction code, a supplier agreement and a cost file connect. That could turn the least visible claim into the most convincing one.</p>
+<p><strong>For the next two years, the team is the product.</strong> Until Freespan can name clients, buyers are really buying the people on the team page. The first people they meet will be the team hired until the CTO arrives. So the first hires in <a href="#s3">section 3</a> are a sales decision as much as an engineering one.</p>
+
+<h2 id="s3">3 · Kick-start team</h2>
+<div class="kicker">build what lasts, and leave the CTO free to choose</div>
+<p>Freespan's <a href="https://www.freespan.ai/team.html" target="_blank" rel="noopener noreferrer">job openings</a> list eleven role types. They are: architect, full-stack engineers, AI agent engineers, integration engineers, test engineers, infrastructure engineers, a security engineer, a technical product manager, two kinds of FDE, and solutions architects. That is too many specialists for a company with no clients yet.</p>
+<p>Until the CTO or technical co-founder joins, a small kick-start team gets the business running: building the first projects and working with clients.</p>
+
+<section class="meaning" id="m31">
+<h3>3.1 Until the CTO or technical co-founder joins</h3>
+<p>Five roles should be enough for the first client, with a sixth if the merchandising project starts early. Most of their work is knowledge about retail and about the client, and that knowledge keeps its value whatever technology comes later.</p>
+<div class="tbl"><table>
+<tr><th>Role</th><th>Number</th><th>Responsible for</th></tr>
+<tr><td>Retail data modeler</td><td>1</td><td>The semantic layer: product groups, supplier cost files, deduction codes, written as definitions and tests</td></tr>
+<tr><td>FDE, finance</td><td>1</td><td>The first deduction recovery project</td></tr>
+<tr><td>FDE, merchandising</td><td>1</td><td>The first merchandising report, and learning how the client's buyers work</td></tr>
+<tr><td>Senior AI engineer (generalist)</td><td>1</td><td>The agents, what each agent sees at each step, and the tests of their answers, built with simple, common tools</td></tr>
+<tr><td>Second AI engineer</td><td>Optional</td><td>Only if the merchandising project starts early, since it relies on AI more than deduction recovery does</td></tr>
+<tr><td>Security lead</td><td>As needed</td><td>Client security reviews and early SOC 2 work (a security certification)</td></tr>
+</table></div>
+<p>The design of what each agent sees at each step, and how its answers are tested, is often called context engineering. It works best with one owner, the senior AI engineer. The FDEs feed it with real cases and client details, rather than each building their own version.</p>
+<p>Some of this work will last whatever technology comes later, and some is likely to change. The table below shows which is which.</p>
+<div class="tbl split"><table>
+<tr><th>Likely to last</th><th>Likely to change</th></tr>
+<tr><td>Written definitions of retail terms and how they connect, with sample data and correct answers</td><td>The code that runs the semantic layer</td></tr>
+<tr><td>Field-by-field maps from each client's SAP, Oracle Retail and EDI data</td><td>The code that moves the data</td></tr>
+<tr><td>Test cases from real client work, including known deduction errors and the answers agents should give</td><td>The agent framework and how agents are run</td></tr>
+<tr><td>Maps of how the client's buyers and accounts payable teams really work</td><td>Infrastructure and install tools</td></tr>
+<tr><td>Measured results, client access and client relationships</td><td>Tool and vendor choices</td></tr>
+</table></div>
+<p>The left column is probably where this team's time is best spent. Four rules may help.</p>
+<p><strong>Writing the semantic layer as definitions and tests first.</strong> A plain document that says what a deduction code is, how it links to an agreement, and what the right answer is for twenty real cases works in any stack. Code built on it can change.</p>
+<p><strong>Keeping client-specific logic in tables, not in code.</strong> Freespan's job posts already say this about the integration team: "Everything client-specific lives here so it lives nowhere else." Mapping tables can move to a new system. Custom logic spread through code cannot.</p>
+<p><strong>Using common tools that are easy to replace.</strong> Python, SQL, Postgres and dbt are tools most engineers know, and they are easy to move away from. A custom platform or unusual frameworks can probably wait.</p>
+<p><strong>Running the first projects in one environment.</strong> Tools to install Freespan in many client clouds can probably wait, since that work is the most likely to change. One setup that the client approves may be enough.</p>
+<p>AI coding tools make this small team go further. Tools like Claude Code or Cursor write most of the code. Linear tracks the work: AI agents take tasks, and people review the results. In the author's experience, one strong engineer working this way does the work of two or three engineers in 2023. But AI tools help most with code. They do little for work at the client. That work includes weeks of security review before anyone can read SAP data, sitting with the accounts payable team to map ten years of deduction codes, and earning a buyer's trust to act on an agent's price-cut advice. That is why most of this team faces the client.</p>
+</section>
+
+<section class="meaning" id="m32">
+<h3>3.2 How to know it's working</h3>
+<p>Two numbers could show whether this plan works. They are worth tracking from the first client.</p>
+<p><strong>FDE hours for each new client.</strong> This tests the claim that the second client costs much less than the first. Recording it from the first client gives Freespan the proof that investors will ask for in <a href="#s2">section 2</a>. If the third client takes as many hours as the first, the semantic layer is not being reused.</p>
+<p><strong>One semantic layer, not one for each client.</strong> Small teams with AI tools write code fast. The risk is no longer speed but too many versions. One owner for the semantic layer would help, along with a firm rule that client-specific logic lives only below the amber line in <a href="#fig-stack">the first diagram</a>. Without this, each FDE builds a slightly different model for each client. That is the same problem Freespan says custom AI shops create.</p>
+</section>
+
+<h2 id="s4">4 · Who to hire</h2>
+<div class="kicker">a young team, with deep experience in two roles</div>
+<p>It may help to hire the roles with the longest-lasting work first: the retail data modeler, then the two FDEs, then the senior AI engineer, with the CTO search running alongside.</p>
+<p>Most roles suit people with two to five years of experience who work fast and want ownership. The data modeler and the CTO are different. Every client depends on their decisions, and a wrong data model choice in month three costs a year. These two roles likely need deep experience. The CTO can still have less than 15 years of experience.</p>
+<p>Avoid senior titles like head of engineering for the kick-start hires.</p>
+<p>The right CTO has 10 to 14 years of experience. This person has led an engineering team. They have shipped software that runs inside customers' systems. They still write code. Look for a head of engineering or principal engineer at a data or retail software company that has raised Series B to D funding. This person is hard to attract. A co-founder role with real equity will likely work better than a senior job.</p>
+<div class="tbl"><table>
+<tr><th>Role</th><th>Experience</th><th>Where to look</th></tr>
+<tr><td>Retail data modeler</td><td>3 to 6 years</td><td>Data teams at large grocers and retailers, including Kroger's 84.51°</td></tr>
+<tr><td>FDE, finance</td><td>2 to 5 years</td><td>Recovery audit firms such as PRGX</td></tr>
+<tr><td>FDE, merchandising</td><td>2 to 5 years</td><td>Current and former FDEs at RELEX and Bluecore</td></tr>
+<tr><td>Senior AI engineer (generalist)</td><td>5 to 10 years</td><td>Young AI agent start-ups, including those hiring through Y Combinator</td></tr>
+<tr><td>CTO or technical co-founder</td><td>10 to 14 years</td><td>Retail data and analytics software companies; the founder's Albertsons network</td></tr>
+</table></div>
+<p>The briefs below are for a recruiter or search partner. Each one gives the goal for the first 90 days, what the person must have, the warning sign to screen out, a paid trial and where to look. The search strings are for LinkedIn Recruiter.</p>
+<p><strong>Real work tends to be the best test.</strong> Each trial uses messy, realistic data and allows AI tools. One conversation with a retail operator can add a lot, and so can being clear in job posts about time spent at client sites.</p>
+
+<section class="meaning" id="m41">
+<h3>4.1 Retail data modeler</h3>
+<div class="tbl brief"><table>
+<tr><td>First 90 days</td><td>Build the first version of the semantic layer for deduction recovery: suppliers, agreements, deduction codes, cost files, and how they connect. Write down what each term means, so agents and FDEs use the same meaning.</td></tr>
+<tr><td>Must have</td><td>3 to 6 years as an analytics engineer. Has built product, store and supplier tables at a retailer. Has worked with SAP or Oracle Retail data. Strong SQL and dbt.</td></tr>
+<tr><td>Good to have</td><td>Grocery experience. Has worked with EDI or GDSN data.</td></tr>
+<tr><td>Warning sign</td><td>Has only built dashboards on tables someone else designed.</td></tr>
+<tr><td>Paid trial</td><td>Share a messy supplier cost file and a list of deductions. Ask them to model how the two connect, and to name the three questions they would ask the client.</td></tr>
+<tr><td>Where to look</td><td>Data teams at large grocers and retailers, including Kroger's 84.51° and Albertsons.</td></tr>
+<tr><td>LinkedIn search</td><td><code>("analytics engineer" OR "data engineer") AND dbt AND (merchandising OR "item master" OR assortment OR vendor) AND (Albertsons OR Kroger OR "84.51" OR Target OR Walmart)</code></td></tr>
+</table></div>
+</section>
+
+<section class="meaning" id="m42">
+<h3>4.2 FDE, finance</h3>
+<div class="tbl brief"><table>
+<tr><td>First 90 days</td><td>Run the deduction recovery project at the first client, tested against the client's current outside auditor. Show the dollars recovered.</td></tr>
+<tr><td>Must have</td><td>2 to 5 years in recovery audit, accounts payable or deduction work. Writes SQL and Python. Understands shared ad costs, penalty charges and cost-file errors.</td></tr>
+<tr><td>Good to have</td><td>Has automated part of an audit.</td></tr>
+<tr><td>Warning sign</td><td>Knows the accounting but has never automated any of it.</td></tr>
+<tr><td>Paid trial</td><td>Share a sample of supplier agreements and deductions. Ask them to find the errors, then write code that finds the same errors next month.</td></tr>
+<tr><td>Where to look</td><td>Recovery audit firms such as PRGX, with introductions through their senior technology leaders.</td></tr>
+<tr><td>LinkedIn search</td><td><code>(PRGX OR "recovery audit" OR "deduction management") AND (SQL OR Python) AND (deduction OR chargeback)</code></td></tr>
+</table></div>
+<p>This group is harder to spot and probably more valuable. <a href="https://www.linkedin.com/jobs/view/audit-analyst-i-at-prgx-global-inc-3470863389" target="_blank" rel="noopener noreferrer">PRGX hires junior auditors</a> to review retail and grocery payments and supplier deductions, mostly in Excel and Access. Some of them, two or three years in, have learned SQL and Python and already know the area of Freespan's first project. For introductions, start with PRGX's senior technology leaders, such as <a href="https://www.prgx.com/team-members/amit-dingare/" target="_blank" rel="noopener noreferrer">Amit Dingare</a>, its Chief Technology and Innovation Officer since April 2024. This works better than contacting his team directly.</p>
+</section>
+
+<section class="meaning" id="m43">
+<h3>4.3 FDE, merchandising</h3>
+<div class="tbl brief"><table>
+<tr><td>First 90 days</td><td>Sit with the first client's buyers and learn their weekly process. Deliver the first nightly merchandising report that they actually use.</td></tr>
+<tr><td>Must have</td><td>Writes production code in Python and SQL. Has worked with retail sales or pricing data. Can explain a promotion plan or a price-cut calendar in simple words.</td></tr>
+<tr><td>Good to have</td><td>Has presented to a head of merchandising or a similar senior buyer.</td></tr>
+<tr><td>Warning sign</td><td>Can't explain how a retail buyer spends their week.</td></tr>
+<tr><td>Paid trial</td><td>Share a week of messy sales and promotion data. Ask for a short margin report, then a 10-minute talk to a retail operator acting as a head of merchandising.</td></tr>
+<tr><td>Where to look</td><td>Current and former FDEs at RELEX and Bluecore.</td></tr>
+<tr><td>LinkedIn search</td><td><code>("forward deployed" OR "solutions engineer") AND (RELEX OR Bluecore OR "Blue Yonder" OR o9) AND Python</code></td></tr>
+</table></div>
+<p>Retail software companies already train people for this role. <a href="https://freehire.me/jobs/forward-deployed-engineer-merchandising-relex-solutions-uk45zy3g" target="_blank" rel="noopener noreferrer">RELEX's US merchandising FDE role</a> covers production code, data pipelines and planning models for retailers, from the first meeting until the system goes live. <a href="https://www.linkedin.com/jobs/view/forward-deployed-engineer-at-bluecore-2990672403" target="_blank" rel="noopener noreferrer">Bluecore's FDE job post</a> asks for coding skills at a bootcamp level, and new hires work on client connections and data feeds. So former Bluecore FDEs are a good source of eager engineers who know retail.</p>
+</section>
+
+<section class="meaning" id="m44">
+<h3>4.4 Senior AI engineer (generalist)</h3>
+<div class="tbl brief"><table>
+<tr><td>First 90 days</td><td>Build the first agents for the first client with simple, common tools. Decide what each agent sees at each step: which definitions, records and past cases, and in what order. Turn real client cases into tests of agent answers. Keep client-specific logic in mapping tables. Document the work so a new CTO can review it in a week.</td></tr>
+<tr><td>Must have</td><td>5 to 10 years of experience. Has built AI agents in production that search for the right information and are checked with tests. Can explain how they decide what an agent sees at each step. Has built data pipelines as well as applications. Uses AI coding tools every day. Is comfortable with a future CTO reviewing, keeping or replacing their work.</td></tr>
+<tr><td>Good to have</td><td>Has worked with retail or supplier data. Has deployed software into a customer's cloud.</td></tr>
+<tr><td>Warning sign</td><td>Adjusts prompts by feel with no tests, wants a new framework for everything, or starts building a large custom platform before the first client needs it.</td></tr>
+<tr><td>Paid trial</td><td>A half-day task with AI tools allowed. Build a small agent that reads an EDI 812 file (a supplier's deduction notice) and matches it to the right agreement. Add three tests that catch a wrong match. Then write one page on what a new CTO would need to know to keep or replace it.</td></tr>
+<tr><td>Where to look</td><td>Start-ups that hire founding engineers through Y Combinator, and engineers from agent start-ups that have slowed down.</td></tr>
+<tr><td>LinkedIn search</td><td><code>("AI engineer" OR "founding engineer" OR "senior software engineer") AND (agents OR LLM OR RAG) AND (evals OR evaluation) AND Python</code></td></tr>
+</table></div>
+<p>If the merchandising project starts early, a second AI engineer can follow the same brief.</p>
+</section>
+
+<section class="meaning" id="m45">
+<h3>4.5 CTO or technical co-founder</h3>
+<div class="tbl brief"><table>
+<tr><td>First 90 days</td><td>Review the team and the work built before they joined, and decide what to keep. Choose the stack. Set the shared data model and the rule for what is platform and what is custom. Set up the release process and continue SOC 2.</td></tr>
+<tr><td>Must have</td><td>10 to 14 years of experience. Has led an engineering team. Has shipped software that runs inside customers' own systems. Still writes code every week.</td></tr>
+<tr><td>Good to have</td><td>Retail or supply chain data. Has passed a security review at a large company.</td></tr>
+<tr><td>Warning sign</td><td>Has only worked where someone else set the architecture, or hasn't written code in two years.</td></tr>
+<tr><td>Paid trial</td><td>Share a sample of the work built so far: the semantic layer definitions, one client's data maps and some code. Ask for a one-page plan: what to keep, what to replace, what goes in the platform and how each install gets updated. Discuss it for an hour.</td></tr>
+<tr><td>Where to look</td><td>Heads of engineering and principal engineers at retail data and analytics software companies, and the founder's Albertsons network.</td></tr>
+<tr><td>LinkedIn search</td><td><code>("head of engineering" OR "principal engineer" OR "VP engineering") AND (retail OR "supply chain" OR merchandising)</code></td></tr>
+</table></div>
+</section>
+
+<h2 id="s5">5 · When the CTO joins</h2>
+<div class="kicker">what the kick-start team hands over</div>
+<p>When the CTO or technical co-founder joins, their first step is likely a review of the kick-start team and its work. The CTO brief in <a href="#m45">4.5</a> starts there.</p>
+<p>The figure below shows the handover. Read it from left to right.</p>
+
+<figure class="diag" id="fig-handover">
+<div class="diag-scroll">
+<svg viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The kick-start team hands the CTO definitions, data maps, test cases, process maps and client results, and the CTO decides what to keep and what to replace">
+  <defs><marker id="ahh" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><circle class="arrowhead" cx="3" cy="3" r="2.4"/></marker></defs>
+  <rect x="24" y="30" width="196" height="296" rx="9" class="bx-a"/>
+  <text x="40" y="56" font-size="12" class="mono t-a" font-weight="600" letter-spacing="1.2">KICK-START TEAM</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="40" y="70" width="164" height="40" rx="6" class="bx-w"/><text x="122" y="95">Data modeler</text>
+    <rect x="40" y="120" width="164" height="40" rx="6" class="bx-w"/><text x="122" y="145">FDE, finance</text>
+    <rect x="40" y="170" width="164" height="40" rx="6" class="bx-w"/><text x="122" y="195">FDE, merchandising</text>
+    <rect x="40" y="220" width="164" height="40" rx="6" class="bx-w"/><text x="122" y="245">Senior AI engineer</text>
+    <rect x="40" y="270" width="164" height="40" rx="6" class="bx-w"/><text x="122" y="295">Security lead</text>
+  </g>
+  <line class="ln" x1="220" y1="178" x2="250" y2="178" marker-end="url(#ahh)"/>
+  <rect x="254" y="30" width="236" height="296" rx="9" class="bx-s"/>
+  <text x="270" y="56" font-size="12" class="mono t-s" font-weight="600" letter-spacing="1.2">WHAT IT HANDS OVER</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="270" y="70" width="204" height="40" rx="6" class="bx-n"/><text x="372" y="95">Definitions and tests</text>
+    <rect x="270" y="120" width="204" height="40" rx="6" class="bx-n"/><text x="372" y="145">Client data maps</text>
+    <rect x="270" y="170" width="204" height="40" rx="6" class="bx-n"/><text x="372" y="195">Test cases from real work</text>
+    <rect x="270" y="220" width="204" height="40" rx="6" class="bx-n"/><text x="372" y="245">Process maps</text>
+    <rect x="270" y="270" width="204" height="40" rx="6" class="bx-n"/><text x="372" y="295">Results and client trust</text>
+  </g>
+  <text x="530" y="56" font-size="12" class="mono t-s" font-weight="600" letter-spacing="1.2">THE CTO DECIDES</text>
+  <path class="ln" d="M490,178 C512,178 510,134 526,130" marker-end="url(#ahh)"/>
+  <path class="ln" d="M490,178 C512,178 510,222 526,226" marker-end="url(#ahh)"/>
+  <g text-anchor="middle">
+    <rect x="530" y="96" width="166" height="66" rx="7" class="bx-g"/>
+    <text x="613" y="124" font-size="13.5" font-weight="600" class="t-g">Keep</text>
+    <text x="613" y="143" font-size="12" class="t-s">what fits the new stack</text>
+    <rect x="530" y="194" width="166" height="66" rx="7" class="bx-n"/>
+    <text x="613" y="222" font-size="13.5" font-weight="600">Replace</text>
+    <text x="613" y="241" font-size="12" class="t-s">what doesn't</text>
+  </g>
+</svg>
+</div>
+<figcaption>The kick-start team's lasting output is the middle column, and the CTO is free to keep or replace any of it.</figcaption>
+</figure>
+
+<p>The middle column is what Freespan pays for until the CTO joins. The more of it that is written down as definitions, maps and tests, the less depends on the code the CTO may replace.</p>
+
+<p><strong>How much work the CTO keeps.</strong> After the review, the share of definitions, maps and test cases the CTO keeps is a direct measure of whether the kick-start team built things that last.</p>
+<p>The CTO may keep people too. The senior AI engineer from <a href="#m44">4.4</a>, for example, could become one of the CTO's platform engineers.</p>
+
+<h2 id="sources">Sources</h2>
+<div class="kicker">original sources where possible; vendor sources marked</div>
+<ul class="ref">
+  <li><a href="https://www.freespan.ai/" target="_blank" rel="noopener noreferrer">Freespan, home page</a>, <a href="https://www.freespan.ai/team.html" target="_blank" rel="noopener noreferrer">team and openings</a> and <a href="https://www.freespan.ai/perspectives.html" target="_blank" rel="noopener noreferrer">perspectives</a> (vendor)</li>
+  <li>Narayan Iyengar, <a href="https://www.freespan.ai/essays/why-vertical-ai-beats-horizontal-part-1-2.html" target="_blank" rel="noopener noreferrer">Why Vertical AI Beats Horizontal (part 1 of 2)</a>, August 2026, and <a href="https://www.freespan.ai/essays/your-ai-pilot-didnt-fail-you-chartered.html" target="_blank" rel="noopener noreferrer">Your AI Pilot Didn't Fail. You Chartered It to Fail.</a>, July 2026 (vendor)</li>
+  <li><a href="https://freehire.me/jobs/forward-deployed-engineer-merchandising-relex-solutions-uk45zy3g" target="_blank" rel="noopener noreferrer">RELEX Solutions, Forward Deployed Engineer, Merchandising</a> and <a href="https://www.linkedin.com/jobs/view/forward-deployed-engineer-at-bluecore-2990672403" target="_blank" rel="noopener noreferrer">Bluecore, Forward Deployed Engineer</a> (vendor job posts)</li>
+  <li><a href="https://www.linkedin.com/jobs/view/audit-analyst-i-at-prgx-global-inc-3470863389" target="_blank" rel="noopener noreferrer">PRGX, Audit Analyst I</a> and <a href="https://www.prgx.com/team-members/amit-dingare/" target="_blank" rel="noopener noreferrer">PRGX leadership page, Amit Dingare</a> (vendor)</li>
+  <li>McKinsey merchant survey and MIT Project NANDA figures: cited on Freespan's home page; this page did not find the original studies</li>
+</ul>
+
+<p class="updated">Last updated 29 September 2026. Freespan's site, job openings and team will change quickly. The team sizes in <a href="#s3">section 3</a> are the author's estimates. Review them once Freespan names clients and the CTO joins.</p>
+</main>
+</div>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var targets=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function onScroll(){
+    var idx=0;
+    for(var i=0;i<targets.length;i++){ if(targets[i] && targets[i].getBoundingClientRect().top<=90) idx=i; }
+    links.forEach(function(a,i){a.classList.toggle('active',i===idx);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+<script>
+(function(){
+  var sb=document.getElementById('sidebar'), btn=sb&&sb.querySelector('.toc-toggle'), cur=document.getElementById('tocCurrent');
+  if(!btn) return;
+  function set(open){ sb.classList.toggle('open',open); btn.setAttribute('aria-expanded',open?'true':'false'); }
+  btn.addEventListener('click',function(){ set(!sb.classList.contains('open')); });
+  sb.querySelectorAll('.toc a').forEach(function(a){ a.addEventListener('click',function(){ set(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && sb.classList.contains('open')){ set(false); btn.focus(); }});
+  function label(){ var a=sb.querySelector('.toc a.active'); if(cur) cur.textContent=a?a.textContent:''; }
+  window.addEventListener('scroll',label,{passive:true}); label();
+})();
+</script>
+</body>
+</html>
