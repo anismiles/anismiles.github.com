@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestions inbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf9;--surface:#ffffff;--sunk:#f4f4f5;--line:#e7e5e4;--line-2:#d6d3d1;
+  --ink:#18181b;--ink-2:#3f3f46;--ink-3:#5b5b63;--ink-4:#71717a;
+  --code:#18181b;--code-ink:#e4e4e7;
+  --warn-bg:#fff7ed;--warn-line:#fed7aa;--warn-ink:#9a3412;
+  --ok:#15803d;--ok-bg:#f0fdf4;--ok-line:#bbf7d0;
+  --no:#b91c1c;--no-bg:#fef2f2;--no-line:#fecaca;
+  --sans:"Host Grotesk",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:"Fragment Mono",ui-monospace,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden;caret-color:var(--ink)}
+::selection{background:#dbeafe;color:#1e3a8a}
+:focus-visible{outline:2px solid #3b82f6;outline-offset:2px;border-radius:6px}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+.app{display:grid;grid-template-columns:228px 372px minmax(0,1fr);height:100vh}
+
+/* nav */
+.nav{border-right:1px solid var(--line);display:flex;flex-direction:column;padding:14px 10px;background:var(--bg)}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:14.5px;padding:4px 8px 14px}
+.logo i{width:20px;height:20px;border-radius:6px;background:var(--ink);display:grid;place-items:center;flex:none}
+.logo i svg{color:#fff}
+.logo small{display:block;font-weight:400;color:var(--ink-4);font-size:12.5px;line-height:1.2}
+.tabs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.tabs button{width:100%;display:flex;align-items:center;gap:10px;background:none;border:none;padding:8px 10px;border-radius:9px;font-size:14px;color:var(--ink-2);text-align:left}
+.tabs button:hover{background:var(--sunk)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 0 0 1px var(--line),0 1px 2px rgba(24,24,27,.05)}
+.tabs svg{color:var(--ink-4);flex:none}
+.tabs .ct{margin-left:auto;font:500 12px/1 var(--mono);color:var(--ink-4)}
+.tabs [data-tab="open"] .ct{background:var(--ink);color:#fff;border-radius:999px;padding:4px 7px}
+.nav .grow{flex:1}
+.nav a.out{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;text-decoration:none;font-size:14px;color:var(--ink-2)}
+.nav a.out:hover{background:var(--sunk)}
+.nav .note{font-size:12.5px;color:var(--ink-4);padding:8px 10px 0;line-height:1.45}
+
+/* list */
+.col{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--bg)}
+.col-h{padding:16px 16px 12px;border-bottom:1px solid var(--line)}
+.col-h h1{margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em}
+.col-h p{margin:2px 0 0;font-size:13px;color:var(--ink-4)}
+.msgs{list-style:none;margin:0;padding:8px;overflow:auto;flex:1;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;outline:none}
+.msg{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:11px 11px;border-radius:12px;cursor:pointer;position:relative;outline:none;transition:background .15s var(--ease),box-shadow .15s var(--ease)}
+.msg+.msg{margin-top:2px}
+.msg:hover{background:var(--surface)}
+.msg[aria-selected="true"]{background:var(--surface);box-shadow:0 0 0 1px var(--line-2),0 8px 18px -12px rgba(24,24,27,.25)}
+.msg:focus-visible{box-shadow:0 0 0 2px #3b82f6}
+.id{font:500 12px/1 var(--mono);border-radius:7px;padding:6px 0;text-align:center;display:inline-block;min-width:42px}
+.msg .id{align-self:start;margin-top:2px}
+.unread{position:absolute;left:3px;top:20px;width:6px;height:6px;border-radius:50%;background:#3b82f6}
+.m-top{display:flex;align-items:baseline;gap:8px}
+.m-kind{font-size:12.5px;color:var(--ink-4)}
+.m-when{margin-left:auto;font-size:12px;color:var(--ink-4);white-space:nowrap}
+.m-title{font-weight:600;font-size:14.5px;line-height:1.35;margin-top:1px;letter-spacing:-.005em}
+.msg.read .m-title{font-weight:500}
+.m-prev{color:var(--ink-3);font-size:13.5px;line-height:1.4;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.empty-list{padding:48px 20px;text-align:center;color:var(--ink-3);font-size:14px}
+.empty-list b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+
+/* reading pane */
+.pane{display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--bg)}
+.read{flex:1;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;min-width:0}
+.read-in{max-width:820px;margin:0 auto;padding:26px 36px 36px;min-width:0}
+.back{display:none;align-items:center;gap:6px;background:none;border:none;color:var(--ink-3);padding:0;margin-bottom:14px;font-size:14px}
+.r-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ink-4)}
+.r-meta a{color:var(--ink-3);text-decoration:none;display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px}
+.r-meta a:hover{color:var(--ink);border-color:var(--line-2)}
+.r-head h2{margin:12px 0 0;font-size:clamp(24px,2.4vw,31px);line-height:1.12;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
+.stamp{display:none;margin-top:16px;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;font-size:14.5px;border:1px solid}
+.stamp.on{display:flex}
+.stamp.accepted{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok)}
+.stamp.discarded{background:var(--surface);border-color:var(--line);color:var(--ink-2)}
+.stamp.denied{background:var(--no-bg);border-color:var(--no-line);color:var(--no)}
+.stamp button{margin-left:auto;background:none;border:none;color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;padding:0}
+.figure{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 10px;background-image:radial-gradient(#e7e5e4 1px,transparent 1.2px);background-size:18px 18px;overflow-x:auto;scrollbar-width:thin}
+.figure svg{display:block;width:100%;height:auto;max-height:210px;min-width:520px}
+.sec{margin-top:26px}
+.sec h3{margin:0 0 10px;font-size:17px;letter-spacing:-.015em;font-weight:650}
+.sec p{margin:0;max-width:68ch;font-size:15.5px}
+.sec p+p{margin-top:8px}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}
+.badge{font:500 11.5px/1 var(--mono);color:#fff;background:var(--ink);border-radius:999px;padding:6px 10px;white-space:nowrap;margin-top:2px}
+.rule p{margin:0;font-size:15px;font-weight:500;line-height:1.55}
+.rule small{display:block;margin-top:6px;font-size:13px;color:var(--ink-4);font-weight:400}
+.ttabs{display:inline-flex;gap:2px;background:var(--sunk);border-radius:10px;padding:3px;margin-bottom:12px}
+.ttabs button{border:none;background:none;border-radius:8px;padding:6px 14px;font-size:13.5px;font-weight:500;color:var(--ink-3)}
+.ttabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(24,24,27,.1)}
+.panel p{margin:0 0 12px}
+.code{background:var(--code);border-radius:14px;overflow:hidden}
+.code-h{display:flex;align-items:center;padding:9px 12px 9px 16px;border-bottom:1px solid #27272a;font:500 12px/1 var(--mono);color:#a1a1aa}
+.code-h button{margin-left:auto;border:1px solid #3f3f46;background:#27272a;color:#fafafa;border-radius:7px;padding:5px 10px;font:500 12px/1 var(--sans)}
+.code-h button:hover{background:#3f3f46}
+.code pre{margin:0;padding:14px 16px 16px;font:400 13.5px/1.7 var(--mono);color:var(--code-ink);overflow-x:auto;white-space:pre;scrollbar-width:thin;scrollbar-color:#3f3f46 transparent}
+.kw{color:#93c5fd}.str{color:#86efac}.cm{color:#8b8b95;font-style:italic}.key{color:#c4b5fd}
+.warn{margin-top:26px;display:flex;gap:12px;align-items:flex-start;background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);border-radius:14px;padding:14px 16px}
+.warn svg{flex:none;margin-top:2px}
+.warn b{display:block;font-weight:600;margin-bottom:2px}
+
+/* action bar */
+.acts{border-top:1px solid var(--line);background:rgba(250,250,249,.92);backdrop-filter:saturate(1.6) blur(10px);padding:12px 36px}
+.acts-in{max-width:820px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid transparent;padding:9px 18px;font-weight:600;font-size:14.5px;line-height:1.1;transition:background .15s var(--ease),border-color .15s var(--ease)}
+.btn small{font-weight:400;opacity:.75}
+.b-acc{background:var(--ink);color:#fff;box-shadow:0 1px 2px rgba(24,24,27,.2),0 8px 18px -10px rgba(24,24,27,.5)}
+.b-acc:hover{background:#27272a}
+.b-dis{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.b-dis:hover{border-color:var(--line-2)}
+.b-den{background:var(--surface);border-color:var(--no-line);color:var(--no);margin-left:auto}
+.b-den:hover{background:var(--no-bg)}
+.kbd{font:500 11px/1 var(--mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:3px 5px;color:var(--ink-4);background:var(--surface)}
+.hint{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-4)}
+.confirm{display:none;width:100%;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--no-bg);border:1px solid var(--no-line);color:var(--no);font-size:14.5px}
+.confirm.on{display:flex}
+.confirm .btn{padding:7px 14px}
+.b-den-yes{background:var(--no);color:#fff;margin-left:auto}
+.toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--ink);color:#fafafa;border-radius:999px;padding:10px 12px 10px 18px;display:flex;align-items:center;gap:14px;font-size:14px;box-shadow:0 16px 40px -14px rgba(24,24,27,.5);transition:opacity .25s var(--ease),transform .35s var(--ease);z-index:30;max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toast button{background:#3f3f46;border:none;color:#fff;font-weight:600;border-radius:999px;padding:5px 12px;flex:none}
+.pane-empty{flex:1;display:grid;place-items:center;text-align:center;color:var(--ink-3);padding:40px}
+.pane-empty b{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
+
+@media (max-width:1100px){.app{grid-template-columns:200px 320px minmax(0,1fr)}.read-in{padding:22px 26px}.acts{padding:12px 26px}}
+@media (max-width:820px){
+  body{overflow:auto}
+  .app{grid-template-columns:minmax(0,1fr);height:auto;min-height:100vh}
+  .nav,.tabs{min-width:0}
+  .nav{flex-direction:row;flex-wrap:wrap;align-items:center;border-right:none;border-bottom:1px solid var(--line);padding:10px 12px;gap:8px;position:sticky;top:0;z-index:10;background:rgba(250,250,249,.92);backdrop-filter:blur(10px)}
+  .logo{padding:0 4px 0 0}
+  .logo small{display:none}
+  .tabs{flex-direction:row;overflow-x:auto;width:100%;gap:4px;scrollbar-width:none}
+  .tabs button{width:auto;white-space:nowrap;padding:6px 10px}
+  .nav .grow,.nav .note{display:none}
+  .nav a.out{position:absolute;right:10px;top:8px;padding:6px 8px}
+  .nav a.out span{display:none}
+  .col{border-right:none}
+  .msgs{overflow:visible}
+  .pane{display:none}
+  .app.reading .col{display:none}
+  .app.reading .pane{display:flex}
+  .read{overflow:visible}
+  .read-in{padding:16px}
+  .back{display:inline-flex}
+  .acts{position:sticky;bottom:0;padding:10px 16px}
+  .b-den{margin-left:0}
+  .hint{display:none}
+  .rule{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <nav class="nav" aria-label="Suggestions">
+    <div class="logo"><i><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h8M4 10h12M4 14h6"/></svg></i><span>Suggestions inbox</span></div>
+    <ul class="tabs" role="tablist" aria-label="Suggestion status">
+      <li><button role="tab" data-tab="open" aria-selected="true"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h14v10H3z"/><path d="m3 6 7 5 7-5"/></svg>Open<span class="ct" data-ct="open"></span></button></li>
+      <li><button role="tab" data-tab="accepted" aria-selected="false"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>Accepted<span class="ct" data-ct="accepted"></span></button></li>
+      <li><button role="tab" data-tab="discarded" aria-selected="false"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M10 6.5V10l2.5 1.6"/></svg>Discarded<span class="ct" data-ct="discarded"></span></button></li>
+      <li><button role="tab" data-tab="denied" aria-selected="false"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m5.5 14.5 9-9"/></svg>Denied<span class="ct" data-ct="denied"></span></button></li>
+    </ul>
+    <div class="grow"></div>
+    <a class="out" href="catalog.html"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h8"/></svg><span>All signals</span></a>
+    <p class="note">Illustrative examples. No real workload data yet.</p>
+  </nav>
+  <section class="col" aria-label="Suggestion list">
+    <div class="col-h"><h1 id="list-title">Open</h1><p id="list-sub"></p></div>
+    <ul class="msgs" id="msgs" role="listbox" aria-labelledby="list-title" tabindex="-1"></ul>
+  </section>
+  <section class="pane" id="pane" aria-label="Suggestion"></section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-t"></span><button type="button" id="toast-undo">Undo</button></div>
+
+<script>
+var DATA=[{"n":1,"kind":"Combine tables","when":"Today","title":"Combine orders and customers","prev":"Most questions about orders also ask for the customer's region or segment.","evidence":["Most questions about orders also ask for the customer's region or segment. Lattice joins the two tables to answer them, again and again.","Each order has exactly one customer, so a combined table keeps one row per order."],"sql":"CREATE TABLE analytics.orders_with_customer AS\nSELECT o.*, c.region, c.segment\nFROM analytics.orders o\nLEFT JOIN analytics.customers c ON c.id = o.customer_id;","lattice":"Point the orders dataset at the new table. Region and segment become plain fields, so Lattice stops reading the two old tables for these questions.","yaml":"name: orders\nsql_table: analytics.orders_with_customer   # was analytics.orders\nfields:\n  - {name: region, datatype: TEXT}       # was customers.region\n  - {name: segment, datatype: TEXT}      # was customers.segment\n# the relationship to customers is no longer needed for these fields","guard":"Refresh the combined table whenever customers change, or region and segment go stale.","sig":"J1","g":"J","col":null,"tb":["orders","customers"],"prop":"orders_with_customer","rule":"The pair is joined in at least half of the questions that read the larger table. The relationship is many to one, declared in Lattice or proven by a unique key. The questions use only a few columns of the one side.","win":"Last 30 days, rolling","nd":["log","catalog"]},{"n":2,"kind":"Summary table","when":"Today","title":"Keep a summary of revenue by month and region","prev":"The same question keeps coming back. Only the month or the region changes.","evidence":["The same question keeps coming back: revenue by month and region. Only the month or the region changes from one ask to the next.","Each time, Lattice adds up every order again."],"sql":"CREATE TABLE analytics.revenue_by_month_region AS\nSELECT date_trunc('month', o.order_date) AS month,\n       c.region,\n       sum(o.amount) AS revenue,\n       count(*)      AS order_count\nFROM analytics.orders o\nJOIN analytics.customers c ON c.id = o.customer_id\nGROUP BY 1, 2;","lattice":"Add a dataset over the summary table, and describe it so agents choose it for revenue by month and region. The orders dataset stays for detailed questions.","yaml":"name: revenue_by_month_region\nsql_table: analytics.revenue_by_month_region\ndata_source: warehouse\ndescription: Revenue and order count by month and region. Use this for monthly revenue questions.\nfields:\n  - {name: month, datatype: DATE}\n  - {name: region, datatype: TEXT}\n  - {name: revenue, datatype: DOUBLE}\n  - {name: order_count, datatype: INT}","guard":"Store sums and counts, never averages, so the summary can be added up. Refresh it after orders load.","sig":"R1","g":"R","col":null,"tb":["orders","customers"],"prop":"revenue_by_month_region","rule":"One shape appears at least 20 times with at least three different filter values, and its measures, dimensions and time level stay the same.","win":"Last 30 days, rolling","nd":["log"]},{"n":3,"kind":"Table layout","when":"Today","title":"Organize orders by order date","prev":"Almost every question on orders reads a range of order dates.","evidence":["Almost every question on orders reads a range of order dates, and most read recent ones.","Today the warehouse reads the whole table to find them."],"sql":"-- The syntax depends on your warehouse. For example:\nALTER TABLE analytics.orders CLUSTER BY (order_date);\n-- or partition the table by order_date when you rebuild it.","lattice":"No dataset change. Keep date filters on order_date as stored, so the warehouse can skip the dates it does not need.","yaml":"name: orders\nfields:\n  - {name: order_date, datatype: DATE}   # filter on this column as stored","guard":"Worth it only for a large table. Re-organizing takes time the first run.","sig":"L2","g":"L","col":"~order_date","tb":["orders"],"prop":null,"rule":"A range filter on the column appears in at least half of the table's questions, and the table is large (from the catalog).","win":"Last 30 days, rolling","nd":["log","catalog"]},{"n":4,"kind":"Subset","when":"Today","title":"Offer a table of paid orders","prev":"Nearly every question about orders keeps only the paid ones.","evidence":["Nearly every question about orders keeps only the paid ones.","Each question starts from all orders and throws most of them away."],"sql":"CREATE VIEW analytics.paid_orders AS\nSELECT *\nFROM analytics.orders\nWHERE status = 'paid';","lattice":"Add a paid orders dataset, described for revenue questions. Questions about all orders keep the orders dataset.","yaml":"name: paid_orders\nsql_table: analytics.paid_orders\ndata_source: warehouse\ndescription: Orders that are paid. Use this for revenue questions.","guard":"'Paid' must be one rule that everyone agrees on.","sig":"S1","g":"S","col":null,"tb":["orders"],"prop":"paid_orders","rule":"The same filter is in at least 80 percent of the table's questions.","win":"Last 30 days, rolling","nd":["log"]},{"n":5,"kind":"Retire","when":"Yesterday","title":"Retire a column nobody reads","prev":"No question through Lattice has read legacy_discount_code.","col":"-legacy_discount_code","evidence":["No question through Lattice has read legacy_discount_code.","The warehouse still loads and stores it on every refresh."],"sql":"ALTER TABLE analytics.orders DROP COLUMN legacy_discount_code;","lattice":"Remove the field from the orders dataset, so agents no longer see it.","yaml":"name: orders\nfields:\n  # remove: {name: legacy_discount_code, datatype: TEXT}","guard":"Lattice sees only its own questions. Check the warehouse's own access history for other readers before you drop it.","sig":"U2","g":"U","tb":["orders"],"prop":null,"rule":"No Lattice question reads it, and the warehouse's history shows no other reader.","win":"Last 90 days, rolling","nd":["log","catalog","history"]},{"n":6,"kind":"Expression","when":"Yesterday","title":"Turn the customer tier into a column","prev":"Questions group customers by tier, pulled out of the profile JSON each time.","col":"+tier","evidence":["Questions often group customers by tier. Lattice pulls the tier out of the profile JSON on every question."],"sql":"ALTER TABLE analytics.customers ADD COLUMN tier TEXT;\nUPDATE analytics.customers\nSET tier = json_extract(profile, '$.tier');","lattice":"The tier field reads the new column instead of the JSON path.","yaml":"name: customers\nfields:\n  - {name: tier, datatype: TEXT}\n    # was: sql: \"json_extract(profile, '$.tier')\"","guard":"Fill the column for new customers too, as part of the load.","sig":"X3","g":"X","tb":["customers"],"prop":null,"rule":"The same path appears in at least ten questions.","win":"Last 30 days, rolling","nd":["log"]},{"n":7,"kind":"Flag","when":"Yesterday","title":"Store whether a customer has returned an order","prev":"Many questions keep only customers who returned at least one order.","col":"+has_returned","evidence":["Many questions keep only customers who returned at least one order.","For each one, Lattice searches the returns table again."],"sql":"ALTER TABLE analytics.customers ADD COLUMN has_returned BOOLEAN;\nUPDATE analytics.customers c\nSET has_returned = EXISTS (\n  SELECT 1 FROM analytics.returns r WHERE r.customer_id = c.id\n);","lattice":"Add a has_returned field. Questions filter on it instead of searching returns.","yaml":"name: customers\nfields:\n  - {name: has_returned, datatype: BOOLEAN}","guard":"Refresh the flag whenever returns load.","sig":"J6","g":"J","tb":["customers","returns"],"prop":null,"rule":"The same condition appears in at least a tenth of the questions on the outer table.","win":"Last 30 days, rolling","nd":["log"]},{"n":8,"kind":"Pre-compute","when":"2 days ago","title":"Store each order's item total","prev":"Questions add up order lines to the order, on every question.","col":"+items_total","evidence":["Questions often add up the order lines to get each order's total.","Lattice joins order_items and adds them up every time."],"sql":"ALTER TABLE analytics.orders ADD COLUMN items_total NUMERIC;\nUPDATE analytics.orders o\nSET items_total = (\n  SELECT sum(i.quantity * i.unit_price)\n  FROM analytics.order_items i\n  WHERE i.order_id = o.id\n);","lattice":"Make items_total a plain field on orders. Questions stop joining order_items for this total.","yaml":"name: orders\nfields:\n  - {name: items_total, datatype: DOUBLE}","guard":"Order lines must not change after an order closes, or the total must be refreshed.","sig":"J3","g":"J","tb":["orders","order_items"],"prop":null,"rule":"The same child aggregate is grouped back to the parent key in at least a fifth of the parent's questions.","win":"Last 30 days, rolling","nd":["log"]},{"n":9,"kind":"Table layout","when":"2 days ago","title":"Organize events by account","prev":"Every question on events carries an account filter from the access rules.","evidence":["Every question on events carries an account filter, added by Lattice's access rules.","So each question reads one account's events, but the warehouse searches them all."],"sql":"-- The syntax depends on your warehouse. For example:\nALTER TABLE analytics.events CLUSTER BY (account_id);","lattice":"No change. The access rule keeps adding the account filter.","yaml":"name: events\n# no change: the access rule already filters on account_id","guard":"Works best when there are many accounts and each question reads one.","sig":"L11","g":"L","col":"~account_id","tb":["events"],"prop":null,"rule":"The rule's filter is in every question on the table, the table is large, and the column has many distinct values.","win":"Last 30 days, rolling","nd":["log","catalog"]},{"n":10,"kind":"Archive","when":"3 days ago","title":"Move old events out of the main table","prev":"No question has read events from before last year.","evidence":["No question has read events from before last year.","Those old rows still sit in the table that every question searches."],"sql":"CREATE TABLE archive.events_archive AS\nSELECT * FROM analytics.events\nWHERE event_time < date_trunc('year', current_date) - interval '1 year';\n\nDELETE FROM analytics.events\nWHERE event_time < date_trunc('year', current_date) - interval '1 year';","lattice":"Nothing changes for today's questions. Add an archive dataset only if someone needs the old events.","yaml":"# optional\nname: events_archive\nsql_table: archive.events_archive\ndata_source: warehouse\ndescription: Events from before last year. Rarely needed.","guard":"Check other readers and any rules on how long data must be kept.","sig":"T2","g":"T","col":null,"tb":["events"],"prop":"events_archive","rule":"No question reads before a cut-off date, and the warehouse's history shows no other reader.","win":"Last 90 days, rolling","nd":["log","catalog","history"]},{"n":11,"kind":"Data quality","when":"3 days ago","title":"Remove duplicate payments","prev":"Every question on payments removes repeated rows first.","evidence":["Every question on payments removes repeated rows before it adds anything up.","So the payments table holds duplicates."],"sql":"CREATE TABLE analytics.payments_clean AS\nSELECT DISTINCT *\nFROM analytics.payments;","lattice":"Point the payments dataset at the clean table and drop the step that removes duplicates.","yaml":"name: payments\nsql_table: analytics.payments_clean\n# was: sql: \"SELECT DISTINCT * FROM analytics.payments\"","guard":"Also find out why duplicates arrive, and fix the load.","sig":"Q5","g":"Q","col":null,"tb":["payments"],"prop":"payments_clean","rule":"De-duplication is in every question on the table.","win":"Last 30 days, rolling","nd":["log"]},{"n":12,"kind":"Lattice definition","when":"4 days ago","title":"Declare that each order has one customer","prev":"Lattice cannot tell that customer ids are unique, so it plays safe.","evidence":["Lattice cannot tell whether each order has one customer, because no key says so.","It takes a slower, safer path on many questions to protect the totals."],"sql":"ALTER TABLE analytics.customers ADD PRIMARY KEY (id);","lattice":"Declare the relationship as many to one. Lattice can then take the direct path.","yaml":"name: orders\nrelationships:\n  - to: customers\n    join_pairs: [[\"customer_id\", \"id\"]]\n    cardinality: many_to_one","guard":"Only if customer ids are truly unique. Check first.","sig":"D5","g":"D","col":"~customers.id","tb":["orders","customers"],"prop":null,"rule":"The safe path ran in at least a tenth of the questions that cross the relationship.","win":"Last 30 days, rolling","nd":["log","catalog"]}];
+var FAM={J:["#dbeafe","#1e40af","#3b82f6","Joins"],R:["#fef3c7","#92400e","#f59e0b","Repeated questions"],L:["#dcfce7","#166534","#22c55e","Table layout"],X:["#f3e8ff","#6b21a8","#a855f7","Expressions"],S:["#ffe4e6","#9f1239","#f43f5e","Subsets"],T:["#ccfbf1","#115e59","#14b8a6","Time and history"],U:["#e2e8f0","#334155","#64748b","Use and retirement"],Q:["#ffedd5","#9a3412","#f97316","Data quality"],D:["#e0e7ff","#3730a3","#6366f1","Lattice definitions"],P:["#fce7f3","#9d174d","#ec4899","Priority and cost"]};
+DATA.forEach(function(d){d.state='open';d.read=false});
+var app=document.getElementById('app'),msgs=document.getElementById('msgs'),pane=document.getElementById('pane');
+var tab='open',sel=null,last=null;
+var LABEL={open:'Open',accepted:'Accepted',discarded:'Discarded',denied:'Denied'};
+var SUB={open:'New suggestions from the query log',accepted:'You plan to make these changes',discarded:'Not now. They return if the signal stays.',denied:'These will not be suggested again'};
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function chip(d){var f=FAM[d.g];return '<span class="id" style="background:'+f[0]+';color:'+f[1]+'">'+d.sig+'</span>'}
+function hiSQL(s){
+  return s.split('\n').map(function(line){
+    var ci=line.indexOf('--');var code=ci>-1?line.slice(0,ci):line,com=ci>-1?line.slice(ci):'';
+    var parts=code.split(/('[^']*')/);
+    code=parts.map(function(p,i){if(i%2)return '<span class="str">'+esc(p)+'</span>';return esc(p).replace(/\b(CREATE|TABLE|VIEW|INDEX|AS|SELECT|FROM|LEFT|JOIN|ON|WHERE|GROUP|BY|ALTER|ADD|COLUMN|UPDATE|SET|DROP|DELETE|CLUSTER|PRIMARY|KEY|DISTINCT|EXISTS|NUMERIC|BOOLEAN|TEXT|sum|count|date_trunc|json_extract|interval|current_date)\b/g,'<span class="kw">$1</span>')}).join('');
+    return code+(com?'<span class="cm">'+esc(com)+'</span>':'');
+  }).join('\n');
+}
+function hiYAML(s){
+  return s.split('\n').map(function(line){
+    var ci=line.indexOf('#');var code=ci>-1?line.slice(0,ci):line,com=ci>-1?line.slice(ci):'';
+    code=esc(code).replace(/^(\s*-?\s*)([a-z_]+):/,'$1<span class="key">$2</span>:').replace(/\{name: ([a-z_0-9]+)/g,'{<span class="key">name</span>: <span class="str">$1</span>');
+    return code+(com?'<span class="cm">'+esc(com)+'</span>':'');
+  }).join('\n');
+}
+function drawing(d){
+  var f=FAM[d.g],W=860,bw=200,gap=64,n=d.tb.length,bh=d.col?84:58;
+  var total=n*bw+(n-1)*gap,x0=(W-total)/2,y0=36,H=d.prop?y0+bh+112:y0+bh+34;
+  var o='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Tables involved: '+esc(d.tb.join(', '))+'">';
+  o+='<defs><marker id="ah'+d.n+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1 8 5 2 9" fill="none" stroke="#71717a" stroke-width="1.6"/></marker></defs>';
+  var cx=x0-24,cy=y0-18,cw=total+48,ch=bh+36;
+  o+='<rect x="'+cx+'" y="'+cy+'" width="'+cw+'" height="'+ch+'" rx="22" fill="'+f[0]+'" fill-opacity=".45" stroke="'+f[2]+'" stroke-width="1.6" stroke-dasharray="6 5"/>';
+  d.tb.forEach(function(t,i){
+    var x=x0+i*(bw+gap);
+    o+='<rect x="'+x+'" y="'+y0+'" width="'+bw+'" height="'+bh+'" rx="10" fill="#fff" stroke="#d6d3d1"/>';
+    o+='<text x="'+(x+14)+'" y="'+(y0+24)+'" font-family="Fragment Mono,monospace" font-size="13.5" fill="#18181b">'+esc(t)+'</text>';
+    o+='<line x1="'+(x+14)+'" y1="'+(y0+36)+'" x2="'+(x+bw-14)+'" y2="'+(y0+36)+'" stroke="#f4f4f5"/>';
+    o+='<rect x="'+(x+14)+'" y="'+(y0+44)+'" width="'+(bw*.45)+'" height="6" rx="3" fill="#f4f4f5"/>';
+    if(d.col&&i===0){
+      var k=d.col[0],name=d.col.slice(1),yy=y0+72;
+      var c=k==='+'?'#15803d':k==='-'?'#b91c1c':'#1d4ed8',bg=k==='+'?'#dcfce7':k==='-'?'#fee2e2':'#dbeafe';
+      var lbl=(k==='+'?'+ ':k==='-'?'− ':'')+name;if(lbl.length>24)lbl=lbl.slice(0,23)+'…';
+      o+='<rect x="'+(x+10)+'" y="'+(yy-15)+'" width="'+(bw-20)+'" height="22" rx="6" fill="'+bg+'"/>';
+      o+='<text x="'+(x+18)+'" y="'+yy+'" font-family="Fragment Mono,monospace" font-size="12" fill="'+c+'"'+(k==='-'?' text-decoration="line-through"':'')+'>'+esc(lbl)+'</text>';
+    }
+    if(i>0)o+='<line x1="'+(x-gap+4)+'" y1="'+(y0+29)+'" x2="'+(x-4)+'" y2="'+(y0+29)+'" stroke="#a8a29e" stroke-width="1.4"/>';
+  });
+  if(d.prop){
+    var pw=Math.max(250,d.prop.length*8.4+48),px=(W-pw)/2,py=y0+bh+64;
+    o+='<path d="M'+(W/2)+' '+(cy+ch+2)+' L'+(W/2)+' '+(py-4)+'" stroke="#71717a" stroke-width="1.4" stroke-dasharray="4 4" fill="none" marker-end="url(#ah'+d.n+')"/>';
+    o+='<rect x="'+px+'" y="'+py+'" width="'+pw+'" height="42" rx="21" fill="#18181b"/>';
+    o+='<text x="'+(W/2)+'" y="'+(py+26)+'" text-anchor="middle" font-family="Fragment Mono,monospace" font-size="13.5" fill="#fafafa">'+esc(d.prop)+'</text>';
+  }
+  return o+'</svg>';
+}
+function counts(){['open','accepted','discarded','denied'].forEach(function(s){var c=DATA.filter(function(d){return d.state===s}).length;document.querySelector('[data-ct="'+s+'"]').textContent=c||''})}
+function visible(){return DATA.filter(function(d){return d.state===tab})}
+function renderList(){
+  var v=visible();
+  document.getElementById('list-title').textContent=LABEL[tab];
+  document.getElementById('list-sub').textContent=SUB[tab];
+  if(!v.length){msgs.innerHTML='<li class="empty-list"><b>'+(tab==='open'?'No open suggestions':'Nothing here yet')+'</b>'+(tab==='open'?'New suggestions arrive as the log grows.':'Suggestions you mark '+LABEL[tab].toLowerCase()+' appear here.')+'</li>';return}
+  msgs.innerHTML=v.map(function(d){
+    return '<li class="msg'+(d.read?' read':'')+'" role="option" tabindex="'+(d===sel?0:-1)+'" aria-selected="'+(d===sel)+'" data-n="'+d.n+'">'+(d.read?'':'<span class="unread" aria-label="Unread"></span>')+chip(d)+'<div><div class="m-top"><span class="m-kind">'+esc(d.kind)+'</span><span class="m-when">'+esc(d.when)+'</span></div><div class="m-title">'+esc(d.title)+'</div><div class="m-prev">'+esc(d.prev)+'</div></div></li>';
+  }).join('');
+}
+function renderPane(){
+  if(!sel||sel.state!==tab){
+    var any=visible().length;
+    pane.innerHTML='<div class="pane-empty"><div><b>'+(any?'Select a suggestion':'All clear')+'</b>'+(any?'Pick one on the left to read it.':'Nothing is waiting in '+LABEL[tab].toLowerCase()+'.')+'</div></div>';return;
+  }
+  var d=sel,f=FAM[d.g];
+  var stampTxt={accepted:'Accepted. You plan to make this change.',discarded:'Discarded for now. It returns if the signal stays.',denied:'Denied. This will not be suggested again.'};
+  pane.innerHTML='<div class="read"><div class="read-in">'+
+   '<button class="back" type="button" data-back><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5 7 10l5 5"/></svg>'+LABEL[tab]+'</button>'+
+   '<div class="r-head"><div class="r-meta">'+chip(d)+'<span>'+f[3]+'</span><span>·</span><span>'+esc(d.when)+'</span><a href="catalog.html#'+d.sig+'">Signal '+d.sig+' in the catalog<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13 13 7M8 7h5v5"/></svg></a></div><h2>'+esc(d.title)+'</h2></div>'+
+   '<div class="stamp '+d.state+(d.state!=='open'?' on':'')+'">'+(stampTxt[d.state]||'')+'<button type="button" data-reopen>Move back to open</button></div>'+
+   '<div class="figure">'+drawing(d)+'</div>'+
+   '<section class="sec"><h3>What the log shows</h3>'+d.evidence.map(function(p){return '<p>'+esc(p)+'</p>'}).join('')+'</section>'+
+   '<section class="sec"><h3>Why it qualified</h3><div class="rule"><span class="badge">Rule '+d.sig+'</span><p>'+esc(d.rule)+'<small>Window: '+esc(d.win)+'. Thresholds are defaults you can tune.</small></p></div></section>'+
+   '<section class="sec"><h3>What to change</h3><div class="ttabs" role="tablist" aria-label="Where to change"><button role="tab" aria-selected="true" data-t="wh">Warehouse</button><button role="tab" aria-selected="false" data-t="sl">Lattice</button></div>'+
+     '<div class="panel" data-p="wh"><p>Run this in your warehouse, with whatever tool you use.</p><div class="code"><div class="code-h">SQL<button type="button" data-copy="sql">Copy</button></div><pre>'+hiSQL(d.sql)+'</pre></div></div>'+
+     '<div class="panel" data-p="sl" hidden><p>'+esc(d.lattice)+'</p><div class="code"><div class="code-h">Dataset<button type="button" data-copy="yaml">Copy</button></div><pre>'+hiYAML(d.yaml)+'</pre></div></div></section>'+
+   '<div class="warn" role="note"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.75 17 15.5H3z"/><path d="M10 8v3.5M10 13.6v.1" stroke-linecap="round"/></svg><div><b>Before you accept</b>'+esc(d.guard)+'</div></div>'+
+   '</div></div>'+
+   (d.state==='open'?'<div class="acts"><div class="acts-in">'+
+     '<button class="btn b-acc" type="button" data-act="accepted"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>Accept</button>'+
+     '<button class="btn b-dis" type="button" data-act="discarded">Discard <small>not now</small></button>'+
+     '<span class="hint"><span class="kbd">A</span>accept <span class="kbd">D</span>discard <span class="kbd">J</span><span class="kbd">K</span>move</span>'+
+     '<button class="btn b-den" type="button" data-deny>Deny <small>never suggest</small></button>'+
+     '<div class="confirm" id="confirm" role="alert"><span>Deny means this suggestion never comes back.</span><button class="btn b-dis" type="button" data-deny-no>Keep it</button><button class="btn b-den-yes" type="button" data-act="denied">Deny it</button></div>'+
+   '</div></div>':'');
+}
+function select(d,focus){
+  sel=d;if(d)d.read=true;renderList();renderPane();
+  if(d&&focus){var el=msgs.querySelector('[data-n="'+d.n+'"]');if(el)el.focus()}
+  var r=pane.querySelector('.read');if(r)r.scrollTop=0;
+}
+function act(state){
+  if(!sel||sel.state!=='open')return;
+  var d=sel,v=visible(),i=v.indexOf(d);
+  d.state=state;last={d:d,prev:'open'};
+  var rest=visible(),next=rest[i]||rest[i-1]||null;
+  counts();
+  if(next)select(next);else{sel=null;renderList();renderPane();app.classList.remove('reading')}
+  toast((state==='accepted'?'Accepted':state==='discarded'?'Discarded':'Denied')+': '+d.title);
+}
+var tt;
+function toast(t){var el=document.getElementById('toast');document.getElementById('toast-t').textContent=t;el.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){el.classList.remove('on')},5000)}
+document.getElementById('toast-undo').addEventListener('click',function(){
+  if(!last)return;last.d.state=last.prev;counts();
+  if(tab!==last.prev)setTab(last.prev);
+  select(last.d);last=null;document.getElementById('toast').classList.remove('on');
+});
+function setTab(t){
+  tab=t;document.querySelectorAll('.tabs [role=tab]').forEach(function(b){b.setAttribute('aria-selected',b.dataset.tab===t)});
+  var v=visible();sel=v[0]||null;if(sel&&window.innerWidth>820)sel.read=true;
+  app.classList.remove('reading');renderList();renderPane();
+}
+document.querySelector('.tabs').addEventListener('click',function(e){var b=e.target.closest('[role=tab]');if(b)setTab(b.dataset.tab)});
+msgs.addEventListener('click',function(e){var li=e.target.closest('.msg');if(!li)return;var d=DATA.find(function(x){return x.n==li.dataset.n});select(d);app.classList.add('reading');if(window.innerWidth<=820)window.scrollTo(0,0)});
+msgs.addEventListener('keydown',function(e){
+  var v=visible(),i=v.indexOf(sel);
+  if(e.key==='ArrowDown'||e.key==='j'){e.preventDefault();e.stopPropagation();if(v[i+1])select(v[i+1],true)}
+  else if(e.key==='ArrowUp'||e.key==='k'){e.preventDefault();e.stopPropagation();if(v[i-1])select(v[i-1],true)}
+  else if(e.key==='Enter'){app.classList.add('reading')}
+});
+document.addEventListener('keydown',function(e){
+  var tg=e.target&&e.target.closest?e.target:document.body;
+  if(tg.closest('input,textarea'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.key==='a'&&tab==='open')act('accepted');
+  else if(e.key==='d'&&tab==='open')act('discarded');
+  else if(e.key==='j'||e.key==='k'){var v=visible(),i=v.indexOf(sel);var n=e.key==='j'?v[i+1]:v[i-1];if(n)select(n,true)}
+});
+pane.addEventListener('click',function(e){
+  var t=e.target.closest('button');if(!t)return;
+  if(t.dataset.act)act(t.dataset.act);
+  else if(t.hasAttribute('data-deny')){document.getElementById('confirm').classList.add('on');pane.querySelector('[data-deny-no]').focus()}
+  else if(t.hasAttribute('data-deny-no')){document.getElementById('confirm').classList.remove('on');pane.querySelector('[data-deny]').focus()}
+  else if(t.hasAttribute('data-reopen')){var d=sel;d.state='open';counts();toast('Moved back to open: '+d.title);last=null;var v=visible();sel=v[0]||null;renderList();renderPane()}
+  else if(t.hasAttribute('data-back')){app.classList.remove('reading')}
+  else if(t.dataset.t){pane.querySelectorAll('[data-t]').forEach(function(b){b.setAttribute('aria-selected',b===t)});pane.querySelectorAll('[data-p]').forEach(function(p){p.hidden=p.dataset.p!==t.dataset.t})}
+  else if(t.dataset.copy){var txt=sel[t.dataset.copy];var ok=function(){t.textContent='Copied';setTimeout(function(){t.textContent='Copy'},1500)};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,function(){t.textContent='Copy failed'});else t.textContent='Copy failed'}
+});
+counts();sel=DATA[0];sel.read=true;renderList();renderPane();
+</script>
+</body>
+</html>

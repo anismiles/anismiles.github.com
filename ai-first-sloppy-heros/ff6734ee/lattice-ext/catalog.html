@@ -1,0 +1,1377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lattice usage based signals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf9;--surface:#ffffff;--sunk:#f4f4f5;--line:#e7e5e4;--line-2:#d6d3d1;
+  --ink:#18181b;--ink-2:#3f3f46;--ink-3:#5b5b63;--ink-4:#71717a;
+  --code:#18181b;--code-ink:#e4e4e7;
+  --warn-bg:#fff7ed;--warn-line:#fed7aa;--warn-ink:#9a3412;
+  --sans:"Host Grotesk",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:"Fragment Mono",ui-monospace,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:150px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased;caret-color:var(--ink)}
+::selection{background:#dbeafe;color:#1e3a8a}
+:focus-visible{outline:2px solid #3b82f6;outline-offset:2px;border-radius:6px}
+button,input{font:inherit;color:inherit}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 28px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:10;background:rgba(250,250,249,.86);backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:980px;margin:0 auto;padding:11px 28px;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:14.5px;text-decoration:none}
+.logo i{width:20px;height:20px;border-radius:6px;background:var(--ink);display:grid;place-items:center}
+.logo svg{color:#fff}
+.bar .sp{flex:1}
+.bar a.out{font-size:13.5px;color:var(--ink-3);text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.bar a.out:hover{color:var(--ink);border-color:var(--line-2)}
+
+/* list level */
+.hero{padding:40px 0 8px}
+.hero h1{margin:0;font-size:clamp(28px,3.6vw,40px);line-height:1.08;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
+.hero p{margin:12px 0 0;color:var(--ink-3);font-size:16.5px;max-width:62ch}
+.terms{margin-top:14px;font-size:14px;color:var(--ink-3)}
+.terms summary{cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-weight:500;list-style:none}
+.terms summary::-webkit-details-marker{display:none}
+.terms summary svg{transition:transform .2s var(--ease)}
+.terms[open] summary svg{transform:rotate(90deg)}
+.terms dl{margin:12px 0 0;display:grid;grid-template-columns:140px minmax(0,1fr);gap:8px 18px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;max-width:780px}
+.terms dt{font-weight:600;color:var(--ink)}
+.terms dd{margin:0}
+.filters{position:sticky;top:51px;z-index:5;background:var(--bg);padding:16px 0 12px;border-bottom:1px solid var(--line);margin-top:18px}
+.search{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px;box-shadow:0 1px 2px rgba(24,24,27,.04)}
+.search:focus-within{border-color:var(--ink-4);box-shadow:0 0 0 4px rgba(24,24,27,.05)}
+.search input{border:none;outline:none;background:transparent;padding:12px 0;width:100%;font-size:15.5px}
+.search input::placeholder{color:var(--ink-4)}
+.kbd{font:500 11.5px/1 var(--mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:3px 6px;color:var(--ink-4);background:var(--surface)}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--ink-2);cursor:pointer;transition:border-color .15s var(--ease),background .15s var(--ease)}
+.chip:hover{border-color:var(--line-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip .n{font:500 11.5px/1 var(--mono);color:var(--ink-4)}
+.chip[aria-pressed="true"] .n{color:#a1a1aa}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.sep{width:1px;height:20px;background:var(--line);margin:0 4px}
+.count{font-size:13.5px;color:var(--ink-4);margin:12px 0 0}
+.meta{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.meta .count{margin:0;flex:1}
+.dd{position:relative;display:flex;align-items:center;gap:8px}
+.dd-lbl{font-size:13px;color:var(--ink-4)}
+.dd-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:6px 10px 6px 12px;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;box-shadow:0 1px 2px rgba(24,24,27,.04)}
+.dd-btn:hover{border-color:var(--line-2)}
+.dd-btn[aria-expanded="true"]{border-color:var(--ink-4)}
+.dd-btn svg{color:var(--ink-4)}
+.dd-menu{position:absolute;right:0;top:calc(100% + 6px);z-index:20;list-style:none;margin:0;padding:6px;width:300px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 16px 40px -14px rgba(24,24,27,.28),0 2px 6px rgba(24,24,27,.06);outline:none}
+.dd-menu li{display:flex;flex-direction:column;gap:2px;padding:9px 11px;border-radius:8px;cursor:pointer;position:relative}
+.dd-menu li:hover,.dd-menu li.act{background:var(--sunk)}
+.dd-menu li[aria-selected="true"]::after{content:"";position:absolute;right:12px;top:14px;width:10px;height:6px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(-45deg)}
+.o-t{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink)}
+.o-h{font-size:12.5px;color:var(--ink-3);padding-right:22px}
+.dd-menu li:not(:first-child) .o-h{padding-left:16px}
+
+.group{margin-top:22px}
+.group h2{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--ink-3);margin:0 0 6px;padding:0 12px;letter-spacing:.01em}
+.group h2 .n{font:500 12px var(--mono);color:var(--ink-4)}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:52px minmax(0,1fr) auto 18px;gap:14px;align-items:center;padding:11px 12px;border-radius:12px;text-decoration:none;color:inherit;transition:background .15s var(--ease),box-shadow .15s var(--ease)}
+.row:hover,.row:focus-visible{background:var(--surface);box-shadow:0 0 0 1px var(--line),0 6px 16px -10px rgba(24,24,27,.18)}
+.id{font:600 12.5px/1 var(--mono);border-radius:7px;padding:6px 0;text-align:center;display:inline-block;min-width:44px}
+.rt{font-weight:600;font-size:15.5px;line-height:1.35;letter-spacing:-.005em}
+.rs{color:var(--ink-3);font-size:14px;line-height:1.4;margin-top:1px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.needs{display:flex;gap:4px}
+.needs i{width:7px;height:7px;border-radius:50%;display:block}
+.chev{color:#a8a29e}
+mark{background:#fef08a;color:inherit;border-radius:3px;padding:0 1px}
+.empty{display:none;text-align:center;padding:50px 20px;color:var(--ink-3)}
+.empty.on{display:block}
+.empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+.foot{margin:46px 0 60px;font-size:13.5px;color:var(--ink-4)}
+
+/* detail level */
+.detail{padding:22px 0 90px;display:none}
+.view-detail .detail{display:block}
+.view-detail .list{display:none}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-4);flex-wrap:wrap}
+.crumb a{color:var(--ink-3);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.crumb a:hover{color:var(--ink)}
+.crumb b{color:var(--ink);font-weight:500}
+.d-head{margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:start}
+.d-head .id{padding:7px 10px;font-size:13px}
+.d-head h1{margin:12px 0 8px;font-size:clamp(28px,3.4vw,38px);line-height:1.1;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
+.d-head p{margin:0;color:var(--ink-3);font-size:17px;max-width:62ch}
+.needlist{display:flex;flex-direction:column;gap:6px;align-items:flex-end;margin-top:4px}
+.need{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;color:var(--ink-2);white-space:nowrap}
+.need i{width:7px;height:7px;border-radius:50%}
+.figure{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px 10px;background-image:radial-gradient(#e7e5e4 1px,transparent 1.2px);background-size:18px 18px}
+.figure svg{display:block;width:100%;height:auto;max-height:220px}
+.rule{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.rule-h{display:flex;align-items:center;gap:8px;padding:13px 18px;border-bottom:1px solid var(--line);font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.rule-h a{margin-left:auto;font-weight:400;font-size:13px;color:var(--ink-4);text-decoration:none}
+.rule-h a:hover{color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.facts div{padding:13px 18px;border-right:1px solid var(--line)}
+.facts div:last-child{border-right:none}
+.facts dt,.lbl{font-size:12px;font-weight:600;color:var(--ink-4);letter-spacing:.02em;margin:0 0 4px}
+.facts dd{margin:0;font-size:14.5px;line-height:1.5}
+.qual{border-top:1px solid var(--line);padding:16px 18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start}
+.qual .badge{font:600 11.5px/1 var(--mono);color:#fff;background:var(--ink);border-radius:999px;padding:6px 10px;white-space:nowrap;margin-top:2px}
+.qual p{margin:0;font-size:16.5px;line-height:1.55;font-weight:500;letter-spacing:-.005em}
+.sec{margin-top:30px}
+.sec h2{margin:0 0 12px;font-size:19px;letter-spacing:-.02em;font-weight:650}
+.seen{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.seen li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 12px;font-size:14.5px;display:inline-flex;align-items:center;gap:8px}
+.seen li svg{color:var(--ink-4);flex:none}
+.tabs{display:inline-flex;gap:2px;background:var(--sunk);border-radius:10px;padding:3px}
+.tabs button{border:none;background:none;border-radius:8px;padding:6px 14px;font-size:13.5px;font-weight:500;color:var(--ink-3);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(24,24,27,.1)}
+.panel{margin-top:12px}
+.panel p{margin:0 0 12px;font-size:16px;max-width:66ch}
+.code{position:relative;background:var(--code);border-radius:14px;overflow:hidden}
+.code-h{display:flex;align-items:center;gap:8px;padding:9px 12px 9px 16px;border-bottom:1px solid #27272a;font:500 12px/1 var(--mono);color:#a1a1aa}
+.code-h button{margin-left:auto;border:1px solid #3f3f46;background:#27272a;color:#fafafa;border-radius:7px;padding:5px 10px;font:500 12px/1 var(--sans);cursor:pointer}
+.code-h button:hover{background:#3f3f46}
+.code pre{margin:0;padding:14px 16px 16px;font:400 13.5px/1.7 var(--mono);color:var(--code-ink);overflow-x:auto;white-space:pre;scrollbar-width:thin;scrollbar-color:#3f3f46 transparent}
+.kw{color:#93c5fd}.str{color:#86efac}.cm{color:#8b8b95;font-style:italic}.key{color:#c4b5fd}
+.warn{margin-top:30px;display:flex;gap:12px;align-items:flex-start;background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);border-radius:14px;padding:14px 16px}
+.warn svg{flex:none;margin-top:2px}
+.warn b{display:block;font-weight:600;margin-bottom:2px}
+.pn{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pn a{display:flex;flex-direction:column;gap:3px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:13px 16px;text-decoration:none;transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}
+.pn a:hover{border-color:var(--line-2);box-shadow:0 6px 16px -10px rgba(24,24,27,.2)}
+.pn a.next{text-align:right;align-items:flex-end}
+.pn small{font-size:12.5px;color:var(--ink-4)}
+.pn span{font-weight:600;font-size:15px}
+.pn .blank{visibility:hidden}
+
+.ex{margin-top:30px}
+.ex-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.ex-h h2{margin:0;font-size:19px;letter-spacing:-.02em;font-weight:650}
+.ex-h .via{font:500 12px/1 var(--mono);color:var(--ink-3);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 9px}
+.ex-h .leg{margin-left:auto;font-size:13px;color:var(--ink-4);display:inline-flex;align-items:center;gap:6px}
+.ex-h .leg i{width:22px;height:10px;border-radius:3px;background:rgba(250,204,21,.45);box-shadow:inset 0 -2px 0 #eab308}
+.ex-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:12px}
+.ex-grid .code{display:flex;flex-direction:column}
+.ex-grid .code pre{flex:1}
+.code pre mark{background:rgba(250,204,21,.22);color:#fef9c3;border-radius:3px;box-shadow:inset 0 -2px 0 rgba(234,179,8,.9);padding:0 1px}
+.code pre mark .kw,.code pre mark .str,.code pre mark .cm{color:inherit}
+.ex-why{margin-top:12px;display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.ex-why svg{flex:none;margin-top:3px;color:#ca8a04}
+.jk{color:#c4b5fd}.js{color:#86efac}.jn{color:#fdba74}
+@media (max-width:760px){
+  .wrap,.bar-in{padding-left:16px;padding-right:16px}
+  .hero{padding-top:26px}
+  .filters{position:static}
+  .row{grid-template-columns:46px minmax(0,1fr) 14px;gap:12px;padding:10px 8px}
+  .row .needs{display:none}
+  .terms dl{grid-template-columns:1fr;gap:2px}
+  .terms dd{margin-bottom:8px}
+  .d-head{grid-template-columns:1fr}
+  .needlist{flex-direction:row;flex-wrap:wrap;align-items:flex-start}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div:nth-child(2){border-right:none}
+  .facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .qual{grid-template-columns:1fr}
+  .ex-grid{grid-template-columns:1fr}
+  .ex-h .leg{margin-left:0}
+  .figure{overflow-x:auto;scrollbar-width:thin}
+  .figure svg{min-width:560px}
+  .rule-h{flex-wrap:wrap}
+  .rule-h a{margin-left:0;flex-basis:100%;padding-left:24px}
+  .pn{grid-template-columns:1fr}
+  .pn a.next{text-align:left;align-items:flex-start}
+  .bar a.out span{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="logo" href="#"><i><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h8M4 10h12M4 14h6"/></svg></i>Lattice usage based signals</a>
+  <span class="sp"></span>
+  <a class="out" href="app.html"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h14v10H3z"/><path d="m3 6 7 5 7-5"/></svg><span>Suggestions inbox</span></a>
+</div></header>
+
+<div class="wrap" id="root">
+  <section class="list" aria-label="Signal list">
+    <div class="hero">
+      <h1>Every signal the query log can show</h1>
+      <p>Search or filter, then open a signal to see how we qualify it, what we saw in the log, and the change to make in the warehouse and in Lattice.</p>
+      <details class="terms">
+        <summary><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg>How we read the log</summary>
+        <dl id="terms-dl">
+          <dt>Question</dt><dd>One query that Lattice ran and that finished. Cache hits, dry runs and EXPLAIN calls are left out, because they put no load on the tables.</dd>
+          <dt>Question shape</dt><dd>A question with its values taken out. "Revenue by month for EMEA" and "for APAC" share one shape.</dd>
+          <dt>Cost</dt><dd>The database time of a question. With warehouse history joined in through the query tag, cost can also be data scanned or credits billed.</dd>
+          <dt>Window</dt><dd>The period a signal looks at. A signal that holds in three windows in a row is stronger than one that holds once.</dd>
+          <dt>Thresholds</dt><dd>Every number in a qualifying rule is a default that the maintainer can tune.</dd>
+          <dt>Data needed</dt><dd><span class="need"><i style="background:#18181b"></i>Query log</span> what Lattice asked: questions, joins, filters, columns and timings.<br><span class="need"><i style="background:#3b82f6"></i>Warehouse metadata</span> what the tables already are: sizes, indexes, partition keys, column types, unique keys and distinct counts.<br><span class="need"><i style="background:#f97316"></i>Warehouse history</span> who else reads the tables and what it really costs: every tool's queries, loads and billing, joined to the log through the query tag.</dd>
+        </dl>
+      </details>
+    </div>
+    <div class="filters">
+      <label class="search"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-4)"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3.5 3.5"/></svg><input id="q" type="search" placeholder="Search signals, tables, SQL or sample questions" aria-label="Search signals" autocomplete="off"><span class="kbd">/</span></label>
+      <div class="chiprow" id="fam" role="group" aria-label="Filter by family"></div>
+      <div class="meta">
+        <p class="count" id="count" aria-live="polite"></p>
+        <div class="dd" id="dd">
+          <span class="dd-lbl" id="dd-lbl">Data needed</span>
+          <button type="button" class="dd-btn" id="dd-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dd-lbl dd-btn"><span id="dd-val">Any</span><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 8 4-4 4 4M6 12l4 4 4-4"/></svg></button>
+          <ul class="dd-menu" id="dd-menu" role="listbox" tabindex="-1" aria-labelledby="dd-lbl" hidden>
+            <li role="option" data-need="all" aria-selected="true"><span class="o-t">Any</span><span class="o-h">Every signal, whatever data it needs.</span></li>
+            <li role="option" data-need="log" aria-selected="false"><span class="o-t"><i class="dot" style="background:#18181b"></i>Query log only</span><span class="o-h">Works from what Lattice asked, nothing else.</span></li>
+            <li role="option" data-need="catalog" aria-selected="false"><span class="o-t"><i class="dot" style="background:#3b82f6"></i>Warehouse metadata</span><span class="o-h">Also reads table sizes, indexes, keys and column types.</span></li>
+            <li role="option" data-need="history" aria-selected="false"><span class="o-t"><i class="dot" style="background:#f97316"></i>Warehouse history</span><span class="o-h">Also reads other tools' queries, loads and costs.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="groups"></div>
+    <div class="empty" id="empty"><b>No signal matches</b>Clear the search, or pick another filter.</div>
+    <p class="foot">Examples are illustrations. No real workload data yet.</p>
+  </section>
+
+  <article class="detail" id="detail" aria-live="polite"></article>
+</div>
+
+<script>
+var GROUPS=[
+ {id:"J",name:"Joins and table shape",blurb:"How tables are combined to answer questions."},
+ {id:"R",name:"Repeated questions",blurb:"The same question asked again and again."},
+ {id:"L",name:"Table layout",blurb:"How the warehouse stores and finds rows."},
+ {id:"X",name:"Expressions and types",blurb:"Calculations done on every question."},
+ {id:"S",name:"Subsets",blurb:"The same slice of rows, every time."},
+ {id:"T",name:"Time and history",blurb:"Which periods are read, and when."},
+ {id:"U",name:"Use and retirement",blurb:"What is read, and what is never read."},
+ {id:"Q",name:"Data quality",blurb:"Signs that the data needs care."},
+ {id:"D",name:"Lattice definitions",blurb:"Changes on the Lattice side only."},
+ {id:"P",name:"Priority and cost",blurb:"Where to start, and who asks."}
+];
+function L(look,group,win,when,rank){return {look:look,group:group,win:win,when:when,rank:rank}}
+var W30="Last 30 days, rolling",W90="Last 90 days, rolling",W7="Last 7 days, rolling";
+var RANK="Total database time of the matching questions";
+var S=[
+/* ---------- J ---------- */
+{g:"J",t:"Tables always joined together",sig:"Two tables are joined in most questions, and each row on one side has one match on the other.",
+ tb:["orders","customers"],prop:"orders_with_customer",
+ seen:["Revenue by region last quarter","Orders by customer segment this week","Top regions by order count"],
+ how:L("The joins between physical tables in each question, and the columns used from each side.","Table pair.",W30,"The pair is joined in at least half of the questions that read the larger table. The relationship is many to one, declared in Lattice or proven by a unique key. The questions use only a few columns of the one side.",RANK),
+ wh:"Build one combined table that already holds the joined columns people ask for.",
+ sql:"CREATE TABLE analytics.orders_with_customer AS\nSELECT o.*, c.region, c.segment\nFROM analytics.orders o\nLEFT JOIN analytics.customers c ON c.id = o.customer_id;",
+ sl:"Point the orders dataset at the combined table. Region and segment become plain fields, and Lattice stops reading the two old tables for them.",
+ yaml:"name: orders\nsql_table: analytics.orders_with_customer   # was analytics.orders\nfields:\n  - {name: region, datatype: TEXT}\n  - {name: segment, datatype: TEXT}",
+ gd:"Each order has exactly one customer. Refresh the combined table when customers change.",nd:["log","catalog"]},
+{g:"J",t:"A chain of joins repeats",sig:"Questions walk the same chain of tables, for example orders to stores to regions.",
+ tb:["orders","stores","regions"],prop:"stores_with_region",
+ seen:["Sales by region this month","Region with the most returns","Store count by region"],
+ how:L("The path of joins in each question, in order.","Chain of three or more tables.",W30,"The same chain appears in at least a quarter of the questions on the first table, and every step is many to one.",RANK),
+ wh:"Flatten the end of the chain into one table.",
+ sql:"CREATE TABLE analytics.stores_with_region AS\nSELECT s.*, r.name AS region_name, r.country\nFROM analytics.stores s\nJOIN analytics.regions r ON r.id = s.region_id;",
+ sl:"Relate orders to the flat table in one step instead of two.",
+ yaml:"name: orders\nrelationships:\n  - to: stores_with_region\n    join_pairs: [[\"store_id\", \"id\"]]\n    cardinality: many_to_one",
+ gd:"Every step of the chain has one match per row.",nd:["log","catalog"]},
+{g:"J",t:"Child rows added up on every question",sig:"Questions sum detail rows up to their parent, again and again.",
+ tb:["orders","order_items"],col:"+items_total",
+ seen:["Average basket value by month","Orders over 200 in value","Basket value by channel"],
+ how:L("Aggregates whose input sits on a table joined one to many, and the key they are grouped back to.","Parent table, child table and aggregate.",W30,"The same child aggregate is grouped back to the parent key in at least a fifth of the parent's questions.",RANK),
+ wh:"Store the total on the parent row.",
+ sql:"ALTER TABLE analytics.orders ADD COLUMN items_total NUMERIC;\nUPDATE analytics.orders o\nSET items_total = (\n  SELECT sum(i.quantity * i.unit_price)\n  FROM analytics.order_items i\n  WHERE i.order_id = o.id\n);",
+ sl:"items_total becomes a plain field on orders. Questions stop joining order_items for it.",
+ yaml:"name: orders\nfields:\n  - {name: items_total, datatype: DOUBLE}",
+ gd:"Order lines stop changing once an order closes, or the total is refreshed.",nd:["log"]},
+{g:"J",t:"Two one-to-one tables read together",sig:"Two tables share one key and are almost always read together.",
+ tb:["customers","customer_profiles"],prop:"customers_full",
+ seen:["Customers by signup channel and tier","Customers with marketing consent","Tier by country"],
+ how:L("Joins whose pairs are the whole key on both sides.","Table pair.",W30,"The relationship is one to one, declared or proven by unique keys on both sides, and the two tables appear together in at least half of the questions on either.",RANK),
+ wh:"Merge the two tables into one.",
+ sql:"CREATE TABLE analytics.customers_full AS\nSELECT c.*, p.tier, p.marketing_consent\nFROM analytics.customers c\nLEFT JOIN analytics.customer_profiles p ON p.customer_id = c.id;",
+ sl:"Map the customers dataset to the merged table, and remove the profiles dataset.",
+ yaml:"name: customers\nsql_table: analytics.customers_full\n# remove dataset: customer_profiles",
+ gd:"Both tables refresh on the same schedule.",nd:["log","catalog"]},
+{g:"J",t:"Questions that multiply rows",sig:"Many questions cross from one row to many, and Lattice must protect the totals.",
+ tb:["customers","orders"],prop:"customer_order_stats",
+ seen:["Customers by number of orders","Lifetime spend by segment","Average orders per customer"],
+ how:L("Questions in which Lattice applied its protection for one-to-many joins.","Starting dataset and the table on the many side.",W30,"The protection ran in at least a fifth of the starting dataset's questions.",RANK),
+ wh:"Build a table at the level the questions ask about, here one row per customer.",
+ sql:"CREATE TABLE analytics.customer_order_stats AS\nSELECT customer_id,\n       count(*)    AS order_count,\n       sum(amount) AS lifetime_spend\nFROM analytics.orders\nGROUP BY customer_id;",
+ sl:"Relate customers to the new table one to one, so these questions never cross to the order rows.",
+ yaml:"name: customers\nrelationships:\n  - to: customer_order_stats\n    join_pairs: [[\"id\", \"customer_id\"]]\n    cardinality: one_to_one",
+ gd:"Store sums and counts, never averages.",nd:["log"]},
+{g:"J",t:"The same 'who has done this' check",sig:"Questions keep only rows that have a match in another table.",
+ tb:["customers","returns"],col:"+has_returned",
+ seen:["Customers who returned anything, by region","Revenue from customers with a return","Share of customers with returns"],
+ how:L("Filters that keep rows with a match in another table.","Outer table, inner table and the condition without its values.",W30,"The same condition appears in at least a tenth of the questions on the outer table.",RANK),
+ wh:"Store the answer as a yes or no column.",
+ sql:"ALTER TABLE analytics.customers ADD COLUMN has_returned BOOLEAN;\nUPDATE analytics.customers c\nSET has_returned = EXISTS (\n  SELECT 1 FROM analytics.returns r WHERE r.customer_id = c.id\n);",
+ sl:"Add has_returned as a field. Questions filter on it instead of searching returns.",
+ yaml:"name: customers\nfields:\n  - {name: has_returned, datatype: BOOLEAN}",
+ gd:"Refresh the flag whenever returns load.",nd:["log"]},
+{g:"J",t:"Join keys of different types",sig:"A join converts one key so that it matches the other.",
+ tb:["payments","orders"],
+ seen:["Paid amount by order status","Orders without a payment","Payment method by month"],
+ how:L("Join conditions that wrap a key in a type conversion.","Join pair.",W30,"Any conversion on a key qualifies. More questions raise the rank.","Number of questions that join the pair"),
+ wh:"Store both keys in the same type.",
+ sql:"ALTER TABLE analytics.payments\n  ALTER COLUMN order_id TYPE BIGINT USING order_id::BIGINT;",
+ sl:"Remove the conversion from the join.",
+ yaml:"name: payments\nrelationships:\n  - to: orders\n    join_pairs: [[\"order_id\", \"id\"]]   # was CAST(order_id AS BIGINT)",
+ gd:"Check that the conversion was not hiding bad values.",nd:["log","catalog"]},
+{g:"J",t:"Joins on a cleaned-up key",sig:"A join cleans a key first, for example lower-case email.",
+ tb:["leads","customers"],col:"+email_norm",
+ seen:["Leads that became customers","Conversion by lead source","Customers who came from a webinar"],
+ how:L("Join conditions that apply a function to a key.","Join pair and the function.",W30,"The same function appears in most joins of the pair.",RANK),
+ wh:"Store the cleaned key as its own column, on both tables.",
+ sql:"ALTER TABLE analytics.leads ADD COLUMN email_norm TEXT;\nUPDATE analytics.leads SET email_norm = lower(trim(email));",
+ sl:"Join on the stored columns.",
+ yaml:"name: leads\nrelationships:\n  - to: customers\n    join_pairs: [[\"email_norm\", \"email_norm\"]]",
+ gd:"Use the same cleaning rule on both tables.",nd:["log"]},
+{g:"J",t:"Tables in two different databases",sig:"Questions ask to join tables that live in two databases, and fail.",
+ tb:["orders","crm_accounts"],prop:"analytics.crm_accounts",
+ seen:["Revenue by account owner (failed)","Orders for accounts in renewal (failed)","Deals with no orders (failed)"],
+ how:L("Questions that failed because their datasets sit in different datasources.","Dataset pair.",W30,"The same pair fails at least three times.","Number of failed questions"),
+ wh:"Copy one table into the database of the other.",
+ sql:"-- with your loading tool, keep a copy in the warehouse:\nCREATE TABLE analytics.crm_accounts AS\nSELECT * FROM crm.accounts;",
+ sl:"Point the dataset at the copy, so the relationship works.",
+ yaml:"name: crm_accounts\nsql_table: analytics.crm_accounts\ndata_source: warehouse   # was: crm",
+ gd:"Decide how fresh the copy must be.",nd:["log"]},
+{g:"J",t:"The previous row, fetched each time",sig:"Questions find the previous record per customer again and again.",
+ tb:["orders"],col:"+previous_order_at",
+ seen:["Days between orders by segment","Customers who ordered again within a month","Repeat rate by month"],
+ how:L("Window functions that look one row back for each key.","Table, partition key and order key.",W30,"The same look-back appears in at least ten questions.",RANK),
+ wh:"Store the previous value on each row.",
+ sql:"ALTER TABLE analytics.orders ADD COLUMN previous_order_at TIMESTAMP;\nUPDATE analytics.orders o\nSET previous_order_at = (\n  SELECT max(p.created_at) FROM analytics.orders p\n  WHERE p.customer_id = o.customer_id\n    AND p.created_at < o.created_at\n);",
+ sl:"previous_order_at becomes a plain field.",
+ yaml:"name: orders\nfields:\n  - {name: previous_order_at, datatype: TIMESTAMP}",
+ gd:"Rows are ordered the same way in every question.",nd:["log"]},
+{g:"J",t:"A lookup table joined for one label",sig:"A small table is joined only to turn a code into a name.",
+ tb:["orders","status_codes"],col:"+status_name",
+ seen:["Orders by status name","Share of cancelled orders","Status by channel"],
+ how:L("Joins where only one text column of the joined table is used.","Join pair and that column.",W30,"The joined table is small (from warehouse metadata) and only that column is read in nearly all of its joins.","Number of questions"),
+ wh:"Store the name on the main table.",
+ sql:"ALTER TABLE analytics.orders ADD COLUMN status_name TEXT;\nUPDATE analytics.orders o\nSET status_name = s.name\nFROM analytics.status_codes s\nWHERE s.code = o.status_code;",
+ sl:"status_name becomes a plain field on orders.",
+ yaml:"name: orders\nfields:\n  - {name: status_name, datatype: TEXT}",
+ gd:"The names change rarely.",nd:["log","catalog"]},
+/* ---------- R ---------- */
+{g:"R",t:"The same question, other filter values",sig:"One question repeats many times, and only a filter value changes.",
+ tb:["orders","customers"],prop:"revenue_by_month_region",
+ seen:["Revenue by month for EMEA","Revenue by month for APAC","Revenue for March by region"],
+ how:L("The shape of each question: the question with its values removed.","Question shape.",W30,"One shape appears at least 20 times with at least three different filter values, and its measures, dimensions and time level stay the same.","Total database time of the shape"),
+ wh:"Build a summary table at that level.",
+ sql:"CREATE TABLE analytics.revenue_by_month_region AS\nSELECT date_trunc('month', o.order_date) AS month,\n       c.region,\n       sum(o.amount) AS revenue,\n       count(*)      AS order_count\nFROM analytics.orders o\nJOIN analytics.customers c ON c.id = o.customer_id\nGROUP BY 1, 2;",
+ sl:"Add a dataset over the summary table, described so agents choose it for this question.",
+ yaml:"name: revenue_by_month_region\nsql_table: analytics.revenue_by_month_region\ndata_source: warehouse\ndescription: Revenue by month and region. Use for monthly revenue questions.\nfields:\n  - {name: month, datatype: DATE}\n  - {name: region, datatype: TEXT}\n  - {name: revenue, datatype: DOUBLE}\n  - {name: order_count, datatype: INT}",
+ gd:"Refresh the summary after the base data loads.",nd:["log"]},
+{g:"R",t:"One measure at several time levels",sig:"The same measure is asked by day, by month and by quarter.",
+ tb:["orders"],prop:"revenue_daily",
+ seen:["Revenue by day last week","Revenue by month this year","Revenue by quarter"],
+ how:L("Question shapes that differ only in their time level.","Measure and dimensions.",W30,"The same measure and dimensions are asked at two or more time levels, and the finest level has far fewer rows than the table (from warehouse metadata).","Combined database time of the shapes"),
+ wh:"Build one summary at the finest level that is asked.",
+ sql:"CREATE TABLE analytics.revenue_daily AS\nSELECT date_trunc('day', order_date) AS day,\n       sum(amount) AS revenue,\n       count(*)    AS order_count\nFROM analytics.orders\nGROUP BY 1;",
+ sl:"One dataset over the daily table serves months and quarters too.",
+ yaml:"name: revenue_daily\nsql_table: analytics.revenue_daily\nfields:\n  - {name: day, datatype: DATE}\n  - {name: revenue, datatype: DOUBLE}\n  - {name: order_count, datatype: INT}",
+ gd:"Months and quarters must be sums of days, so store sums and counts.",nd:["log","catalog"]},
+{g:"R",t:"Exact counts of distinct values on big columns",sig:"Questions count distinct users over a very large table.",
+ tb:["events"],prop:"daily_active_users",
+ seen:["Unique visitors per day","Distinct users by country this month","Weekly active users"],
+ how:L("Distinct counts and the column they count.","Table and column.",W30,"The column has very many distinct values (from warehouse metadata), and these questions are among the table's most costly.",RANK),
+ wh:"Keep a daily table of distinct counts for the cuts people ask for.",
+ sql:"CREATE TABLE analytics.daily_active_users AS\nSELECT date_trunc('day', event_time) AS day,\n       country,\n       count(DISTINCT user_id) AS users\nFROM analytics.events\nGROUP BY 1, 2;",
+ sl:"Add a dataset over the daily table, and offer an approximate count for other cuts.",
+ yaml:"name: events\nmetrics:\n  - {name: users_approx, expression: \"count_distinct_approx(user_id)\"}",
+ gd:"Distinct counts cannot be added across days. Keep the cuts that people ask for.",nd:["log","catalog"]},
+{g:"R",t:"Running totals over all history",sig:"Questions compute a running total from the first day, every time.",
+ tb:["orders"],prop:"revenue_running",
+ seen:["Cumulative revenue this year","Running count of customers","Cumulative signups by week"],
+ how:L("Running-total steps with no lower date bound.","Table, measure and order key.",W30,"The same running total is asked at least ten times.",RANK),
+ wh:"Keep a daily table with the running total stored.",
+ sql:"CREATE TABLE analytics.revenue_running AS\nSELECT day,\n       sum(revenue) OVER (ORDER BY day) AS revenue_to_date\nFROM analytics.revenue_daily;",
+ sl:"The running total becomes a plain field.",
+ yaml:"name: revenue_running\nsql_table: analytics.revenue_running\nfields:\n  - {name: day, datatype: DATE}\n  - {name: revenue_to_date, datatype: DOUBLE}",
+ gd:"The window is the same in every question.",nd:["log"]},
+{g:"R",t:"This period against the last one",sig:"Questions compare each month with the month before.",
+ tb:["orders"],prop:"revenue_monthly",
+ seen:["Revenue this month against last month","Month-on-month growth by region","Change in orders since last month"],
+ how:L("Period-shift steps in each question.","Measure and the size of the shift.",W30,"The same shift appears at least ten times.",RANK),
+ wh:"Store the previous period's value beside the current one.",
+ sql:"CREATE TABLE analytics.revenue_monthly AS\nSELECT month, revenue,\n       lag(revenue) OVER (ORDER BY month) AS revenue_prev\nFROM (\n  SELECT date_trunc('month', order_date) AS month,\n         sum(amount) AS revenue\n  FROM analytics.orders GROUP BY 1\n) m;",
+ sl:"The growth metric reads the two stored values.",
+ yaml:"name: revenue_monthly\nmetrics:\n  - {name: growth, expression: \"sum(revenue) / sum(revenue_prev) - 1\"}",
+ gd:"The comparison period is the same each time.",nd:["log"]},
+{g:"R",t:"Top items per group",sig:"The same ranking inside groups is asked again and again.",
+ tb:["order_items","products"],prop:"top_products_by_region",
+ seen:["Top 10 products per region","Best sellers by category","Top 5 products this month"],
+ how:L("Rank steps followed by a filter on the rank.","Partition, order measure and cut-off.",W30,"The same ranking appears at least ten times.",RANK),
+ wh:"Keep a ranked table.",
+ sql:"CREATE TABLE analytics.top_products_by_region AS\nSELECT * FROM (\n  SELECT region, product_id, revenue,\n         rank() OVER (PARTITION BY region ORDER BY revenue DESC) AS rnk\n  FROM analytics.product_revenue_by_region\n) t\nWHERE rnk <= 10;",
+ sl:"Add a dataset over the ranked table.",
+ yaml:"name: top_products_by_region\nsql_table: analytics.top_products_by_region\ndescription: Top ten products per region by revenue.",
+ gd:"The ranking rule is the same each time.",nd:["log"]},
+{g:"R",t:"Ratios built from two totals",sig:"Questions divide one sum by another from the same table.",
+ tb:["orders"],prop:"revenue_by_month_region",
+ seen:["Average order value by month","Refund rate by region","Conversion rate by channel"],
+ how:L("Measures that divide one aggregate by another.","Numerator and denominator.",W30,"The ratio's question shape also qualifies for a summary table.","Same as the summary signal"),
+ wh:"Store both sums in the summary, never the ratio.",
+ sql:"-- keep the parts in the summary table:\nSELECT month, region,\n       sum(amount) AS revenue,\n       count(*)    AS order_count\nFROM analytics.orders o\nJOIN analytics.customers c ON c.id = o.customer_id\nGROUP BY 1, 2;",
+ sl:"The ratio metric reads the two stored sums.",
+ yaml:"name: revenue_by_month_region\nmetrics:\n  - {name: avg_order_value, expression: \"sum(revenue) / sum(order_count)\"}",
+ gd:"Ratios cannot be added up, so store the parts.",nd:["log"]},
+{g:"R",t:"A question built on another question",sig:"The first stage of a multi-stage question is the same every time.",
+ tb:["orders"],prop:"monthly_customer_spend",
+ seen:["Average monthly spend per customer","Median monthly orders per customer","Customers above average spend"],
+ how:L("Questions with more than one stage, and the shape of each stage.","Shape of the first stage.",W30,"The same first stage appears in at least ten questions.","Database time of the first stage"),
+ wh:"Store the first stage as a table.",
+ sql:"CREATE TABLE analytics.monthly_customer_spend AS\nSELECT customer_id,\n       date_trunc('month', order_date) AS month,\n       sum(amount) AS spend\nFROM analytics.orders\nGROUP BY 1, 2;",
+ sl:"Add a dataset over the stored stage, so later stages start from it.",
+ yaml:"name: monthly_customer_spend\nsql_table: analytics.monthly_customer_spend",
+ gd:"Refresh the table with its sources.",nd:["log"]},
+{g:"R",t:"A calendar built on every question",sig:"Questions build a list of dates to fill gaps, every time.",
+ tb:["orders"],prop:"calendar",
+ seen:["Revenue per day, days without orders included","Daily signups with gaps filled","Days without sales"],
+ how:L("Questions that generate a series of dates.","Dataset.",W30,"Date series appear in at least ten questions.","Number of questions"),
+ wh:"Keep a calendar table in the warehouse.",
+ sql:"CREATE TABLE analytics.calendar AS\nSELECT d::date AS day\nFROM generate_series(date '2020-01-01', date '2030-12-31', interval '1 day') d;",
+ sl:"Point Lattice's date list at the calendar table.",
+ yaml:"name: calendar\nsql_table: analytics.calendar\nfields:\n  - {name: day, datatype: DATE}",
+ gd:"The calendar covers every date that questions use.",nd:["log"]},
+/* ---------- L ---------- */
+{g:"L",t:"A column filtered for one exact value",sig:"Many questions filter one column for one value, and the column has many different values.",
+ tb:["orders"],col:"~customer_id",
+ seen:["Orders for customer 4821","Last order of customer 1093","Lifetime value of customer 77"],
+ how:L("Equality filters on each column.","Table and column.",W30,"The column is filtered in at least a tenth of the table's questions, has many distinct values, and no index or key covers it (from warehouse metadata).",RANK),
+ wh:"Add an index, or make the column a sort or cluster key.",
+ sql:"CREATE INDEX orders_customer_id_idx\n  ON analytics.orders (customer_id);\n-- in a warehouse without indexes, cluster or sort by it instead",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"The warehouse does not already have this key.",nd:["log","catalog"]},
+{g:"L",t:"A range of dates on every question",sig:"Almost every question reads a range of dates from the same column.",
+ tb:["orders"],col:"~order_date",
+ seen:["Orders last week","Revenue since 1 March","Signups in the last 30 days"],
+ how:L("Range filters on each column.","Table and column.",W30,"A range filter on the column appears in at least half of the table's questions, and the table is large (from warehouse metadata).",RANK),
+ wh:"Organize the table by that date: partition or cluster on it.",
+ sql:"-- the syntax depends on your warehouse, for example:\nALTER TABLE analytics.orders CLUSTER BY (order_date);",
+ sl:"No dataset change. Keep date filters on the column as stored.",
+ yaml:"name: orders\nfields:\n  - {name: order_date, datatype: DATE}   # filter on this column as stored",
+ gd:"Worth it only for a large table.",nd:["log","catalog"]},
+{g:"L",t:"A join key with no index",sig:"A large table is joined on a column that has no index.",
+ tb:["order_items","orders"],col:"~order_id",
+ seen:["Items per order this week","Orders that contain product X","Basket size by store"],
+ how:L("Join keys on each table, and the table's indexes.","Table and column.",W30,"The table is large, the key has no index (from warehouse metadata), and it is joined in at least a tenth of the table's questions.",RANK),
+ wh:"Index the join key.",
+ sql:"CREATE INDEX order_items_order_id_idx\n  ON analytics.order_items (order_id);",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Only where the warehouse uses indexes.",nd:["log","catalog"]},
+{g:"L",t:"Group and sort on the same columns",sig:"Questions group and sort by the same columns.",
+ tb:["sessions"],col:"~session_date, channel",
+ seen:["Sessions by day and channel, newest first","Daily sessions by country","Sessions by device by day"],
+ how:L("Group-by and order-by columns in each question.","Table and column list.",W30,"The same list is used for both in at least a tenth of the table's questions.",RANK),
+ wh:"Store the table sorted by them, or add an index that covers them.",
+ sql:"CREATE INDEX sessions_day_channel_idx\n  ON analytics.sessions (session_date, channel);",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Only where the warehouse gains from sort order.",nd:["log","catalog"]},
+{g:"L",t:"A filter on a column with few values",sig:"A frequent filter is on a column with only a few different values.",
+ tb:["orders"],col:"~status",
+ seen:["Orders that are paid","Cancelled orders this week","Pending orders"],
+ how:L("Equality filters on each column.","Table and column.",W30,"The column is filtered often but has only a few distinct values (from warehouse metadata). This signal advises against an index.",RANK),
+ wh:"Do not index it. Look at the subset signals instead.",
+ sql:"-- no index: status has only a few values.\n-- see 'The same subset every time'.",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"This signal stops a useless index.",nd:["log","catalog"]},
+{g:"L",t:"One value dominates a filter",sig:"Most filters on a column ask for the same single value.",
+ tb:["orders"],col:"~status = 'paid'",
+ seen:["Paid revenue this month","Paid orders by region","Average paid order"],
+ how:L("The literal values in filters on each column.","Table, column and value.",W30,"One value is in at least 80 percent of the filters on that column.",RANK),
+ wh:"Add a partial index for that value, or build a subset table.",
+ sql:"CREATE INDEX orders_paid_idx\n  ON analytics.orders (order_date)\n  WHERE status = 'paid';",
+ sl:"No change, or a subset dataset.",yaml:"# no change in Lattice",
+ gd:"The value stays the same over time.",nd:["log"]},
+{g:"L",t:"Searches by the start of a text",sig:"Questions search names by their first letters.",
+ tb:["products"],col:"~name",
+ seen:["Products starting with 'Air'","Customers named like 'Sm%'","SKUs starting with 'X-'"],
+ how:L("Pattern filters with a fixed start.","Table and column.",W30,"The same column is searched this way at least ten times.",RANK),
+ wh:"Add a text search index that the warehouse supports.",
+ sql:"CREATE INDEX products_name_prefix_idx\n  ON analytics.products (name text_pattern_ops);",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"The warehouse supports this kind of index.",nd:["log","catalog"]},
+{g:"L",t:"A function wrapped around the date filter",sig:"Questions wrap the partition column in a function, so the warehouse reads every partition.",
+ tb:["events"],col:"+event_date",
+ seen:["Events on 1 March","Events this week by type","Yesterday's errors"],
+ how:L("Filters whose column is wrapped in a function.","Table and column.",W30,"The wrapped column is the table's partition key (from warehouse metadata).",RANK),
+ wh:"Store the derived date as its own column and partition on it.",
+ sql:"ALTER TABLE analytics.events ADD COLUMN event_date DATE;\nUPDATE analytics.events SET event_date = CAST(event_time AS DATE);",
+ sl:"The date field reads the stored column.",
+ yaml:"name: events\nfields:\n  - {name: event_date, datatype: DATE}   # was: sql: \"CAST(event_time AS DATE)\"",
+ gd:"Check the partition column in the warehouse first.",nd:["log","catalog"]},
+{g:"L",t:"An index nobody uses",sig:"An index exists on a column that no question filters or joins on.",
+ tb:["orders"],col:"-orders_legacy_ref_idx",
+ seen:["No question filtered or joined on legacy_ref in 90 days"],
+ how:L("Every column used to filter or join, against the table's indexes.","Table and index.",W90,"No Lattice question uses the indexed columns, and warehouse history shows no other use.","Size of the index"),
+ wh:"Drop the index to save storage and load time.",
+ sql:"DROP INDEX analytics.orders_legacy_ref_idx;",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Check that no other tool uses it.",nd:["log","catalog","history"]},
+{g:"L",t:"A cluster key that misses the filters",sig:"The table is organized by a column that questions rarely filter.",
+ tb:["events"],col:"~account_id, event_date",
+ seen:["Events by account this week","Errors for account 12","Sessions by account"],
+ how:L("The filter columns of each question, against the table's current key.","Table.",W30,"The current key is filtered in under a tenth of the questions, while another column is filtered in more than half.",RANK),
+ wh:"Change the key to the column that questions filter most.",
+ sql:"ALTER TABLE analytics.events CLUSTER BY (account_id, event_date);",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Re-organizing costs time. Weigh it first.",nd:["log","catalog","history"]},
+{g:"L",t:"An access rule on every question",sig:"Every question carries the same account filter from Lattice's access rules.",
+ tb:["events"],col:"~account_id",
+ seen:["Events this week (account filter added)","Errors by type (account filter added)","Logins today (account filter added)"],
+ how:L("Filters that Lattice's access rules added.","Table and column.",W30,"The rule's filter is in every question on the table, the table is large, and the column has many distinct values.",RANK),
+ wh:"Organize the table by the account column.",
+ sql:"-- the syntax depends on your warehouse, for example:\nALTER TABLE analytics.events CLUSTER BY (account_id);",
+ sl:"No change. The access rule keeps adding the filter.",yaml:"# no change: the access rule already filters on account_id",
+ gd:"Works best with many accounts, each read on its own.",nd:["log","catalog"]},
+{g:"L",t:"A wide table read narrowly",sig:"Questions read a few columns of a table that has very many.",
+ tb:["customers"],prop:"customers_core",
+ seen:["Customers by country","New customers by week","Customers by segment"],
+ how:L("The columns each question read, against the table's column count.","Table.",W30,"Questions read under a fifth of the table's columns, and the same few columns cover nearly all reads.",RANK),
+ wh:"Offer a narrow table with the columns people use.",
+ sql:"CREATE TABLE analytics.customers_core AS\nSELECT id, country, segment, created_at\nFROM analytics.customers;",
+ sl:"Point the dataset at the narrow table.",
+ yaml:"name: customers\nsql_table: analytics.customers_core",
+ gd:"Mainly for warehouses that store whole rows together.",nd:["log","catalog"]},
+{g:"L",t:"Two columns always filtered together",sig:"Two columns are filtered together in most questions.",
+ tb:["orders"],col:"~store_id, order_date",
+ seen:["Store 12 sales last week","Sales for store 4 in March","Yesterday at store 9"],
+ how:L("The set of filter columns in each question.","Table and column pair.",W30,"Both columns are filtered together in at least a fifth of the table's questions.",RANK),
+ wh:"Add an index or key that covers both, in that order.",
+ sql:"CREATE INDEX orders_store_date_idx\n  ON analytics.orders (store_id, order_date);",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Order the key by how often each column is used alone.",nd:["log","catalog"]},
+/* ---------- X ---------- */
+{g:"X",t:"The same grouping rule on every question",sig:"Questions repeat the same rule to put rows into bands.",
+ tb:["customers"],col:"+size_band",
+ seen:["Revenue by customer size","Large customers by region","Small customers who left"],
+ how:L("CASE expressions used to group or filter.","Table and the expression text.",W30,"The same expression appears in at least ten questions.",RANK),
+ wh:"Store the band as a column.",
+ sql:"ALTER TABLE analytics.customers ADD COLUMN size_band TEXT;\nUPDATE analytics.customers SET size_band =\n  CASE WHEN employees >= 1000 THEN 'large'\n       WHEN employees >= 100  THEN 'mid'\n       ELSE 'small' END;",
+ sl:"The field reads the stored column instead of the rule.",
+ yaml:"name: customers\nfields:\n  - {name: size_band, datatype: TEXT}   # was a CASE expression",
+ gd:"The rule is the same everywhere.",nd:["log"]},
+{g:"X",t:"Text cleaned on every question",sig:"Questions lower-case or trim a column before filtering it.",
+ tb:["customers"],col:"+email_norm",
+ seen:["Customer with email A.Smith@Example.com","Orders for one email address","Duplicate customers by email"],
+ how:L("Filters that apply lower, upper or trim to a column.","Table, column and function.",W30,"The same function on the same column appears at least ten times.","Number of questions"),
+ wh:"Store the cleaned value.",
+ sql:"ALTER TABLE analytics.customers ADD COLUMN email_norm TEXT;\nUPDATE analytics.customers SET email_norm = lower(trim(email));",
+ sl:"Filter on the stored column.",
+ yaml:"name: customers\nfields:\n  - {name: email_norm, datatype: TEXT}",
+ gd:"The same cleaning every time.",nd:["log"]},
+{g:"X",t:"Values pulled out of JSON each time",sig:"Questions pull the same value out of a JSON column.",
+ tb:["customers"],col:"+tier",
+ seen:["Customers by tier","Revenue from gold-tier customers","Tier mix by country"],
+ how:L("JSON path functions in each question.","Table, column and path.",W30,"The same path appears in at least ten questions.",RANK),
+ wh:"Turn the value into its own column.",
+ sql:"ALTER TABLE analytics.customers ADD COLUMN tier TEXT;\nUPDATE analytics.customers\nSET tier = json_extract(profile, '$.tier');",
+ sl:"The field reads the new column, not the JSON path.",
+ yaml:"name: customers\nfields:\n  - {name: tier, datatype: TEXT}   # was: sql: \"json_extract(profile, '$.tier')\"",
+ gd:"Fill the column for new rows too.",nd:["log"]},
+{g:"X",t:"Dates taken from timestamps",sig:"Questions turn a timestamp into a local date every time.",
+ tb:["orders"],col:"+order_day_local",
+ seen:["Orders per day in local time","Sales by local day of week","Orders on Sundays"],
+ how:L("Date casts and time-zone conversions.","Table, column and time zone.",W30,"The same conversion appears in at least ten questions.",RANK),
+ wh:"Store the local date as a column.",
+ sql:"ALTER TABLE analytics.orders ADD COLUMN order_day_local DATE;\nUPDATE analytics.orders\nSET order_day_local = CAST(created_at AT TIME ZONE 'Europe/Berlin' AS DATE);",
+ sl:"Use the stored date for filters and grouping.",
+ yaml:"name: orders\nfields:\n  - {name: order_day_local, datatype: DATE}",
+ gd:"Agree on the time zone.",nd:["log"]},
+{g:"X",t:"A filtered column converted to another type",sig:"Questions convert a column before they filter it.",
+ tb:["events"],col:"~amount",
+ seen:["Events with amount over 100","Large transactions this week","Refunds above 50"],
+ how:L("Type conversions inside filters, against the column's stored type.","Table and column.",W30,"Any repeat qualifies, when warehouse metadata shows the column stored as text.",RANK),
+ wh:"Store the column in the right type.",
+ sql:"ALTER TABLE analytics.events\n  ALTER COLUMN amount TYPE NUMERIC USING amount::NUMERIC;",
+ sl:"Remove the conversion from the field.",
+ yaml:"name: events\nfields:\n  - {name: amount, datatype: DOUBLE}   # was: sql: \"CAST(amount AS DOUBLE)\"",
+ gd:"Check that the conversion was not hiding bad values.",nd:["log","catalog"]},
+{g:"X",t:"Long lists of values pasted into filters",sig:"The same long list of values appears in many questions.",
+ tb:["orders"],prop:"priority_customers",
+ seen:["Orders for our key accounts","Revenue from the priority customers","Returns from key accounts"],
+ how:L("IN filters and the list of values in each.","Table, column and the list itself.",W30,"A list of more than 50 values repeats in at least five questions.","Number of questions"),
+ wh:"Keep the list as a small lookup table.",
+ sql:"CREATE TABLE analytics.priority_customers (\n  customer_id BIGINT PRIMARY KEY\n);\n-- load the list once, and keep it up to date",
+ sl:"Relate orders to the lookup table, so questions filter through it.",
+ yaml:"name: orders\nrelationships:\n  - to: priority_customers\n    join_pairs: [[\"customer_id\", \"customer_id\"]]",
+ gd:"The list changes rarely.",nd:["log"]},
+{g:"X",t:"A costly calculation repeated",sig:"The same heavy calculation, such as pattern matching, runs on every question.",
+ tb:["events"],col:"+campaign",
+ seen:["Visits by campaign","Campaign conversions","Traffic from email campaigns"],
+ how:L("Costly functions, such as regular expressions, in grouping or filters.","Table and expression.",W30,"The same expression appears in at least ten questions.",RANK),
+ wh:"Work it out once and store it as a column.",
+ sql:"ALTER TABLE analytics.events ADD COLUMN campaign TEXT;\nUPDATE analytics.events\nSET campaign = regexp_extract(url, 'utm_campaign=([^&]+)', 1);",
+ sl:"The field reads the stored column.",
+ yaml:"name: events\nfields:\n  - {name: campaign, datatype: TEXT}",
+ gd:"Refresh it with the source column.",nd:["log"]},
+{g:"X",t:"Unit or currency conversion each time",sig:"Questions convert amounts with the same rule each time.",
+ tb:["orders","fx_rates"],col:"+amount_usd",
+ seen:["Revenue in USD by country","Global revenue this quarter","USD sales by month"],
+ how:L("Amounts multiplied by a rate from a joined rates table.","Table and expression.",W30,"The same conversion appears in at least ten questions.",RANK),
+ wh:"Store the converted amount.",
+ sql:"ALTER TABLE analytics.orders ADD COLUMN amount_usd NUMERIC;\nUPDATE analytics.orders o\nSET amount_usd = o.amount * r.rate\nFROM analytics.fx_rates r\nWHERE r.currency = o.currency\n  AND r.day = CAST(o.created_at AS DATE);",
+ sl:"Fields read the stored amount.",
+ yaml:"name: orders\nfields:\n  - {name: amount_usd, datatype: DOUBLE}",
+ gd:"Agree on which day's rate to use.",nd:["log"]},
+/* ---------- S ---------- */
+{g:"S",t:"The same subset every time",sig:"Nearly every question on a table keeps the same rows, for example paid orders.",
+ tb:["orders"],prop:"paid_orders",
+ seen:["Paid revenue this month","Paid orders by region","Average paid order value"],
+ how:L("The filters in each question, with their values.","Table, column and value.",W30,"The same filter is in at least 80 percent of the table's questions.",RANK),
+ wh:"Offer a table or view of that subset.",
+ sql:"CREATE VIEW analytics.paid_orders AS\nSELECT * FROM analytics.orders\nWHERE status = 'paid';",
+ sl:"Add a dataset over the subset, described for agents.",
+ yaml:"name: paid_orders\nsql_table: analytics.paid_orders\ndescription: Orders that are paid. Use for revenue questions.",
+ gd:"The subset is a stable rule that everyone agrees on.",nd:["log"]},
+{g:"S",t:"Only active records are read",sig:"Questions read only the active rows of a table.",
+ tb:["products"],prop:"active_products",
+ seen:["Active products by category","Price of active products","Stock of active items"],
+ how:L("Filters on status or active flags.","Table and flag column.",W30,"The flag filter is in at least 90 percent of the table's questions.",RANK),
+ wh:"Offer an active-only table or view.",
+ sql:"CREATE VIEW analytics.active_products AS\nSELECT * FROM analytics.products\nWHERE is_active;",
+ sl:"Add a dataset over it.",
+ yaml:"name: active_products\nsql_table: analytics.active_products\ndescription: Products on sale now.",
+ gd:"Define 'active' once.",nd:["log"]},
+{g:"S",t:"Test or internal rows always removed",sig:"Every question removes test or internal rows.",
+ tb:["orders"],col:"-is_test rows",
+ seen:["Real orders this week","Revenue without test orders","Orders not placed by staff"],
+ how:L("Filters that exclude test or internal markers.","Table and marker column.",W30,"The exclusion is in every question on the table.","Number of questions"),
+ wh:"Remove those rows from the table, or keep them in their own table.",
+ sql:"CREATE TABLE analytics.orders_test AS\nSELECT * FROM analytics.orders WHERE is_test;\nDELETE FROM analytics.orders WHERE is_test;",
+ sl:"Drop the dataset filter that removes them.",
+ yaml:"name: orders\n# remove: filters: [\"is_test = false\"]",
+ gd:"Some checks may still need the test rows.",nd:["log"]},
+{g:"S",t:"Deleted rows always removed",sig:"Every question skips rows marked as deleted.",
+ tb:["customers"],prop:"customers_deleted",
+ seen:["Customers by country","Customer count","New customers this month"],
+ how:L("Filters on a deleted marker.","Table and marker column.",W30,"The filter is in every question on the table.","Number of questions"),
+ wh:"Keep deleted rows in a separate table.",
+ sql:"CREATE TABLE analytics.customers_deleted AS\nSELECT * FROM analytics.customers WHERE deleted_at IS NOT NULL;\nDELETE FROM analytics.customers WHERE deleted_at IS NOT NULL;",
+ sl:"Drop the filter on the deleted marker.",
+ yaml:"name: customers\n# remove: filters: [\"deleted_at IS NULL\"]",
+ gd:"Audits may still need the deleted rows.",nd:["log"]},
+{g:"S",t:"Only the latest version of each row",sig:"Questions pick the newest version of each record, every time.",
+ tb:["subscriptions"],prop:"subscriptions_current",
+ seen:["Current plan by customer","Active subscriptions by plan","Plan mix today"],
+ how:L("Windows that keep the first row per key, ordered by a time column.","Table, key and order column.",W30,"The pattern is in most questions on the table.",RANK),
+ wh:"Keep a current-state table with one row per key.",
+ sql:"CREATE TABLE analytics.subscriptions_current AS\nSELECT * FROM (\n  SELECT s.*, row_number() OVER (\n    PARTITION BY subscription_id ORDER BY updated_at DESC) AS rn\n  FROM analytics.subscriptions s\n) t\nWHERE rn = 1;",
+ sl:"Point the dataset at the current table.",
+ yaml:"name: subscriptions\nsql_table: analytics.subscriptions_current",
+ gd:"Keep the history in its own table.",nd:["log"]},
+/* ---------- T ---------- */
+{g:"T",t:"Only recent data is read",sig:"Questions read the last few weeks, almost never older data.",
+ tb:["events"],
+ seen:["Errors in the last hour","Events this week","Signups since Monday"],
+ how:L("The lower date bound of each question.","Table.",W30,"At least 95 percent of questions read only the last 30 days, and warehouse history shows full rebuilds.","Cost of the full rebuilds"),
+ wh:"Refresh only the recent rows on each load.",
+ sql:"INSERT INTO analytics.events\nSELECT * FROM raw.events\nWHERE event_time > (SELECT max(event_time) FROM analytics.events);",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Older rows must not change after they land.",nd:["log","history"]},
+{g:"T",t:"Old data is never read",sig:"No question reads data older than a certain point.",
+ tb:["events"],prop:"archive.events_archive",
+ seen:["No question read events from before last year, in 90 days"],
+ how:L("The oldest date that each question read.","Table.",W90,"No question reads before a cut-off date, and warehouse history shows no other reader.","Size of the rows before the cut-off"),
+ wh:"Move the old rows to cheaper storage.",
+ sql:"CREATE TABLE archive.events_archive AS\nSELECT * FROM analytics.events\nWHERE event_time < date_trunc('year', current_date) - interval '1 year';\nDELETE FROM analytics.events\nWHERE event_time < date_trunc('year', current_date) - interval '1 year';",
+ sl:"Add an archive dataset only if a rare question needs it.",
+ yaml:"# optional\nname: events_archive\nsql_table: archive.events_archive",
+ gd:"Check other readers and any rules on how long data must be kept.",nd:["log","catalog","history"]},
+{g:"T",t:"Questions arrive at the same time of day",sig:"Most questions on a table arrive in one part of the day.",
+ tb:["orders"],
+ seen:["Yesterday's sales, asked at 08:05","Daily order summary, asked at 08:10","Morning revenue check, asked at 08:15"],
+ how:L("The start time of each question, per table.","Table and two-hour block.",W30,"More than half of a table's weekday questions fall in one two-hour block.","Number of questions in the block"),
+ wh:"Refresh the table before that time.",
+ sql:"-- in your scheduler: finish the orders refresh before 08:00",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Know how long the refresh takes.",nd:["log","history"]},
+{g:"T",t:"'As of yesterday' on every question",sig:"Questions always look at data up to yesterday.",
+ tb:["orders"],prop:"orders_daily_snapshot",
+ seen:["Orders up to yesterday","Revenue to the end of yesterday","Yesterday's closing stock"],
+ how:L("The upper date bound of each question.","Table.",W30,"The bound is yesterday in at least 80 percent of the table's questions.",RANK),
+ wh:"Keep a daily snapshot table.",
+ sql:"CREATE TABLE analytics.orders_daily_snapshot AS\nSELECT * FROM analytics.orders\nWHERE created_at < current_date;",
+ sl:"Add a dataset over the snapshot, described for daily reports.",
+ yaml:"name: orders_daily_snapshot\nsql_table: analytics.orders_daily_snapshot\ndescription: Orders up to the end of yesterday.",
+ gd:"The snapshot lands before people ask.",nd:["log"]},
+{g:"T",t:"The latest day looks empty",sig:"Questions about today come back empty or short.",
+ tb:["orders"],
+ seen:["Orders today (few rows)","Revenue this week (today looks low)","Daily signups (last day drops)"],
+ how:L("Questions grouped by day, and the rows returned for the newest day against the day before.","Table.",W30,"The newest day returns far fewer rows than the day before on most days.","Number of questions"),
+ wh:"Load sooner, or record when each load is complete.",
+ sql:"CREATE TABLE analytics.load_status (\n  table_name   TEXT,\n  loaded_until TIMESTAMP\n);",
+ sl:"Describe the lag, and ask for whole periods only, so the half day is left out.",
+ yaml:"name: orders\ndescription: Today's orders are complete after 06:00.",
+ gd:"Know when each load finishes.",nd:["log","history"]},
+{g:"T",t:"Time zones converted on every question",sig:"Questions convert stored times to one local zone.",
+ tb:["events"],col:"+event_time_local",
+ seen:["Events by local hour","Logins during office hours","Night-time activity"],
+ how:L("Time-zone conversions on each column.","Table, column and zone.",W30,"The same conversion appears in at least ten questions.",RANK),
+ wh:"Store the time in that zone as well.",
+ sql:"ALTER TABLE analytics.events ADD COLUMN event_time_local TIMESTAMP;\nUPDATE analytics.events\nSET event_time_local = event_time AT TIME ZONE 'Asia/Kolkata';",
+ sl:"Use the stored column.",
+ yaml:"name: events\nfields:\n  - {name: event_time_local, datatype: TIMESTAMP}",
+ gd:"Agree on one zone per table.",nd:["log"]},
+/* ---------- U ---------- */
+{g:"U",t:"A table nobody reads",sig:"A table is never read by any question.",
+ tb:["legacy_promotions"],
+ seen:["No question read legacy_promotions in 90 days"],
+ how:L("The tables of Lattice's datasets, against the tables that questions read.","Table.",W90,"No Lattice question reads it, and warehouse history shows no other reader.","Size of the table"),
+ wh:"Retire the table.",
+ sql:"-- after checking other readers:\nDROP TABLE analytics.legacy_promotions;",
+ sl:"Remove the dataset.",yaml:"# remove dataset: legacy_promotions",
+ gd:"Check warehouse history for other readers first.",nd:["log","catalog","history"]},
+{g:"U",t:"A column nobody reads",sig:"A column is never read by any question.",
+ tb:["orders"],col:"-legacy_discount_code",
+ seen:["No question read legacy_discount_code in 90 days"],
+ how:L("Every column that each question read, against the table's columns.","Table and column.",W90,"No Lattice question reads it, and warehouse history shows no other reader.","Storage of the column"),
+ wh:"Drop the column, or stop loading it.",
+ sql:"ALTER TABLE analytics.orders DROP COLUMN legacy_discount_code;",
+ sl:"Remove the field.",
+ yaml:"name: orders\nfields:\n  # remove: {name: legacy_discount_code, datatype: TEXT}",
+ gd:"Check other readers first.",nd:["log","catalog","history"]},
+{g:"U",t:"A big table used by one rare question",sig:"A large table serves a single rare question.",
+ tb:["clickstream_raw"],
+ seen:["Raw clicks for one session, asked once a month"],
+ how:L("The question shapes that read each table, and how often.","Table.",W90,"Only one shape reads the table, less than once a week, and the table is large.","Size of the table"),
+ wh:"Keep it as a view over raw files, or refresh it less often.",
+ sql:"CREATE VIEW analytics.clickstream AS\nSELECT * FROM raw.clickstream;",
+ sl:"Point the dataset at the view.",
+ yaml:"name: clickstream\nsql_table: analytics.clickstream",
+ gd:"The question can wait a little longer.",nd:["log","history"]},
+{g:"U",t:"Rebuilt often, read rarely",sig:"A table is rebuilt many times between reads.",
+ tb:["inventory_snapshot"],
+ seen:["Stock levels by warehouse, asked twice a week"],
+ how:L("Reads per table from the log, against rebuilds from warehouse history.","Table.",W30,"Rebuilds outnumber reads by ten to one.","Cost of the rebuilds"),
+ wh:"Rebuild it less often.",
+ sql:"-- in your scheduler: rebuild inventory_snapshot daily, not hourly",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Needs warehouse history for the load schedule.",nd:["log","history"]},
+{g:"U",t:"A slow view read all the time",sig:"A view is read often and costs much each time.",
+ tb:["revenue_view"],prop:"revenue_table",
+ seen:["Revenue by product","Revenue by month","Revenue by store"],
+ how:L("Reads and database time per view.","View.",W30,"The view is among the ten most costly objects and is read every day.",RANK),
+ wh:"Store it as a table.",
+ sql:"CREATE TABLE analytics.revenue_table AS\nSELECT * FROM analytics.revenue_view;",
+ sl:"Point the dataset at the table.",
+ yaml:"name: revenue\nsql_table: analytics.revenue_table   # was analytics.revenue_view",
+ gd:"Refresh the table with its sources.",nd:["log","catalog","history"]},
+{g:"U",t:"Two tables with the same content",sig:"Two datasets read near copies of one table.",
+ tb:["customers","customers_v2"],
+ seen:["Customers by region, through customers","Customers by region, through customers_v2"],
+ how:L("Datasets whose tables have the same columns and similar row counts.","Table pair.",W30,"Both are read in the window, and warehouse metadata shows matching columns.","Combined database time"),
+ wh:"Keep one table.",
+ sql:"-- after moving its readers:\nDROP TABLE analytics.customers_v2;",
+ sl:"Point both datasets at one table, or merge the datasets.",
+ yaml:"name: customers_v2\nsql_table: analytics.customers   # was analytics.customers_v2",
+ gd:"Make sure the two really match.",nd:["log","catalog"]},
+/* ---------- Q ---------- */
+{g:"Q",t:"Errors on one column",sig:"Questions often fail on the same column.",
+ tb:["orders"],col:"~ship_date",
+ seen:["Orders shipped last week (failed: invalid date)","Shipping time by carrier (failed: invalid date)"],
+ how:L("Failed questions, the error type and the column it names.","Table and column.",W7,"The same column appears in at least five failures.","Number of failed questions"),
+ wh:"Fix the column's type or its bad values.",
+ sql:"-- find the bad values:\nSELECT ship_date FROM analytics.orders\nWHERE ship_date !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}$';",
+ sl:"Update the field's type if it changed.",
+ yaml:"name: orders\nfields:\n  - {name: ship_date, datatype: DATE}",
+ gd:"Not a short outage.",nd:["log"]},
+{g:"Q",t:"Tables that change shape",sig:"Questions break after a column is renamed or removed.",
+ tb:["payments"],col:"~method → payment_method",
+ seen:["Payments by method (failed: column not found)","Refunds by method (failed: column not found)"],
+ how:L("Failures that Lattice traced to a changed table.","Table.",W7,"Any such failure qualifies.","Number of broken questions"),
+ wh:"Agree on a contract for the table's columns.",
+ sql:"-- agree which columns and types this table keeps,\n-- and announce changes before they ship",
+ sl:"Update the dataset to the new shape.",
+ yaml:"name: payments\nfields:\n  - {name: payment_method, datatype: TEXT}   # was: method",
+ gd:"Tell the people who ask questions.",nd:["log"]},
+{g:"Q",t:"Questions that find nothing",sig:"The same question often comes back empty.",
+ tb:["customers"],col:"~region",
+ seen:["Customers in region 'emea' (no rows)","Orders with status 'Paid' (no rows)"],
+ how:L("Questions that returned no rows, by shape.","Question shape.",W30,"A shape returns nothing in more than half of its runs.","Number of empty runs"),
+ wh:"Check that filter values and keys match the data.",
+ sql:"-- compare the stored values with the values asked for:\nSELECT DISTINCT region FROM analytics.customers;",
+ sl:"List the real values in the field's description.",
+ yaml:"name: customers\nfields:\n  - name: region\n    datatype: TEXT\n    description: One of EMEA, APAC, AMER",
+ gd:"Some empty answers are correct.",nd:["log"]},
+{g:"Q",t:"Missing values removed every time",sig:"Every question removes rows where a column is empty.",
+ tb:["orders"],col:"~country",
+ seen:["Orders by country","Revenue by country","Top countries this month"],
+ how:L("Filters that drop empty values on a column.","Table and column.",W30,"The filter is in at least 80 percent of the questions that read the column.","Number of questions"),
+ wh:"Fill or clean the column at load.",
+ sql:"UPDATE analytics.orders SET country = 'unknown' WHERE country IS NULL;",
+ sl:"Drop the filter.",
+ yaml:"name: orders\n# remove: filters: [\"country IS NOT NULL\"]",
+ gd:"No one needs the empty rows.",nd:["log"]},
+{g:"Q",t:"Duplicates removed every time",sig:"Every question on a table removes duplicate rows.",
+ tb:["payments"],prop:"payments_clean",
+ seen:["Total paid this month","Payments by method","Average payment"],
+ how:L("DISTINCT or de-duplication windows on each table.","Table.",W30,"De-duplication is in every question on the table.",RANK),
+ wh:"Remove the duplicates in the table, and fix the load.",
+ sql:"CREATE TABLE analytics.payments_clean AS\nSELECT DISTINCT * FROM analytics.payments;",
+ sl:"Point the dataset at the clean table and drop the de-duplication.",
+ yaml:"name: payments\nsql_table: analytics.payments_clean\n# was: sql: \"SELECT DISTINCT * FROM analytics.payments\"",
+ gd:"Find out why duplicates arrive.",nd:["log"]},
+{g:"Q",t:"Filter values with typos",sig:"Questions ask for values that do not exist, such as misspelled names.",
+ tb:["products"],col:"~brand",
+ seen:["Sales of 'Aple' (no rows)","Returns for 'apple ' (no rows)"],
+ how:L("Equality filter values that match no stored value.","Table, column and value.",W30,"The same unknown value appears at least three times.","Number of questions"),
+ wh:"Standardize the stored values.",
+ sql:"UPDATE analytics.products SET brand = 'Apple'\nWHERE lower(trim(brand)) = 'apple';",
+ sl:"List the real values in the field's description.",
+ yaml:"name: products\nfields:\n  - name: brand\n    datatype: TEXT\n    description: Brand names as stored, for example Apple, Samsung",
+ gd:"Typos may come from the callers, not the data.",nd:["log"]},
+/* ---------- D ---------- */
+{g:"D",t:"Definitions nobody uses",sig:"Some datasets, fields or metrics are never used.",
+ tb:["web_events"],col:"-conversion_v1",
+ seen:["No question used the metric conversion_v1 in 90 days"],
+ how:L("Lattice's datasets, fields and metrics, against what questions used.","Definition.",W90,"Nothing used it in the window.","None"),
+ wh:"No warehouse change.",sql:"-- no warehouse change",
+ sl:"Remove it, so agents choose from fewer.",
+ yaml:"name: web_events\nmetrics:\n  # remove: {name: conversion_v1, ...}",
+ gd:"None. These are Lattice's own definitions.",nd:["log"]},
+{g:"D",t:"Questions ask for things that do not exist",sig:"Callers ask for a field or metric by a name Lattice does not know.",
+ tb:["orders"],col:"+net_revenue",
+ seen:["Net revenue by month (failed: unknown name)","Net revenue by region (failed: unknown name)"],
+ how:L("Failures on unknown names.","Dataset and name.",W30,"The same name fails at least three times.","Number of failed questions"),
+ wh:"No warehouse change.",sql:"-- no warehouse change",
+ sl:"Add the metric, or a clearer description.",
+ yaml:"name: orders\nmetrics:\n  - {name: net_revenue, expression: \"sum(amount) - sum(refund_amount)\"}",
+ gd:"The name means the same thing to everyone.",nd:["log"]},
+{g:"D",t:"Lattice often has to guess the starting table",sig:"Lattice guesses where a question should start, again and again.",
+ tb:["orders","customers"],
+ seen:["How many customers ordered twice? (start guessed)","Orders per customer (start guessed)"],
+ how:L("Questions in which Lattice chose the starting dataset itself.","Chosen dataset.",W30,"Lattice guessed in more than half of the dataset's questions.","Number of questions"),
+ wh:"No warehouse change.",sql:"-- no warehouse change",
+ sl:"Make the dataset's description say what one row is.",
+ yaml:"name: orders\ndescription: One row per order. Start here for questions about orders and revenue.",
+ gd:"None.",nd:["log"]},
+{g:"D",t:"Two join paths, and Lattice is unsure",sig:"Questions hit tables that can be joined in two ways.",
+ tb:["orders","regions"],
+ seen:["Orders by region (billing or shipping?)","Revenue by region (billing or shipping?)"],
+ how:L("Warnings about more than one join path.","Dataset pair.",W30,"The warning appears at least three times.","Number of questions"),
+ wh:"No warehouse change.",sql:"-- no warehouse change",
+ sl:"Name each relationship, so questions pick one.",
+ yaml:"name: orders\nrelationships:\n  - name: billing_region\n    to: regions\n    join_pairs: [[\"billing_region_id\", \"id\"]]\n  - name: shipping_region\n    to: regions\n    join_pairs: [[\"shipping_region_id\", \"id\"]]",
+ gd:"None.",nd:["log"]},
+{g:"D",t:"Joins that Lattice must treat with care",sig:"Lattice takes a slower, safe path because no key says one row matches one row.",
+ tb:["orders","customers"],col:"~customers.id",
+ seen:["Revenue by segment (safe path)","Orders by customer country (safe path)"],
+ how:L("Questions where Lattice could not prove a join is many to one.","Relationship.",W30,"The safe path ran in at least a tenth of the questions that cross the relationship.",RANK),
+ wh:"Declare the key as unique in the warehouse.",
+ sql:"ALTER TABLE analytics.customers ADD PRIMARY KEY (id);",
+ sl:"Declare the relationship as many to one.",
+ yaml:"name: orders\nrelationships:\n  - to: customers\n    join_pairs: [[\"customer_id\", \"id\"]]\n    cardinality: many_to_one",
+ gd:"Only if the key is truly unique.",nd:["log","catalog"]},
+{g:"D",t:"Old spellings in questions",sig:"Callers still use names that Lattice has renamed.",
+ tb:["orders"],
+ seen:["Questions that send 'measures' instead of 'metrics'","Questions that send 'source_model'"],
+ how:L("Deprecation warnings on each question, and the caller.","Caller and old name.",W30,"Any repeat qualifies.","Number of questions"),
+ wh:"No warehouse change.",sql:"-- no warehouse change",
+ sl:"Update stored questions, and tell the callers.",
+ yaml:"# old:  measures: [revenue]\nmetrics: [revenue]",
+ gd:"None.",nd:["log"]},
+{g:"D",t:"The same filter typed by every caller",sig:"Callers type the same filter again and again.",
+ tb:["orders"],col:"+paid_amount",
+ seen:["…where status = 'paid', from three different agents","Paid revenue by week, typed again"],
+ how:L("Filters written in the questions themselves.","Dataset and filter text.",W30,"The same filter comes from at least three callers.","Number of questions"),
+ wh:"No warehouse change.",sql:"-- no warehouse change",
+ sl:"Make it a named field with a filter.",
+ yaml:"name: orders\nfields:\n  - {name: paid_amount, sql: amount, datatype: DOUBLE, filter: \"status = 'paid'\"}",
+ gd:"Only if everyone means the same thing by it.",nd:["log"]},
+{g:"D",t:"The same calculation typed by every caller",sig:"Callers type the same calculation again and again.",
+ tb:["orders"],col:"+aov",
+ seen:["sum(amount) / count(*), typed in many questions","Average order value, typed again"],
+ how:L("Expressions written in the questions themselves.","Dataset and expression text.",W30,"The same expression appears in at least ten questions.","Number of questions"),
+ wh:"No warehouse change.",sql:"-- no warehouse change",
+ sl:"Save it as a metric.",
+ yaml:"name: orders\nmetrics:\n  - {name: aov, expression: \"sum(amount) / count(*)\"}",
+ gd:"The calculation means the same everywhere.",nd:["log"]},
+/* ---------- P ---------- */
+{g:"P",t:"A few questions carry most of the cost",sig:"A small set of questions takes most of the warehouse's time.",
+ tb:["orders","events"],
+ seen:["Ten question shapes carry most of this month's database time"],
+ how:L("Database time of each question shape.","Question shape.",W30,"The ten most costly shapes carry more than half of all database time.","Database time"),
+ wh:"Start with the tables behind those questions.",
+ sql:"-- over the query log:\nSELECT shape, sum(db_ms) AS db_ms\nFROM query_log\nGROUP BY shape\nORDER BY db_ms DESC\nLIMIT 10;",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Look over a long enough period.",nd:["log","history"]},
+{g:"P",t:"Cost per table",sig:"A few tables sit behind most of the cost.",
+ tb:["events","orders"],
+ seen:["events and orders sit behind most database time"],
+ how:L("The tables that each costly question read.","Table.",W30,"The table is among the five with the most database time.","Database time"),
+ wh:"Order the table work by cost.",
+ sql:"-- over the query log:\nSELECT table_name, sum(db_ms) AS db_ms\nFROM query_log_tables\nGROUP BY table_name\nORDER BY db_ms DESC;",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Same as above.",nd:["log","history"]},
+{g:"P",t:"Cost per caller or team",sig:"One team or agent asks most of the costly questions.",
+ tb:["orders"],
+ seen:["The finance agent asks most of the costly questions on orders"],
+ how:L("Who asked each question, and its cost.","Caller.",W30,"One caller carries more than a third of a table's database time.","Database time"),
+ wh:"Talk to that team first, or give them their own summary.",
+ sql:"-- over the query log:\nSELECT caller, sum(db_ms) AS db_ms\nFROM query_log\nGROUP BY caller\nORDER BY db_ms DESC;",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Callers must be named in the log.",nd:["log","history"]},
+{g:"P",t:"A table that costs more each week",sig:"The cost of reading a table keeps growing.",
+ tb:["events"],
+ seen:["Weekly database time on events rose four weeks in a row"],
+ how:L("Weekly database time per table.","Table and week.","Last 8 weeks","Cost rises for four weeks in a row.","Growth over the period"),
+ wh:"Plan the table's change before the cost grows further.",
+ sql:"-- over the query log:\nSELECT date_trunc('week', ts) AS week, sum(db_ms)\nFROM query_log_tables WHERE table_name = 'events'\nGROUP BY 1 ORDER BY 1;",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"The trend holds over several weeks.",nd:["log","history"]},
+{g:"P",t:"Much more read than returned",sig:"Questions read far more data than they return.",
+ tb:["events"],
+ seen:["Errors yesterday: whole table scanned for a few rows"],
+ how:L("Data scanned (from warehouse history, joined by the query tag) against rows returned.","Question shape.",W30,"Data scanned per row returned is far above the table's usual level.","Data scanned"),
+ wh:"Look at the layout and summary signals for that table.",
+ sql:"-- join the log to warehouse history on the query tag,\n-- then compare bytes scanned with rows returned",
+ sl:"No change.",yaml:"# no change in Lattice",
+ gd:"Needs warehouse history for data scanned.",nd:["log","history"]},
+{g:"P",t:"The same answer asked for again and again",sig:"The exact same question repeats within minutes.",
+ tb:["orders"],
+ seen:["Today's revenue, asked 30 times this morning"],
+ how:L("Identical SQL and the time between repeats.","Exact SQL text.","Each day","The same SQL runs at least five times within ten minutes, on most days.","Number of repeats"),
+ wh:"No change, or a small summary table.",
+ sql:"-- no warehouse change needed",
+ sl:"Turn on Lattice's result cache for these questions.",
+ yaml:"# ask with the result cache on, for example: cache: true",
+ gd:"The data does not change between asks.",nd:["log"]}
+];
+
+/* Example request and generated SQL for each signal. [[...]] marks the part that counts toward the signal. */
+var EX={
+J1:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["customers.region"],time_dimensions:[{field:"order_date",granularity:"quarter",date_range:"last quarter"}]},
+ sql:"SELECT customers.region AS region,\n       DATE_TRUNC('quarter', orders.order_date) AS order_date_quarter,\n       SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\n[[LEFT JOIN analytics.customers AS customers\n  ON customers.id = orders.customer_id]]\nWHERE orders.order_date >= '2026-07-01' AND orders.order_date < '2026-10-01'\nGROUP BY 1, 2",
+ why:"The join from orders to customers counts once for this question. Region is the only column read from customers."},
+J2:{via:"rest:/query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["stores.regions.name"]},
+ sql:"SELECT regions.name AS name,\n       SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\n[[LEFT JOIN analytics.stores AS stores ON stores.id = orders.store_id\nLEFT JOIN analytics.regions AS regions ON regions.id = stores.region_id]]\nGROUP BY 1",
+ why:"The chain orders → stores → regions counts once. Both steps are many to one."},
+J3:{via:"mcp:query",req:{population:"orders",metrics:[{expression:"avg(order_items.line_total)",name:"basket"}],time_dimensions:[{field:"order_date",granularity:"month"}]},
+ sql:"WITH items_per_order AS (\n  SELECT order_items.order_id,\n         [[SUM(order_items.quantity * order_items.unit_price)]] AS items_total\n  FROM analytics.order_items AS order_items\n  [[GROUP BY order_items.order_id]]\n)\nSELECT DATE_TRUNC('month', orders.order_date) AS order_date_month,\n       AVG(items_per_order.items_total) AS basket\nFROM analytics.orders AS orders\nLEFT JOIN items_per_order ON items_per_order.order_id = orders.id\nGROUP BY 1",
+ why:"Order lines are summed back to the order key before the outer question runs."},
+J4:{via:"mcp:query",req:{population:"customers",metrics:["count(*)"],dimensions:["signup_channel","customer_profiles.tier"]},
+ sql:"SELECT customers.signup_channel AS signup_channel,\n       customer_profiles.tier AS tier,\n       COUNT(*) AS count\nFROM analytics.customers AS customers\n[[LEFT JOIN analytics.customer_profiles AS customer_profiles\n  ON customer_profiles.customer_id = customers.id]]\nGROUP BY 1, 2",
+ why:"The join uses the full key on both sides, so the two tables relate one to one."},
+J5:{via:"rest:/query",req:{population:"customers",metrics:["count(orders.id)"],dimensions:["segment"]},
+ sql:"/* to-many protection: orders aggregated before the join */\nSELECT customers.segment AS segment,\n       SUM(order_counts.n) AS orders_count\nFROM analytics.customers AS customers\n[[LEFT JOIN (SELECT customer_id, COUNT(id) AS n\n           FROM analytics.orders GROUP BY customer_id) AS order_counts\n  ON order_counts.customer_id = customers.id]]\nGROUP BY 1",
+ why:"Lattice had to pre-aggregate orders to keep the customer counts right. That protection is what this signal counts."},
+J6:{via:"mcp:query",req:{population:"customers",metrics:["count(*)"],dimensions:["region"],filter:["exists(returns)"]},
+ sql:"SELECT customers.region AS region, COUNT(*) AS count\nFROM analytics.customers AS customers\nWHERE [[EXISTS (SELECT 1 FROM analytics.returns AS returns\n             WHERE returns.customer_id = customers.id)]]\nGROUP BY 1",
+ why:"The question keeps customers that have a match in returns. The condition, without values, is what repeats."},
+J7:{via:"flight:query",req:{population:"payments",metrics:["sum(amount)"],dimensions:["orders.status"]},
+ sql:"SELECT orders.status AS status, SUM(payments.amount) AS amount_sum\nFROM analytics.payments AS payments\nLEFT JOIN analytics.orders AS orders\n  ON orders.id = [[CAST(payments.order_id AS BIGINT)]]\nGROUP BY 1",
+ why:"The join converts payments.order_id from text to a number on every question."},
+J8:{via:"mcp:query",req:{population:"leads",metrics:["count(*)"],dimensions:["source"],filter:["customers.id IS NOT NULL"]},
+ sql:"SELECT leads.source AS source, COUNT(*) AS count\nFROM analytics.leads AS leads\nLEFT JOIN analytics.customers AS customers\n  ON [[LOWER(TRIM(customers.email)) = LOWER(TRIM(leads.email))]]\nWHERE customers.id IS NOT NULL\nGROUP BY 1",
+ why:"Both sides of the join key are cleaned with lower and trim before matching."},
+J9:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["crm_accounts.owner"]},
+ sql:"-- not run: Lattice refused the question\n-- [[orders is in datasource 'warehouse', crm_accounts is in 'crm']]\n-- error: cross-datasource join",
+ why:"The question failed before any SQL ran, because the two datasets live in different datasources."},
+J10:{via:"rest:/query",req:{population:"orders",metrics:[{expression:"avg(days_since_previous)",name:"gap"}],dimensions:["customers.segment"]},
+ sql:"SELECT customers.segment AS segment,\n       AVG(DATE_DIFF('day', prev_at, orders.created_at)) AS gap\nFROM (\n  SELECT orders.*, [[LAG(orders.created_at) OVER (\n           PARTITION BY orders.customer_id ORDER BY orders.created_at)]] AS prev_at\n  FROM analytics.orders AS orders\n) AS orders\nLEFT JOIN analytics.customers AS customers ON customers.id = orders.customer_id\nGROUP BY 1",
+ why:"The look-back to the previous order per customer is worked out again in every question."},
+J11:{via:"mcp:query",req:{population:"orders",metrics:["count(*)"],dimensions:["status_codes.name"]},
+ sql:"SELECT [[status_codes.name]] AS name, COUNT(*) AS count\nFROM analytics.orders AS orders\n[[LEFT JOIN analytics.status_codes AS status_codes\n  ON status_codes.code = orders.status_code]]\nGROUP BY 1",
+ why:"Only one column, name, is read from the small status_codes table."},
+R1:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"month"}],filter:["customers.region = 'EMEA'"]},
+ sql:"SELECT DATE_TRUNC('month', orders.order_date) AS order_date_month,\n       SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\nLEFT JOIN analytics.customers AS customers ON customers.id = orders.customer_id\nWHERE customers.region = [['EMEA']]\nGROUP BY 1",
+ why:"With the value removed, this shape is 'sum of amount by month, filtered on region'. The next ask with 'APAC' has the same shape."},
+R2:{via:"rest:/query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"quarter"}]},
+ sql:"SELECT [[DATE_TRUNC('quarter', orders.order_date)]] AS order_date_quarter,\n       SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\nGROUP BY 1",
+ why:"The same measure is also asked by day and by month. Only the time level differs."},
+R3:{via:"mcp:query",req:{population:"events",metrics:["count_distinct(user_id)"],time_dimensions:[{field:"event_time",granularity:"day",date_range:"last 30 days"}]},
+ sql:"SELECT DATE_TRUNC('day', events.event_time) AS event_time_day,\n       [[COUNT(DISTINCT events.user_id)]] AS user_id_count_distinct\nFROM analytics.events AS events\nWHERE events.event_time >= CURRENT_DATE - INTERVAL '30 day'\nGROUP BY 1",
+ why:"An exact distinct count over user_id, a column with very many values."},
+R4:{via:"mcp:query",req:{population:"orders",metrics:["cumsum(sum(amount))"],time_dimensions:[{field:"order_date",granularity:"day"}]},
+ sql:"SELECT order_date_day,\n       [[SUM(amount_sum) OVER (ORDER BY order_date_day)]] AS cumsum_amount\nFROM (\n  SELECT DATE_TRUNC('day', orders.order_date) AS order_date_day,\n         SUM(orders.amount) AS amount_sum\n  FROM analytics.orders AS orders\n  GROUP BY 1\n) AS daily",
+ why:"A running total with no lower date bound, so every day of history is read again."},
+R5:{via:"rest:/query",req:{population:"orders",metrics:["sum(amount)","time_shift(sum(amount), -1)"],time_dimensions:[{field:"order_date",granularity:"month"}]},
+ sql:"SELECT cur.order_date_month, cur.amount_sum,\n       prev.amount_sum AS amount_sum_prev\nFROM monthly AS cur\nLEFT JOIN monthly AS prev\n  ON [[prev.order_date_month = cur.order_date_month - INTERVAL '1 month']]",
+ why:"A one-month shift of the same measure. The same shift repeats across questions."},
+R6:{via:"mcp:query",req:{population:"order_items",metrics:["sum(line_total)"],dimensions:["products.name","customers.region"],filter:["rank(sum(line_total), partition_by=region, direction='desc') <= 10"]},
+ sql:"SELECT * FROM (\n  SELECT customers.region, products.name,\n         SUM(order_items.line_total) AS revenue,\n         [[RANK() OVER (PARTITION BY customers.region\n                      ORDER BY SUM(order_items.line_total) DESC)]] AS rnk\n  FROM analytics.order_items AS order_items\n  LEFT JOIN analytics.products AS products ON products.id = order_items.product_id\n  LEFT JOIN analytics.orders AS orders ON orders.id = order_items.order_id\n  LEFT JOIN analytics.customers AS customers ON customers.id = orders.customer_id\n  GROUP BY 1, 2\n) t\nWHERE [[rnk <= 10]]",
+ why:"A rank inside each region followed by a cut-off. The same ranking repeats."},
+R7:{via:"mcp:query",req:{population:"orders",metrics:[{expression:"sum(amount) / count(*)",name:"aov"}],time_dimensions:[{field:"order_date",granularity:"month"}]},
+ sql:"SELECT DATE_TRUNC('month', orders.order_date) AS order_date_month,\n       [[SUM(orders.amount) / COUNT(*)]] AS aov\nFROM analytics.orders AS orders\nGROUP BY 1",
+ why:"One aggregate divided by another from the same table. The summary must keep both parts."},
+R8:{via:"rest:/query",req:[{name:"monthly",population:"orders",metrics:[{expression:"sum(amount)",name:"spend"}],dimensions:["customer_id"],time_dimensions:[{field:"order_date",granularity:"month"}]},{population:"monthly",metrics:["avg(spend)"]}],
+ sql:"WITH monthly AS (\n  [[SELECT orders.customer_id,\n         DATE_TRUNC('month', orders.order_date) AS order_date_month,\n         SUM(orders.amount) AS spend\n  FROM analytics.orders AS orders\n  GROUP BY 1, 2]]\n)\nSELECT AVG(monthly.spend) AS spend_avg\nFROM monthly",
+ why:"The first stage, spend per customer per month, is the same in every question of this kind."},
+R9:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"day",date_range:"last 30 days"}]},
+ sql:"WITH spine AS (\n  [[SELECT CAST(d AS DATE) AS day\n  FROM generate_series(CURRENT_DATE - 30, CURRENT_DATE, INTERVAL '1 day') AS g(d)]]\n)\nSELECT spine.day, COALESCE(SUM(orders.amount), 0) AS amount_sum\nFROM spine\nLEFT JOIN analytics.orders AS orders ON CAST(orders.order_date AS DATE) = spine.day\nGROUP BY 1",
+ why:"A list of dates is generated at question time to fill days without orders."},
+L1:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)","count(*)"],filter:["customer_id = 4821"]},
+ sql:"SELECT SUM(orders.amount) AS amount_sum, COUNT(*) AS count\nFROM analytics.orders AS orders\nWHERE [[orders.customer_id = 4821]]",
+ why:"An equality filter on customer_id, a column with many different values and no index."},
+L2:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"day",date_range:"last week"}]},
+ sql:"SELECT DATE_TRUNC('day', orders.order_date) AS order_date_day,\n       SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\nWHERE [[orders.order_date >= '2026-11-09' AND orders.order_date < '2026-11-16']]\nGROUP BY 1",
+ why:"A range filter on order_date. Most questions on orders carry one."},
+L3:{via:"rest:/query",req:{population:"orders",metrics:["count(order_items.id)"],time_dimensions:[{field:"order_date",granularity:"week",date_range:"this week"}]},
+ sql:"SELECT DATE_TRUNC('week', orders.order_date) AS order_date_week,\n       COUNT(order_items.id) AS items\nFROM analytics.orders AS orders\nLEFT JOIN analytics.order_items AS order_items\n  ON [[order_items.order_id]] = orders.id\nGROUP BY 1",
+ why:"order_items is large and joined on order_id, which has no index."},
+L4:{via:"mcp:query",req:{population:"sessions",metrics:["count(*)"],dimensions:["channel"],time_dimensions:[{field:"session_date",granularity:"day"}],order:[{field:"session_date",direction:"desc"}]},
+ sql:"SELECT sessions.session_date, sessions.channel, COUNT(*) AS count\nFROM analytics.sessions AS sessions\n[[GROUP BY sessions.session_date, sessions.channel\nORDER BY sessions.session_date DESC]]",
+ why:"The same columns are used to group and to sort."},
+L5:{via:"mcp:query",req:{population:"orders",metrics:["count(*)"],filter:["status = 'cancelled'"]},
+ sql:"SELECT COUNT(*) AS count\nFROM analytics.orders AS orders\nWHERE [[orders.status = 'cancelled']]",
+ why:"A frequent equality filter, but status has only five values. An index would not help."},
+L6:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["customers.region"],filter:["status = 'paid'"]},
+ sql:"SELECT customers.region, SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\nLEFT JOIN analytics.customers AS customers ON customers.id = orders.customer_id\nWHERE orders.status = [['paid']]\nGROUP BY 1",
+ why:"The literal 'paid' appears in most filters on status."},
+L7:{via:"mcp:query",req:{population:"products",dimensions:["name","price"],filter:["name LIKE 'Air%'"],distinct_dimension_values:false},
+ sql:"SELECT products.name, products.price\nFROM analytics.products AS products\nWHERE [[products.name LIKE 'Air%']]",
+ why:"A pattern with a fixed start, which a prefix index can serve."},
+L8:{via:"rest:/query",req:{population:"events",metrics:["count(*)"],dimensions:["type"],filter:["date(event_time) = '2026-03-01'"]},
+ sql:"SELECT events.type, COUNT(*) AS count\nFROM analytics.events AS events\nWHERE [[CAST(events.event_time AS DATE)]] = '2026-03-01'\nGROUP BY 1",
+ why:"event_time is the partition key, but the cast hides it, so every partition is read."},
+L9:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["status"]},
+ sql:"SELECT orders.status, SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\nGROUP BY 1\n-- [[columns used: status, amount. legacy_ref: never]]",
+ why:"A typical question on orders. No question in 90 days filtered or joined on legacy_ref, the only column of that index."},
+L10:{via:"mcp:query",req:{population:"events",metrics:["count(*)"],filter:["account_id = 12"],time_dimensions:[{field:"event_time",granularity:"day",date_range:"this week"}]},
+ sql:"SELECT DATE_TRUNC('day', events.event_time), COUNT(*) AS count\nFROM analytics.events AS events\nWHERE [[events.account_id = 12]]\n  AND events.event_time >= '2026-11-16'\nGROUP BY 1\n-- table is clustered by event_type",
+ why:"Questions filter on account_id, but the table is organized by event_type."},
+L11:{via:"mcp:query",req:{population:"events",metrics:["count(*)"],dimensions:["type"]},
+ sql:"SELECT events.type, COUNT(*) AS count\nFROM analytics.events AS events\nWHERE [[events.account_id = 'acct_42']]  -- added by the access rule\nGROUP BY 1",
+ why:"The caller never asked for an account filter. Lattice's access rule added it, as it does on every question."},
+L12:{via:"mcp:query",req:{population:"customers",metrics:["count(*)"],dimensions:["country"]},
+ sql:"SELECT [[customers.country]] AS country, COUNT(*) AS count\nFROM analytics.customers AS customers\nGROUP BY 1\n-- table has 140 columns",
+ why:"One column of a 140-column table is read. Most questions read the same five."},
+L13:{via:"rest:/query",req:{population:"orders",metrics:["sum(amount)"],filter:["store_id = 12"],time_dimensions:[{field:"order_date",granularity:"day",date_range:"last week"}]},
+ sql:"SELECT DATE_TRUNC('day', orders.order_date), SUM(orders.amount)\nFROM analytics.orders AS orders\nWHERE [[orders.store_id = 12\n  AND orders.order_date >= '2026-11-09']]\nGROUP BY 1",
+ why:"store_id and order_date are filtered together."},
+X1:{via:"mcp:query",req:{population:"customers",metrics:["count(*)"],dimensions:[{expression:"CASE WHEN employees >= 1000 THEN 'large' WHEN employees >= 100 THEN 'mid' ELSE 'small' END",name:"size_band"}]},
+ sql:"SELECT [[CASE WHEN customers.employees >= 1000 THEN 'large'\n            WHEN customers.employees >= 100 THEN 'mid'\n            ELSE 'small' END]] AS size_band,\n       COUNT(*) AS count\nFROM analytics.customers AS customers\nGROUP BY 1",
+ why:"The same CASE rule groups customers in many questions."},
+X2:{via:"mcp:query",req:{population:"customers",dimensions:["id","name"],filter:["lower(email) = 'a.smith@example.com'"],distinct_dimension_values:false},
+ sql:"SELECT customers.id, customers.name\nFROM analytics.customers AS customers\nWHERE [[LOWER(customers.email)]] = 'a.smith@example.com'",
+ why:"The email column is lower-cased before every filter."},
+X3:{via:"mcp:query",req:{population:"customers",metrics:["count(*)"],dimensions:["tier"]},
+ sql:"SELECT [[JSON_EXTRACT(customers.profile, '$.tier')]] AS tier,\n       COUNT(*) AS count\nFROM analytics.customers AS customers\nGROUP BY 1",
+ why:"The tier field is defined as a JSON path, so every question pulls it out of profile."},
+X4:{via:"rest:/query",req:{population:"orders",metrics:["count(*)"],dimensions:[{expression:"date(created_at at time zone 'Europe/Berlin')",name:"local_day"}]},
+ sql:"SELECT [[CAST(orders.created_at AT TIME ZONE 'Europe/Berlin' AS DATE)]] AS local_day,\n       COUNT(*) AS count\nFROM analytics.orders AS orders\nGROUP BY 1",
+ why:"The same time-zone conversion and date cast runs on every question."},
+X5:{via:"mcp:query",req:{population:"events",metrics:["count(*)"],filter:["amount > 100"]},
+ sql:"SELECT COUNT(*) AS count\nFROM analytics.events AS events\nWHERE [[CAST(events.amount AS DOUBLE)]] > 100",
+ why:"amount is stored as text, so it is converted before each filter."},
+X6:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],filter:["customer_id IN (1012, 1044, 1071, …)"]},
+ sql:"SELECT SUM(orders.amount) AS amount_sum\nFROM analytics.orders AS orders\nWHERE orders.customer_id IN [[(1012, 1044, 1071, 1102, … 214 values)]]",
+ why:"The same list of 214 customer ids is pasted into many questions."},
+X7:{via:"rest:/query",req:{population:"events",metrics:["count(*)"],dimensions:[{expression:"regexp_extract(url, 'utm_campaign=([^&]+)', 1)",name:"campaign"}]},
+ sql:"SELECT [[REGEXP_EXTRACT(events.url, 'utm_campaign=([^&]+)', 1)]] AS campaign,\n       COUNT(*) AS count\nFROM analytics.events AS events\nGROUP BY 1",
+ why:"A regular expression runs on every row of every question."},
+X8:{via:"mcp:query",req:{population:"orders",metrics:[{expression:"sum(amount * fx_rates.rate)",name:"revenue_usd"}],dimensions:["country"]},
+ sql:"SELECT orders.country,\n       SUM([[orders.amount * fx_rates.rate]]) AS revenue_usd\nFROM analytics.orders AS orders\nLEFT JOIN analytics.fx_rates AS fx_rates\n  ON fx_rates.currency = orders.currency\n AND fx_rates.day = CAST(orders.created_at AS DATE)\nGROUP BY 1",
+ why:"Every amount is converted with a joined rate, on every question."},
+S1:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"month",date_range:"this month"}],filter:["status = 'paid'"]},
+ sql:"SELECT DATE_TRUNC('month', orders.order_date), SUM(orders.amount)\nFROM analytics.orders AS orders\nWHERE [[orders.status = 'paid']]\n  AND orders.order_date >= '2026-11-01'\nGROUP BY 1",
+ why:"The filter status = 'paid' is in this question, and in most others on orders."},
+S2:{via:"mcp:query",req:{population:"products",metrics:["avg(price)"],dimensions:["category"],filter:["is_active"]},
+ sql:"SELECT products.category, AVG(products.price)\nFROM analytics.products AS products\nWHERE [[products.is_active]]\nGROUP BY 1",
+ why:"Questions on products almost always keep the active ones only."},
+S3:{via:"rest:/query",req:{population:"orders",metrics:["count(*)"],time_dimensions:[{field:"order_date",granularity:"week",date_range:"this week"}]},
+ sql:"SELECT DATE_TRUNC('week', orders.order_date), COUNT(*)\nFROM analytics.orders AS orders\nWHERE [[orders.is_test = FALSE]]  -- dataset filter\nGROUP BY 1",
+ why:"The dataset filter removes test orders on every question."},
+S4:{via:"mcp:query",req:{population:"customers",metrics:["count(*)"],dimensions:["country"]},
+ sql:"SELECT customers.country, COUNT(*)\nFROM analytics.customers AS customers\nWHERE [[customers.deleted_at IS NULL]]  -- dataset filter\nGROUP BY 1",
+ why:"Every question skips rows marked as deleted."},
+S5:{via:"mcp:query",req:{population:"subscriptions",metrics:["count(*)"],dimensions:["plan"]},
+ sql:"SELECT plan, COUNT(*)\nFROM (\n  SELECT s.*, [[ROW_NUMBER() OVER (PARTITION BY s.subscription_id\n                              ORDER BY s.updated_at DESC)]] AS rn\n  FROM analytics.subscriptions AS s\n) t\nWHERE [[rn = 1]]\nGROUP BY 1",
+ why:"Each question keeps only the newest version of each subscription."},
+T1:{via:"mcp:query",req:{population:"events",metrics:["count(*)"],dimensions:["type"],time_dimensions:[{field:"event_time",granularity:"hour",date_range:"last 24 hours"}]},
+ sql:"SELECT DATE_TRUNC('hour', events.event_time), events.type, COUNT(*)\nFROM analytics.events AS events\nWHERE [[events.event_time >= NOW() - INTERVAL '24 hour']]\nGROUP BY 1, 2",
+ why:"The lower date bound is recent. Almost no question reads further back."},
+T2:{via:"mcp:query",req:{population:"events",metrics:["count(*)"],time_dimensions:[{field:"event_time",granularity:"month",date_range:"this year"}]},
+ sql:"SELECT DATE_TRUNC('month', events.event_time), COUNT(*)\nFROM analytics.events AS events\nWHERE [[events.event_time >= '2026-01-01']]\nGROUP BY 1",
+ why:"The oldest date any question read in 90 days is 2025-01-01. Rows before that are never read."},
+T3:{via:"rest:/query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"day",date_range:"yesterday"}]},
+ sql:"/* question started 2026-11-18 [[08:05]] */\nSELECT SUM(orders.amount)\nFROM analytics.orders AS orders\nWHERE orders.order_date = '2026-11-17'",
+ why:"The start time of the question falls in the morning block, like most questions on orders."},
+T4:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"day",date_range:[null,"yesterday"]}]},
+ sql:"SELECT SUM(orders.amount)\nFROM analytics.orders AS orders\nWHERE [[orders.order_date < '2026-11-18']]",
+ why:"The upper date bound is yesterday, as in most questions on orders."},
+T5:{via:"mcp:query",req:{population:"orders",metrics:["count(*)"],time_dimensions:[{field:"order_date",granularity:"day",date_range:"last 7 days"}]},
+ sql:"SELECT DATE_TRUNC('day', orders.order_date), COUNT(*)\nFROM analytics.orders AS orders\nWHERE orders.order_date >= '2026-11-12'\nGROUP BY 1\n-- [[rows returned: … 11-17: 4,120  11-18: 38]]",
+ why:"The newest day returned far fewer rows than the day before. The load was not complete yet."},
+T6:{via:"mcp:query",req:{population:"events",metrics:["count(*)"],dimensions:[{expression:"hour(event_time at time zone 'Asia/Kolkata')",name:"local_hour"}]},
+ sql:"SELECT EXTRACT(HOUR FROM [[events.event_time AT TIME ZONE 'Asia/Kolkata']]) AS local_hour,\n       COUNT(*)\nFROM analytics.events AS events\nGROUP BY 1",
+ why:"Stored times are converted to one local zone on every question."},
+U1:{via:"(none)",req:{note:"No question in 90 days used the dataset legacy_promotions."},
+ sql:"-- [[no SQL in the log reads analytics.legacy_promotions]]\n-- warehouse history: no other reader in 90 days",
+ why:"The signal comes from what is missing: the table appears in no question."},
+U2:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["status","customers.region"]},
+ sql:"SELECT orders.status, customers.region, SUM(orders.amount)\nFROM analytics.orders AS orders\nLEFT JOIN analytics.customers AS customers ON customers.id = orders.customer_id\nGROUP BY 1, 2\n-- [[columns read across 90 days never include legacy_discount_code]]",
+ why:"A typical question on orders. Across 90 days of questions, legacy_discount_code was never read."},
+U3:{via:"rest:/query",req:{population:"clickstream_raw",dimensions:["ts","url"],filter:["session_id = 's-91f2'"],distinct_dimension_values:false},
+ sql:"/* asked [[once in the last 30 days]] */\nSELECT clickstream_raw.ts, clickstream_raw.url\nFROM analytics.clickstream_raw AS clickstream_raw\nWHERE clickstream_raw.session_id = 's-91f2'",
+ why:"The only question shape that reads this large table, asked once a month."},
+U4:{via:"mcp:query",req:{population:"inventory_snapshot",metrics:["sum(qty)"],dimensions:["warehouse"]},
+ sql:"SELECT inventory_snapshot.warehouse, SUM(inventory_snapshot.qty)\nFROM analytics.inventory_snapshot AS inventory_snapshot\nGROUP BY 1\n-- [[read twice this week; rebuilt 168 times]]",
+ why:"Reads come from the log. Rebuilds come from warehouse history."},
+U5:{via:"mcp:query",req:{population:"revenue",metrics:["sum(revenue)"],dimensions:["product"]},
+ sql:"SELECT revenue_view.product, SUM(revenue_view.revenue)\nFROM [[analytics.revenue_view]] AS revenue_view\nGROUP BY 1\n-- view: joins five tables on every read",
+ why:"A costly view read many times a day."},
+U6:{via:"mcp:query",req:{population:"customers_v2",metrics:["count(*)"],dimensions:["region"]},
+ sql:"SELECT customers_v2.region, COUNT(*)\nFROM [[analytics.customers_v2]] AS customers_v2\nGROUP BY 1\n-- same question also asked against analytics.customers",
+ why:"Two datasets answer the same question from near copies of one table."},
+Q1:{via:"mcp:query",req:{population:"orders",metrics:["count(*)"],time_dimensions:[{field:"ship_date",granularity:"week",date_range:"last week"}]},
+ sql:"SELECT DATE_TRUNC('week', orders.ship_date), COUNT(*)\nFROM analytics.orders AS orders\nWHERE orders.ship_date >= '2026-11-09'\n-- [[error: invalid input syntax for type date: \"2026-13-01\"]]",
+ why:"The question failed, and the error names ship_date. Four more failures this week name it too."},
+Q2:{via:"rest:/query",req:{population:"payments",metrics:["sum(amount)"],dimensions:["method"]},
+ sql:"SELECT payments.method, SUM(payments.amount)\nFROM analytics.payments AS payments\nGROUP BY 1\n-- [[error: column \"method\" does not exist (renamed to payment_method)]]",
+ why:"Lattice traced the failure to a renamed column."},
+Q3:{via:"mcp:query",req:{population:"customers",metrics:["count(*)"],filter:["region = 'emea'"]},
+ sql:"SELECT COUNT(*)\nFROM analytics.customers AS customers\nWHERE customers.region = [['emea']]\n-- rows returned: 0 (stored value is 'EMEA')",
+ why:"The question shape returns nothing in most runs, because of a case mismatch."},
+Q4:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["country"],filter:["country IS NOT NULL"]},
+ sql:"SELECT orders.country, SUM(orders.amount)\nFROM analytics.orders AS orders\nWHERE [[orders.country IS NOT NULL]]\nGROUP BY 1",
+ why:"Questions that read country almost always drop the empty values."},
+Q5:{via:"mcp:query",req:{population:"payments",metrics:["sum(amount)"],dimensions:["method"]},
+ sql:"SELECT payments.method, SUM(payments.amount)\nFROM ([[SELECT DISTINCT * FROM analytics.payments]]) AS payments\nGROUP BY 1",
+ why:"The payments dataset removes duplicate rows on every question."},
+Q6:{via:"mcp:query",req:{population:"products",metrics:["sum(order_items.line_total)"],filter:["brand = 'Aple'"]},
+ sql:"SELECT SUM(order_items.line_total)\nFROM analytics.products AS products\nLEFT JOIN analytics.order_items AS order_items ON order_items.product_id = products.id\nWHERE products.brand = [['Aple']]\n-- rows returned: 0",
+ why:"The value 'Aple' matches no stored brand."},
+D1:{via:"(none)",req:{note:"No question in 90 days used the metric web_events.conversion_v1."},
+ sql:"-- [[no request referenced conversion_v1]]",
+ why:"The signal comes from what is missing: the metric appears in no request."},
+D2:{via:"mcp:query",req:{population:"orders",metrics:["net_revenue"],time_dimensions:[{field:"order_date",granularity:"month"}]},
+ sql:"-- not run: Lattice refused the question\n-- [[error: unknown name 'net_revenue' on dataset 'orders']]",
+ why:"The request names a metric that no dataset defines."},
+D3:{via:"mcp:query",req:{metrics:["count(*)"],dimensions:["customers.segment"]},
+ sql:"/* population inferred: orders */\nSELECT customers.segment, COUNT(*)\nFROM [[analytics.orders]] AS orders\nLEFT JOIN analytics.customers AS customers ON customers.id = orders.customer_id\nGROUP BY 1",
+ why:"The request named no starting dataset, so Lattice chose orders itself."},
+D4:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["regions.name"]},
+ sql:"-- warning: [[two paths from orders to regions (billing_region_id, shipping_region_id)]]\nSELECT regions.name, SUM(orders.amount)\nFROM analytics.orders AS orders\nLEFT JOIN analytics.regions AS regions ON regions.id = orders.billing_region_id\nGROUP BY 1",
+ why:"The relationship is ambiguous, and Lattice warned about it."},
+D5:{via:"rest:/query",req:{population:"orders",metrics:["sum(amount)"],dimensions:["customers.segment"]},
+ sql:"/* [[safe path: customers.id not proven unique]] */\nSELECT customers.segment, SUM(o.amount)\nFROM (SELECT DISTINCT orders.id, orders.amount, orders.customer_id\n      FROM analytics.orders AS orders) AS o\nLEFT JOIN analytics.customers AS customers ON customers.id = o.customer_id\nGROUP BY 1",
+ why:"Without a declared key, Lattice protects the totals with an extra step."},
+D6:{via:"mcp:query",req:{source_model:"orders",measures:["sum(amount)"],dimensions:["status"]},
+ sql:"-- [[deprecation: 'source_model' is now 'population'; 'measures' is now 'metrics']]\nSELECT orders.status, SUM(orders.amount)\nFROM analytics.orders AS orders\nGROUP BY 1",
+ why:"The request still uses the old names, and Lattice recorded a deprecation."},
+D7:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"week"}],filter:["status = 'paid'"]},
+ sql:"SELECT DATE_TRUNC('week', orders.order_date), SUM(orders.amount)\nFROM analytics.orders AS orders\nWHERE [[orders.status = 'paid']]  -- typed by the caller\nGROUP BY 1",
+ why:"Three different callers type this filter themselves."},
+D8:{via:"rest:/query",req:{population:"orders",metrics:[{expression:"sum(amount) / count(*)",name:"aov"}],dimensions:["channel"]},
+ sql:"SELECT orders.channel,\n       [[SUM(orders.amount) / COUNT(*)]] AS aov\nFROM analytics.orders AS orders\nGROUP BY 1",
+ why:"The same calculation is typed in many requests instead of a saved metric."},
+P1:{via:"(log query)",req:{note:"Over the log: database time by question shape, last 30 days."},
+ sql:"SELECT shape, SUM(db_ms) AS db_ms\nFROM query_log\nWHERE ts >= CURRENT_DATE - 30\nGROUP BY shape\nORDER BY db_ms DESC\nLIMIT 10\n-- [[top 10 shapes: 61% of all database time]]",
+ why:"This signal reads the log itself, not one question."},
+P2:{via:"(log query)",req:{note:"Over the log: database time by table, last 30 days."},
+ sql:"SELECT table_name, SUM(db_ms) AS db_ms\nFROM query_log_tables\nGROUP BY table_name\nORDER BY db_ms DESC\n-- [[events 38%, orders 27%]]",
+ why:"This signal reads the log itself, not one question."},
+P3:{via:"(log query)",req:{note:"Over the log: database time by caller, last 30 days."},
+ sql:"SELECT caller, SUM(db_ms) AS db_ms\nFROM query_log\nGROUP BY caller\nORDER BY db_ms DESC\n-- [[finance-agent 44% of the time on orders]]",
+ why:"This signal reads the log itself, not one question."},
+P4:{via:"(log query)",req:{note:"Over the log: weekly database time on events."},
+ sql:"SELECT DATE_TRUNC('week', ts) AS week, SUM(db_ms)\nFROM query_log_tables\nWHERE table_name = 'events'\nGROUP BY 1 ORDER BY 1\n-- [[rose four weeks in a row]]",
+ why:"This signal reads the log itself, not one question."},
+P5:{via:"mcp:query",req:{population:"events",metrics:["count(*)"],filter:["type = 'error'"],time_dimensions:[{field:"event_time",granularity:"day",date_range:"yesterday"}]},
+ sql:"/* lattice qid=01JD8Q4K7X0M3T9V2C6B5N1R8E */\nSELECT COUNT(*) FROM analytics.events AS events\nWHERE events.type = 'error' AND events.event_time >= '2026-11-17'\n-- [[warehouse history for this qid: 412 GB scanned, 1 row returned]]",
+ why:"The qid tag joins this question to warehouse history, which shows the data scanned."},
+P6:{via:"mcp:query",req:{population:"orders",metrics:["sum(amount)"],time_dimensions:[{field:"order_date",granularity:"day",date_range:"today"}]},
+ sql:"SELECT SUM(orders.amount)\nFROM analytics.orders AS orders\nWHERE orders.order_date = '2026-11-18'\n-- [[same SQL ran 30 times between 08:00 and 10:00]]",
+ why:"The exact same SQL repeats within minutes, and the data did not change."}
+};
+
+var FAM={J:["#dbeafe","#1e40af","#3b82f6"],R:["#fef3c7","#92400e","#f59e0b"],L:["#dcfce7","#166534","#22c55e"],X:["#f3e8ff","#6b21a8","#a855f7"],S:["#ffe4e6","#9f1239","#f43f5e"],T:["#ccfbf1","#115e59","#14b8a6"],U:["#e2e8f0","#334155","#64748b"],Q:["#ffedd5","#9a3412","#f97316"],D:["#e0e7ff","#3730a3","#6366f1"],P:["#fce7f3","#9d174d","#ec4899"]};
+var NEED={log:["Query log","#18181b"],catalog:["Warehouse metadata","#3b82f6"],history:["Warehouse history","#f97316"]};
+var nums={};GROUPS.forEach(function(g){nums[g.id]=0});
+S.forEach(function(s,i){nums[s.g]++;s.id=s.g+nums[s.g];s.i=i});
+var BYID={};S.forEach(function(s){BYID[s.id]=s});
+var GN={};GROUPS.forEach(function(g){GN[g.id]=g});
+var st={fam:"all",need:"all",q:""},listY=0,openTerms=false;
+var root=document.getElementById('root'),groupsEl=document.getElementById('groups'),detail=document.getElementById('detail');
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function hl(s){var e=esc(s);if(!st.q)return e;var q=st.q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return e.replace(new RegExp('('+q+')','ig'),'<mark>$1</mark>')}
+function idChip(d){var f=FAM[d.g];return '<span class="id" style="background:'+f[0]+';color:'+f[1]+'">'+d.id+'</span>'}
+function needDots(n){return '<span class="needs" aria-label="Needs '+n.map(function(x){return NEED[x][0]}).join(', ')+'">'+n.map(function(x){return '<i style="background:'+NEED[x][1]+'"></i>'}).join('')+'</span>'}
+function hiSQL(s){
+  return s.split('\n').map(function(line){
+    var ci=line.indexOf('--');var code=ci>-1?line.slice(0,ci):line,com=ci>-1?line.slice(ci):'';
+    var parts=code.split(/('[^']*')/);
+    code=parts.map(function(p,i){if(i%2)return '<span class="str">'+esc(p)+'</span>';return esc(p).replace(/\b(CREATE|TABLE|VIEW|INDEX|AS|SELECT|FROM|LEFT|JOIN|ON|WHERE|GROUP|ORDER|BY|ALTER|ADD|COLUMN|UPDATE|SET|DROP|DELETE|INSERT|INTO|CLUSTER|PRIMARY|KEY|DISTINCT|EXISTS|NUMERIC|BOOLEAN|TEXT|DATE|TIMESTAMP|BIGINT|TYPE|USING|CASE|WHEN|THEN|ELSE|END|OVER|PARTITION|DESC|LIMIT|NOT|NULL|IS|AND|AT|TIME|ZONE|CAST|IN|sum|count|max|lag|rank|row_number|date_trunc|json_extract|regexp_extract|generate_series|lower|trim|interval|current_date)\b/g,'<span class="kw">$1</span>')}).join('');
+    return code+(com?'<span class="cm">'+esc(com)+'</span>':'');
+  }).join('\n');
+}
+function hiYAML(s){
+  return s.split('\n').map(function(line){
+    var ci=line.indexOf('#');var code=ci>-1?line.slice(0,ci):line,com=ci>-1?line.slice(ci):'';
+    code=esc(code).replace(/^(\s*-?\s*)([a-z_]+):/,'$1<span class="key">$2</span>:').replace(/\{name: ([a-z_0-9]+)/g,'{<span class="key">name</span>: <span class="str">$1</span>');
+    return code+(com?'<span class="cm">'+esc(com)+'</span>':'');
+  }).join('\n');
+}
+function markLines(html){
+  var open=false;
+  return html.split('\n').map(function(l){
+    var pre=open?'<mark>':'';
+    l=l.replace(/\u0001/g,function(){open=true;return '<mark>'}).replace(/\u0002/g,function(){open=false;return '</mark>'});
+    return pre+l+(open?'</mark>':'');
+  }).join('\n');
+}
+function hiEx(s){return markLines(hiSQL(s.replace(/\[\[/g,'\u0001').replace(/\]\]/g,'\u0002')))}
+function hiJSON(o){
+  var s=JSON.stringify(o,null,2),re=/("(?:[^"\\]|\\.)*")(\s*:)?|\b(-?\d+(?:\.\d+)?|true|false|null)\b/g,out='',last=0,m;
+  while((m=re.exec(s))){
+    out+=esc(s.slice(last,m.index));
+    if(m[1])out+=m[2]?'<span class="jk">'+esc(m[1])+'</span>'+m[2]:'<span class="js">'+esc(m[1])+'</span>';
+    else out+='<span class="jn">'+m[3]+'</span>';
+    last=re.lastIndex;
+  }
+  return out+esc(s.slice(last));
+}
+function drawing(d){
+  var ring=FAM[d.g][2],W=900,bw=200,gap=64,n=d.tb.length,bh=d.col?84:58;
+  var total=n*bw+(n-1)*gap,x0=(W-total)/2,y0=36,H=d.prop?y0+bh+112:y0+bh+34;
+  var o='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Tables involved in '+esc(d.t)+'">';
+  o+='<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1 8 5 2 9" fill="none" stroke="#71717a" stroke-width="1.6"/></marker></defs>';
+  var cx=x0-24,cy=y0-18,cw=total+48,ch=bh+36;
+  o+='<rect x="'+cx+'" y="'+cy+'" width="'+cw+'" height="'+ch+'" rx="22" fill="'+FAM[d.g][0]+'" fill-opacity=".45" stroke="'+ring+'" stroke-width="1.6" stroke-dasharray="6 5"/>';
+  d.tb.forEach(function(t,i){
+    var x=x0+i*(bw+gap);
+    o+='<rect x="'+x+'" y="'+y0+'" width="'+bw+'" height="'+bh+'" rx="10" fill="#fff" stroke="#d6d3d1"/>';
+    var label=t.length>22?t.slice(0,21)+'…':t;
+    o+='<text x="'+(x+14)+'" y="'+(y0+24)+'" font-family="Fragment Mono,monospace" font-size="13.5" font-weight="600" fill="#18181b">'+esc(label)+'</text>';
+    o+='<line x1="'+(x+14)+'" y1="'+(y0+36)+'" x2="'+(x+bw-14)+'" y2="'+(y0+36)+'" stroke="#f4f4f5"/>';
+    o+='<rect x="'+(x+14)+'" y="'+(y0+44)+'" width="'+(bw*.45)+'" height="6" rx="3" fill="#f4f4f5"/>';
+    if(d.col&&i===0){
+      var k=d.col[0],name=d.col.slice(1),yy=y0+72;
+      var c=k==='+'?'#15803d':k==='-'?'#b91c1c':'#1d4ed8',bg=k==='+'?'#dcfce7':k==='-'?'#fee2e2':'#dbeafe';
+      var lbl=(k==='+'?'+ ':k==='-'?'− ':'')+name;if(lbl.length>24)lbl=lbl.slice(0,23)+'…';
+      o+='<rect x="'+(x+10)+'" y="'+(yy-15)+'" width="'+(bw-20)+'" height="22" rx="6" fill="'+bg+'"/>';
+      o+='<text x="'+(x+18)+'" y="'+yy+'" font-family="Fragment Mono,monospace" font-size="12" fill="'+c+'"'+(k==='-'?' text-decoration="line-through"':'')+'>'+esc(lbl)+'</text>';
+    }
+    if(i>0)o+='<line x1="'+(x-gap+4)+'" y1="'+(y0+29)+'" x2="'+(x-4)+'" y2="'+(y0+29)+'" stroke="#a8a29e" stroke-width="1.4"/>';
+  });
+  if(d.prop){
+    var pw=Math.max(250,d.prop.length*8.4+48),px=(W-pw)/2,py=y0+bh+64;
+    o+='<path d="M'+(W/2)+' '+(cy+ch+2)+' L'+(W/2)+' '+(py-4)+'" stroke="#71717a" stroke-width="1.4" stroke-dasharray="4 4" fill="none" marker-end="url(#ah)"/>';
+    o+='<rect x="'+px+'" y="'+py+'" width="'+pw+'" height="42" rx="21" fill="#18181b"/>';
+    o+='<text x="'+(W/2)+'" y="'+(py+26)+'" text-anchor="middle" font-family="Fragment Mono,monospace" font-size="13.5" fill="#fafafa">'+esc(d.prop)+'</text>';
+  }
+  return o+'</svg>';
+}
+
+function match(d){
+  if(st.fam!=='all'&&d.g!==st.fam)return false;
+  if(st.need==='log'&&d.nd.length!==1)return false;
+  if(st.need==='catalog'&&d.nd.indexOf('catalog')<0)return false;
+  if(st.need==='history'&&d.nd.indexOf('history')<0)return false;
+  if(st.q){var hay=[d.id,d.t,d.sig,d.wh,d.sl,d.sql,d.yaml,d.gd,d.tb.join(' '),d.prop||'',d.col||'',d.seen.join(' '),d.how.look,d.how.when].join(' ').toLowerCase();if(hay.indexOf(st.q)<0)return false}
+  return true;
+}
+function renderFam(){
+  var c={};GROUPS.forEach(function(g){c[g.id]=S.filter(function(d){return d.g===g.id}).length});
+  document.getElementById('fam').innerHTML='<button class="chip" type="button" data-fam="all" aria-pressed="'+(st.fam==='all')+'">All families <span class="n">'+S.length+'</span></button>'+
+    GROUPS.map(function(g){return '<button class="chip" type="button" data-fam="'+g.id+'" aria-pressed="'+(st.fam===g.id)+'"><i class="dot" style="background:'+FAM[g.id][2]+'"></i>'+g.name+' <span class="n">'+c[g.id]+'</span></button>'}).join('');
+}
+function renderList(){
+  var html='',shown=0;
+  GROUPS.forEach(function(g){
+    var l=S.filter(function(d){return d.g===g.id&&match(d)});if(!l.length)return;shown+=l.length;
+    html+='<section class="group" aria-labelledby="g-'+g.id+'"><h2 id="g-'+g.id+'"><i class="dot" style="background:'+FAM[g.id][2]+'"></i>'+g.name+' <span class="n">'+l.length+'</span></h2><ul class="rows">'+
+      l.map(function(d){return '<li><a class="row" href="#'+d.id+'">'+idChip(d)+'<span><span class="rt">'+hl(d.t)+'</span><span class="rs">'+hl(d.sig)+'</span></span>'+needDots(d.nd)+'<svg class="chev" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></a></li>'}).join('')+'</ul></section>';
+  });
+  groupsEl.innerHTML=html;
+  document.getElementById('count').textContent=shown===S.length?S.length+' signals in '+GROUPS.length+' families':shown+' of '+S.length+' signals'+(st.q?' match "'+st.q+'"':'');
+  document.getElementById('empty').classList.toggle('on',shown===0);
+}
+function renderDetail(d){
+  var h=d.how,g=GN[d.g],prev=S[d.i-1],next=S[d.i+1];
+  detail.innerHTML=
+   '<nav class="crumb" aria-label="Breadcrumb"><a href="#" data-back><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5 7 10l5 5"/></svg>All signals</a><span>/</span><span>'+g.name+'</span><span>/</span><b>'+d.id+'</b></nav>'+
+   '<div class="d-head"><div>'+idChip(d)+'<h1>'+esc(d.t)+'</h1><p>'+esc(d.sig)+'</p></div><div class="needlist">'+d.nd.map(function(x){return '<span class="need"><i style="background:'+NEED[x][1]+'"></i>'+NEED[x][0]+'</span>'}).join('')+'</div></div>'+
+   '<div class="figure">'+drawing(d)+'</div>'+
+   '<section class="rule" aria-labelledby="rule-h"><div class="rule-h" id="rule-h"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3.5 3.5"/></svg>How we qualify this signal<a href="#" data-terms>How we read the log</a></div>'+
+     '<dl class="facts"><div><dt>Looks at</dt><dd>'+esc(h.look)+'</dd></div><div><dt>Grouped by</dt><dd>'+esc(h.group)+'</dd></div><div><dt>Window</dt><dd>'+esc(h.win)+'</dd></div><div><dt>Ranked by</dt><dd>'+esc(h.rank)+'</dd></div></dl>'+
+     '<div class="qual"><span class="badge">Qualifies when</span><p>'+esc(h.when)+'</p></div></section>'+
+   (EX[d.id]?'<section class="ex" aria-labelledby="ex-h"><div class="ex-h"><h2 id="ex-h">Example from the log</h2><span class="via">'+esc(EX[d.id].via)+'</span><span class="leg"><i></i>Counts toward the signal</span></div>'+
+     '<div class="ex-grid"><div class="code"><div class="code-h">Request to Lattice<button type="button" data-copy="req">Copy</button></div><pre>'+hiJSON(EX[d.id].req)+'</pre></div>'+
+     '<div class="code"><div class="code-h">SQL that ran<button type="button" data-copy="exsql">Copy</button></div><pre>'+hiEx(EX[d.id].sql)+'</pre></div></div>'+
+     '<p class="ex-why"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 9v4M10 6.5v.1"/></svg><span>'+esc(EX[d.id].why)+'</span></p></section>':'')+
+   '<section class="sec"><h2>Seen in the log</h2><ul class="seen">'+d.seen.map(function(q){return '<li><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-3.5 3v-3a2 2 0 0 1-2-2z"/></svg>'+esc(q)+'</li>'}).join('')+'</ul></section>'+
+   '<section class="sec"><h2>What to change</h2><div class="tabs" role="tablist" aria-label="Where to change"><button role="tab" aria-selected="true" data-tab="wh">Warehouse</button><button role="tab" aria-selected="false" data-tab="sl">Lattice</button></div>'+
+     '<div class="panel" data-panel="wh"><p>'+esc(d.wh)+'</p><div class="code"><div class="code-h">SQL<button type="button" data-copy="sql">Copy</button></div><pre>'+hiSQL(d.sql)+'</pre></div></div>'+
+     '<div class="panel" data-panel="sl" hidden><p>'+esc(d.sl)+'</p><div class="code"><div class="code-h">Dataset<button type="button" data-copy="yaml">Copy</button></div><pre>'+hiYAML(d.yaml)+'</pre></div></div></section>'+
+   '<div class="warn" role="note"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.75 17 15.5H3z"/><path d="M10 8v3.5M10 13.6v.1" stroke-linecap="round"/></svg><div><b>Before acting</b>'+esc(d.gd)+'</div></div>'+
+   '<nav class="pn" aria-label="Previous and next signal">'+
+     (prev?'<a href="#'+prev.id+'"><small>← Previous · '+prev.id+'</small><span>'+esc(prev.t)+'</span></a>':'<a class="blank" aria-hidden="true" tabindex="-1"></a>')+
+     (next?'<a class="next" href="#'+next.id+'"><small>Next · '+next.id+' →</small><span>'+esc(next.t)+'</span></a>':'')+
+   '</nav>';
+}
+function route(){
+  var id=decodeURIComponent(location.hash.slice(1));
+  var d=BYID[id];
+  if(d){
+    if(!root.classList.contains('view-detail'))listY=window.scrollY;
+    root.classList.add('view-detail');renderDetail(d);document.title=d.id+' · '+d.t+' · Lattice usage based signals';window.scrollTo(0,0);
+    var h=detail.querySelector('h1');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}
+  }else{
+    var was=root.classList.contains('view-detail');
+    root.classList.remove('view-detail');document.title='Lattice usage based signals';
+    if(openTerms){openTerms=false;var tm=document.querySelector('.terms');tm.open=true;tm.scrollIntoView({block:'start'})}
+    else if(was)window.scrollTo(0,listY);
+  }
+}
+document.getElementById('fam').addEventListener('click',function(e){var b=e.target.closest('[data-fam]');if(!b)return;st.fam=b.dataset.fam;renderFam();renderList()});
+(function(){
+  var btn=document.getElementById('dd-btn'),menu=document.getElementById('dd-menu'),val=document.getElementById('dd-val');
+  var opts=[].slice.call(menu.querySelectorAll('[role=option]')),act=0;
+  var LBL={all:'Any',log:'Query log only',catalog:'Warehouse metadata',history:'Warehouse history'};
+  function mark(i){act=i;opts.forEach(function(o,j){o.classList.toggle('act',j===i)});menu.setAttribute('aria-activedescendant','opt-'+i)}
+  opts.forEach(function(o,i){o.id='opt-'+i});
+  function open(){menu.hidden=false;btn.setAttribute('aria-expanded','true');var s=opts.findIndex(function(o){return o.getAttribute('aria-selected')==='true'});mark(s<0?0:s);menu.focus()}
+  function close(f){menu.hidden=true;btn.setAttribute('aria-expanded','false');if(f)btn.focus()}
+  function choose(i){var o=opts[i];opts.forEach(function(x){x.setAttribute('aria-selected',x===o)});st.need=o.dataset.need;val.textContent=LBL[st.need];close(true);renderList()}
+  btn.addEventListener('click',function(){menu.hidden?open():close(false)});
+  btn.addEventListener('keydown',function(e){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();open()}});
+  menu.addEventListener('click',function(e){var o=e.target.closest('[role=option]');if(o)choose(opts.indexOf(o))});
+  menu.addEventListener('mousemove',function(e){var o=e.target.closest('[role=option]');if(o)mark(opts.indexOf(o))});
+  menu.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'){e.preventDefault();mark(Math.min(act+1,opts.length-1))}
+    else if(e.key==='ArrowUp'){e.preventDefault();mark(Math.max(act-1,0))}
+    else if(e.key==='Home'){e.preventDefault();mark(0)}
+    else if(e.key==='End'){e.preventDefault();mark(opts.length-1)}
+    else if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(act)}
+    else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close(true)}
+    else if(e.key==='Tab'){close(false)}
+  });
+  document.addEventListener('click',function(e){if(!menu.hidden&&!e.target.closest('#dd'))close(false)});
+})();
+document.getElementById('q').addEventListener('input',function(e){st.q=e.target.value.trim().toLowerCase();renderList()});
+detail.addEventListener('click',function(e){
+  var t=e.target.closest('[data-tab]');
+  if(t){detail.querySelectorAll('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b===t)});detail.querySelectorAll('[data-panel]').forEach(function(p){p.hidden=p.dataset.panel!==t.dataset.tab});return}
+  var c=e.target.closest('[data-copy]');
+  if(c){var d=BYID[location.hash.slice(1)];var k=c.dataset.copy,txt=k==='req'?JSON.stringify(EX[d.id].req,null,2):k==='exsql'?EX[d.id].sql.replace(/\[\[|\]\]/g,''):d[k];var ok=function(){c.textContent='Copied';setTimeout(function(){c.textContent='Copy'},1500)};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,function(){c.textContent='Copy failed'});else c.textContent='Copy failed';return}
+  if(e.target.closest('[data-terms]')){e.preventDefault();openTerms=true;location.hash=''}
+});
+document.addEventListener('keydown',function(e){
+  var tg=e.target&&e.target.closest?e.target:document.body;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  var inField=tg.closest('input,textarea');
+  if(e.key==='/'&&!inField&&!root.classList.contains('view-detail')){e.preventDefault();document.getElementById('q').focus();return}
+  if(e.key==='Escape'){if(inField){tg.blur();return}if(root.classList.contains('view-detail')){location.hash=''}}
+  if(root.classList.contains('view-detail')&&!inField){var d=BYID[location.hash.slice(1)];if(!d)return;
+    if(e.key==='ArrowRight'&&S[d.i+1])location.hash=S[d.i+1].id;
+    if(e.key==='ArrowLeft'&&S[d.i-1])location.hash=S[d.i-1].id;}
+});
+window.addEventListener('hashchange',route);
+renderFam();renderList();route();
+</script>
+</body>
+</html>
